@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.book">
+
+	<browser:view
+        for="..interfaces.IBook"
+        name="pdflatex_convert_object"
+        class=".book.BookLatexConverter"
+        permission="zope.Public"
+    />
+
+	<browser:view
+        for="simplelayout.types.common.interfaces.IPage"
+        name="pdflatex_convert_object"
+        class=".book.BookLatexConverter"
+        permission="zope.Public"
+    />
+
+</configure>
