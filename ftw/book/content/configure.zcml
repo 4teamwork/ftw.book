@@ -6,5 +6,15 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".book.Book">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IBook"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IBook"
+        />
+  </class>
 
 </configure>
