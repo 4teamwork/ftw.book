@@ -6,12 +6,13 @@ from zope.interface import implements, directlyProvides
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content import folder 
 
 from ftw.book import bookMessageFactory as _
 from ftw.book.interfaces import IBook
 from ftw.book.config import PROJECTNAME
 
-BookSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
+BookSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
     atapi.BooleanField(
 	 	name = 'use_toc',
@@ -92,9 +93,9 @@ BookSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 BookSchema['title'].storage = atapi.AnnotationStorage()
 BookSchema['description'].storage = atapi.AnnotationStorage()
 
-schemata.finalizeATCTSchema(BookSchema, moveDiscussion=False)
+schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
 
-class Book(base.ATCTContent):
+class Book(folder.ATFolder):
     """example book"""
     implements(IBook)
 

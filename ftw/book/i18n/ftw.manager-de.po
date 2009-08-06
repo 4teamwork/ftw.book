@@ -61,3 +61,8 @@ msgstr "Buch"
 #: ftw/book/profiles/default/types/Book.xml:7
 msgid "example book"
 msgstr "Beispielbuch"
+
+#. Default: "Chapter"
+#: ftw/book/profiles/default/types/Chapter.xml:5
+msgid "Chapter"
+msgstr "Kaptiel"
