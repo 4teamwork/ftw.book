@@ -13,7 +13,7 @@
 	<browser:view
         for="simplelayout.types.common.interfaces.IPage"
         name="pdflatex_convert_object"
-        class=".book.BookLatexConverter"
+        class=".chapter.ChapterLatexConverter"
         permission="zope.Public"
     />
 

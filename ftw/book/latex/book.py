@@ -4,6 +4,6 @@ class BookLatexConverter(LatexCTConverter):
     
     def __call__(self, context, view):
         super(BookLatexConverter, self).__call__(context, view)
-        latex = 'hello'
+        latex = ''
         latex += self.convertChilds(context, view)
         return latex
