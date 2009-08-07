@@ -15,6 +15,13 @@
         name="pdflatex_convert_object"
         class=".chapter.ChapterLatexConverter"
         permission="zope.Public"
+    />	
+
+	<browser:view
+        for="simplelayout.types.common.interfaces.IParagraph"
+        name="pdflatex_convert_object"
+        class=".paragraph.ParagraphLatexConverter"
+        permission="zope.Public"
     />
 
 </configure>
