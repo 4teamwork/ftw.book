@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.1 - Unreleased
-----------------
+0.1
+---
 
-* Initial release
+* [21.08.2009]#1 Action für PDF Ausgabe auf Stufe Buch und Kapitel einfügen [jin]
 

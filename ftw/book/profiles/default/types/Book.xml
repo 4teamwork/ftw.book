@@ -32,4 +32,8 @@
     url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content" />
   </action>
+  <action title="PDF" action_id="pdf" category="object" condition_expr=""
+    url_expr="string:${object_url}/as_pdf" visible="True">
+    <permission value="Modify portal content" />
+  </action>
 </object>
