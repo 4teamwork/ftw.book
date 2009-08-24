@@ -12,7 +12,12 @@ from ftw.book import bookMessageFactory as _
 from ftw.book.interfaces import IBook
 from ftw.book.config import PROJECTNAME
 
-BookSchema = folder.ATFolderSchema.copy() + atapi.Schema((
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore.permissions import View
+from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
+
+
+BookSchema = folder.ATFolderSchema.copy() + NextPreviousAwareSchema.copy() + atapi.Schema((
 
     atapi.BooleanField(
 	 	name = 'use_toc',
