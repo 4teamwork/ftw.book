@@ -3,6 +3,6 @@ Changelog
 
 0.1
 ---
-
+* [24.08.2009]Issue #5 Konfiguration für PDF Ausgabe (Titelseite, Inhaltsverzeichnis, etc) wird noch nicht im PDF umgesetzt [jin]
 * [21.08.2009]#1 Action für PDF Ausgabe auf Stufe Buch und Kapitel einfügen [jin]
 
