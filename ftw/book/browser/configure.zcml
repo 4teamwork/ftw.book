@@ -2,6 +2,13 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
+    
+    <browser:page
+        for="..interfaces.IBook"
+        name="export_pdf"
+        permission="zope2.View"
+        class=".exportpdf.ExportPDFView"
+        />
 
   <include package="plone.app.contentmenu" />
 
