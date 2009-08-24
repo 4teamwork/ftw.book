@@ -37,7 +37,7 @@
     <permission value="Modify portal content" />
   </action>
   <action title="PDF" action_id="pdf" category="object" condition_expr=""
-    url_expr="string:${object_url}/pdf_export" visible="True">
+    url_expr="string:${object_url}/export_pdf" visible="True">
     <permission value="Modify portal content" />
   </action>
 </object>
