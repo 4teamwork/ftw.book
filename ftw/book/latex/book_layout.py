@@ -1,5 +1,5 @@
+from ftw.book.interfaces import IBook
 class BookLayout(object):
-    
     def __call__(self, view, context):
         self.view = view
         self.context = context
@@ -33,14 +33,16 @@ class BookLayout(object):
         self.view.appendHeaderCommand("\\title{%s}"%(self.context.Title()))
 
     def appendAboveBodyCommands(self):
-        if (self.context.use_toc):
-            self.view.appendToProperty('latex_above_body', "\\maketitle")
-        if (self.context.use_index):
-            self.view.appendToProperty('latex_above_body', "\\tableofcontents")
+        if IBook.implementedBy(self.context):
+            if self.context.use_toc:
+                self.view.appendToProperty('latex_above_body', "\\maketitle")
+            if self.context.use_index:
+                self.view.appendToProperty('latex_above_body', "\\tableofcontents")        
 
-    def appendBeneathBodyCommands(self):        
-        if (self.context.use_loi):
-            self.view.appendToProperty('latex_beneath_body', "\\listoffigures")
-        if (self.context.use_lot):
-            self.view.appendToProperty('latex_beneath_body', "\\listoftables")
+    def appendBeneathBodyCommands(self):  
+        if IBook.implementedBy(self.context):      
+            if self.context.use_loi:
+                self.view.appendToProperty('latex_beneath_body', "\\listoffigures")
+            if self.context.use_lot:
+                self.view.appendToProperty('latex_beneath_body', "\\listoftables")
         #self.view.appendToProperty('latex_beneath_body', r'')

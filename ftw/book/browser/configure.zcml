@@ -3,8 +3,16 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
     
+    
     <browser:page
         for="..interfaces.IBook"
+        name="export_pdf"
+        permission="zope2.View"
+        class=".exportpdf.ExportPDFView"
+        />
+    
+    <browser:page
+        for="simplelayout.types.common.interfaces.IPage"
         name="export_pdf"
         permission="zope2.View"
         class=".exportpdf.ExportPDFView"
