@@ -17,7 +17,7 @@ class BookLayout(object):
 
     def setDocumentClass(self):
         self.view.setLatexProperty('document_class', 'book')
-        self.view.setLatexProperty('document_config', 'a4paper,12pt,german')
+        self.view.setLatexProperty('document_config', 'a4paper,12pt,german,%s' %self.context.pagestyle)
 
     def registerPackages(self):
         self.view.registerPackage('inputenc','utf8')
@@ -31,19 +31,16 @@ class BookLayout(object):
     def appendHeadCommands(self):
         #head_commands = self.getResourceFileData('head_commands.tex')
         self.view.appendHeaderCommand("\\title{%s}"%(self.context.Title()))
-        if (self.context.pagestyle=="twoside"):
-            self.view.appendHeaderCommand("\\pagestyle{twocolumn}")
 
     def appendAboveBodyCommands(self):
         if (self.context.use_toc):
             self.view.appendToProperty('latex_above_body', "\\maketitle")
         if (self.context.use_index):
             self.view.appendToProperty('latex_above_body', "\\tableofcontents")
-        if (self.context.use_loi):
-            self.view.appendToProperty('latex_above_body', "\\listoffigures")
-        if (self.context.use_lot):
-            self.view.appendToProperty('latex_above_body', "\\listoftables")
 
-    def appendBeneathBodyCommands(self):
-        pass
+    def appendBeneathBodyCommands(self):        
+        if (self.context.use_loi):
+            self.view.appendToProperty('latex_beneath_body', "\\listoffigures")
+        if (self.context.use_lot):
+            self.view.appendToProperty('latex_beneath_body', "\\listoftables")
         #self.view.appendToProperty('latex_beneath_body', r'')
