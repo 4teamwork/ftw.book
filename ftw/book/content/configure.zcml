@@ -16,5 +16,11 @@
         set_schema="..interfaces.IBook"
         />
   </class>
+  
+  <five:implements
+      class="simplelayout.types.common.content.page.Page"
+      interface="simplelayout.base.interfaces.ISimpleLayoutBlock"
+        />
+  
 
 </configure>
