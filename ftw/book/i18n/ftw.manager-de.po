@@ -19,12 +19,12 @@ msgstr ""
 
 #. Default: "Show table of contents"
 #: ftw/book/content/book.py:22
-msgid "book_label_use_toc"
+msgid "book_label_use_titlepage"
 msgstr "Titelseite einbetten"
 
 #. Default: "Show index"
 #: ftw/book/content/book.py:35
-msgid "book_label_use_index"
+msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
 #. Default: "Show lists of tables"
