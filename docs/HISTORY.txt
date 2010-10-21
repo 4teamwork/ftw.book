@@ -5,6 +5,11 @@ Changelog
 0.2
 ---
 
+* Issue #422 ftw.book einbinden
+  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/422
+  latex options (toc, loi, lot, ...), links and images in latex
+  [21.10.2010, jinfanger]
+
 0.1
 ---
 * [24.08.2009]Issue #5 Konfiguration für PDF Ausgabe (Titelseite, Inhaltsverzeichnis, etc) wird noch nicht im PDF umgesetzt [jin]

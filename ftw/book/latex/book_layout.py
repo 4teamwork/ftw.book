@@ -35,6 +35,7 @@ class BookLayout(object):
         self.view.registerPackage('hyperref')
 
     def appendHeadCommands(self):
+        self.view.appendHeaderCommand(r'\renewcommand{\familydefault}{\sfdefault}')
         self.view.appendHeaderCommand("\\title{%s}"%(self.context.Title()))
 
     def appendAboveBodyCommands(self):
