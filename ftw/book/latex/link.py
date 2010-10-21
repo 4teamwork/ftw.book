@@ -8,7 +8,7 @@ class LinkLatexConverter(LatexCTConverter):
         latex = []
         latex.append(r'\begin{description}')
         title = view.convert(self.context.Title())
-        url = r'(\href{%s}{%s})' % (
+        url = r'\href{%s}{%s}' % (
             view.convert(self.context.remoteUrl),
             view.convert(self.context.remoteUrl))
         latex.append(r'\item[%s (%s)]{%s}' % (
