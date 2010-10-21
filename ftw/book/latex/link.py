@@ -6,10 +6,12 @@ class LinkLatexConverter(LatexCTConverter):
     def __call__(self, context, view):
         super(LinkLatexConverter, self).__call__(context, view)
         latex = []
-	latex.append(view.convert(self.context.Title()))
-        latex.append(r'(\href{%s}{%s})' % (
+        latex.append(r'\begin{description}')
+        title = view.convert(self.context.Title())
+        url = r'(\href{%s}{%s})' % (
             view.convert(self.context.remoteUrl),
-            view.convert(self.context.remoteUrl)))
-	latex.append(r'\newline')
-	latex.append(r'%s' % view.convert(self.context.getRawDescription()))
+            view.convert(self.context.remoteUrl))
+        latex.append(r'\item[%s (%s)]{%s}' % (
+            title, url, view.convert(self.context.getRawDescription())))
+        latex.append(r'\end{description}')
         return '\n'.join(latex)
