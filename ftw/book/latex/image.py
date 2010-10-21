@@ -10,7 +10,7 @@ class ImageLatexConverter(LatexCTConverter):
         image = self.context.getImage()
         imageLayout = IBlockConfig(context).image_layout
         width = ''
-        command = ''
+        command = 'figure'
         align = ''
         caption = "%s: %s" % (
             view.convert(context.Title()),
@@ -18,22 +18,22 @@ class ImageLatexConverter(LatexCTConverter):
         if imageLayout=='no-image':
             return ''
         elif imageLayout=='small':
-            command = 'wrapfigure'
+#            command = 'wrapfigure'
             width = r'0.25\textwidth'
             align = 'l'
         elif imageLayout=='middle':
-            command = 'wrapfigure'
+#            command = 'wrapfigure'
             width = r'0.5\textwidth'
             align = 'l'
         elif imageLayout=='full':
             width = r'\textwidth'
-            command = 'figure'
+#            command = 'figure'
         elif imageLayout=='middle-right':
-            command = 'wrapfigure'
+#            command = 'wrapfigure'
             width = r'0.5\textwidth'
             align = 'r'
         elif imageLayout=='small-right':
-            command = 'wrapfigure'
+#            command = 'wrapfigure'
             width = r'0.25\textwidth'
             align = 'r'
         # generate latex
