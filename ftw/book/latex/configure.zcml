@@ -7,34 +7,34 @@
         for="..interfaces.IBook"
         name="pdflatex_convert_object"
         class=".book.BookLatexConverter"
-        permission="zope.Public"
+        permission="zope2.View"
         />
 
     <browser:view
         for="simplelayout.types.common.interfaces.IPage"
         name="pdflatex_convert_object"
         class=".chapter.ChapterLatexConverter"
-        permission="zope.Public"
+        permission="zope2.View"
         />
 
     <browser:view
         for="simplelayout.types.common.interfaces.IParagraph"
         name="pdflatex_convert_object"
         class=".paragraph.ParagraphLatexConverter"
-        permission="zope.Public"
+        permission="zope2.View"
         />
 
     <browser:view
         for="Products.ATContentTypes.interfaces.image.IATImage"
         name="pdflatex_convert_object"
         class=".image.ImageLatexConverter"
-        permission="zope.Public"
+        permission="zope2.View"
         />
 
     <browser:view
         for="Products.ATContentTypes.interfaces.link.IATLink"
         name="pdflatex_convert_object"
         class=".link.LinkLatexConverter"
-        permission="zope.Public"
+        permission="zope2.View"
         />
 </configure>
