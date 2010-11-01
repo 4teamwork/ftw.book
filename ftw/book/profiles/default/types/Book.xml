@@ -6,7 +6,7 @@
   <property name="description"
     i18n:translate="">example book</property>
   <property name="content_meta_type">Book</property>
-  <property name="content_icon">document_icon.gif</property>
+  <property name="content_icon">++resource++ftw.book-resources/icon_book.gif</property>
   <property name="product">ftw.book</property>
   <property name="factory">addBook</property>
   <property name="immediate_view">atct_edit</property>

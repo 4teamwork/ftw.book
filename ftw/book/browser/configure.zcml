@@ -3,6 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
     
+    <browser:resourceDirectory
+        name='ftw.book-resources'
+        directory="resources" />
     
     <browser:page
         for="..interfaces.IBook"

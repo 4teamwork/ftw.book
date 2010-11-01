@@ -4,7 +4,7 @@
    i18n:domain="ftw.book" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Chapter</property>
  <property name="description"></property>
- <property name="content_icon">++resource++simplelayout.types.common-resources/page_icon.gif</property>
+  <property name="content_icon">++resource++ftw.book-resources/icon_chapter.gif</property>
  <property name="content_meta_type" i18n:translate="">Chapter</property>
  <property name="product">simplelayout.types.common</property>
  <property name="factory">addPage</property>

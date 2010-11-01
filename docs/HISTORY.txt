@@ -4,6 +4,8 @@ Changelog
 
 0.2
 ---
+* added Icons / fix setup.py / egg structure
+  [01.11.2010, mathias.leimgruber]
 
 * Issue #422 ftw.book einbinden
   https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/422
