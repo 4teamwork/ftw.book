@@ -9,6 +9,7 @@ def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
 version = read('ftw','book','version.txt').strip()
+maintainer = 'Julian Infanger'
 
 long_description = (
     read('README.txt')
@@ -34,7 +35,8 @@ tests_require=['zope.testing']
 
 setup(name='ftw.book',
       version=version,
-      description="",
+      description="" + \
+          ' (Maintainer %s)' % maintainer,
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -43,8 +45,8 @@ setup(name='ftw.book',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
       keywords='',
-      author='Julian Infanger',
-      author_email='info@4teamwork.ch',
+      author='%s, 4teamwork GmbH' % maintainer,
+      author_email='mailto:info@4teamwork.ch',
       url='https://svn.4teamwork.ch/repos/ftw/ftw.book/',
       license='GPL2',
       packages=find_packages(exclude=['ez_setup']),
