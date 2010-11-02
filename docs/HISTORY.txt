@@ -2,8 +2,9 @@ Changelog
 =========
 
 
-0.2
+1.0
 ---
+
 * added Icons / fix setup.py / egg structure
   [01.11.2010, mathias.leimgruber]
 
