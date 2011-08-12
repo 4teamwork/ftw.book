@@ -11,12 +11,6 @@ class BookLayout(object):
         self.appendHeadCommands()
         self.appendAboveBodyCommands()
         self.appendBeneathBodyCommands()
-    #def getResourceFileData(self, filename, resource='ftw.book.latex.resource'):
-        #fiveFile = self.context.restrictedTraverse(
-        #    '++resource++%s/%s' % (resource, filename))
-        #path = fiveFile.context.path
-        #fileData = open(path).read()
-        #return fileData
     def setDocumentClass(self):
         self.view.setLatexProperty('document_class', 'book')
         self.view.setLatexProperty('document_config',
