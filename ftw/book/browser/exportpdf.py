@@ -1,7 +1,6 @@
 from Products.Five.browser import BrowserView
-
-from plonegov.pdflatex.converter import html2latex
 from ftw.book.latex.book_layout import BookLayout
+
 
 class ExportPDFView(BrowserView):
 
@@ -15,8 +14,7 @@ class ExportPDFView(BrowserView):
         )
         return as_pdf(**arguments)
 
+
 def pre_compiler(view, object):
     layout = BookLayout()
     layout(view, object)
-    
-    
