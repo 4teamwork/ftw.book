@@ -1,4 +1,5 @@
 from ftw.book.interfaces import IBook
+from plonegov.pdflatex.converter import html2latex
 
 
 class BookLayout(object):
@@ -6,11 +7,29 @@ class BookLayout(object):
     def __call__(self, view, context):
         self.view = view
         self.context = context
+        self.register_html2latex_rules()
         self.setDocumentClass()
         self.registerPackages()
         self.appendHeadCommands()
         self.appendAboveBodyCommands()
         self.appendBeneathBodyCommands()
+
+    def register_html2latex_rules(self):
+        """Registers custom html2latex rules
+        """
+
+        self.view.registerPackage('soul')
+
+        customMap = [
+            # requires package "soul", included in book_layout
+            (html2latex.MODE_REGEXP,
+             r'<span.*?class="visualHighlight">(.*?)</span>',
+             r'\\hl{\g<1>}'),
+            ]
+
+        for customPattern in customMap:
+            self.view.html2latex_converter._insertCustomPattern(customPattern)
+
     def setDocumentClass(self):
         self.view.setLatexProperty('document_class', 'book')
         self.view.setLatexProperty('document_config',
