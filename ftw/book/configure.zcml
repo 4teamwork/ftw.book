@@ -23,6 +23,17 @@
           provides="Products.GenericSetup.interfaces.EXTENSION"
           />
 
+
+    <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
+    <adapter name="ftw.book.latexcodeinjection"
+             factory=".latexinjection.LaTeXCodeInjectionExtender"
+             provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+
+    <five:implements
+          class="simplelayout.types.common.content.page.Page"
+          interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
+          />
+
     <!-- -*- extra stuff goes here -*- -->
 
 </configure>

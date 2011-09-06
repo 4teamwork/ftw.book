@@ -42,6 +42,7 @@ setup(name='ftw.book',
         'simplelayout.types.common',
         'plonegov.pdflatex',
         'simplelayout.base',
+        'archetypes.schemaextender',
         ],
 
       tests_require=tests_require,
