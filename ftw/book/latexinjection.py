@@ -26,6 +26,7 @@ class LaTeXCodeInjectionExtender(object):
             schemata='LaTeX',
             default_content_type='application/x-latex',
             allowable_content_types='application/x-latex',
+            write_permission='ftw.book: Modify LaTeX Injection',
 
             widget=atapi.TextAreaWidget(
                 label=_(u'pre_latex_code_label',
@@ -38,6 +39,7 @@ class LaTeXCodeInjectionExtender(object):
             schemata='LaTeX',
             default_content_type='application/x-latex',
             allowable_content_types='application/x-latex',
+            write_permission='ftw.book: Modify LaTeX Injection',
 
             widget=atapi.TextAreaWidget(
                 label=_(u'post_latex_code_label',

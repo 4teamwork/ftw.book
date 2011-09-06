@@ -9,6 +9,7 @@
 
     <!-- Include the sub-packages that use their own configure.zcml files. -->
     <include file="dependencies.zcml" />
+    <include file="permissions.zcml" />
     <include package=".latex" />
     <include package=".browser" />
     <include package=".content" />

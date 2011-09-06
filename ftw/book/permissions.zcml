@@ -1,0 +1,10 @@
+<configure
+      xmlns="http://namespaces.zope.org/zope"
+      i18n_domain="ftw.book">
+
+    <permission
+          id="ftw.book.ModifyLaTeXInjection"
+          title="ftw.book: Modify LaTeX Injection"
+          />
+
+</configure>
