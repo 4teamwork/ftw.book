@@ -30,7 +30,7 @@
              provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
 
     <five:implements
-          class="simplelayout.types.common.content.page.Page"
+          class="Products.Archetypes.BaseObject.BaseObject"
           interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
           />
 
