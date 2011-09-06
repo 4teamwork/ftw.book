@@ -1,5 +1,13 @@
 # created by: svn propset svn:ignore -F ./IGNORE.TXT .
 
-ftw.book.egg-info
-build
-dist
+*.egg-info/
+*.mo
+*.pyc
+.installed.cfg
+.mr.developer.cfg
+bin/
+build/
+buildout.cfg
+develop-eggs
+dist/
+src/
