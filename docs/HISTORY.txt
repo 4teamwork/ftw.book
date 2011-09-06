@@ -5,6 +5,10 @@ Changelog
 1.1
 ---
 
+* Added LaTeX code injection support for admin users. Allows to inject LaTeX
+  code before and after every object within a book.
+  [jbaumann]
+
 * Added custom html2latex rule for rendering <span class="vislualHighlight">
   [jbaumann]
 
