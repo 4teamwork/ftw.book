@@ -1,13 +1,13 @@
 # created by: svn propset svn:ignore -F ./IGNORE.TXT .
 
-*.egg-info/
+*.egg-info
 *.mo
 *.pyc
 .installed.cfg
 .mr.developer.cfg
-bin/
-build/
+bin
+build
 buildout.cfg
 develop-eggs
-dist/
-src/
+dist
+src
