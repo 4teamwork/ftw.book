@@ -2,30 +2,33 @@ Changelog
 =========
 
 
-1.1
----
+1.1 (unreleased)
+----------------
 
-* Added LaTeX code injection support for admin users. Allows to inject LaTeX
+- Added LaTeX code injection support for admin users. Allows to inject LaTeX
   code before and after every object within a book.
   [jbaumann]
 
-* Added custom html2latex rule for rendering <span class="vislualHighlight">
+- Added custom html2latex rule for rendering <span class="vislualHighlight">
   [jbaumann]
 
 
-1.0
----
+1.0 (2010-11-02)
+----------------
 
-* added Icons / fix setup.py / egg structure
-  [01.11.2010, mathias.leimgruber]
+- added Icons / fix setup.py / egg structure
+  [mathias.leimgruber]
 
-* Issue #422 ftw.book einbinden
+- Issue #422 ftw.book einbinden
   https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/422
   latex options (toc, loi, lot, ...), links and images in latex
-  [21.10.2010, jinfanger]
+  [jinfanger]
 
-0.1
----
-* [24.08.2009]Issue #5 Konfiguration für PDF Ausgabe (Titelseite, Inhaltsverzeichnis, etc) wird noch nicht im PDF umgesetzt [jin]
-* [21.08.2009]#1 Action für PDF Ausgabe auf Stufe Buch und Kapitel einfügen [jin]
+0.1 (2009-09-04)
+----------------
 
+- Issue #5 Konfiguration fuer PDF Ausgabe (Titelseite, Inhaltsverzeichnis, etc) wird noch nicht im PDF umgesetzt
+  [jinfanger]
+
+- #1 Action fuer PDF Ausgabe auf Stufe Buch und Kapitel einfuegen
+  [jinfanger]
