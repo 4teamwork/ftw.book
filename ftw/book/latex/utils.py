@@ -1,3 +1,4 @@
+from Acquisition import aq_inner, aq_parent
 from ftw.book.interfaces import IBook
 from plone.app.layout.navigation.interfaces import INavigationRoot
 
@@ -24,7 +25,7 @@ def getLatexHeading(context, view, toc=True):
     # fix level depending of root type
     book = root
     while not IBook.providedBy(book):
-        book = book.aq_inner.aq_parent
+        book = aq_parent(aq_inner(book))
         level += 1
         if INavigationRoot.providedBy(book):
             break
