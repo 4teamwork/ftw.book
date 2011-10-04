@@ -8,4 +8,6 @@ build/
 buildout.cfg
 develop-eggs/
 dist/
+parts/
 src/
+var/
