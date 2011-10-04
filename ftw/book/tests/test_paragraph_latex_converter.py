@@ -6,11 +6,6 @@ from simplelayout.base.interfaces import IBlockConfig
 from zope.interface import directlyProvides
 
 
-# from plonegov.pdflatex.browser.converter import LatexCTConverter
-# from simplelayout.types.common.interfaces import IParagraph
-
-
-
 class TestParagraphLatexConverter(MockTestCase):
 
     def create_providing_dummy(self, provides, **kwargs):
