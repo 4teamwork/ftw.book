@@ -27,7 +27,11 @@ def getLatexHeading(context, view, toc=True):
     while not IBook.providedBy(book):
         book = aq_parent(aq_inner(book))
         level += 1
+
         if INavigationRoot.providedBy(book):
+            # fallback to "section" command, if we are not
+            # within a book.
+            level = 3
             break
 
     # decrement level with 2 so that book is -1 and chapter is 0
