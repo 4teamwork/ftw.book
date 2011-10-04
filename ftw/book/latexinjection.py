@@ -4,7 +4,7 @@ from Products.Archetypes.public import TextField
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
-from ftw.book import bookMessageFactory as _
+from ftw.book import _
 from ftw.book.interfaces import IBook
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from zope.component import adapts

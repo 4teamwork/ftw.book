@@ -5,7 +5,6 @@ from ftw.book import config
 from zope.i18nmessageid import MessageFactory
 
 
-bookMessageFactory = MessageFactory('ftw.book')
 _ = MessageFactory('ftw.book')
 
 
