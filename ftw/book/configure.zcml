@@ -5,10 +5,12 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.book">
 
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <includeDependencies package="." />
+
   <five:registerPackage package="." initialize=".initialize" />
 
   <!-- Include the sub-packages that use their own configure.zcml files. -->
-  <include file="dependencies.zcml" />
   <include file="permissions.zcml" />
   <include package=".latex" />
   <include package=".browser" />
