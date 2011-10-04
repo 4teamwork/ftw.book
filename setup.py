@@ -7,7 +7,8 @@ maintainer = 'Julian Infanger'
 
 
 tests_require = [
-    'zope.testing'
+    'zope.testing',
+    'plone.app.testing',
     ]
 
 
