@@ -10,7 +10,7 @@
   <property name="product">simplelayout.types.common</property>
   <property name="factory">addPage</property>
 
-  <property name="global_allow">True</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" purge="False">
     <element value="Paragraph"/>
