@@ -3,9 +3,6 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="ftw.book">
 
-  <!-- configure your content components here -->
-  
-  <!-- -*- extra stuff goes here -*- -->
   <class class=".book.Book">
     <require
         permission="zope2.View"
@@ -16,11 +13,10 @@
         set_schema="..interfaces.IBook"
         />
   </class>
-  
+
   <five:implements
       class="simplelayout.types.common.content.page.Page"
       interface="simplelayout.base.interfaces.ISimpleLayoutBlock"
-        />
-  
+      />
 
 </configure>

@@ -1,7 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope">
 
-    <include package="simplelayout.base" />
-    <include package="plonegov.pdflatex" />
-    
+  <include package="simplelayout.base" />
+  <include package="plonegov.pdflatex" />
+
 </configure>

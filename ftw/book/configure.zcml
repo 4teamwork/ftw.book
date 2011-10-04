@@ -1,39 +1,38 @@
 <configure
-      xmlns="http://namespaces.zope.org/zope"
-      xmlns:five="http://namespaces.zope.org/five"
-      xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-      xmlns:i18n="http://namespaces.zope.org/i18n"
-      i18n_domain="ftw.book">
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.book">
 
-    <five:registerPackage package="." initialize=".initialize" />
+  <five:registerPackage package="." initialize=".initialize" />
 
-    <!-- Include the sub-packages that use their own configure.zcml files. -->
-    <include file="dependencies.zcml" />
-    <include file="permissions.zcml" />
-    <include package=".latex" />
-    <include package=".browser" />
-    <include package=".content" />
-
-    <!-- Register the installation GenericSetup extension profile -->
-    <genericsetup:registerProfile
-          name="default"
-          title="ftw.book"
-          directory="profiles/default"
-          description=""
-          provides="Products.GenericSetup.interfaces.EXTENSION"
-          />
+  <!-- Include the sub-packages that use their own configure.zcml files. -->
+  <include file="dependencies.zcml" />
+  <include file="permissions.zcml" />
+  <include package=".latex" />
+  <include package=".browser" />
+  <include package=".content" />
 
 
-    <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
-    <adapter name="ftw.book.latexcodeinjection"
-             factory=".latexinjection.LaTeXCodeInjectionExtender"
-             provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+  <!-- Register the installation GenericSetup extension profile -->
+  <genericsetup:registerProfile
+      name="default"
+      title="ftw.book"
+      directory="profiles/default"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
-    <five:implements
-          class="Products.Archetypes.BaseObject.BaseObject"
-          interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
-          />
 
-    <!-- -*- extra stuff goes here -*- -->
+  <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
+  <adapter name="ftw.book.latexcodeinjection"
+           factory=".latexinjection.LaTeXCodeInjectionExtender"
+           provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+
+  <five:implements
+      class="Products.Archetypes.BaseObject.BaseObject"
+      interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
+      />
 
 </configure>

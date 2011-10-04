@@ -2,36 +2,35 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
-    
-    <browser:resourceDirectory
-        name='ftw.book-resources'
-        directory="resources" />
-    
-    <browser:page
-        for="..interfaces.IBook"
-        name="export_pdf"
-        permission="zope2.View"
-        class=".exportpdf.ExportPDFView"
-        />
-    
-    <browser:page
-        for="simplelayout.types.common.interfaces.IPage"
-        name="export_pdf"
-        permission="zope2.View"
-        class=".exportpdf.ExportPDFView"
-        />
-        
-    <browser:page
-        for="simplelayout.types.common.interfaces.IPage"
-        name="block_view"
-        template="chapter.pt"
-        class="simplelayout.types.common.browser.views.BlockView"
-        permission="zope2.View" 
-        />
 
+  <browser:resourceDirectory
+      name='ftw.book-resources'
+      directory="resources" />
+
+  <browser:page
+      for="..interfaces.IBook"
+      name="export_pdf"
+      permission="zope2.View"
+      class=".exportpdf.ExportPDFView"
+      />
+
+  <browser:page
+      for="simplelayout.types.common.interfaces.IPage"
+      name="export_pdf"
+      permission="zope2.View"
+      class=".exportpdf.ExportPDFView"
+      />
+
+  <browser:page
+      for="simplelayout.types.common.interfaces.IPage"
+      name="block_view"
+      template="chapter.pt"
+      class="simplelayout.types.common.browser.views.BlockView"
+      permission="zope2.View"
+      />
 
   <include package="plone.app.contentmenu" />
 
-  <!-- -*- extra stuff goes here -*- -->
   <adapter factory=".nextprevious.BookNextPrevious" />
+
 </configure>
