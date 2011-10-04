@@ -18,15 +18,15 @@ def getLatexHeading(context, view, toc=True):
     # level: depth of rendering
     level = view.level
 
-    # rootObject: object, on which as_pdf was run
-    rootObject = view.context
+    # root: object, on which as_pdf was run
+    root = view.context
 
-    # fix level depending of rootObject type
-    bookOject = rootObject
-    while not IBook.providedBy(bookOject):
-        bookOject = bookOject.aq_inner.aq_parent
+    # fix level depending of root type
+    book = root
+    while not IBook.providedBy(book):
+        book = book.aq_inner.aq_parent
         level += 1
-        if INavigationRoot.providedBy(bookOject):
+        if INavigationRoot.providedBy(book):
             break
 
     # decrement level with 2 so that book is -1 and chapter is 0
