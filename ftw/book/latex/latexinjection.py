@@ -39,10 +39,10 @@ def injection_aware_convertObject(view, object=None, brain=None):
     post_code = obj.getField('postLatexCode').get(obj)
     if post_code:
         latex.append('')
-        latex.append('% ---- LaTeX post code injection at %s' % '/'.join(
+        latex.append('%% ---- LaTeX post code injection at %s' % '/'.join(
                 obj.getPhysicalPath()))
         latex.append(post_code)
-        latex.append('% ---- / LaTeX post code injection')
+        latex.append('%% ---- / LaTeX post code injection')
         latex.append('')
 
     return '\n'.join(latex)
