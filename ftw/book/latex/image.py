@@ -22,21 +22,26 @@ class ImageLatexConverter(LatexCTConverter):
             return ''
 
         elif imageLayout == 'small':
+            command = 'wrapfigure'
             width = r'0.25\textwidth'
             align = 'l'
 
         elif imageLayout == 'middle':
+            command = 'wrapfigure'
             width = r'0.5\textwidth'
             align = 'l'
 
         elif imageLayout == 'full':
             width = r'\textwidth'
+            command = 'figure'
 
         elif imageLayout == 'middle-right':
+            command = 'wrapfigure'
             width = r'0.5\textwidth'
             align = 'r'
 
         elif imageLayout == 'small-right':
+            command = 'wrapfigure'
             width = r'0.25\textwidth'
             align = 'r'
 
