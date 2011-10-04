@@ -16,67 +16,63 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 name='use_titlepage',
                 default=True,
                 storage=atapi.AnnotationStorage(),
+
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_titlepage',
                             default=u'Show table of contents'),
                     description=_(u'book_help_use_titlepage',
-                                  default=u''),
-                    ),
-                ),
+                                  default=u''))),
 
             atapi.BooleanField(
                 name='use_toc',
                 default=True,
                 storage=atapi.AnnotationStorage(),
+
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_toc',
                             default=u'Show index'),
                     description=_(u'book_help_use_toc',
-                                  default=u''),
-                    ),
-                ),
+                                  default=u''))),
 
             atapi.BooleanField(
                 name='use_lot',
                 default=True,
                 storage=atapi.AnnotationStorage(),
+
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_lot',
                             default=u'Show list of tables'),
                     description=_(u'book_help_use_lot',
-                                  default=u''),
-                    ),
-                ),
+                                  default=u''))),
 
             atapi.BooleanField(
                 name='use_loi',
                 default=True,
                 storage=atapi.AnnotationStorage(),
+
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_loi',
                             default=u'Show list of illustrations'),
                     description=_(u'book_help_use_loi',
-                                  default=u''),
-                    ),
-                ),
+                                  default=u''))),
 
 
             atapi.StringField(
                 name='pagestyle',
                 default='oneside',
                 storage=atapi.AnnotationStorage(),
+                required=True,
+
                 vocabulary=(
                     ('oneside', _(u'Einseitig', default=u'oneside')),
                     ('twoside', _(u'Zweiseitig', default=u'twoside')),
                     ),
-                required=True,
+
                 widget=atapi.SelectionWidget(
                     label=_(u'book_label_pagestyle',
                             default=u'Pagestyle'),
                     description=_(u'book_help_pagestyle',
-                                  default=u''),
-                    ),
-                ),
+                                  default=u''))),
 
             )))
 
