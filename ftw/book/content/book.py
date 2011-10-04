@@ -19,7 +19,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_titlepage',
-                            default=u'Show table of contents'),
+                            default=u'Embedd a title page'),
                     description=_(u'book_help_use_titlepage',
                                   default=u''))),
 
@@ -30,7 +30,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_toc',
-                            default=u'Show index'),
+                            default=u'Embedd table of contents'),
                     description=_(u'book_help_use_toc',
                                   default=u''))),
 
@@ -41,7 +41,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_lot',
-                            default=u'Show list of tables'),
+                            default=u'Embedd list of tables.'),
                     description=_(u'book_help_use_lot',
                                   default=u''))),
 
@@ -52,7 +52,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_loi',
-                            default=u'Show list of illustrations'),
+                            default=u'Embedd list of illustrations'),
                     description=_(u'book_help_use_loi',
                                   default=u''))),
 
@@ -64,8 +64,8 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 required=True,
 
                 vocabulary=(
-                    ('oneside', _(u'Einseitig', default=u'oneside')),
-                    ('twoside', _(u'Zweiseitig', default=u'twoside')),
+                    ('oneside', _(u'pagestyle_oneside', default=u'Oneside')),
+                    ('twoside', _(u'pagestyle_twoside', default=u'Twoside')),
                     ),
 
                 widget=atapi.SelectionWidget(
@@ -84,7 +84,6 @@ schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
 
 
 class Book(folder.ATFolder):
-    """example book"""
     implements(IBook)
 
     meta_type = "Book"

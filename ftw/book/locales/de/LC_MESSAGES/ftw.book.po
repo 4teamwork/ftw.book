@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2011-10-04 07:21+0000\n"
-"PO-Revision-Date: 2011-09-06 11:36+0200\n"
+"POT-Creation-Date: 2011-10-04 07:37+0000\n"
+"PO-Revision-Date: 2011-10-04 09:36+0200\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
@@ -25,67 +25,60 @@ msgstr "Buch"
 msgid "Chapter"
 msgstr "Kapitel"
 
-#. Default: "oneside"
-#: ./ftw/book/content/book.py:67
-msgid "Einseitig"
-msgstr "Einseitig"
-
-#. Default: "twoside"
-#: ./ftw/book/content/book.py:68
-msgid "Zweiseitig"
-msgstr "Zweiseitig"
-
 #: ./ftw/book/content/book.py:74
 msgid "book_help_pagestyle"
-msgstr ""
+msgstr "Diese Option bestimmt die Darstellung der geraden und ungeraden Seiten. Ein einsitiges Layout ist für Berichte geeignet, ein zweiseitiges Layout wird für Bücher verwendet."
 
 #: ./ftw/book/content/book.py:56
 msgid "book_help_use_loi"
-msgstr ""
+msgstr "Wenn diese Option angewählt ist, wird automatisch ein Abbildungsverzeichnis erstellt."
 
 #: ./ftw/book/content/book.py:45
 msgid "book_help_use_lot"
-msgstr ""
+msgstr "Wenn dies Option angewählt ist, wird automatisch ein Tabbellenverzeichnis erstellt."
 
 #: ./ftw/book/content/book.py:23
 msgid "book_help_use_titlepage"
-msgstr ""
+msgstr "Wenn diese Option angewählt ist, wird eine Titelseite erzeugt."
 
 #: ./ftw/book/content/book.py:34
 msgid "book_help_use_toc"
-msgstr ""
+msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
 
 #. Default: "Pagestyle"
 #: ./ftw/book/content/book.py:72
 msgid "book_label_pagestyle"
-msgstr "Seitenstil"
+msgstr "Seitenlayout"
 
-#. Default: "Show list of illustrations"
+#. Default: "Embedd list of illustrations"
 #: ./ftw/book/content/book.py:54
-#, fuzzy
 msgid "book_label_use_loi"
 msgstr "Abbildungsverzeichnis einbetten"
 
-#. Default: "Show list of tables"
+#. Default: "Embedd list of tables."
 #: ./ftw/book/content/book.py:43
-#, fuzzy
 msgid "book_label_use_lot"
 msgstr "Tabellenverzeichnis einbetten"
 
-#. Default: "Show table of contents"
+#. Default: "Embedd a title page"
 #: ./ftw/book/content/book.py:21
 msgid "book_label_use_titlepage"
 msgstr "Titelseite einbetten"
 
-#. Default: "Show index"
+#. Default: "Embedd table of contents"
 #: ./ftw/book/content/book.py:32
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
-#. Default: "example book"
-#: ./ftw/book/profiles/default/types/Book.xml
-msgid "example book"
-msgstr "Beispielbuch"
+#. Default: "Oneside"
+#: ./ftw/book/content/book.py:67
+msgid "pagestyle_oneside"
+msgstr "Einseitig (Bericht)"
+
+#. Default: "Twoside"
+#: ./ftw/book/content/book.py:68
+msgid "pagestyle_twoside"
+msgstr "Zweiseitig (Buch)"
 
 #: ./ftw/book/latexinjection.py:47
 msgid "post_latex_code_help"
