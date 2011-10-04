@@ -2,7 +2,7 @@ from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
 from Products.Archetypes import atapi
-from ftw.book import bookMessageFactory as _
+from ftw.book import _
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IBook
 from zope.interface import implements
@@ -17,11 +17,10 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 default=True,
                 storage=atapi.AnnotationStorage(),
                 widget=atapi.BooleanWidget(
-                    label='Show table of contents',
-                    label_msgid='book_label_use_titlepage',
-                    description='',
-                    description_msgid='book_help_use_titlepage',
-                    i18n_domain='ftw.book',
+                    label=_(u'book_label_use_titlepage',
+                            default=u'Show table of contents'),
+                    description=_(u'book_help_use_titlepage',
+                                  default=u''),
                     ),
                 ),
 
@@ -30,11 +29,10 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 default=True,
                 storage=atapi.AnnotationStorage(),
                 widget=atapi.BooleanWidget(
-                    label='Show index',
-                    label_msgid='book_label_use_toc',
-                    description='',
-                    description_msgid='book_help_use_toc',
-                    i18n_domain='ftw.book',
+                    label=_(u'book_label_use_toc',
+                            default=u'Show index'),
+                    description=_(u'book_help_use_toc',
+                                  default=u''),
                     ),
                 ),
 
@@ -43,11 +41,10 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 default=True,
                 storage=atapi.AnnotationStorage(),
                 widget=atapi.BooleanWidget(
-                    label='Show list of tables',
-                    label_msgid='book_label_use_lot',
-                    description='',
-                    description_msgid='book_help_use_lot',
-                    i18n_domain='ftw.book',
+                    label=_(u'book_label_use_lot',
+                            default=u'Show list of tables'),
+                    description=_(u'book_help_use_lot',
+                                  default=u''),
                     ),
                 ),
 
@@ -56,11 +53,10 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 default=True,
                 storage=atapi.AnnotationStorage(),
                 widget=atapi.BooleanWidget(
-                    label='Show list of illustrations',
-                    label_msgid='book_label_use_loi',
-                    description='',
-                    description_msgid='book_help_use_loi',
-                    i18n_domain='ftw.book',
+                    label=_(u'book_label_use_loi',
+                            default=u'Show list of illustrations'),
+                    description=_(u'book_help_use_loi',
+                                  default=u''),
                     ),
                 ),
 
@@ -75,11 +71,10 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                     ),
                 required=True,
                 widget=atapi.SelectionWidget(
-                    label='Pagestyle',
-                    label_msgid='book_label_pagestyle',
-                    description='',
-                    description_msgid='book_help_pagestyle',
-                    i18n_domain='ftw.book',
+                    label=_(u'book_label_pagestyle',
+                            default=u'Pagestyle'),
+                    description=_(u'book_help_pagestyle',
+                                  default=u''),
                     ),
                 ),
 

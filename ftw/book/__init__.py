@@ -13,6 +13,7 @@ from Products.CMFCore.permissions import setDefaultRoles
 # like _(u"message") will then be extracted by i18n tools for translation.
 
 bookMessageFactory = MessageFactory('ftw.book')
+_ = MessageFactory('ftw.book')
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
