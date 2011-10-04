@@ -1,17 +1,11 @@
-"""Definition of the Book content type
-"""
-
-from zope.interface import implements
-
-from Products.Archetypes import atapi
-from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content import folder
-
-from ftw.book import bookMessageFactory as _
-from ftw.book.interfaces import IBook
-from ftw.book.config import PROJECTNAME
-
+from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
+from Products.Archetypes import atapi
+from ftw.book import bookMessageFactory as _
+from ftw.book.config import PROJECTNAME
+from ftw.book.interfaces import IBook
+from zope.interface import implements
 
 
 BookSchema = (folder.ATFolderSchema.copy() + \
