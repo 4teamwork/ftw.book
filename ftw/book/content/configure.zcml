@@ -14,9 +14,8 @@
         />
   </class>
 
-  <five:implements
-      class="simplelayout.types.common.content.page.Page"
-      interface="simplelayout.base.interfaces.ISimpleLayoutBlock"
-      />
+  <class class="simplelayout.types.common.content.page.Page">
+    <implements interface="simplelayout.base.interfaces.ISimpleLayoutBlock" />
+  </class>
 
 </configure>
