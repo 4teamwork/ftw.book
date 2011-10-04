@@ -34,7 +34,7 @@ def getLatexHeading(context, view, toc=True):
 
     # default command is last in HEADING_COMMANDS
     command = HEADING_COMMANDS[-1]
-    if level<len(HEADING_COMMANDS):
+    if level < len(HEADING_COMMANDS):
         command = HEADING_COMMANDS[level]
 
     # generate latex

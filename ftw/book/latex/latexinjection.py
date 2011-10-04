@@ -1,5 +1,6 @@
 """Contains a monkey patch patching LatexCTConverter.convertObject, so that
-it includes pre- and post-latex code configured with ILaTeXCodeInjectionEnabled.
+it includes pre- and post-latex code configured with
+ILaTeXCodeInjectionEnabled.
 """
 
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
@@ -52,5 +53,6 @@ def injection_aware_convertObject(view, object=None, brain=None):
 logging.getLogger('ftw.book').info(
     'Monkeypatching LatexCTConverter.convertObject: '
     'adding ILaTeXCodeInjectionEnabled support')
-LatexCTConverter._old_convertObject = staticmethod(LatexCTConverter.convertObject)
+LatexCTConverter._old_convertObject = staticmethod(
+    LatexCTConverter.convertObject)
 LatexCTConverter.convertObject = injection_aware_convertObject
