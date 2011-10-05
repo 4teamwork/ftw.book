@@ -1,6 +1,5 @@
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
-from Products.CMFCore.permissions import setDefaultRoles
 from ftw.book import config
 from zope.i18nmessageid import MessageFactory
 
