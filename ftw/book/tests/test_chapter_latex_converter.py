@@ -33,5 +33,5 @@ class TestChapterLatexConverter(MockTestCase):
         latex = ChapterLatexConverter(context, request)(context, view)
 
         self.assertEqual(latex, '\n'.join((
-                    '\chapter{converted chapter title}',
+                    r'\chapter{converted chapter title}',
                     'child LaTeX')))
