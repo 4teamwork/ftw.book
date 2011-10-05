@@ -1,5 +1,6 @@
 from ftw.book.latex.image import ImageLatexConverter
 from plone.mocktestcase import MockTestCase
+from plonegov.pdflatex.browser.aspdf import AsPDFView
 from simplelayout.base.interfaces import IBlockConfig
 from zope.interface import directlyProvides
 
@@ -15,7 +16,7 @@ class TestLatexConverter(MockTestCase):
                                    description, uid):
         image = self.create_dummy(size=1)
 
-        view = self.mocker.mock()
+        view = self.mocker.mock(AsPDFView)
         self.expect(view.addImage(uid='%s_image' % uid, image=image))
         self.expect(view.conditionalRegisterPackage('graphicx'))
         self.expect(view.conditionalRegisterPackage('wrapfig'))
