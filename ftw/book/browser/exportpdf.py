@@ -15,6 +15,6 @@ class ExportPDFView(BrowserView):
         return as_pdf(**arguments)
 
 
-def pre_compiler(view, object):
+def pre_compiler(view, obj):
     layout = BookLayout()
-    layout(view, object)
+    layout(view, obj)
