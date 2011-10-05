@@ -1,5 +1,6 @@
 from plonegov.pdflatex.browser.converter import LatexCTConverter
-import utils
+from ftw.book.latex import utils
+
 
 class ChapterLatexConverter(LatexCTConverter):
 

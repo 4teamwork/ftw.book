@@ -32,7 +32,8 @@ class BookLayout(object):
 
     def setDocumentClass(self):
         self.view.setLatexProperty('document_class', 'book')
-        self.view.setLatexProperty('document_config',
+        self.view.setLatexProperty(
+            'document_config',
             'a4paper,12pt,german,%s' % self.context.pagestyle)
 
     def registerPackages(self):
@@ -40,7 +41,7 @@ class BookLayout(object):
         self.view.registerPackage('fontenc', 'T1')
         self.view.registerPackage('babel', 'ngerman')
         self.view.registerPackage('geometry',
-            'left=25mm,right=45mm,top=23mm,bottom=30mm')
+                                  'left=25mm,right=45mm,top=23mm,bottom=30mm')
         self.view.registerPackage('xcolor')
         self.view.registerPackage('graphicx')
         self.view.registerPackage('textcomp')
@@ -48,8 +49,9 @@ class BookLayout(object):
         self.view.registerPackage('hyperref')
 
     def appendHeadCommands(self):
-        self.view.appendHeaderCommand(r'\renewcommand{\familydefault}{\sfdefault}')
-        self.view.appendHeaderCommand("\\title{%s}"%(self.context.Title()))
+        self.view.appendHeaderCommand(
+            r'\renewcommand{\familydefault}{\sfdefault}')
+        self.view.appendHeaderCommand("\\title{%s}" % (self.context.Title()))
 
     def appendAboveBodyCommands(self):
         if IBook.providedBy(self.context):
@@ -57,14 +59,14 @@ class BookLayout(object):
                 self.view.appendToProperty('latex_above_body', "\\maketitle")
             if self.context.use_toc:
                 self.view.appendToProperty('latex_above_body',
-                    "\\tableofcontents")
+                                           "\\tableofcontents")
                 self.view.appendToProperty('latex_above_body', "\\clearpage")
 
     def appendBeneathBodyCommands(self):
         if IBook.providedBy(self.context):
             if self.context.use_loi:
                 self.view.appendToProperty('latex_beneath_body',
-                    "\\listoffigures")
+                                           "\\listoffigures")
             if self.context.use_lot:
                 self.view.appendToProperty('latex_beneath_body',
-                    "\\listoftables")
+                                           "\\listoftables")

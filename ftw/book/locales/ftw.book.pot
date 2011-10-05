@@ -1,0 +1,100 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-10-04 07:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: ftw.book\n"
+
+#: ./ftw/book/profiles/default/types/Book.xml
+msgid "Book"
+msgstr ""
+
+#: ./ftw/book/profiles/default/types/Chapter.xml
+msgid "Chapter"
+msgstr ""
+
+#: ./ftw/book/content/book.py:74
+msgid "book_help_pagestyle"
+msgstr ""
+
+#: ./ftw/book/content/book.py:56
+msgid "book_help_use_loi"
+msgstr ""
+
+#: ./ftw/book/content/book.py:45
+msgid "book_help_use_lot"
+msgstr ""
+
+#: ./ftw/book/content/book.py:23
+msgid "book_help_use_titlepage"
+msgstr ""
+
+#: ./ftw/book/content/book.py:34
+msgid "book_help_use_toc"
+msgstr ""
+
+#. Default: "Pagestyle"
+#: ./ftw/book/content/book.py:72
+msgid "book_label_pagestyle"
+msgstr ""
+
+#. Default: "Embedd list of illustrations"
+#: ./ftw/book/content/book.py:54
+msgid "book_label_use_loi"
+msgstr ""
+
+#. Default: "Embedd list of tables."
+#: ./ftw/book/content/book.py:43
+msgid "book_label_use_lot"
+msgstr ""
+
+#. Default: "Embedd a title page"
+#: ./ftw/book/content/book.py:21
+msgid "book_label_use_titlepage"
+msgstr ""
+
+#. Default: "Embedd table of contents"
+#: ./ftw/book/content/book.py:32
+msgid "book_label_use_toc"
+msgstr ""
+
+#. Default: "Oneside"
+#: ./ftw/book/content/book.py:67
+msgid "pagestyle_oneside"
+msgstr ""
+
+#. Default: "Twoside"
+#: ./ftw/book/content/book.py:68
+msgid "pagestyle_twoside"
+msgstr ""
+
+#: ./ftw/book/latexinjection.py:47
+msgid "post_latex_code_help"
+msgstr ""
+
+#. Default: "LaTeX code beneath content"
+#: ./ftw/book/latexinjection.py:45
+msgid "post_latex_code_label"
+msgstr ""
+
+#: ./ftw/book/latexinjection.py:34
+msgid "pre_latex_code_help"
+msgstr ""
+
+#. Default: "LaTeX code above content"
+#: ./ftw/book/latexinjection.py:32
+msgid "pre_latex_code_label"
+msgstr ""
+

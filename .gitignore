@@ -6,6 +6,9 @@
 bin/
 build/
 buildout.cfg
+coverage/
 develop-eggs/
 dist/
+parts/
 src/
+var/

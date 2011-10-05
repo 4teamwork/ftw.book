@@ -1,109 +1,93 @@
-"""Definition of the Book content type
-"""
-
+from Products.ATContentTypes.content import folder
+from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
+from Products.Archetypes import atapi
+from ftw.book import _
+from ftw.book.config import PROJECTNAME
+from ftw.book.interfaces import IBook
 from zope.interface import implements
 
-from Products.Archetypes import atapi
-from Products.ATContentTypes.content import schemata
-from Products.ATContentTypes.content import folder 
 
-from ftw.book import bookMessageFactory as _
-from ftw.book.interfaces import IBook
-from ftw.book.config import PROJECTNAME
+BookSchema = (folder.ATFolderSchema.copy() + \
+                  NextPreviousAwareSchema.copy() + \
+                  atapi.Schema((
 
-from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
+            atapi.BooleanField(
+                name='use_titlepage',
+                default=True,
+                storage=atapi.AnnotationStorage(),
 
+                widget=atapi.BooleanWidget(
+                    label=_(u'book_label_use_titlepage',
+                            default=u'Embedd a title page'),
+                    description=_(u'book_help_use_titlepage',
+                                  default=u''))),
 
-BookSchema = folder.ATFolderSchema.copy() + NextPreviousAwareSchema.copy() + atapi.Schema((
+            atapi.BooleanField(
+                name='use_toc',
+                default=True,
+                storage=atapi.AnnotationStorage(),
 
-    atapi.BooleanField(
-        name = 'use_titlepage',
-        default = True,
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.BooleanWidget(
-            label = 'Show table of contents',
-            label_msgid = 'book_label_use_titlepage',
-            description = '',
-            description_msgid = 'book_help_use_titlepage',
-            i18n_domain = 'ftw.book',
-        ),
-    ),
+                widget=atapi.BooleanWidget(
+                    label=_(u'book_label_use_toc',
+                            default=u'Embedd table of contents'),
+                    description=_(u'book_help_use_toc',
+                                  default=u''))),
 
-    atapi.BooleanField(
-        name = 'use_toc',
-        default = True,
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.BooleanWidget(
-            label = 'Show index',
-            label_msgid = 'book_label_use_toc',
-            description = '',
-            description_msgid = 'book_help_use_toc',
-            i18n_domain = 'ftw.book',
-        ),
-    ),
+            atapi.BooleanField(
+                name='use_lot',
+                default=True,
+                storage=atapi.AnnotationStorage(),
 
-    atapi.BooleanField(
-        name = 'use_lot',
-        default = True,
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.BooleanWidget(
-            label = 'Show list of tables',
-            label_msgid = 'book_label_use_lot',
-            description = '',
-            description_msgid = 'book_help_use_lot',
-            i18n_domain = 'ftw.book',
-        ),
-    ),
+                widget=atapi.BooleanWidget(
+                    label=_(u'book_label_use_lot',
+                            default=u'Embedd list of tables.'),
+                    description=_(u'book_help_use_lot',
+                                  default=u''))),
 
-    atapi.BooleanField(
-        name = 'use_loi',
-        default = True,
-        storage = atapi.AnnotationStorage(),
-        widget = atapi.BooleanWidget(
-            label = 'Show list of illustrations',
-            label_msgid = 'book_label_use_loi',
-            description = '',
-            description_msgid = 'book_help_use_loi',
-            i18n_domain = 'ftw.book',
-        ),
-    ),
+            atapi.BooleanField(
+                name='use_loi',
+                default=True,
+                storage=atapi.AnnotationStorage(),
+
+                widget=atapi.BooleanWidget(
+                    label=_(u'book_label_use_loi',
+                            default=u'Embedd list of illustrations'),
+                    description=_(u'book_help_use_loi',
+                                  default=u''))),
 
 
-    atapi.StringField(
-            name = 'pagestyle',
-            default = 'oneside',
-            storage = atapi.AnnotationStorage(),
-            vocabulary = (
-                    ('oneside', _(u'Einseitig',default=u'oneside')),
-                    ('twoside', _(u'Zweiseitig',default=u'twoside')),
-            ),
-            required = True,
-            widget = atapi.SelectionWidget(
-                    label = 'Pagestyle',
-                    label_msgid = 'book_label_pagestyle',
-                    description = '',
-                    description_msgid = 'book_help_pagestyle',
-                    i18n_domain = 'ftw.book',
-            ),
-    ),
+            atapi.StringField(
+                name='pagestyle',
+                default='oneside',
+                storage=atapi.AnnotationStorage(),
+                required=True,
 
-))
+                vocabulary=(
+                    ('oneside', _(u'pagestyle_oneside', default=u'Oneside')),
+                    ('twoside', _(u'pagestyle_twoside', default=u'Twoside')),
+                    ),
 
-# Set storage on fields copied from ATContentTypeSchema, making sure
-# they work well with the python bridge properties.
+                widget=atapi.SelectionWidget(
+                    label=_(u'book_label_pagestyle',
+                            default=u'Pagestyle'),
+                    description=_(u'book_help_pagestyle',
+                                  default=u''))),
+
+            )))
+
 
 BookSchema['title'].storage = atapi.AnnotationStorage()
 BookSchema['description'].storage = atapi.AnnotationStorage()
 
 schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
 
+
 class Book(folder.ATFolder):
-    """example book"""
     implements(IBook)
 
     meta_type = "Book"
     schema = BookSchema
-    
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')
@@ -112,8 +96,6 @@ class Book(folder.ATFolder):
     use_lot = atapi.ATFieldProperty('use_lot')
     use_loi = atapi.ATFieldProperty('use_loi')
     pagestyle = atapi.ATFieldProperty('pagestyle')
-    
-    
-    # -*- Your ATSchema to Python Property Bridges Here ... -*-
+
 
 atapi.registerType(Book, PROJECTNAME)
