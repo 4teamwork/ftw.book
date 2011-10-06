@@ -1,5 +1,6 @@
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.interfaces import IBook
 from plone.app.layout.navigation.navtree import buildFolderTree
@@ -12,7 +13,7 @@ class ReaderView(BrowserView):
         self.book = self.get_book_obj()
         self.tree = self.get_tree(self.book)
         self.structure = flaten_tree(self.tree)
-        super(ReaderView).__call__(self)
+        return super(ReaderView, self).__call__()
 
     def get_tree(self, book):
         """Returns an unlimited, recursive navtree of the book.
@@ -36,3 +37,18 @@ class ReaderView(BrowserView):
                 obj = aq_parent(aq_inner(obj))
 
         raise Exception('Could not find book.')
+
+    def get_toc_tree(self, tree):
+        """Returns a filtered tree for building a table of contents. Brains
+        of sl-blocks with showTitle=False are removed.
+        """
+
+        def filterer(item):
+            brain = item.get('item')
+            if brain.portal_type in ('Book', 'Chapter'):
+                return True
+
+            else:
+                return brain.showTitle
+
+        return filter_tree(filterer, tree, copy=True)
