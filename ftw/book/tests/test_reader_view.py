@@ -2,6 +2,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from ftw.book.browser.reader.view import ReaderView
 from ftw.book.interfaces import IBook
 from ftw.testing import MockTestCase
+from mocker import ANY
 
 
 class TestReaderView(MockTestCase):
@@ -93,3 +94,39 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             tree.get('children')[0].get('children')[0].get('item'),
             paragraph_brain)
+
+    def test_render_toc(self):
+        tree = {
+            'item': {'getURL': '/book',
+                     'Title': 'Book'},
+            'depth': 0,
+            'currentParent': False,
+            'currentItem': True,
+            'children': [
+
+                {'item': {'getURL': '/book/chapt',
+                          'Title': 'Chapter'},
+                 'depth': 1,
+                 'currentParent': False,
+                 'currentItem': False,
+                 'children': [
+
+                        ]}
+
+                ]}
+
+        response = self.stub()
+        self.expect(response.getHeader(ANY)).result('')
+        self.expect(response.setHeader(ANY, ANY))
+
+        request = self.stub()
+        self.expect(request.debug).result(True)
+        self.expect(request.response).result(response)
+
+        self.replay()
+
+        view = ReaderView(object(), request)
+        html = view.render_toc(tree)
+
+        self.assertIn('<a href="/book">Book</a>', html)
+        self.assertIn('<a href="/book/chapt">Chapter</a>', html)

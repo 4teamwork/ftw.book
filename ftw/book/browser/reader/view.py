@@ -4,10 +4,13 @@ from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.interfaces import IBook
 from plone.app.layout.navigation.navtree import buildFolderTree
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.publisher.browser import BrowserView
 
 
 class ReaderView(BrowserView):
+
+    toc_template = ViewPageTemplateFile('toc_recurse.pt')
 
     def __call__(self):
         self.book = self.get_book_obj()
@@ -52,3 +55,13 @@ class ReaderView(BrowserView):
                 return brain.showTitle
 
         return filter_tree(filterer, tree, copy=True)
+
+    def render_toc(self, item=None):
+        if item is None:
+            item = self.get_toc_tree(self.tree)
+
+        return self.toc_template(**{
+                'item': item,
+                'is_root': item.get('depth', -1) == 0,
+                'li_class': 'book-toc-%s' % str(item.get('depth'))})
+

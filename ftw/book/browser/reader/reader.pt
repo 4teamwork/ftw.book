@@ -11,6 +11,8 @@
         Title
       </h1>
 
+      <tal:toc content="structure view/render_toc" />
+
       <div tal:define="tree view/tree">
         <p tal:content="tree"> hello world</p>
       </div>

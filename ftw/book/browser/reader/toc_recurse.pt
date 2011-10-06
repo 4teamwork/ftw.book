@@ -1,0 +1,23 @@
+<xml:xml xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+         xmlns:tal="http://xml.zope.org/namespaces/tal">
+
+  <ul class="book-table-of-contents"
+      tal:define="item options/item;
+                  brain item/item"
+      tal:omit-tag="not:options/is_root">
+
+    <li tal:attributes="class options/li_class">
+      <a tal:attributes="href brain/getURL"
+         tal:content="brain/Title" />
+
+      <ul tal:condition="item/children">
+        <tal:children tal:repeat="child item/children">
+          <tal:child content="structure python:view.render_toc(child)" />
+        </tal:children>
+      </ul>
+
+    </li>
+
+  </ul>
+
+</xml:xml>
