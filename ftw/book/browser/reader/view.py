@@ -10,7 +10,7 @@ from zope.publisher.browser import BrowserView
 
 class ReaderView(BrowserView):
 
-    toc_template = ViewPageTemplateFile('toc_recurse.pt')
+    toc_template = ViewPageTemplateFile('templates/toc_recurse.pt')
 
     def __call__(self):
         self.book = self.get_book_obj()
