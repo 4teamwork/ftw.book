@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.book">
+
+  <browser:page
+      for="*"
+      name="book_reader_view"
+      template="reader.pt"
+      class=".view.ReaderView"
+      permission="zope2.View"
+      />
+
+</configure>
