@@ -15,4 +15,7 @@
       name="ftw.book-reader"
       directory="resources" />
 
+  <adapter factory=".renderer.DefaultBlockRenderer" />
+  <adapter factory=".renderer.BookRenderer" />
+
 </configure>
