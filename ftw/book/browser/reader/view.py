@@ -1,10 +1,17 @@
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.interfaces import IBook
+from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
+from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
+
+
+RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 2
+_marker = object()
 
 
 class ReaderView(BrowserView):
@@ -27,6 +34,47 @@ class ReaderView(BrowserView):
         if not getattr(self, '_tree', None):
             self._tree = self.get_tree(self.book)
         return self._tree
+
+    def render_next(self, block_render_threshold=_marker):
+        if block_render_threshold == _marker:
+            block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
+
+        next_uid = self.request.get('next_uid', '')
+
+        html = []
+
+        brainlist = flaten_tree(self.tree)
+        for brain in brainlist:
+            if next_uid != '' and brain.UID != next_uid:
+                continue
+
+            block_html = self.render_block(brain)
+            if block_html:
+                html.append(block_html)
+
+            block_render_threshold -= 1
+            if block_render_threshold == 0:
+                break
+
+        try:
+            next = brainlist.next()
+        except StopIteration:
+            next = None
+
+        data = {'next_uid': next and next.UID or None,
+                'html': '\n'.join(html)}
+        return dumps(data)
+
+    def render_block(self, brain):
+        obj = brain.getObject()
+
+        renderer = queryMultiAdapter((obj, self.request, self),
+                                     IBookReaderRenderer)
+        if not renderer:
+            return ''
+
+        else:
+            return renderer.render()
 
     def get_tree(self, book):
         """Returns an unlimited, recursive navtree of the book.

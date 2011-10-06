@@ -1,10 +1,97 @@
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.view import ReaderView
 from ftw.book.interfaces import IBook
 from ftw.testing import MockTestCase
+from json import loads
+from mocker import ANY
+from zope.interface import Interface
 
 
 class TestReaderView(MockTestCase):
+
+    def create_tree_from_brains(self, brains):
+        tree = None
+        brains.reverse()
+
+        for brain in brains:
+            item = {'item': brain,
+                    'children': tree and [tree] or []}
+            tree = item
+
+        return tree
+
+    def test_render_next_at_top(self):
+        request = self.stub()
+        self.expect(request.get('next_uid', '')).result('')
+
+        book = self.providing_stub([IBook])
+        book_brain = self.stub()
+        self.expect(book_brain.portal_type).result('Book')
+        self.expect(book_brain.getObject()).result(book)
+        self.expect(book_brain.UID).result('1bookuid2')
+
+        view = self.mocker.patch(ReaderView(book, request))
+
+        tree = {'item': book_brain,
+                'children': []}
+        self.expect(view._tree).result(tree).count(1, None)
+
+        book_renderer = self.mocker.mock()
+        self.expect(book_renderer(ANY, ANY, ANY)).result(book_renderer)
+        self.expect(book_renderer.render()).result('BOOK REPR')
+        self.mock_adapter(book_renderer, IBookReaderRenderer,
+                          (Interface, Interface, Interface))
+
+        self.replay()
+
+        data = view.render_next(block_render_threshold=1)
+        jsondata = loads(data)
+
+        self.assertEqual(jsondata,
+                         {u'next_uid': None,
+                          u'html': u'BOOK REPR'})
+
+    def test_render_next_with_uid(self):
+        request = self.stub()
+        self.expect(request.get('next_uid', '')).result('2chapter2')
+
+        book = self.providing_mock([IBook])
+        book_brain = self.mocker.mock()
+        self.expect(book_brain.UID).result('1book1')
+
+        chapter = self.mocker.mock()
+        chapter_brain = self.mocker.mock()
+        self.expect(chapter_brain.UID).result('2chapter2')
+        self.expect(chapter_brain.getObject()).result(chapter)
+        self.set_parent(chapter, book)
+
+        paragraph = self.mocker.mock()
+        paragraph_brain = self.mocker.mock()
+        self.expect(paragraph_brain.UID).result('3paragraph3')
+        self.set_parent(paragraph, chapter)
+
+        tree = self.create_tree_from_brains([
+                book_brain, chapter_brain, paragraph_brain])
+
+        view = self.mocker.patch(ReaderView(chapter, request))
+        self.expect(view._tree).result(tree).count(1, None)
+
+        paragraph_renderer = self.mocker.mock()
+        self.expect(paragraph_renderer(ANY, ANY, ANY)).result(
+            paragraph_renderer)
+        self.expect(paragraph_renderer.render()).result('CHAPTER REPR')
+        self.mock_adapter(paragraph_renderer, IBookReaderRenderer,
+                          (Interface, Interface, Interface))
+
+        self.replay()
+
+        data = view.render_next(block_render_threshold=1)
+        jsondata = loads(data)
+
+        self.assertEqual(jsondata,
+                         {u'next_uid': u'3paragraph3',
+                          u'html': 'CHAPTER REPR'})
 
     def test_get_book_obj(self):
         chapter = self.stub()
