@@ -10,15 +10,23 @@ from zope.publisher.browser import BrowserView
 class ReaderView(BrowserView):
 
     def __call__(self):
-        self.book = self.get_book_obj()
-        self.tree = self.get_tree(self.book)
-        self.structure = flaten_tree(self.tree)
-
         self.request.set('disable_border', True)
         self.request.set('disable_plone.leftcolumn', True)
         self.request.set('disable_plone.rightcolumn', True)
 
         return super(ReaderView, self).__call__()
+
+    @property
+    def book(self):
+        if not getattr(self, '_book', None):
+            self._book = self.get_book_obj()
+        return self._book
+
+    @property
+    def tree(self):
+        if not getattr(self, '_tree', None):
+            self._tree = self.get_tree(self.book)
+        return self._tree
 
     def get_tree(self, book):
         """Returns an unlimited, recursive navtree of the book.
