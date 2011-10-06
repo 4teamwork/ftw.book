@@ -16,6 +16,11 @@ class ReaderView(BrowserView):
         self.book = self.get_book_obj()
         self.tree = self.get_tree(self.book)
         self.structure = flaten_tree(self.tree)
+
+        self.request.set('disable_border', True)
+        self.request.set('disable_plone.leftcolumn', True)
+        self.request.set('disable_plone.rightcolumn', True)
+
         return super(ReaderView, self).__call__()
 
     def get_tree(self, book):
