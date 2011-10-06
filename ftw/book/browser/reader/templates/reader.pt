@@ -6,17 +6,12 @@
   <body>
 
     <div metal:fill-slot="main" >
+      <div class="book-reader">
+        <div class="book-reader-top-marker"></div>
 
-      <h1 tal:content="context/Title" >
-        Title
-      </h1>
-
-      <tal:toc content="structure view/render_toc" />
-
-      <div tal:define="tree view/tree">
-        <p tal:content="tree"> hello world</p>
+        content
+        <div class="book-reader-bottom-marker"></div>
       </div>
-
     </div>
 
   </body>
