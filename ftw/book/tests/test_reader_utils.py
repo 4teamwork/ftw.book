@@ -1,5 +1,6 @@
 from unittest2 import TestCase
 from ftw.book.browser.reader.utils import flaten_tree
+from ftw.book.browser.reader.utils import filter_tree
 
 
 class TestFlatenTree(TestCase):
@@ -34,3 +35,102 @@ class TestFlatenTree(TestCase):
         data = tuple(flaten_tree(tree))
 
         self.assertEqual(data, ('A', 'B', 'C', 'D', 'E'))
+
+
+class TestFilterTree(TestCase):
+
+    def test_filter_tree(self):
+        tree = {
+            'title': 'A',
+            'remove': False,
+            'children': [
+
+                {'title': 'B',
+                 'remove': True,
+                 'children': []},
+
+                {'title': 'C',
+                 'remove': False,
+                 'children': []},
+
+                ]}
+
+        expected_tree = {
+            'title': 'A',
+            'remove': False,
+            'children': [
+
+                {'title': 'C',
+                 'remove': False,
+                 'children': []}]}
+
+        filtered_tree = filter_tree(lambda item: not item.get('remove'),
+                                    tree)
+
+        self.assertEqual(expected_tree, filtered_tree)
+        self.assertNotEqual(filtered_tree, tree)
+
+    def test_filter_tree_without_copy(self):
+        tree = {
+            'title': 'A',
+            'remove': False,
+            'children': [
+
+                {'title': 'B',
+                 'remove': True,
+                 'children': []},
+
+                {'title': 'C',
+                 'remove': False,
+                 'children': []},
+
+                ]}
+
+        expected_tree = {
+            'title': 'A',
+            'remove': False,
+            'children': [
+
+                {'title': 'C',
+                 'remove': False,
+                 'children': []}]}
+
+        filtered_tree = filter_tree(lambda item: not item.get('remove'),
+                                    tree,
+                                    copy=False)
+
+        self.assertEqual(expected_tree, filtered_tree)
+        self.assertEqual(filtered_tree, tree)
+
+    def test_filter_tree_filter_root(self):
+        tree = {
+            'title': 'A',
+            'remove': True,
+            'children': [
+
+                {'title': 'B',
+                 'remove': False,
+                 'children': []}
+                ]
+            }
+
+        expected_tree = None
+
+        self.assertEqual(filter_tree(lambda item: not item.get('remove'),
+                                     tree),
+                         expected_tree)
+
+    def test_object_not_copied(self):
+        myobj = object()
+
+        tree = {
+            'item': myobj,
+            'children': []}
+
+        filtered_tree = filter_tree(lambda item: True, tree, copy=True)
+
+        # Only structure (dicts, lists) should be copied, but the values
+        # of the dicts.
+        self.assertEqual(tree.get('item'), filtered_tree.get('item'))
+
+
