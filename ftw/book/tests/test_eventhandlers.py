@@ -7,10 +7,9 @@ from ftw.book import eventhandler
 from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import ILocalPortletAssignmentManager
-from plone.mocktestcase.dummy import Dummy
 from mocker import ANY
 from zope.interface import Interface
-from zope.component import getMultiAdapter
+
 
 class TestEventhandler(MockTestCase):
     
@@ -42,3 +41,10 @@ class TestEventhandler(MockTestCase):
         self.replay()
         event = ObjectInitializedEvent(book, request)
         eventhandler.add_navigation_portlet(book, event)
+        gtpp_ass = pers_mapping['go-to-parent-portlet']
+        nav_ass = pers_mapping['navigation']
+        self.assertEqual(gtpp_ass.title, 'Go To Parent Portlet')
+        self.assertEqual(nav_ass.__dict__, {'name': u'', 'bottomLevel': 0, 'topLevel': 0,
+         'currentFolderOnly': False, 'includeTop': 1, 'root': 'lone/parent/mybook'})
+        self.assertEqual(nav_ass.title, u'Navigation')
+
