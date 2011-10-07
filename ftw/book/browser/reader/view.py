@@ -65,6 +65,39 @@ class ReaderView(BrowserView):
                 'html': '\n'.join(html)}
         return dumps(data)
 
+    def render_previous(self, block_render_threshold=_marker):
+        if block_render_threshold == _marker:
+            block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
+
+        previous_uid = self.request.get('previous_uid', '')
+
+        html = []
+
+        brainlist = flaten_tree(self.tree)
+        previous = []
+        found = False
+
+        for brain in brainlist:
+            previous.insert(0, brain)
+            if previous_uid != '' and brain.UID == previous_uid:
+                found = True
+                break
+
+        if not found:
+            return u'{}'
+
+        while block_render_threshold > 0 and len(previous) > 0:
+            brain = previous.pop(0)
+            block_html = self.render_block(brain)
+            if block_html:
+                html.insert(0, block_html)
+
+            block_render_threshold -= 1
+
+        data = {'previous_uid': previous and previous[0].UID or None,
+                'html': '\n'.join(html)}
+        return dumps(data)
+
     def render_block(self, brain):
         obj = brain.getObject()
 
