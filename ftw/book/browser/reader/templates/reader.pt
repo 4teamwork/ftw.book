@@ -10,6 +10,10 @@
       <script language="javascript" type="text/javascript"
               tal:attributes="src string:${portal_url}/++resource++ftw.book-reader/reader.js">
       </script>
+
+      <script language="javascript" type="text/javascript"
+              tal:content="view/get_inline_javascript">
+      </script>
     </metal:javascript>
 
     <div metal:fill-slot="main" >

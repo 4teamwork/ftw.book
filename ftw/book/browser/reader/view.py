@@ -35,6 +35,29 @@ class ReaderView(BrowserView):
             self._tree = self.get_tree(self.book)
         return self._tree
 
+    def get_inline_javascript(self):
+        options = self.get_javascript_options()
+        return 'jq(function($) { init_reader_view(%s); });' % (
+            dumps(options))
+
+    def get_javascript_options(self):
+        options = {
+            'prev_uid': None,
+            'next_uid': self.context.UID()}
+
+        prev = None
+        for brain in flaten_tree(self.tree):
+            if brain.UID == self.context.UID():
+                if prev:
+                    options['prev_uid'] = prev.UID
+
+                break
+
+            else:
+                prev = brain
+
+        return options
+
     def render_next(self, block_render_threshold=_marker):
         if block_render_threshold == _marker:
             block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD

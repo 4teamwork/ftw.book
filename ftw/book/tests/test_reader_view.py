@@ -274,3 +274,54 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             tree.get('children')[0].get('children')[0].get('item'),
             paragraph_brain)
+
+    def test_get_javascript_options_top(self):
+        brains = []
+
+        for uid in ('1book', '2chapter'):
+            brains.append(self.create_dummy(UID=uid))
+
+        context = self.stub()
+        self.expect(context.UID()).result('1book')
+
+        view = self.mocker.patch(ReaderView(context, object()))
+        tree = self.create_tree_from_brains(brains)
+        self.expect(view._tree).result(tree).count(0, None)
+
+        self.replay()
+
+        self.assertEqual(
+            view.get_javascript_options(),
+            {'prev_uid': None,
+             'next_uid': '1book'})
+
+    def test_get_javascript_options_not_top(self):
+        brains = []
+
+        for uid in ('1book', '2chapter'):
+            brains.append(self.create_dummy(UID=uid))
+
+        context = self.stub()
+        self.expect(context.UID()).result('2chapter')
+
+        view = self.mocker.patch(ReaderView(context, object()))
+        tree = self.create_tree_from_brains(brains)
+        self.expect(view._tree).result(tree).count(0, None)
+
+        self.replay()
+
+        self.assertEqual(
+            view.get_javascript_options(),
+            {'prev_uid': '1book',
+             'next_uid': '2chapter'})
+
+    def test_get_inline_javascript(self):
+
+        view = self.mocker.patch(ReaderView(object(), object()))
+        self.expect(view.get_javascript_options()).result({'foo': 'bar'})
+
+        self.replay()
+
+        self.assertEqual(
+            view.get_inline_javascript(),
+            'jq(function($) { init_reader_view({"foo": "bar"}); });')
