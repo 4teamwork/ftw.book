@@ -1,5 +1,5 @@
 .book-reader {
-  overflow: scroll;
+  overflow-y: scroll;
   /* XXX: set height properly */
-  height: 15em;
+  height: 25em;
 }
