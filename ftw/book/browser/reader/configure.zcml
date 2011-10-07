@@ -6,7 +6,6 @@
   <browser:page
       for="*"
       name="book_reader_view"
-      template="templates/reader.pt"
       class=".view.ReaderView"
       permission="zope2.View"
       allowed_attributes="render_next render_previous"

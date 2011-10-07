@@ -6,6 +6,7 @@ from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.interfaces import IBook
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
 
@@ -16,12 +17,14 @@ _marker = object()
 
 class ReaderView(BrowserView):
 
+    template = ViewPageTemplateFile('templates/reader.pt')
+
     def __call__(self):
         self.request.set('disable_border', True)
         self.request.set('disable_plone.leftcolumn', True)
         self.request.set('disable_plone.rightcolumn', True)
 
-        return super(ReaderView, self).__call__()
+        return self.template()
 
     @property
     def book(self):
@@ -59,6 +62,8 @@ class ReaderView(BrowserView):
         return options
 
     def render_next(self, block_render_threshold=_marker):
+        """Renders the next blocks.
+        """
         if block_render_threshold == _marker:
             block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
 
@@ -89,6 +94,8 @@ class ReaderView(BrowserView):
         return dumps(data)
 
     def render_previous(self, block_render_threshold=_marker):
+        """Render previous blocks.
+        """
         if block_render_threshold == _marker:
             block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
 
