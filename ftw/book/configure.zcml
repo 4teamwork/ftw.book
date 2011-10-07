@@ -17,6 +17,7 @@
   <include package=".latex" />
   <include package=".browser" />
   <include package=".content" />
+  <include package=".portlets" />
 
 
   <!-- Register the installation GenericSetup extension profile -->
@@ -38,5 +39,21 @@
       class="Products.Archetypes.BaseObject.BaseObject"
       interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
       />
+
+
+  <configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:five="http://namespaces.zope.org/five"
+      i18n_domain="ftw.book">
+
+    <subscriber for=".interfaces.IBook
+                     Products.Archetypes.interfaces.IObjectInitializedEvent"
+                handler=".eventhandler.add_navigation_portlet" />
+
+    <subscriber for=".interfaces.IBook
+                     zope.app.container.interfaces.IObjectMovedEvent"
+                handler=".eventhandler.add_navigation_portlet" />
+
+  </configure>
 
 </configure>

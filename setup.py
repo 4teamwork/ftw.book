@@ -10,6 +10,7 @@ tests_require = [
     'zope.testing',
     'plone.app.testing',
     'plone.mocktestcase',
+    'plone.portlets'
     ]
 
 
@@ -46,6 +47,7 @@ setup(name='ftw.book',
         'simplelayout.base',
         'plonegov.pdflatex',
         'archetypes.schemaextender',
+        'plone.portlets'
         ],
 
       tests_require=tests_require,

@@ -1,0 +1,7 @@
+<dl class="portlet portletGoToParent">
+    <dd class="portletItem">
+        <div>
+            <span tal:content="structure view/get_parent_link" />
+        <div>
+    </dd>
+</dl>

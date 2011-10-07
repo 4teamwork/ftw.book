@@ -4,7 +4,8 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
 from plone.testing import z2
 from zope.configuration import xmlconfig
-
+from plone.testing import Layer
+from plone.testing import zca
 
 class FtwBookLayer(PloneSandboxLayer):
 
