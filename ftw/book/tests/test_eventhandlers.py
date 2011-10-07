@@ -41,5 +41,4 @@ class TestEventhandler(MockTestCase):
         self.expect(mapping.__of__(ANY)).result(pers_mapping)
         self.replay()
         event = ObjectInitializedEvent(book, request)
-        test = eventhandler.add_navigation_portlet(book, event)
-        import pdb; pdb.set_trace( )
+        eventhandler.add_navigation_portlet(book, event)

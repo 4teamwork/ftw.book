@@ -28,7 +28,6 @@ def right_slot_portlets(object_, event):
     """ disable portlet inheritance at rightcolumn
     """
     manager = getUtility(IPortletManager, name='plone.rightcolumn')
-    import pdb; pdb.set_trace( )
     assignable = getMultiAdapter((object_, manager,), ILocalPortletAssignmentManager)
     assignable.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
