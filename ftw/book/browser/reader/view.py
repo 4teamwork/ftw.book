@@ -73,7 +73,7 @@ class ReaderView(BrowserView):
 
         brainlist = flaten_tree(self.tree)
         for brain in brainlist:
-            if next_uid != '' and brain.UID != next_uid:
+            if len(html) == 0 and next_uid != '' and brain.UID != next_uid:
                 continue
 
             block_html = self.render_block(brain)
