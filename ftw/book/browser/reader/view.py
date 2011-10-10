@@ -3,6 +3,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
+from ftw.book.browser.reader.utils import modify_tree
 from ftw.book.interfaces import IBook
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
@@ -175,4 +176,22 @@ class ReaderView(BrowserView):
             else:
                 return brain.showTitle
 
-        return filter_tree(filterer, tree, copy=True)
+        tree = filter_tree(filterer, tree, copy=True)
+
+        def toc_number_prefix_adder(node, parent):
+            if not parent:
+                # the book has no number
+                node['toc_number'] = None
+
+            elif not parent.get('toc_number', None):
+                # first level - do not in include parent toc prefix
+                node['toc_number'] = '%i' % (
+                    parent.get('children').index(node) + 1)
+
+            else:
+                # second level or deeper - include parent number as prefix
+                node['toc_number'] = '%s.%i' % (
+                    parent.get('toc_number'),
+                    parent.get('children').index(node) + 1)
+
+        return modify_tree(toc_number_prefix_adder, tree)

@@ -258,6 +258,7 @@ class TestReaderView(MockTestCase):
         chapter_brain = self.create_dummy(portal_type='Chapter')
         paragraph_brain = self.create_dummy(showTitle=False,
                                             portal_type='Paragraph')
+        subchapter_brain = self.create_dummy(portal_type='Chapter')
 
         tree = {
             'item': book_brain,
@@ -277,6 +278,13 @@ class TestReaderView(MockTestCase):
                          'depth': 2,
                          '_pruneSubtree': True,
                          'currentItem': False,
+                         'children': []},
+
+                        {'item': subchapter_brain,
+                         'currentParent': False,
+                         'depth': 2,
+                         '_pruneSubtree': False,
+                         'currentItem': False,
                          'children': []}],
 
                  }],
@@ -289,16 +297,26 @@ class TestReaderView(MockTestCase):
 
         expected_toc_tree = {
             'item': book_brain,
+            'toc_number': None,
             'depth': 0,
             'currentParent': False,
             'currentItem': True,
             'children': [
 
                 {'item': chapter_brain,
+                 'toc_number': '1',
                  'depth': 1,
                  'currentParent': False,
                  'currentItem': False,
-                 'children': [],
+                 'children': [
+
+                        {'item': subchapter_brain,
+                         'toc_number': '1.1',
+                         'currentParent': False,
+                         'depth': 2,
+                         '_pruneSubtree': False,
+                         'currentItem': False,
+                         'children': []}],
                  }]
 
             }
@@ -308,8 +326,8 @@ class TestReaderView(MockTestCase):
         # The original tree should not be modified, so the paragraph
         # should be in the original tree dict.
         self.assertNotEqual(tree, toc_tree)
-        self.assertEqual(len(tree.get('children')[0].get('children')), 1)
-        self.assertEqual(len(toc_tree.get('children')[0].get('children')), 0)
+        self.assertEqual(len(tree.get('children')[0].get('children')), 2)
+        self.assertEqual(len(toc_tree.get('children')[0].get('children')), 1)
 
         self.assertEqual(
             tree.get('children')[0].get('children')[0].get('item'),
