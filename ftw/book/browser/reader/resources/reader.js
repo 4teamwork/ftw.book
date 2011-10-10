@@ -55,8 +55,8 @@ var init_reader_view;
                 prev_uid = data.previous_uid;
 
                 var $reader = $('.book-reader');
-                var posFromBottom = ($reader.attr('scrollHeight')
-                                     - $reader.attr('scrollTop'));
+                var posFromBottom = (
+                  $reader.attr('scrollHeight') - $reader.attr('scrollTop'));
 
                 var content = $(data.html);
                 content.insertAfter($('.book-reader-top-marker'));
@@ -83,7 +83,7 @@ var init_reader_view;
     var clientHeight = $content.attr('clientHeight');
 
     if (direction == 'down') {
-      if (next_uid == null) {
+      if (next_uid === null) {
         return false;
       }
 
@@ -95,7 +95,7 @@ var init_reader_view;
       return loaded_until <= preload_until;
 
     } else if (direction == 'up') {
-      if (prev_uid == null) {
+      if (prev_uid === null) {
         return false;
       }
 
