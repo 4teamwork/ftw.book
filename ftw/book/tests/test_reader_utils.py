@@ -1,6 +1,7 @@
-from unittest2 import TestCase
-from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.browser.reader.utils import filter_tree
+from ftw.book.browser.reader.utils import flaten_tree
+from ftw.book.browser.reader.utils import modify_tree
+from unittest2 import TestCase
 
 
 class TestFlatenTree(TestCase):
@@ -134,3 +135,31 @@ class TestFilterTree(TestCase):
         self.assertEqual(tree.get('item'), filtered_tree.get('item'))
 
 
+class TestModifyTree(TestCase):
+
+    def test_modification(self):
+        tree = {
+            'title': 'one',
+            'children': [
+
+                {'title': 'two',
+                 'children': []}]}
+
+        expected_tree = {
+            'title': 'one',
+            'foo': 'Title one',
+            'parent': None,
+            'children': [
+
+                {'title': 'two',
+                 'foo': 'Title two',
+                 'parent': 'Title one',
+                 'children': []}]}
+
+        def modifier(node, parent):
+            node['foo'] = 'Title %s' % node.get('title')
+            node['parent'] = parent and parent.get('foo')
+
+        result_tree = modify_tree(modifier, tree)
+
+        self.assertEqual(result_tree, expected_tree)
