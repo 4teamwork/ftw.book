@@ -22,6 +22,14 @@ var init_reader_view;
 
       last_scrollTop_position = scrollTop;
     });
+
+    update_reader_height();
+  };
+
+  var update_reader_height = function() {
+    var h = $(window).height() - ($('html').height() - $('.book-reader').height()) - 30;
+    $('.book-reader').height(h);
+    console.log(h);
   };
 
   var update_viewport = function(direction, callback) {
