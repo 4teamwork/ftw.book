@@ -23,8 +23,10 @@
 
     <div metal:fill-slot="main" >
       <div class="book-reader">
-        <div class="book-reader-top-marker"></div>
-        <div class="book-reader-bottom-marker"></div>
+        <div class="book-reader-content">
+          <div class="book-reader-top-marker"></div>
+          <div class="book-reader-bottom-marker"></div>
+        </div>
       </div>
     </div>
 

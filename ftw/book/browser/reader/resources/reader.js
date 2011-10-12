@@ -12,7 +12,7 @@ var init_reader_view;
     update_viewport('down', function() {
       update_viewport('up');});
 
-    $('.book-reader').bind('scroll', function(e) {
+    $('.book-reader-content').bind('scroll', function(e) {
       var scrollTop = $(this).attr('scrollTop');
       if(last_scrollTop_position < scrollTop) {
         update_viewport('down');
@@ -28,8 +28,7 @@ var init_reader_view;
 
   var update_reader_height = function() {
     var h = $(window).height() - ($('html').height() - $('.book-reader').height()) - 30;
-    $('.book-reader').height(h);
-    console.log(h);
+    $('.book-reader .book-reader-content').height(h);
   };
 
   var update_viewport = function(direction, callback) {
@@ -62,7 +61,7 @@ var init_reader_view;
               } else if (direction == 'up') {
                 prev_uid = data.previous_uid;
 
-                var $reader = $('.book-reader');
+                var $reader = $('.book-reader-content');
                 var posFromBottom = (
                   $reader.attr('scrollHeight') - $reader.attr('scrollTop'));
 
@@ -83,7 +82,7 @@ var init_reader_view;
   };
 
   var is_loading_required = function(direction) {
-    var $content = $('.book-reader');
+    var $content = $('.book-reader-content');
     var viewport_preload_factor = 0.5;
 
     var scrollTop = $content.attr('scrollTop');
