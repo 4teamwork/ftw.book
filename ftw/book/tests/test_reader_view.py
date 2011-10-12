@@ -65,24 +65,24 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(jsondata,
                          {u'next_uid': None,
-                          u'html': u'BOOK REPR'})
+                          u'data': [[u'1bookuid2', u'BOOK REPR']]})
 
     def test_render_next_with_uid(self):
         request = self.stub()
         self.expect(request.get('next_uid', '')).result('2chapter2')
 
-        book = self.providing_mock([IBook])
-        book_brain = self.mocker.mock()
+        book = self.providing_stub([IBook])
+        book_brain = self.stub()
         self.expect(book_brain.UID).result('1book1')
 
-        chapter = self.mocker.mock()
-        chapter_brain = self.mocker.mock()
+        chapter = self.stub()
+        chapter_brain = self.stub()
         self.expect(chapter_brain.UID).result('2chapter2')
         self.expect(chapter_brain.getObject()).result(chapter)
         self.set_parent(chapter, book)
 
-        paragraph = self.mocker.mock()
-        paragraph_brain = self.mocker.mock()
+        paragraph = self.stub()
+        paragraph_brain = self.stub()
         self.expect(paragraph_brain.UID).result('3paragraph3')
         self.set_parent(paragraph, chapter)
 
@@ -106,7 +106,7 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(jsondata,
                          {u'next_uid': u'3paragraph3',
-                          u'html': 'CHAPTER REPR'})
+                          u'data': [['2chapter2', 'CHAPTER REPR']]})
 
     def test_render_next_multi(self):
         request = self.stub()
@@ -142,22 +142,20 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             jsondata,
             {u'next_uid': u'five',
-             u'html': '\n'.join(('two content',
-                                 'three content',
-                                 'four content'))})
-
-
+             u'data': [['two', 'two content'],
+                       ['three', 'three content'],
+                       ['four', 'four content']]})
 
     def test_render_previous(self):
         request = self.stub()
         self.expect(request.get('previous_uid', '')).result('2chapter2')
 
-        book = self.providing_mock([IBook])
-        book_brain = self.mocker.mock()
-        self.expect(book_brain.UID).result('1book1').count(2)
+        book = self.providing_stub([IBook])
+        book_brain = self.stub()
+        self.expect(book_brain.UID).result('1book1')
 
-        chapter = self.mocker.mock()
-        chapter_brain = self.mocker.mock()
+        chapter = self.stub()
+        chapter_brain = self.stub()
         self.expect(chapter_brain.UID).result('2chapter2')
         self.expect(chapter_brain.getObject()).result(chapter)
         self.set_parent(chapter, book)
@@ -182,14 +180,14 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(jsondata,
                          {u'previous_uid': u'1book1',
-                          u'html': 'CHAPTER CONTENT'})
+                          u'data': [['2chapter2', 'CHAPTER CONTENT']]})
 
     def test_render_previous_not_found(self):
         request = self.stub()
         self.expect(request.get('previous_uid', '')).result('any')
 
         book = self.providing_mock([IBook])
-        book_brain = self.mocker.mock()
+        book_brain = self.stub()
         self.expect(book_brain.UID).result('1book')
 
         tree = self.create_tree_from_brains([book_brain])
@@ -205,7 +203,7 @@ class TestReaderView(MockTestCase):
         self.expect(request.get('previous_uid', '')).result('four')
 
         book = self.providing_mock([IBook])
-        book_brain = self.mocker.mock()
+        book_brain = self.stub()
         self.expect(book_brain.UID).result('1book').count(1)
 
         brains = [book_brain]
@@ -238,9 +236,9 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             jsondata,
             {u'previous_uid': u'one',
-             u'html': '\n'.join(('two content',
-                                 'three content',
-                                 'four content'))})
+             u'data': [['two', 'two content'],
+                       ['three', 'three content'],
+                       ['four', 'four content']]})
 
     def test_get_book_obj(self):
         chapter = self.stub()

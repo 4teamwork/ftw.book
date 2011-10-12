@@ -5,6 +5,7 @@ var init_reader_view;
   var next_uid = null;
   var prev_uid = null;
   var last_scrollTop_position = 0;
+  var loaded_blocks = {};
 
   init_reader_view = function (options) {
     next_uid = options['next_uid'];
@@ -58,7 +59,7 @@ var init_reader_view;
               if (direction == 'down') {
                 next_uid = data.next_uid;
 
-                $(data.html).insertBefore(
+                parse_and_register_blocks(data.data).insertBefore(
                   $('.book-reader-bottom-marker'));
               } else if (direction == 'up') {
                 prev_uid = data.previous_uid;
@@ -67,8 +68,8 @@ var init_reader_view;
                 var posFromBottom = (
                   $reader.attr('scrollHeight') - $reader.attr('scrollTop'));
 
-                var content = $(data.html);
-                content.insertAfter($('.book-reader-top-marker'));
+                parse_and_register_blocks(data.data).insertAfter(
+                  $('.book-reader-top-marker'));
 
                 $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
                                            posFromBottom));
@@ -81,6 +82,20 @@ var init_reader_view;
               }
 
             }});
+  };
+
+  var parse_and_register_blocks = function(data) {
+    var elements = $('');
+
+    $(data).each(function() {
+      var uid = this[0];
+      var elm = $('<span class="book-reader-block">' + this[1] + '</span>');
+      elm.data('READER-UID', uid);
+      elements = elements.add(elm);
+      loaded_blocks[uid] = elm;
+    });
+
+    return elements;
   };
 
   var is_loading_required = function(direction) {

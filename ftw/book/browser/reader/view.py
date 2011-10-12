@@ -72,16 +72,16 @@ class ReaderView(BrowserView):
 
         next_uid = self.request.get('next_uid', '')
 
-        html = []
+        data = []
 
         brainlist = flaten_tree(self.tree)
         for brain in brainlist:
-            if len(html) == 0 and next_uid != '' and brain.UID != next_uid:
+            if len(data) == 0 and next_uid != '' and brain.UID != next_uid:
                 continue
 
             block_html = self.render_block(brain)
             if block_html:
-                html.append(block_html)
+                data.append([brain.UID, block_html])
 
             block_render_threshold -= 1
             if block_render_threshold == 0:
@@ -93,7 +93,7 @@ class ReaderView(BrowserView):
             next = None
 
         data = {'next_uid': next and next.UID or None,
-                'html': '\n'.join(html)}
+                'data': data}
         return dumps(data)
 
     def render_previous(self, block_render_threshold=_marker):
@@ -104,7 +104,7 @@ class ReaderView(BrowserView):
 
         previous_uid = self.request.get('previous_uid', '')
 
-        html = []
+        data = []
 
         brainlist = flaten_tree(self.tree)
         previous = []
@@ -123,12 +123,12 @@ class ReaderView(BrowserView):
             brain = previous.pop(0)
             block_html = self.render_block(brain)
             if block_html:
-                html.insert(0, block_html)
+                data.insert(0, [brain.UID, block_html])
 
             block_render_threshold -= 1
 
         data = {'previous_uid': previous and previous[0].UID or None,
-                'html': '\n'.join(html)}
+                'data': data}
         return dumps(data)
 
     def render_block(self, brain):
