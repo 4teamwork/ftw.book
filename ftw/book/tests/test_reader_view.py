@@ -5,19 +5,34 @@ from ftw.book.interfaces import IBook
 from ftw.testing import MockTestCase
 from json import loads
 from mocker import ANY
+from zope.component import provideAdapter
 from zope.interface import Interface
+from zope.traversing.adapters import DefaultTraversable
+from zope.traversing.interfaces import ITraversable
 
 
 class TestReaderView(MockTestCase):
+
+    def setUp(self):
+        # Page templates use the traversing mechainsm for accessing
+        # attributes on objects, so we need to register the default
+        # traversable adapter.
+        provideAdapter(factory=DefaultTraversable,
+                       adapts=[Interface],
+                       provides=ITraversable)
 
     def create_tree_from_brains(self, brains):
         tree = None
         brains.reverse()
 
+        depth = 0
+
         for brain in brains:
             item = {'item': brain,
+                    'depth': 0,
                     'children': tree and [tree] or []}
             tree = item
+            depth += 1
 
         return tree
 
@@ -383,3 +398,36 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             view.get_inline_javascript(),
             'jq(function($) { init_reader_view({"foo": "bar"}); });')
+
+    def test_get_navigation(self):
+        brains = []
+
+        for depth, title in enumerate(('Book', 'Chapter', 'SubChapter')):
+            brains.append(self.create_dummy(
+                    UID=title.lower(),
+                    portal_type=depth == 0 and 'Book' or 'Chapter',
+                    Title=title))
+
+        context = self.stub()
+        self.expect(context.UID()).result('book')
+
+        request = self.stub()
+        self.expect(request.debug).result(True)
+
+        response = self.stub()
+        self.expect(request.response).result(response)
+        self.expect(response.getHeader('Content-Type')).result('text/html')
+
+        view = self.mocker.patch(ReaderView(context, request))
+        tree = self.create_tree_from_brains(brains)
+        self.expect(view._tree).result(tree).count(0, None)
+
+        self.replay()
+
+        html = view.render_navigation()
+
+        self.assertIn('<ul class="book-reader-navigation-0">', html)
+        self.assertIn('<a href="#book">Book</a>', html)
+        self.assertIn('<a href="#chapter">1 Chapter</a>', html)
+        self.assertIn('<a href="#subchapter">1.1 SubChapter</a>', html)
+

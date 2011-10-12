@@ -19,6 +19,8 @@ _marker = object()
 class ReaderView(BrowserView):
 
     template = ViewPageTemplateFile('templates/reader.pt')
+    navigation_recurse = ViewPageTemplateFile(
+        'templates/navigation_recurse.pt')
 
     def __call__(self):
         self.request.set('disable_border', True)
@@ -195,3 +197,18 @@ class ReaderView(BrowserView):
                     parent.get('children').index(node) + 1)
 
         return modify_tree(toc_number_prefix_adder, tree)
+
+    def render_navigation(self, item=None):
+        if item is None:
+            item = self.get_toc_tree(self.tree)
+
+        toc_title = item.get('item').Title
+
+        if item.get('toc_number', None):
+            toc_title = '%s %s' % (item.get('toc_number'), toc_title)
+
+        return self.navigation_recurse(**{
+                'item': item,
+                'toc_title': toc_title,
+                'children_ul_class': 'book-reader-navigation-%i' % (
+                    item['depth'] + 1)})

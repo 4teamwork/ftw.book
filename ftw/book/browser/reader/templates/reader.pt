@@ -23,6 +23,9 @@
 
     <div metal:fill-slot="main" >
       <div class="book-reader">
+        <div class="book-reader-navigation"
+             tal:content="structure view/render_navigation">
+        </div>
         <div class="book-reader-content">
           <div class="book-reader-top-marker"></div>
           <div class="book-reader-bottom-marker"></div>

@@ -24,11 +24,13 @@ var init_reader_view;
     });
 
     update_reader_height();
+
+    $(window).resize(update_reader_height);
   };
 
   var update_reader_height = function() {
-    var h = $(window).height() - ($('html').height() - $('.book-reader').height()) - 30;
-    $('.book-reader .book-reader-content').height(h);
+    var h = $(window).height() - ($('html').height() - $('.book-reader').height());
+    $('.book-reader > div').height(h);
   };
 
   var update_viewport = function(direction, callback) {
@@ -83,7 +85,7 @@ var init_reader_view;
 
   var is_loading_required = function(direction) {
     var $content = $('.book-reader-content');
-    var viewport_preload_factor = 0.5;
+    var viewport_preload_factor = 1;
 
     var scrollTop = $content.attr('scrollTop');
     var scrollHeight = $content.attr('scrollHeight');
