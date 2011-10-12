@@ -52,7 +52,13 @@ class BookRenderer(BaseBookReaderRenderer):
         if item is None:
             item = self.readerview.get_toc_tree(self.readerview.tree)
 
+        toc_title = item.get('item').Title
+
+        if item.get('toc_number', None):
+            toc_title = '%s %s' % (item.get('toc_number'), toc_title)
+
         return self.toc_template(**{
                 'item': item,
                 'is_root': item.get('depth', -1) == 0,
-                'li_class': 'book-toc-%s' % str(item.get('depth'))})
+                'li_class': 'book-toc-%s' % str(item.get('depth')),
+                'toc_title': toc_title})

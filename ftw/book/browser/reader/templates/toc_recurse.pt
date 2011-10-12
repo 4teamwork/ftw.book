@@ -8,7 +8,7 @@
 
     <li tal:attributes="class options/li_class">
       <a tal:attributes="href brain/getURL"
-         tal:content="brain/Title" />
+         tal:content="options/toc_title" />
 
       <ul tal:condition="item/children">
         <tal:children tal:repeat="child item/children">
