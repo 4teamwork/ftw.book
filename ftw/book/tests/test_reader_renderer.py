@@ -71,7 +71,7 @@ class TestBookRenderer(MockTestCase):
         renderer = BookRenderer(object(), request, object())
         html = renderer.render_toc(tree)
 
-        self.assertIn('<a href="/book">Book</a>', html)
+        self.assertNotIn('Book</a>', html)
         self.assertIn('<a href="/book/chapt">1 Chapter</a>', html)
         self.assertIn(
             '<a href="/book/chapt/subchapt">1.1 Sub-Chapter</a>', html)
