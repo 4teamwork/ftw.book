@@ -42,27 +42,7 @@ class ReaderView(BrowserView):
         return self._tree
 
     def get_inline_javascript(self):
-        options = self.get_javascript_options()
-        return 'jq(function($) { init_reader_view(%s); });' % (
-            dumps(options))
-
-    def get_javascript_options(self):
-        options = {
-            'prev_uid': None,
-            'next_uid': self.context.UID()}
-
-        prev = None
-        for brain in flaten_tree(self.tree):
-            if brain.UID == self.context.UID():
-                if prev:
-                    options['prev_uid'] = prev.UID
-
-                break
-
-            else:
-                prev = brain
-
-        return options
+        return 'jq(function($) { init_reader_view(); });' % ()
 
     def render_next(self, block_render_threshold=_marker):
         """Renders the next blocks.
@@ -70,14 +50,31 @@ class ReaderView(BrowserView):
         if block_render_threshold == _marker:
             block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
 
-        next_uid = self.request.get('next_uid', '')
+        after_uid = self.request.get('after_uid', '')
+        loaded_uids = self.request.get('loaded_blocks[]', [])
+        insert_after = after_uid or 'TOP'
 
         data = []
 
         brainlist = flaten_tree(self.tree)
+
+        found = False
+
         for brain in brainlist:
-            if len(data) == 0 and next_uid != '' and brain.UID != next_uid:
+            if not found and after_uid == '' and \
+                    brain.UID == self.context.UID():
+                found = True
+
+            if not found and brain.UID == after_uid:
+                found = True
                 continue
+
+            elif not found:
+                continue
+
+            elif found and brain.UID in loaded_uids:
+                # we already have this block loaded
+                break
 
             block_html = self.render_block(brain)
             if block_html:
@@ -87,14 +84,11 @@ class ReaderView(BrowserView):
             if block_render_threshold == 0:
                 break
 
-        try:
-            next = brainlist.next()
-        except StopIteration:
-            next = None
-
-        data = {'next_uid': next and next.UID or None,
-                'data': data}
-        return dumps(data)
+        response_data = {'insert_after': insert_after,
+                         'data': data,
+                         'first_uid': data and data[0][0],
+                         'last_uid': data and data[-1][0]}
+        return dumps(response_data)
 
     def render_previous(self, block_render_threshold=_marker):
         """Render previous blocks.
@@ -102,7 +96,14 @@ class ReaderView(BrowserView):
         if block_render_threshold == _marker:
             block_render_threshold = RENDER_BLOCKS_PER_REQUEST_THRESHOLD
 
-        previous_uid = self.request.get('previous_uid', '')
+        before_uid = self.request.get('before_uid', '')
+        loaded_uids = self.request.get('loaded_blocks[]', [])
+        insert_before = before_uid
+
+        if before_uid == '' or not loaded_uids:
+            # render_next should be called before render_previous, so there
+            # should already content be loaded.
+            return '{}'
 
         data = []
 
@@ -111,25 +112,31 @@ class ReaderView(BrowserView):
         found = False
 
         for brain in brainlist:
-            previous.insert(0, brain)
-            if previous_uid != '' and brain.UID == previous_uid:
+            if brain.UID == before_uid:
                 found = True
                 break
+            previous.insert(0, brain)
 
         if not found:
             return u'{}'
 
         while block_render_threshold > 0 and len(previous) > 0:
             brain = previous.pop(0)
+
+            if brain.UID in loaded_uids:
+                break
+
             block_html = self.render_block(brain)
             if block_html:
                 data.insert(0, [brain.UID, block_html])
 
             block_render_threshold -= 1
 
-        data = {'previous_uid': previous and previous[0].UID or None,
-                'data': data}
-        return dumps(data)
+        response_data = {'insert_before': insert_before,
+                         'data': data,
+                         'first_uid': data and data[0][0],
+                         'last_uid': data and data[-1][0]}
+        return dumps(response_data)
 
     def render_block(self, brain):
         obj = brain.getObject()

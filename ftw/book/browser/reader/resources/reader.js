@@ -2,14 +2,14 @@ var init_reader_view;
 
 (function($) {
 
-  var next_uid = null;
-  var prev_uid = null;
+  var last_top_uid = '';
+  var top_reached = false;
+  var last_bottom_uid = '';
+  var bottom_reached = false;
   var last_scrollTop_position = 0;
   var loaded_blocks = {};
 
   init_reader_view = function (options) {
-    next_uid = options['next_uid'];
-    prev_uid = options['prev_uid'];
     update_viewport('down', function() {
       update_viewport('up');});
 
@@ -40,39 +40,70 @@ var init_reader_view;
     }
   };
 
+  var get_loaded_uids = function() {
+    var loaded_uids = [];
+    for(var uid in loaded_blocks) {
+      loaded_uids.push(uid);
+    }
+    return loaded_uids;
+  };
+
   var load_data = function(direction, callback) {
     var url = '';
     var data = {};
 
     if (direction == 'down') {
       url = 'book_reader_view/render_next';
-      data = {next_uid: next_uid};
+      data = {after_uid: last_bottom_uid,
+              loaded_blocks: get_loaded_uids()};
     } else if (direction == 'up') {
       url = 'book_reader_view/render_previous';
-      data = {previous_uid: prev_uid};
+      data = {before_uid: last_top_uid,
+              loaded_blocks: get_loaded_uids()};
     }
 
     $.ajax({url: url,
             data: data,
+            type: 'POST',
             dataType: 'json',
             success: function(data) {
               if (direction == 'down') {
-                next_uid = data.next_uid;
+                if (!data.data || data.data.length === 0) {
+                  bottom_reached = true;
 
-                parse_and_register_blocks(data.data).insertBefore(
-                  $('.book-reader-bottom-marker'));
+                } else {
+                  last_bottom_uid = data.last_uid;
+                  var after_elm;
+
+                  if (data.insert_after == 'TOP') {
+                    last_top_uid = data.first_uid;
+                    after_elm = $('.book-reader-top-marker');
+                  } else {
+                    after_elm = loaded_blocks[data.insert_after];
+                  }
+
+                  parse_and_register_blocks(data.data).insertAfter(
+                    after_elm);
+                }
+
               } else if (direction == 'up') {
-                prev_uid = data.previous_uid;
+                if (!data.data || data.data.length === 0) {
+                  top_reached = true;
 
-                var $reader = $('.book-reader-content');
-                var posFromBottom = (
-                  $reader.attr('scrollHeight') - $reader.attr('scrollTop'));
+                } else {
+                  last_top_uid = data.first_uid;
 
-                parse_and_register_blocks(data.data).insertAfter(
-                  $('.book-reader-top-marker'));
+                  var $reader = $('.book-reader-content');
+                  var posFromBottom = (
+                    $reader.attr('scrollHeight') - $reader.attr(
+                      'scrollTop'));
 
-                $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
-                                           posFromBottom));
+                  parse_and_register_blocks(data.data).insertBefore(
+                    loaded_blocks[data.insert_before]);
+
+                  $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
+                                             posFromBottom));
+                }
               }
 
               if (is_loading_required(direction)) {
@@ -107,7 +138,7 @@ var init_reader_view;
     var clientHeight = $content.attr('clientHeight');
 
     if (direction == 'down') {
-      if (next_uid === null) {
+      if (bottom_reached) {
         return false;
       }
 
@@ -119,7 +150,7 @@ var init_reader_view;
       return loaded_until <= preload_until;
 
     } else if (direction == 'up') {
-      if (prev_uid === null) {
+      if (top_reached) {
         return false;
       }
 

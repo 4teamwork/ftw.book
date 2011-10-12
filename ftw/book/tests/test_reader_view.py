@@ -38,12 +38,14 @@ class TestReaderView(MockTestCase):
 
     def test_render_next_at_top(self):
         request = self.stub()
-        self.expect(request.get('next_uid', '')).result('')
+        self.expect(request.get('after_uid', '')).result('')
+        self.expect(request.get('loaded_blocks[]', [])).result([])
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
         self.expect(book_brain.portal_type).result('Book')
         self.expect(book_brain.getObject()).result(book)
+        self.expect(book.UID()).result('1bookuid2')
         self.expect(book_brain.UID).result('1bookuid2')
 
         view = self.mocker.patch(ReaderView(book, request))
@@ -63,13 +65,56 @@ class TestReaderView(MockTestCase):
         data = view.render_next(block_render_threshold=1)
         jsondata = loads(data)
 
-        self.assertEqual(jsondata,
-                         {u'next_uid': None,
-                          u'data': [[u'1bookuid2', u'BOOK REPR']]})
+        self.assertEqual(
+            jsondata,
+            {u'insert_after': u'TOP',
+             u'data': [[u'1bookuid2', u'BOOK REPR']],
+             u'last_uid': u'1bookuid2',
+             u'first_uid': u'1bookuid2'})
+
+    def test_render_chapter_if_context_is_chapter(self):
+        request = self.stub()
+        self.expect(request.get('after_uid', '')).result('')
+        self.expect(request.get('loaded_blocks[]', [])).result([])
+
+        book = self.providing_stub([IBook])
+        book_brain = self.stub()
+        self.expect(book_brain.portal_type).result('Book')
+        self.expect(book_brain.getObject()).result(book)
+        self.expect(book_brain.UID).result('1book')
+
+        chapter = self.stub()
+        chapter_brain = self.stub()
+        self.expect(chapter.UID()).result('2chapter')
+        self.expect(chapter_brain.UID).result('2chapter')
+        self.expect(chapter_brain.getObject()).result(chapter)
+
+        view = self.mocker.patch(ReaderView(chapter, request))
+        tree = self.create_tree_from_brains([book_brain, chapter_brain])
+        self.expect(view._tree).result(tree).count(1, None)
+
+        chapter_renderer = self.mocker.mock()
+        self.expect(chapter_renderer(ANY, ANY, ANY)).result(chapter_renderer)
+        self.expect(chapter_renderer.render()).result('CHAPTER REPR')
+        self.mock_adapter(chapter_renderer, IBookReaderRenderer,
+                          (Interface, Interface, Interface))
+
+        self.replay()
+
+        data = view.render_next(block_render_threshold=1)
+        jsondata = loads(data)
+
+        self.assertEqual(
+            jsondata,
+            {u'insert_after': u'TOP',
+             u'data': [[u'2chapter', u'CHAPTER REPR']],
+             u'last_uid': u'2chapter',
+             u'first_uid': u'2chapter'})
 
     def test_render_next_with_uid(self):
         request = self.stub()
-        self.expect(request.get('next_uid', '')).result('2chapter2')
+        self.expect(request.get('after_uid', '')).result('1book1')
+        self.expect(request.get('loaded_blocks[]', [])).result(['1book1'])
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
@@ -104,13 +149,18 @@ class TestReaderView(MockTestCase):
         data = view.render_next(block_render_threshold=1)
         jsondata = loads(data)
 
-        self.assertEqual(jsondata,
-                         {u'next_uid': u'3paragraph3',
-                          u'data': [['2chapter2', 'CHAPTER REPR']]})
+        self.assertEqual(
+            jsondata,
+            {u'insert_after': u'1book1',
+             u'data': [[u'2chapter2', u'CHAPTER REPR']],
+             u'last_uid': u'2chapter2',
+             u'first_uid': u'2chapter2'})
 
     def test_render_next_multi(self):
         request = self.stub()
-        self.expect(request.get('next_uid', '')).result('two')
+        self.expect(request.get('after_uid', '')).result('one')
+        self.expect(request.get('loaded_blocks[]', [])).result(
+            ['one', 'five'])
 
         renderer_factory = self.stub()
         self.mock_adapter(renderer_factory, IBookReaderRenderer,
@@ -135,29 +185,33 @@ class TestReaderView(MockTestCase):
 
         self.replay()
 
-        data = view.render_next(block_render_threshold=3)
+        data = view.render_next(block_render_threshold=10)
 
         jsondata = loads(data)
 
+        # "five" is not included since we already have loaded it.
         self.assertEqual(
             jsondata,
-            {u'next_uid': u'five',
-             u'data': [['two', 'two content'],
-                       ['three', 'three content'],
-                       ['four', 'four content']]})
+            {u'insert_after': u'one',
+             u'data': [[u'two', u'two content'],
+                       [u'three', u'three content'],
+                       [u'four', u'four content']],
+             u'last_uid': u'four',
+             u'first_uid': u'two'})
 
     def test_render_previous(self):
         request = self.stub()
-        self.expect(request.get('previous_uid', '')).result('2chapter2')
+        self.expect(request.get('before_uid', '')).result('2chapter2')
+        self.expect(request.get('loaded_blocks[]', [])).result(['2chapter2'])
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
         self.expect(book_brain.UID).result('1book1')
+        self.expect(book_brain.getObject()).result(book)
 
         chapter = self.stub()
         chapter_brain = self.stub()
         self.expect(chapter_brain.UID).result('2chapter2')
-        self.expect(chapter_brain.getObject()).result(chapter)
         self.set_parent(chapter, book)
 
 
@@ -167,10 +221,10 @@ class TestReaderView(MockTestCase):
         view = self.mocker.patch(ReaderView(chapter, request))
         self.expect(view._tree).result(tree).count(1, None)
 
-        chapter_renderer = self.mocker.mock()
-        self.expect(chapter_renderer(ANY, ANY, ANY)).result(chapter_renderer)
-        self.expect(chapter_renderer.render()).result('CHAPTER CONTENT')
-        self.mock_adapter(chapter_renderer, IBookReaderRenderer,
+        book_renderer = self.mocker.mock()
+        self.expect(book_renderer(ANY, ANY, ANY)).result(book_renderer)
+        self.expect(book_renderer.render()).result('BOOK CONTENT')
+        self.mock_adapter(book_renderer, IBookReaderRenderer,
                           (Interface, Interface, Interface))
 
         self.replay()
@@ -179,12 +233,15 @@ class TestReaderView(MockTestCase):
         jsondata = loads(data)
 
         self.assertEqual(jsondata,
-                         {u'previous_uid': u'1book1',
-                          u'data': [['2chapter2', 'CHAPTER CONTENT']]})
+                         {u'insert_before': u'2chapter2',
+                          u'data': [[u'1book1', u'BOOK CONTENT']],
+                          u'first_uid': u'1book1',
+                          u'last_uid': u'1book1'})
 
     def test_render_previous_not_found(self):
         request = self.stub()
-        self.expect(request.get('previous_uid', '')).result('any')
+        self.expect(request.get('before_uid', '')).result('any')
+        self.expect(request.get('loaded_blocks[]', [])).result(['any'])
 
         book = self.providing_mock([IBook])
         book_brain = self.stub()
@@ -198,13 +255,27 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(view.render_previous(), u'{}')
 
+    def test_render_previous_requires_loaded_objects(self):
+        # The content should be loaded first down (render_next), before
+        # rendering up (render_previous).
+        request = self.stub()
+        self.expect(request.get('before_uid', '')).result('')
+        self.expect(request.get('loaded_blocks[]', [])).result([])
+
+        view = ReaderView(object(), request)
+
+        self.replay()
+
+        self.assertEqual(view.render_previous(), u'{}')
+
     def test_render_previous_multi(self):
         request = self.stub()
-        self.expect(request.get('previous_uid', '')).result('four')
+        self.expect(request.get('before_uid', '')).result('five')
+        self.expect(request.get('loaded_blocks[]', [])).result(['five'])
 
         book = self.providing_mock([IBook])
         book_brain = self.stub()
-        self.expect(book_brain.UID).result('1book').count(1)
+        self.expect(book_brain.UID).result('1book')
 
         brains = [book_brain]
 
@@ -235,10 +306,59 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(
             jsondata,
-            {u'previous_uid': u'one',
-             u'data': [['two', 'two content'],
-                       ['three', 'three content'],
-                       ['four', 'four content']]})
+            {u'insert_before': u'five',
+             u'data': [[u'two', u'two content'],
+                       [u'three', u'three content'],
+                       [u'four', u'four content']],
+             u'first_uid': u'two',
+             u'last_uid': u'four'})
+
+    def test_render_previous_multi_with_stop(self):
+        request = self.stub()
+        self.expect(request.get('before_uid', '')).result('five')
+        self.expect(request.get('loaded_blocks[]', [])).result(
+            ['five', 'two'])
+
+        book = self.providing_mock([IBook])
+        book_brain = self.stub()
+        self.expect(book_brain.UID).result('1book')
+        self.expect(book_brain.getObject()).result(book)
+
+        brains = [book_brain]
+
+        renderer_factory = self.stub()
+        self.mock_adapter(renderer_factory, IBookReaderRenderer,
+                          (Interface, Interface, Interface))
+
+        for name in ('one', 'two', 'three', 'four', 'five'):
+            obj = self.create_dummy()
+            brain = self.stub()
+            self.expect(brain.UID).result(name)
+            self.expect(brain.getObject()).result(obj)
+            brains.append(brain)
+
+            renderer = self.stub()
+            self.expect(renderer_factory(obj, ANY, ANY)).result(renderer)
+            self.expect(renderer.render()).result(
+                '%s content' % name)
+
+        tree = self.create_tree_from_brains(brains)
+        view = self.mocker.patch(ReaderView(book, request))
+        self.expect(view._tree).result(tree).count(1, None)
+
+        self.replay()
+
+        data = view.render_previous(block_render_threshold=10)
+        jsondata = loads(data)
+
+        # "two" and "one" are not included, since "two" is already laoaded.
+        self.assertEqual(
+            jsondata,
+            {u'insert_before': u'five',
+             u'data': [[u'three', u'three content'],
+                       [u'four', u'four content']],
+             u'first_uid': u'three',
+             u'last_uid': u'four'})
 
     def test_get_book_obj(self):
         chapter = self.stub()
@@ -346,56 +466,12 @@ class TestReaderView(MockTestCase):
             tree.get('children')[0].get('children')[0].get('item'),
             paragraph_brain)
 
-    def test_get_javascript_options_top(self):
-        brains = []
-
-        for uid in ('1book', '2chapter'):
-            brains.append(self.create_dummy(UID=uid))
-
-        context = self.stub()
-        self.expect(context.UID()).result('1book')
-
-        view = self.mocker.patch(ReaderView(context, object()))
-        tree = self.create_tree_from_brains(brains)
-        self.expect(view._tree).result(tree).count(0, None)
-
-        self.replay()
-
-        self.assertEqual(
-            view.get_javascript_options(),
-            {'prev_uid': None,
-             'next_uid': '1book'})
-
-    def test_get_javascript_options_not_top(self):
-        brains = []
-
-        for uid in ('1book', '2chapter'):
-            brains.append(self.create_dummy(UID=uid))
-
-        context = self.stub()
-        self.expect(context.UID()).result('2chapter')
-
-        view = self.mocker.patch(ReaderView(context, object()))
-        tree = self.create_tree_from_brains(brains)
-        self.expect(view._tree).result(tree).count(0, None)
-
-        self.replay()
-
-        self.assertEqual(
-            view.get_javascript_options(),
-            {'prev_uid': '1book',
-             'next_uid': '2chapter'})
-
     def test_get_inline_javascript(self):
-
-        view = self.mocker.patch(ReaderView(object(), object()))
-        self.expect(view.get_javascript_options()).result({'foo': 'bar'})
-
-        self.replay()
+        view = ReaderView(object(), object())
 
         self.assertEqual(
             view.get_inline_javascript(),
-            'jq(function($) { init_reader_view({"foo": "bar"}); });')
+            'jq(function($) { init_reader_view(); });')
 
     def test_get_navigation(self):
         brains = []
