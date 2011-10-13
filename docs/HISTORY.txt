@@ -5,7 +5,7 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- New reader view displaying the whole book with AJAX lazy loading.
+- Implemented New reader view displaying the whole book with AJAX lazy loading.
   [jone]
 
 - Code cleanup and tests improvement.
@@ -22,19 +22,20 @@ Changelog
 1.0 (2010-11-02)
 ----------------
 
-- added Icons / fix setup.py / egg structure
+- Added Icons / fix setup.py / egg structure.
   [mathias.leimgruber]
 
-- Issue #422 ftw.book einbinden
-  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/422
-  latex options (toc, loi, lot, ...), links and images in latex
+- LaTeX options (toc, loi, lot, ...), links and images in latex.
   [jinfanger]
+
 
 0.1 (2009-09-04)
 ----------------
 
-- Issue #5 Konfiguration fuer PDF Ausgabe (Titelseite, Inhaltsverzeichnis, etc) wird noch nicht im PDF umgesetzt
+- Implemented support for title page, table of contents and other listings.
   [jinfanger]
 
-- #1 Action fuer PDF Ausgabe auf Stufe Buch und Kapitel einfuegen
+- Added action for rendering a book or a chapter as PDF.
   [jinfanger]
+
+- Implementation of basic features.
