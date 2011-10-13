@@ -2,14 +2,8 @@ Changelog
 =========
 
 
-1.1b3 (unreleased)
-------------------
-
-- Nothing changed yet.
-
-
-1.1b2 (2011-10-13)
-------------------
+1.1 (unreleased)
+----------------
 
 - Use BrowserView from Five for backwards compatibility.
   [jone]
