@@ -41,9 +41,6 @@ class ReaderView(BrowserView):
             self._tree = self.get_tree(self.book)
         return self._tree
 
-    def get_inline_javascript(self):
-        return 'jq(function($) { init_reader_view(); });' % ()
-
     def render_next(self, block_render_threshold=_marker):
         """Renders the next blocks.
         """

@@ -466,13 +466,6 @@ class TestReaderView(MockTestCase):
             tree.get('children')[0].get('children')[0].get('item'),
             paragraph_brain)
 
-    def test_get_inline_javascript(self):
-        view = ReaderView(object(), object())
-
-        self.assertEqual(
-            view.get_inline_javascript(),
-            'jq(function($) { init_reader_view(); });')
-
     def test_get_navigation(self):
         brains = []
 
