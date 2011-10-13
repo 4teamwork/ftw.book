@@ -1,7 +1,7 @@
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.interfaces import IBook
 from simplelayout.base.interfaces import ISimpleLayoutBlock
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import adapts
 from zope.interface import implements, Interface
 from zope.publisher.interfaces.browser import IBrowserView

@@ -5,6 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Import ViewPageTemplate still from Five for backwards compatibility reasons.
+  [jone]
+
 - Implemented new reader view displaying the whole book with AJAX lazy loading.
   [jone]
 

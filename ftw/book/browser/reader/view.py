@@ -1,5 +1,6 @@
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
@@ -7,7 +8,6 @@ from ftw.book.browser.reader.utils import modify_tree
 from ftw.book.interfaces import IBook
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
 
