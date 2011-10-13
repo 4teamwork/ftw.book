@@ -1,5 +1,3 @@
-var init_reader_view;
-
 (function($) {
 
   var last_top_uid = '';
@@ -15,7 +13,7 @@ var init_reader_view;
   var request_reload_up = false;
   var request_reload_down = false;
 
-  init_reader_view = function (options) {
+  var init_reader_view = function () {
     update_viewport('down');
     update_viewport('up');
 
@@ -37,7 +35,10 @@ var init_reader_view;
   };
 
   var update_reader_height = function() {
-    var h = $(window).height() - ($('html').height() - $('.book-reader').height());
+    $('.book-reader > div').height(0);
+    var $last_element = $('#visual-portal-wrapper > *:last');
+    var content_height = $last_element.offset().top + $last_element.height();
+    var h = $(window).height() - content_height - 30;
     $('.book-reader > div').height(h);
   };
 
@@ -216,4 +217,7 @@ var init_reader_view;
     });
   };
 
+  $(document).ready(function(){
+    init_reader_view();
+  });
 })(jQuery);
