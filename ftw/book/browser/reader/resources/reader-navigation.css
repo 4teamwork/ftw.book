@@ -1,0 +1,9 @@
+.book-reader-navigation ul {
+  list-style: none;
+  padding: 0.25em 1em;
+  margin: 0;
+}
+
+.book-reader-content ul a {
+  text-decoration: none;
+}

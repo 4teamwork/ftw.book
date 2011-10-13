@@ -6,11 +6,6 @@
 
   <body>
 
-    <metal:css metal:fill-slot="style_slot">
-      <link rel="stylesheet" type="text/css" media="screen"
-            tal:attributes="href string:${portal_url}/++resource++ftw.book-reader/reader.css" />
-    </metal:css>
-
     <metal:javascript metal:fill-slot="javascript_head_slot">
       <script language="javascript" type="text/javascript"
               tal:attributes="src string:${portal_url}/++resource++ftw.book-reader/reader.js">
