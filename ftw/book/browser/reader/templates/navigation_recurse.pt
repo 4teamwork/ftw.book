@@ -1,0 +1,24 @@
+<tal:vars tal:define="item options/item;
+                      brain item/item;
+                      depth item/depth">
+
+  <ul class="book-reader-navigation-0"
+      tal:omit-tag="python:depth!=0">
+
+    <li>
+      <a tal:content="options/toc_title"
+         tal:attributes="href string:${brain/getURL};
+                         data-uid brain/UID"/>
+
+      <ul tal:condition="item/children"
+          tal:attributes="class options/children_ul_class">
+        <tal:children tal:repeat="child item/children">
+          <tal:child
+              replace="structure python:view.render_navigation(child)" />
+        </tal:children>
+      </ul>
+    </li>
+
+  </ul>
+
+</tal:vars>

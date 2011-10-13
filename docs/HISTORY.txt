@@ -5,6 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- New reader view displaying the whole book with AJAX lazy loading.
+  [jone]
+
 - Code cleanup and tests improvement.
   [jone]
 

@@ -1,0 +1,27 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.book">
+
+  <body>
+
+    <metal:javascript metal:fill-slot="javascript_head_slot">
+      <script language="javascript" type="text/javascript"
+              tal:attributes="src string:${portal_url}/++resource++ftw.book-reader/reader.js">
+      </script>
+    </metal:javascript>
+
+    <div metal:fill-slot="main" >
+      <div class="book-reader">
+        <div class="book-reader-navigation"
+             tal:content="structure view/render_navigation">
+        </div>
+        <div class="book-reader-content">
+          <div class="book-reader-top-marker"></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

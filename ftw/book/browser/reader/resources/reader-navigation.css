@@ -1,0 +1,30 @@
+
+#content .book-reader-navigation li {
+  list-style: none;
+  margin: 0;
+}
+
+#content .book-reader-navigation ul {
+  list-style: none;
+  padding: 0em 0em;
+  margin-left: 2em;
+}
+
+#content .book-reader-navigation ul.book-reader-navigation-0 {
+  margin-left: 0;
+}
+
+#content .book-reader-navigation a,
+#content .book-reader-navigation a:hover,
+#content .book-reader-navigation a:visited,
+#content .book-reader-navigation a:link {
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 0.25em;
+  display: block;
+}
+
+#content .book-reader-navigation a.active {
+  color: #75AD0A;
+}
