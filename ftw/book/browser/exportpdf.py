@@ -1,5 +1,5 @@
-from Products.Five.browser import BrowserView
 from ftw.book.latex.book_layout import BookLayout
+from zope.publisher.browser import BrowserView
 
 
 class ExportPDFView(BrowserView):
