@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = open('ftw/book/version.txt').read().strip()
+version = '1.1b1'
 maintainer = 'Julian Infanger'
 
 
