@@ -224,11 +224,6 @@
     });
   };
 
-  $('div.table-of-contents a').live('click', function(e) {
-    e.preventDefault();
-    goto_block($(this).data('uid'), $(this).attr('href'));
-  });
-
   var navigation_last_update_scrollTop = -1;
   var update_navigation_active_state = function(scrollup) {
     /* Find any element in the middle of the content div at the top. */

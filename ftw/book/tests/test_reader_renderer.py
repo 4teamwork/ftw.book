@@ -17,47 +17,7 @@ class TestBookRenderer(MockTestCase):
                        adapts=[Interface],
                        provides=ITraversable)
 
-    def test_render_toc(self):
-        book_brain = self.create_dummy(
-            getURL='/book',
-            Title='Book')
-
-        chapt_brain = self.create_dummy(
-            getURL='/book/chapt',
-            Title='Chapter')
-
-        subchapt_brain = self.create_dummy(
-            getURL='/book/chapt/subchapt',
-            Title='Sub-Chapter')
-
-        tree = {
-            'item': book_brain,
-            'toc_number': None,
-            'depth': 0,
-            'currentParent': False,
-            'currentItem': True,
-            'children': [
-
-                {'item': chapt_brain,
-                 'depth': 1,
-                 'toc_number': '1',
-                 'currentParent': False,
-                 'currentItem': False,
-                 'children': [
-
-                        {'item': subchapt_brain,
-                         'depth': 2,
-                         'toc_number': '1.1',
-                         'currentParent': False,
-                         'currentItem': False,
-                         'children': [
-
-                                ]}
-
-                        ]}
-
-                ]}
-
+    def test_book_render(self):
         response = self.stub()
         self.expect(response.getHeader(ANY)).result('')
         self.expect(response.setHeader(ANY, ANY))
@@ -66,12 +26,11 @@ class TestBookRenderer(MockTestCase):
         self.expect(request.debug).result(True)
         self.expect(request.response).result(response)
 
+        context = self.stub()
+        self.expect(context.Title()).result('Book')
+
         self.replay()
 
-        renderer = BookRenderer(object(), request, object())
-        html = renderer.render_toc(tree)
-
-        self.assertNotIn('Book</a>', html)
-        self.assertIn('<a href="/book/chapt">1 Chapter</a>', html)
-        self.assertIn(
-            '<a href="/book/chapt/subchapt">1.1 Sub-Chapter</a>', html)
+        renderer = BookRenderer(context, request, object())
+        html = renderer.render()
+        self.assertIn('<h1>Book</h1>', html)
