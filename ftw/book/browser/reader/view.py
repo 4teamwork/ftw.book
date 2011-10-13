@@ -12,7 +12,7 @@ from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
 
 
-RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 1
+RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 4
 _marker = object()
 
 
