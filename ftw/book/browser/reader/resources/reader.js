@@ -198,24 +198,34 @@
 
   };
 
+  var goto_block = function(uid, url) {
+    if (loaded_blocks[uid]) {
+      var pos = $('.book-reader-content').scrollTop();
+      pos += loaded_blocks[uid].position().top;
+      pos -= 30;
+      $('.book-reader-content').scrollTop(pos);
+
+    } else {
+      location.href = url + '/@@book_reader_view';
+    }
+  };
+
   var initialize_navigation = function() {
     $('div.book-reader-navigation a').each(function() {
       navigation_map[$(this).data('uid')] = $(this);
 
       $(this).click(function(e) {
         e.preventDefault();
-        if (loaded_blocks[$(this).data('uid')]) {
-          var pos = $('.book-reader-content').scrollTop();
-          pos += loaded_blocks[$(this).data('uid')].position().top;
-          pos -= 30;
-          $('.book-reader-content').scrollTop(pos);
-
-        } else {
-          location.href = $(this).attr('href') + '/@@book_reader_view';
-        }
+        goto_block($(this).data('uid'), $(this).attr('href'));
       });
     });
   };
+
+  $('div.table-of-contents a').live('click', function(e) {
+    e.preventDefault();
+    goto_block($(this).data('uid'), $(this).attr('href'));
+  });
+
 
   $(document).ready(function(){
     init_reader_view();

@@ -6,7 +6,8 @@
   <li tal:attributes="class options/li_class"
       tal:omit-tag="options/is_root">
 
-    <a tal:attributes="href brain/getURL"
+    <a tal:attributes="href brain/getURL;
+                       data-uid brain/UID"
        tal:content="options/toc_title"
        tal:condition="not:options/is_root" />
 
