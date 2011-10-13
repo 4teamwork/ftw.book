@@ -31,6 +31,7 @@
     });
 
     update_reader_height();
+    setTimeout(update_reader_height, 500);
 
     $(window).resize(update_reader_height);
     initialize_navigation();

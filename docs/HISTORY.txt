@@ -5,6 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Readerview: reset reader height after loading. This removes the scrollbar in most cases.
+  [jone]
+
 - Import ViewPageTemplate still from Five for backwards compatibility reasons.
   [jone]
 
