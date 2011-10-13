@@ -8,6 +8,7 @@ var init_reader_view;
   var bottom_reached = false;
   var last_scrollTop_position = 0;
   var loaded_blocks = {};
+  var navigation_map = {};
 
   init_reader_view = function (options) {
     update_viewport('down', function() {
@@ -27,6 +28,7 @@ var init_reader_view;
     update_reader_height();
 
     $(window).resize(update_reader_height);
+    initialize_navigation();
   };
 
   var update_reader_height = function() {
@@ -157,6 +159,26 @@ var init_reader_view;
       return (clientHeight * viewport_preload_factor) > scrollTop;
     }
 
+  };
+
+  var initialize_navigation = function() {
+    $('div.book-reader-navigation a').each(function() {
+      navigation_map[$(this).data('uid')] = $(this);
+
+      $(this).click(function(e) {
+        e.preventDefault();
+        if (loaded_blocks[$(this).data('uid')]) {
+          console.log('already loaded!');
+          var pos = $('.book-reader-content').scrollTop();
+          pos += loaded_blocks[$(this).data('uid')].position().top;
+          pos -= 30;
+          $('.book-reader-content').scrollTop(pos);
+
+        } else {
+          location.href = $(this).attr('href') + '/@@book_reader_view';
+        }
+      });
+    });
   };
 
 })(jQuery);

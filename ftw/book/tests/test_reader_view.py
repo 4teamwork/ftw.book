@@ -476,14 +476,17 @@ class TestReaderView(MockTestCase):
     def test_get_navigation(self):
         brains = []
 
+        url = ''
         for depth, title in enumerate(('Book', 'Chapter', 'SubChapter')):
+            url += '/%s' % title.lower()
             brains.append(self.create_dummy(
-                    UID=title.lower(),
+                    UID=title.lower() + '-uid',
                     portal_type=depth == 0 and 'Book' or 'Chapter',
-                    Title=title))
+                    Title=title,
+                    getURL=url))
 
         context = self.stub()
-        self.expect(context.UID()).result('book')
+        self.expect(context.UID()).result('book-uid')
 
         request = self.stub()
         self.expect(request.debug).result(True)
@@ -501,7 +504,13 @@ class TestReaderView(MockTestCase):
         html = view.render_navigation()
 
         self.assertIn('<ul class="book-reader-navigation-0">', html)
-        self.assertIn('<a href="#book">Book</a>', html)
-        self.assertIn('<a href="#chapter">1 Chapter</a>', html)
-        self.assertIn('<a href="#subchapter">1.1 SubChapter</a>', html)
+        self.assertIn('<a data-uid="book-uid" href="/book">Book</a>', html)
+
+        self.assertIn(
+            '<a data-uid="chapter-uid" href="/book/chapter">1 Chapter</a>',
+            html)
+
+        self.assertIn('<a data-uid="subchapter-uid"', html)
+        self.assertIn('href="/book/chapter/subchapter">1.1 SubChapter</a>',
+            html)
 
