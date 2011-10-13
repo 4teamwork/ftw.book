@@ -10,9 +10,14 @@ var init_reader_view;
   var loaded_blocks = {};
   var navigation_map = {};
 
+  /* queueing helpers */
+  var loading = false;
+  var request_reload_up = false;
+  var request_reload_down = false;
+
   init_reader_view = function (options) {
-    update_viewport('down', function() {
-      update_viewport('up');});
+    update_viewport('down');
+    update_viewport('up');
 
     $('.book-reader-content').bind('scroll', function(e) {
       var scrollTop = $(this).attr('scrollTop');
@@ -36,9 +41,15 @@ var init_reader_view;
     $('.book-reader > div').height(h);
   };
 
-  var update_viewport = function(direction, callback) {
-    if (is_loading_required(direction)) {
-      load_data(direction, callback);
+  var update_viewport = function(direction) {
+    if(direction == 'up') {
+      request_reload_up = true;
+    } else {
+      request_reload_down = true;
+    }
+
+    if (!loading) {
+      trigger_load_data();
     }
   };
 
@@ -50,7 +61,28 @@ var init_reader_view;
     return loaded_uids;
   };
 
+  var trigger_load_data = function() {
+    if (!loading) {
+      if (request_reload_down) {
+        if (is_loading_required('down')) {
+          load_data('down');
+        } else {
+          request_reload_down = false;
+          trigger_load_data();
+        }
+
+      } else if (request_reload_up) {
+        if (is_loading_required('up')) {
+          load_data('up');
+        } else {
+          request_reload_up = false;
+        }
+      }
+    }
+  };
+
   var load_data = function(direction, callback) {
+    loading = true;
     var url = '';
     var data = {};
 
@@ -58,6 +90,7 @@ var init_reader_view;
       url = 'book_reader_view/render_next';
       data = {after_uid: last_bottom_uid,
               loaded_blocks: get_loaded_uids()};
+
     } else if (direction == 'up') {
       url = 'book_reader_view/render_previous';
       data = {before_uid: last_top_uid,
@@ -87,6 +120,7 @@ var init_reader_view;
                   parse_and_register_blocks(data.data).insertAfter(
                     after_elm);
                 }
+                request_reload_down = false;
 
               } else if (direction == 'up') {
                 if (!data.data || data.data.length === 0) {
@@ -106,13 +140,15 @@ var init_reader_view;
                   $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
                                              posFromBottom));
                 }
+                request_reload_up = false;
               }
 
               if (is_loading_required(direction)) {
-                update_viewport(direction, callback);
-              } else if(callback) {
-                callback();
+                update_viewport(direction);
               }
+
+              loading = false;
+              trigger_load_data();
 
             }});
   };
@@ -133,7 +169,7 @@ var init_reader_view;
 
   var is_loading_required = function(direction) {
     var $content = $('.book-reader-content');
-    var viewport_preload_factor = 1;
+    var viewport_preload_factor = 2;
 
     var scrollTop = $content.attr('scrollTop');
     var scrollHeight = $content.attr('scrollHeight');
@@ -168,7 +204,6 @@ var init_reader_view;
       $(this).click(function(e) {
         e.preventDefault();
         if (loaded_blocks[$(this).data('uid')]) {
-          console.log('already loaded!');
           var pos = $('.book-reader-content').scrollTop();
           pos += loaded_blocks[$(this).data('uid')].position().top;
           pos -= 30;
