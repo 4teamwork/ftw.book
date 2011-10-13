@@ -5,6 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Use BrowserView from Five for backwards compatibility.
+  [jone]
+
 - Implemented new reader view displaying the whole book with AJAX lazy loading.
   [jone]
 

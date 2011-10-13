@@ -1,5 +1,6 @@
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.Five.browser import BrowserView
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
@@ -9,7 +10,6 @@ from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
-from zope.publisher.browser import BrowserView
 
 
 RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 4
