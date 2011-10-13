@@ -21,8 +21,10 @@
       var scrollTop = $(this).attr('scrollTop');
       if(last_scrollTop_position < scrollTop) {
         update_viewport('down');
+        update_navigation_active_state(false);
       } else {
         update_viewport('up');
+        update_navigation_active_state(true);
       }
 
       last_scrollTop_position = scrollTop;
@@ -32,6 +34,7 @@
 
     $(window).resize(update_reader_height);
     initialize_navigation();
+    update_navigation_active_state();
   };
 
   var update_reader_height = function() {
@@ -225,6 +228,88 @@
     e.preventDefault();
     goto_block($(this).data('uid'), $(this).attr('href'));
   });
+
+  var navigation_last_update_scrollTop = -1;
+  var update_navigation_active_state = function(scrollup) {
+    /* Find any element in the middle of the content div at the top. */
+    var $content = $('.book-reader-content');
+    if($content.scrollTop() === navigation_last_update_scrollTop) {
+      return;
+    }
+
+    var $link;
+    if($content.scrollTop() === 0) {
+      /* take first element in navigation if scrolled to top */
+      $link = $('div.book-reader-navigation a:first');
+
+    } else {
+      var top = Math.round($content.offset().top + 5);
+      var left = Math.round($content.offset().left + ($content.width() * 0.5));
+      var elm = document.elementFromPoint(left, top);
+      if (elm === null) {
+        /* In internet explorer this sometimes fails while scrolling, so
+           we need to wait */
+        setTimeout(function() {update_navigation_active_state(scrollup);}, 2);
+        return;
+      }
+      navigation_last_update_scrollTop = $content.scrollTop();
+
+      var selector = 'span.book-reader-block:first';
+      var $block;
+
+      /* Traverse up from the elevent and search the first span.book-reader-block */
+      if ($(elm).is(selector)) {
+        $block = $(elm);
+      } else {
+        $block = $(elm).parents(selector);
+      }
+
+      /* We need to find a span.book-reader-block which is in the navigation. Check
+         the previous siblings until we find one. */
+      for(var i=0; i<999999; i++) {
+        if (i === 200) {
+          /* return the function, not only break the loop */
+          return;
+        } else if (!$block || $block.length === 0) {
+          return;
+        } else if ($block.data('READER-UID') &&
+                   navigation_map[$block.data('READER-UID')]) {
+          break;
+        } else {
+          $block = $block.prev(selector);
+        }
+      }
+
+      $link = navigation_map[$block.data('READER-UID')];
+    }
+
+    /* Set active class properly */
+    $('.book-reader-navigation a.active').removeClass('active');
+    $link.addClass('active');
+
+    /* Only scroll if there are no pending effects. */
+    if ($('div.book-reader-navigation').queue().length === 0) {
+      /* Check if the active link is visible, otherwise scroll to it. */
+      var link_top = $link.offset().top;
+      var link_bottom = link_top + $link.height();
+      var navscroll_top = $('div.book-reader-navigation').offset().top;
+      var navscroll_bottom = navscroll_top + $('div.book-reader-navigation').height();
+      var link_visible = (link_top > navscroll_top && link_bottom < navscroll_bottom);
+
+      if (!link_visible) {
+        var offset = 50;
+        var scrollto = ($('div.book-reader-navigation').scrollTop() -
+                        navscroll_top + link_top - offset);
+        if (scrollup) {
+          scrollto -= $('div.book-reader-navigation').height() - (2 * offset);
+        }
+
+        $('div.book-reader-navigation').animate({
+          scrollTop: scrollto
+        }, 500);
+      }
+    }
+  };
 
 
   $(document).ready(function(){
