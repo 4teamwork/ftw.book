@@ -28,6 +28,7 @@ class TestBookRenderer(MockTestCase):
 
         context = self.stub()
         self.expect(context.Title()).result('Book')
+        self.expect(context.__parent__).result(None)
 
         self.replay()
 

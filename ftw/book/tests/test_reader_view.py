@@ -480,6 +480,7 @@ class TestReaderView(MockTestCase):
 
         context = self.stub()
         self.expect(context.UID()).result('book-uid')
+        self.expect(context.__parent__).result(None)
 
         request = self.stub()
         self.expect(request.debug).result(True)
