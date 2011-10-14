@@ -36,6 +36,19 @@ class TestReaderView(MockTestCase):
 
         return tree
 
+    def test_call_would_render_tempalte(self):
+        request = self.mocker.mock()
+        self.expect(request.set('disable_border', True))
+        self.expect(request.set('disable_plone.leftcolumn', True))
+        self.expect(request.set('disable_plone.rightcolumn', True))
+
+        view = self.mocker.patch(ReaderView(object(), request))
+        self.expect(view.template()).result('TEMPLATE RESULT')
+
+        self.replay()
+
+        self.assertEqual(view(), 'TEMPLATE RESULT')
+
     def test_render_next_at_top(self):
         request = self.stub()
         self.expect(request.get('after_uid', '')).result('')
@@ -185,7 +198,7 @@ class TestReaderView(MockTestCase):
 
         self.replay()
 
-        data = view.render_next(block_render_threshold=10)
+        data = view.render_next()
 
         jsondata = loads(data)
 
@@ -371,6 +384,7 @@ class TestReaderView(MockTestCase):
 
         self.assertEqual(view.get_book_obj(),
                          book)
+        self.assertEqual(view.book, book)
 
     def test_get_book_obj_fails_when_there_is_no_book(self):
         context = self.set_parent(
@@ -383,8 +397,27 @@ class TestReaderView(MockTestCase):
 
         view = ReaderView(context, object())
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(Exception) as cm:
             view.get_book_obj()
+
+        exc = cm.exception
+        self.assertEqual(str(exc), 'Could not find book.')
+
+    def test_get_book_obj_fails_when_aq_top_is_reached(self):
+        app = self.stub()
+        self.expect(app.__parent__).result(None)
+        context = self.stub()
+        self.set_parent(context, app)
+
+        self.replay()
+
+        view = ReaderView(context, object())
+
+        with self.assertRaises(Exception) as cm:
+            view.get_book_obj()
+
+        exc = cm.exception
+        self.assertEqual(str(exc), 'Could not find book.')
 
     def test_get_toc_tree(self):
         book_brain = self.create_dummy(portal_type='Book')
@@ -465,6 +498,35 @@ class TestReaderView(MockTestCase):
         self.assertEqual(
             tree.get('children')[0].get('children')[0].get('item'),
             paragraph_brain)
+
+    def test_render_block_does_not_fail_when_renderer_missing(self):
+        brain = self.stub()
+        obj = self.stub()
+        self.expect(brain.getObject()).result(obj)
+
+        context = self.stub()
+        request = self.stub()
+
+        self.replay()
+
+        view = ReaderView(context, request)
+        self.assertEqual(view.render_block(brain), '')
+
+    def test_building_tree(self):
+        book = self.stub()
+        self.expect(book.getPhysicalPath()).result(['', 'site', 'book'])
+
+        builder = self.mocker.replace(
+            'plone.app.layout.navigation.navtree.buildFolderTree')
+        self.expect(builder(book, obj=book, query={
+                    'path': '/site/book'})).result({'tree': 1})
+
+        self.replay()
+
+        view = ReaderView(book, object())
+        view._book = book
+
+        self.expect(view.tree, {'tree': 1})
 
     def test_get_navigation(self):
         brains = []
