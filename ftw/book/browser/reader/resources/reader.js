@@ -124,8 +124,9 @@
                     after_elm = loaded_blocks[data.insert_after];
                   }
 
-                  parse_and_register_blocks(data.data).reverse().each(function() {
+                  parse_and_register_blocks(data.data).each(function() {
                     $(this).insertAfter(after_elm);
+                    after_elm = $(this);
                   });
                 }
                 request_reload_down = false;
