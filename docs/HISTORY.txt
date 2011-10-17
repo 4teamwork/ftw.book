@@ -5,6 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Translate reader action to german.
+  [jone]
+
 - Readerview: jquery backwards compatibility fix.
   [jone]
 

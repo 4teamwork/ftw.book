@@ -91,7 +91,7 @@
     <permission value="Modify portal content" />
   </action>
 
-  <action title="Read" action_id="reader" category="object" condition_expr=""
+  <action title="Read Book" action_id="reader" category="object" condition_expr=""
           url_expr="string:${object_url}/@@book_reader_view" visible="True">
     <permission value="View" />
   </action>
