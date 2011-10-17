@@ -142,8 +142,8 @@
                     $reader.attr('scrollHeight') - $reader.attr(
                       'scrollTop'));
 
-                  parse_and_register_blocks(data.data).reverse().each(function() {
-                    $(this).loaded_blocks[data.insert_before];
+                  parse_and_register_blocks(data.data).each(function() {
+                    $(this).insertBefore(loaded_blocks[data.insert_before]);
                   });
 
                   $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
