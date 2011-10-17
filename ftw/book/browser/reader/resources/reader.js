@@ -40,8 +40,10 @@
 
   var update_reader_height = function() {
     $('.book-reader > div').height(0);
-    var $last_element = $('#visual-portal-wrapper > *:last');
+    var $last_element = $('#visual-portal-wrapper > *:not(.visualClear):last');
+    $last_element.css('min-height', '0');
     var content_height = $last_element.offset().top + $last_element.height();
+    $last_element.css('min-height', null);
     var h = $(window).height() - content_height - 30;
     $('.book-reader > div').height(h);
   };

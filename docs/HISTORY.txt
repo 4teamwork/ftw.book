@@ -5,6 +5,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Readeview: fix height calculation for themes defining a max-width on content
+  divs.
+  [jone]
+
 - Readerview: reset reader height after loading. This removes the scrollbar in most cases.
   [jone]
 
