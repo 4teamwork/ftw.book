@@ -5,7 +5,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Readeview: fix height calculation for themes defining a max-width on content
+- Readerview: jquery backwards compatibility fix.
+  [jone]
+
+- Readerview: fix height calculation for themes defining a max-width on content
   divs.
   [jone]
 

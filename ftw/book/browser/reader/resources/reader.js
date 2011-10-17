@@ -124,8 +124,9 @@
                     after_elm = loaded_blocks[data.insert_after];
                   }
 
-                  parse_and_register_blocks(data.data).insertAfter(
-                    after_elm);
+                  parse_and_register_blocks(data.data).reverse().each(function() {
+                    $(this).insertAfter(after_elm);
+                  });
                 }
                 request_reload_down = false;
 
@@ -141,8 +142,9 @@
                     $reader.attr('scrollHeight') - $reader.attr(
                       'scrollTop'));
 
-                  parse_and_register_blocks(data.data).insertBefore(
-                    loaded_blocks[data.insert_before]);
+                  parse_and_register_blocks(data.data).reverse().each(function() {
+                    $(this).loaded_blocks[data.insert_before];
+                  });
 
                   $reader.attr('scrollTop', ($reader.attr('scrollHeight') -
                                              posFromBottom));
