@@ -220,6 +220,10 @@
 
   var initialize_navigation = function() {
     $('div.book-reader-navigation a').each(function() {
+      if (!$(this).data('uid') && $(this).attr('data-uid')) {
+        /* Fix data for older jquery versions */
+        $(this).data('uid', $(this).attr('data-uid'));
+      }
       navigation_map[$(this).data('uid')] = $(this);
 
       $(this).click(function(e) {
