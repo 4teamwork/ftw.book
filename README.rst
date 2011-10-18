@@ -13,4 +13,4 @@ Features
  - Provides an action for exporting the book or a single chapter recursively as PDF.
  - Provides LaTeX representations for the default simplelayout blocks.
  - Adds fields for injecting LaTeX code to every content type within a book using schemaextender.
-
+ - Provides a "Reader" view which displays the book on one page for a enjoyable reading experience.
