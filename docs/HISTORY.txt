@@ -5,22 +5,6 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Translate reader action to german.
-  [jone]
-
-- Readerview: jquery backwards compatibility fix.
-  [jone]
-
-- Readerview: fix height calculation for themes defining a max-width on content
-  divs.
-  [jone]
-
-- Readerview: reset reader height after loading. This removes the scrollbar in most cases.
-  [jone]
-
-- Import ViewPageTemplate still from Five for backwards compatibility reasons.
-  [jone]
-
 - Implemented new reader view displaying the whole book with AJAX lazy loading.
   [jone]
 
