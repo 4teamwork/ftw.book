@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1 (unreleased)
+1.1 (2011-10-18)
 ----------------
 
 - Implemented new reader view displaying the whole book with AJAX lazy loading.
