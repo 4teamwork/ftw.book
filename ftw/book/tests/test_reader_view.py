@@ -463,7 +463,7 @@ class TestReaderView(MockTestCase):
 
         expected_toc_tree = {
             'item': book_brain,
-            'toc_number': None,
+            'toc_number': '',
             'depth': 0,
             'currentParent': False,
             'currentItem': True,
