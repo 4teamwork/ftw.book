@@ -185,20 +185,19 @@ class ReaderView(BrowserView):
         tree = filter_tree(filterer, tree, copy=True)
 
         def toc_number_prefix_adder(node, parent):
-            if not parent:
-                # the book has no number
-                node['toc_number'] = None
+            num = node.get('toc_number', None)
 
-            elif not parent.get('toc_number', None):
-                # first level - do not in include parent toc prefix
-                node['toc_number'] = '%i' % (
-                    parent.get('children').index(node) + 1)
+            if num is None:
+                # We are on the root node, which is the book - it has
+                # no table of content number.
+                node['toc_number'] = ''
+                num = ''
 
             else:
-                # second level or deeper - include parent number as prefix
-                node['toc_number'] = '%s.%i' % (
-                    parent.get('toc_number'),
-                    parent.get('children').index(node) + 1)
+                num = '%s.' % num
+
+            for i, child in enumerate(node.get('children', []), 1):
+                child['toc_number'] = num + str(i)
 
         return modify_tree(toc_number_prefix_adder, tree)
 
