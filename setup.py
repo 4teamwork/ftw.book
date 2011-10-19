@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '1.1.1dev'
+version = '1.1.1'
 maintainer = 'Julian Infanger'
 
 

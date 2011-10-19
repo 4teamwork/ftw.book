@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.1 (unreleased)
+1.1.1 (2011-10-19)
 ------------------
 
 - Readerview: fix strange brain comparing problem by building the toc numbers in a different way.
