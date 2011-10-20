@@ -20,6 +20,7 @@ Lets create some content
 >>> book = parent_folder.invokeFactory('Book', 'mybook')
 >>> mybook = parent_folder['mybook']
 >>> mybook.invokeFactory('Chapter', 'mychapter')
+'mychapter'
 >>> transaction.commit()
 
 >>> browser = Browser(app)
