@@ -11,8 +11,8 @@ Lets define some globals
 
 Lets create some content
 >>> portal.invokeFactory('Folder', "folder")
->>> folder = portal['folder']
 'folder'
+>>> folder = portal['folder']
 >>> folder.invokeFactory('Folder', "2_level")
 '2_level'
 >>> secfolder = folder['2_level']
