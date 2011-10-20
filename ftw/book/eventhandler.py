@@ -20,18 +20,18 @@ def add_navigation_portlet(object_, event):
  	# do not run in portal_factory
  	    pass
  	else:
- 	    right_slot_portlets(object_, event)
- 	    left_slot_portlets(object_, event)
+ 	    right_slot_portlets(object_)
+ 	    left_slot_portlets(object_)
 
 
-def right_slot_portlets(object_, event):
+def right_slot_portlets(object_):
     """ disable portlet inheritance at rightcolumn
     """
     manager = getUtility(IPortletManager, name='plone.rightcolumn')
     assignable = getMultiAdapter((object_, manager,), ILocalPortletAssignmentManager)
     assignable.setBlacklistStatus(CONTEXT_CATEGORY, True)
 
-def left_slot_portlets(object_, event):
+def left_slot_portlets(object_):
     """ disable portlet inheritance at leftcolumn and
     add new navigation portlet
     """

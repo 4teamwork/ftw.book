@@ -1,0 +1,27 @@
+Test if navigation is correct
+=============================
+
+Lets define some globals
+>>> from plone.testing.z2 import Browser
+>>> import transaction
+>>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+>>> app = layer['app']
+>>> portal = layer['portal']
+>>> request = layer['request']
+
+Lets create some content
+>>> portal.invokeFactory('Folder', "folder")
+>>> folder = portal['folder']
+>>> folder.invokeFactory('Folder', "2_level")
+>>> secfolder = folder['2_level']
+>>> secfolder.invokeFactory('Folder', "3_level")
+>>> parent_folder = secfolder['3_level']
+>>> parent_folder = portal['folder']['2_level']['3_level']
+>>> book = parent_folder.invokeFactory('Book', 'mybook')
+>>> mybook = parent_folder['mybook']
+>>> mybook.invokeFactory('Chapter', 'mychapter')
+>>> transaction.commit()
+
+>>> browser = Browser(app)
+>>> browser.addHeader('Authorization', 'Basic %s:%s' % (TEST_USER_NAME, TEST_USER_PASSWORD,))
+>>> browser.open(parent_folder.absolute_url())
