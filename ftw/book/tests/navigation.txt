@@ -12,9 +12,12 @@ Lets define some globals
 Lets create some content
 >>> portal.invokeFactory('Folder', "folder")
 >>> folder = portal['folder']
+'folder'
 >>> folder.invokeFactory('Folder', "2_level")
+'2_level'
 >>> secfolder = folder['2_level']
 >>> secfolder.invokeFactory('Folder', "3_level")
+'3_level'
 >>> parent_folder = secfolder['3_level']
 >>> parent_folder = portal['folder']['2_level']['3_level']
 >>> book = parent_folder.invokeFactory('Book', 'mybook')
