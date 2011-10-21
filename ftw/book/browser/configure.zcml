@@ -31,6 +31,14 @@
       permission="zope2.View"
       />
 
+
+  <browser:page
+      for="..interfaces.IBook"
+      name="book_view"
+      class=".book_view.BookView"
+      permission="zope2.View"
+      />
+
   <include package="plone.app.contentmenu" />
 
   <adapter factory=".nextprevious.BookNextPrevious" />

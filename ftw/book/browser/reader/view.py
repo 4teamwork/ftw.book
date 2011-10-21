@@ -2,15 +2,13 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
-from ftw.book.browser.reader.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
-from ftw.book.browser.reader.utils import modify_tree
 from ftw.book.interfaces import IBook
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
-
+from ftw.book.browser.toc_tree import BookTocTree
 
 RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 4
 _marker = object()
@@ -169,41 +167,11 @@ class ReaderView(BrowserView):
 
         raise Exception('Could not find book.')
 
-    def get_toc_tree(self, tree):
-        """Returns a filtered tree for building a table of contents. Brains
-        of sl-blocks with showTitle=False are removed.
-        """
-
-        def filterer(item):
-            brain = item.get('item')
-            if brain.portal_type in ('Book', 'Chapter'):
-                return True
-
-            else:
-                return brain.showTitle
-
-        tree = filter_tree(filterer, tree, copy=True)
-
-        def toc_number_prefix_adder(node, parent):
-            num = node.get('toc_number', None)
-
-            if num is None:
-                # We are on the root node, which is the book - it has
-                # no table of content number.
-                node['toc_number'] = ''
-                num = ''
-
-            else:
-                num = '%s.' % num
-
-            for i, child in enumerate(node.get('children', []), 1):
-                child['toc_number'] = num + str(i)
-
-        return modify_tree(toc_number_prefix_adder, tree)
 
     def render_navigation(self, item=None):
         if item is None:
-            item = self.get_toc_tree(self.tree)
+            toc_tree = BookTocTree()
+            item = toc_tree(self.tree)
 
         toc_title = item.get('item').Title
 

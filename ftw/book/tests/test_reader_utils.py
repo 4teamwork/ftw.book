@@ -1,6 +1,6 @@
-from ftw.book.browser.reader.utils import filter_tree
+from ftw.book.browser.utils import filter_tree
 from ftw.book.browser.reader.utils import flaten_tree
-from ftw.book.browser.reader.utils import modify_tree
+from ftw.book.browser.utils import modify_tree
 from unittest2 import TestCase
 
 
