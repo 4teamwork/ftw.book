@@ -11,6 +11,8 @@ tests_require = [
     'plone.app.testing',
     'plone.mocktestcase',
     'plone.portlets'
+    'ftw.testing',
+    'pyquery'
     ]
 
 

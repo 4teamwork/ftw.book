@@ -8,6 +8,14 @@ Lets define some globals
 >>> app = layer['app']
 >>> portal = layer['portal']
 >>> request = layer['request']
+>>> from ftw.book.portlets import gotoparent
+>>> from zope.publisher.browser import BrowserView
+>>> from plone.portlets.interfaces import IPortletManager
+>>> from zope.component import getUtility, getMultiAdapter
+>>> from plone.portlets.interfaces import IPortletAssignmentMapping
+>>> from ftw.book.eventhandler import left_slot_portlets
+>>> from pyquery import PyQuery
+
 
 Lets create some content
 >>> portal.invokeFactory('Folder', "folder")
@@ -16,16 +24,38 @@ Lets create some content
 >>> folder.invokeFactory('Folder', "2_level")
 '2_level'
 >>> secfolder = folder['2_level']
->>> secfolder.invokeFactory('Folder', "3_level")
+>>> secfolder.invokeFactory('Folder', "3_level", title="3. Level")
 '3_level'
 >>> parent_folder = secfolder['3_level']
 >>> parent_folder = portal['folder']['2_level']['3_level']
->>> book = parent_folder.invokeFactory('Book', 'mybook')
+>>> book = parent_folder.invokeFactory('Book', 'mybook', title="mybook")
 >>> mybook = parent_folder['mybook']
->>> mybook.invokeFactory('Chapter', 'mychapter')
+>>> mybook.invokeFactory('Chapter', 'mychapter', title="mychapter")
 'mychapter'
+>>> left_slot_portlets(mybook)
 >>> transaction.commit()
-
 >>> browser = Browser(app)
->>> browser.addHeader('Authorization', 'Basic %s:%s' % (TEST_USER_NAME, TEST_USER_PASSWORD,))
->>> browser.open(parent_folder.absolute_url())
+>>> browser.open(mybook.absolute_url())
+>>> pq = PyQuery(browser.contents)
+>>> portletcolumn = pq('#portal-column-one')
+>>> parent = portletcolumn('dl.portletGoToParent')
+>>> link = parent('a')
+>>> transaction.commit()
+>>> link.attr('href')
+'http://nohost/plone/folder/2_level/3_level'
+>>> print link('span')
+<span>3. Level</span>
+>>> navtree = portletcolumn('dl.portletNavigationTree')
+>>> navportlet = navtree('dd.portletItem')
+>>> firstitem = navportlet('li.navTreeCurrentNode')
+>>> link = firstitem('a')
+>>> link.attr('href')
+'http://nohost/plone/folder/2_level/3_level/mybook'
+>>> link('a').text()
+'mybook'
+>>> seconditem = navportlet('li.section-mychapter')
+>>> link = seconditem('a')
+>>> link.attr('href')
+'http://nohost/plone/folder/2_level/3_level/mybook/mychapter'
+>>> link('span').text()
+'mychapter'
