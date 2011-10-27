@@ -10,7 +10,7 @@ tests_require = [
     'zope.testing',
     'plone.app.testing',
     'plone.mocktestcase',
-    'plone.portlets'
+    'plone.portlets',
     'ftw.testing',
     'pyquery'
     ]
