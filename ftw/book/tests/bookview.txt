@@ -1,0 +1,65 @@
+Test Book_View
+=======================
+
+Lets define some globals
+>>> from plone.testing.z2 import Browser
+>>> import transaction
+>>> from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+>>> from zope.publisher.browser import BrowserView
+>>> from plone.portlets.interfaces import IPortletManager
+>>> from zope.component import getUtility, getMultiAdapter
+>>> from plone.portlets.interfaces import IPortletAssignmentMapping
+>>> from pyquery import PyQuery
+
+>>> app = layer['app']
+>>> portal = layer['portal']
+>>> request = layer['request']
+
+>>> portal.invokeFactory('Book', 'mybook', title="mybook")
+'mybook'
+>>> mybook=portal['mybook']
+>>> mybook.invokeFactory('Chapter', 'first_chapter', title="First Chapter")
+'first_chapter'
+>>> firstchapter = mybook['first_chapter']
+>>> firstchapter.invokeFactory('Paragraph', 'mypara', title="First Paragraph", showTitle=True)
+'mypara'
+>>> firstchapter.invokeFactory('Paragraph', 'secondpara', title="Second Paragraph", showTitle=False)
+'secondpara'
+>>> mybook.invokeFactory('Chapter', 'second_chapter', title="Second Chapter")
+'second_chapter'
+>>> firstchapter.invokeFactory('Chapter', 'subchapter', title="Subchapter")
+'subchapter'
+>>> secondchapter = mybook['second_chapter']
+>>> secondchapter.invokeFactory('Paragraph', 'thirdpara', title="Third Paragraph", showTitle=False)
+'thirdpara'
+>>> secondchapter.invokeFactory('Paragraph', 'fourthpara', title="Fourth Paragraph", showTitle=True)
+'fourthpara'
+>>> transaction.commit()
+>>> browser = Browser(app)
+>>> browser.open(mybook.absolute_url())
+>>> pq = PyQuery(browser.contents)
+>>> content = pq('div#content')
+>>> booklist = content('ul:first')
+>>> book = booklist.children('li')
+>>> book('a').text()
+'mybook'
+>>> chapters = booklist.children('ul')
+>>> first_chapter = PyQuery(chapters.children('li')[0])
+>>> first_chapter('a').text()
+'1 First Chapter'
+>>> first_para = PyQuery(chapters.children('ul li')[0])
+>>> first_para('a').text()
+'1.1 First Paragraph'
+>>> subchapter = PyQuery(chapters.children('ul li')[1])
+>>> subchapter('a').text()
+'1.2 Subchapter'
+>>> second_chapter = PyQuery(chapters.children('li')[1])
+>>> second_chapter('a').text()
+'2 Second Chapter'
+>>> fourth_para = PyQuery(chapters.children('ul li')[2])
+>>> fourth_para('a').text()
+'2.1 Fourth Paragraph'
+>>> 'Third Paragraph' not in browser.contents
+True
+>>> 'Second Paragraph' not in browser.contents
+True

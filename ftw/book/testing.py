@@ -4,7 +4,7 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
 from plone.testing import z2
 from zope.configuration import xmlconfig
-
+from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 
 class FtwBookLayer(PloneSandboxLayer):
 
@@ -35,7 +35,8 @@ class FtwBookLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.book:default')
         applyProfile(portal, 'simplelayout.base:default')
         applyProfile(portal, 'simplelayout.types.common:default')
-
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+        login(portal, TEST_USER_NAME)
 
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(

@@ -10,6 +10,7 @@ tests_require = [
     'zope.testing',
     'plone.app.testing',
     'ftw.testing',
+    'pyquery',
     ]
 
 

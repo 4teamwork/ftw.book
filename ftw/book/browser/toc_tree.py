@@ -13,7 +13,7 @@ class BookTocTree(object):
                 return True
 
             else:
-                return brain.Title
+                return brain.showTitle
 
         tree = filter_tree(filterer, tree, copy=True)
 
@@ -33,4 +33,3 @@ class BookTocTree(object):
                 child['toc_number'] = num + str(i)
 
         return modify_tree(toc_number_prefix_adder, tree)
-        
