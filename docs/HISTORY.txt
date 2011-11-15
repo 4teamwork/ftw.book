@@ -5,6 +5,9 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Add a IWithinBookLayer request layer.
+  [jone]
+
 - Implemented a navigation portlet on book level, which does not display
   parents for narrowing into the context. An additional back-to-parent portlet
   provides a link to the parent.

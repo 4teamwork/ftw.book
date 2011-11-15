@@ -45,6 +45,9 @@
                      Products.Archetypes.interfaces.IObjectInitializedEvent"
                 handler=".eventhandler.add_navigation_portlet" />
 
+    <adapter
+        factory="ftw.book.layer.BookTraverse"
+        />
 
 
 </configure>
