@@ -12,7 +12,7 @@ class Numbering(object):
     def generate_title(self, obj):
         """ Generates a title embedded in a h-tag
         """
-        chapter_string = self.get_chapter_level_string(obj)
+        chapter_string = self._get_chapter_level_string(obj)
         title = obj.title_or_id()
         hierarchy = self.get_hierarchy_position(obj)
         title = "<h%s>%s %s</h%s>" % (
@@ -30,13 +30,6 @@ class Numbering(object):
             html += '<h%s>%s</h%s>' % (i+1, title, i+1)
         return html
 
-    def get_chapter_level_string(self, obj):
-        """ Return the string of the chapter levele: 1.4.3
-        """
-        chapter_level = self._get_chapter_level(obj)
-        chapter_level = [str(level) for level in chapter_level]
-        return '.'.join(chapter_level)
-
     def get_folder_position(self, obj):
         """ Get the position of the object in the folder
         """
@@ -47,8 +40,15 @@ class Numbering(object):
         """
         return self._get_hierarchy_position(obj)
 
+    def _get_chapter_level_string(self, obj):
+        """ Return the string of the chapter levele: 1.4.3
+        """
+        chapter_level = self._get_chapter_level(obj)
+        chapter_level = [str(level) for level in chapter_level]
+        return '.'.join(chapter_level)
+
     def _get_chapter_level(self, obj):
-        """ Return the chapterlevel in a dict
+        """ Return the chapterlevel in a list
         of int
         """
         chapter_level = []
@@ -83,22 +83,14 @@ class Numbering(object):
     def _get_hierarchy_position(self, obj):
         """ Get the hierarchy position of the object as int
         """
-        position = 1
-        parent = obj
-        while not IPloneSiteRoot.providedBy(parent):
-            if IBook.providedBy(parent):
-                break
-            else:
-                position += 1
-                parent = aq_parent(aq_inner(parent))
 
-        return position
+        return len(self._get_parent_titles(obj))
 
     def _get_filtered_folder_position(self, obj):
         """ Return the filtered folder position as int
         """
 
-        consider_types = ['Paragraph', 'Chapter']
+        consider_types = ['Chapter']
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
@@ -108,11 +100,9 @@ class Numbering(object):
         folder_content = parent.listFolderContents()
 
         for item in folder_content:
-
-            if hasattr(item, 'showTitle') and not item.showTitle:
-                continue
-
             if item.portal_type in consider_types:
+                counter += 1
+            elif hasattr(item, 'showTitle') and item.showTitle:
                 counter += 1
 
             if obj == item:
