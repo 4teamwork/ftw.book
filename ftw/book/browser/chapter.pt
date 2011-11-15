@@ -1,3 +1,3 @@
 <a tal:attributes="href context/absolute_url">
-    <h3 tal:content="context/title"/>
+    <span tal:replace="structure view/get_dynamic_title" />
 </a>
