@@ -41,6 +41,15 @@
       layer="..interfaces.IWithinBookLayer"
       />
 
+  <browser:page
+    for="simplelayout.types.common.interfaces.IParagraph"
+  	name="block_view"
+	template="paragraph.pt"
+	class=".blockview.BlockView"
+  	permission="zope2.View"
+    layer="..interfaces.IWithinBookLayer"
+    />
+
   <include package="plone.app.contentmenu" />
 
   <adapter factory=".nextprevious.BookNextPrevious" />
