@@ -98,7 +98,7 @@ class Numbering(object):
         """ Return the filtered folder position as int
         """
 
-        consider_types = ['BookParagraph', 'Chapter']
+        consider_types = ['Paragraph', 'Chapter']
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
