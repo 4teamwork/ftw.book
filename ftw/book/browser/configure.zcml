@@ -27,9 +27,18 @@
       for="simplelayout.types.common.interfaces.IPage"
       name="block_view"
       template="chapter.pt"
-      class="simplelayout.types.common.browser.views.BlockView"
+      class=".blockview.BlockView"
       permission="zope2.View"
       />
+
+  <browser:page
+    for="simplelayout.types.common.interfaces.IParagraph"
+  	name="block_view"
+	template="paragraph.pt"
+	class=".blockview.BlockView"
+  	permission="zope2.View"
+    layer="..interfaces.IWithinBookLayer"
+    />
 
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
@@ -41,14 +50,7 @@
       layer="..interfaces.IWithinBookLayer"
       />
 
-  <browser:page
-    for="simplelayout.types.common.interfaces.IParagraph"
-  	name="block_view"
-	template="paragraph.pt"
-	class=".blockview.BlockView"
-  	permission="zope2.View"
-    layer="..interfaces.IWithinBookLayer"
-    />
+
 
   <include package="plone.app.contentmenu" />
 
