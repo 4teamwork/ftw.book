@@ -29,6 +29,7 @@
       template="chapter.pt"
       class=".blockview.BlockView"
       permission="zope2.View"
+      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
