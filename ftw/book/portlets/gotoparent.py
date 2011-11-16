@@ -23,26 +23,36 @@ class Assignment(base.Assignment):
 
 
 class AddForm(base.NullAddForm):
+
     def create(self):
         return Assignment()
 
 
 class Renderer(base.Renderer):
 
-    render = ViewPageTemplateFile('gotoparent.pt')
+    template = ViewPageTemplateFile('gotoparent.pt')
 
     def __init__(self, *args, **kwargs):
         super(Renderer, self).__init__(*args, **kwargs)
-        self.parent_title = ''
-        self.parent_url = ''
+        self.parent_title = None
+        self.parent_url = None
 
     def update(self):
         book = self.get_book()
-        if IBook.providedBy(book):
+
+        if book:
             parent = aq_parent(aq_inner(book))
             self.parent_title = parent.Title()
             self.parent_url = parent.absolute_url()
-        super(Renderer, self).update()
+
+        return super(Renderer, self).update()
+
+    def render(self):
+        if self.parent_title is None:
+            return ''
+
+        else:
+            return self.template()
 
     def get_book(self):
         obj = self.context
@@ -52,9 +62,9 @@ class Renderer(base.Renderer):
                 return obj
 
             elif IPloneSiteRoot.providedBy(obj):
-                raise Exception('Could not find book.')
+                return None
 
             else:
                 obj = aq_parent(aq_inner(obj))
 
-        raise Exception('Could not find book.')
+        return None
