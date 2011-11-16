@@ -91,9 +91,6 @@ class BookHelper(object):
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
-        if not IFolderish.providedBy(parent):
-            return counter
-
         folder_content = parent.listFolderContents()
 
         for item in folder_content:
