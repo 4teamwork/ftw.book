@@ -118,7 +118,7 @@ class TestUnitBookHelper(MockTestCase):
         """ Test generate title
         """
         self.replay()
-        title = self.helper.generate_title(self.paragraph2)
+        title = self.helper(self.paragraph2)
         self.assertTrue(title == '<h4>2.1.3 Paragraph2</h4>')
 
     def test_generate_valid_hierarchy_h_tags(self):
