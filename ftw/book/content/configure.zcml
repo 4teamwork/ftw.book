@@ -8,6 +8,7 @@
         permission="zope2.View"
         interface="..interfaces.IBook"
         />
+
     <require
         permission="cmf.ModifyPortalContent"
         set_schema="..interfaces.IBook"

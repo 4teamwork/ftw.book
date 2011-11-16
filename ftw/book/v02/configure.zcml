@@ -3,16 +3,16 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ftw.book">
 
+  <genericsetup:upgradeSteps
+      source="0.1"
+      destination="0.2"
+      profile="ftw.book:default">
 
-    <genericsetup:upgradeSteps
-    source="0.1"
-    destination="0.2"
-    profile="ftw.book:default">
+    <genericsetup:upgradeStep
+        title="Change navigation for existing books"
+        handler="ftw.book.v02.upgrades.update_navigation"
+        />
 
-        <genericsetup:upgradeStep
-             title="Change navigation for existing books"
-             handler="ftw.book.v02.upgrades.update_navigation"
-             />
+  </genericsetup:upgradeSteps>
 
-    </genericsetup:upgradeSteps>
 </configure>

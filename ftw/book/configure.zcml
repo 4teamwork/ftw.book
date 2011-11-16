@@ -29,25 +29,24 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <subscriber
+      for=".interfaces.IBook
+           Products.Archetypes.interfaces.IObjectInitializedEvent"
+      handler=".eventhandler.add_navigation_portlet" />
+
+  <adapter factory="ftw.book.layer.BookTraverse" />
 
   <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
-  <adapter name="ftw.book.latexcodeinjection"
-           factory=".latexinjection.LaTeXCodeInjectionExtender"
-           provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+  <adapter
+      name="ftw.book.latexcodeinjection"
+      factory=".latexinjection.LaTeXCodeInjectionExtender"
+      provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
 
   <five:implements
       class="Products.Archetypes.BaseObject.BaseObject"
       interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
       />
 
-
-  <subscriber for=".interfaces.IBook
-                   Products.Archetypes.interfaces.IObjectInitializedEvent"
-              handler=".eventhandler.add_navigation_portlet" />
-
-  <adapter
-      factory="ftw.book.layer.BookTraverse"
-      />
 
 
 </configure>
