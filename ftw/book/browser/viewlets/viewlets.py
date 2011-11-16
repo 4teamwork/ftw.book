@@ -9,4 +9,4 @@ class SimpleLayoutListingViewlet(SimpleLayoutListingViewlet):
     helper = BookHelper()
 
     def get_valid_parent_h_tags(self):
-        return self.helper.generate_valid_parent_h_tags(self.context)
+        return self.helper.generate_valid_hierarchy_h_tags(self.context)

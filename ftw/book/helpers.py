@@ -20,10 +20,10 @@ class BookHelper(object):
 
         return title
 
-    def generate_valid_parent_h_tags(self, obj):
+    def generate_valid_hierarchy_h_tags(self, obj):
         """ Generates the h-tags for parent-objects for valid html
         """
-        titles = self._get_parent_titles(obj)
+        titles = self._get_hierarchy_titles(obj)
         html = ""
 
         for i, title in enumerate(titles):
@@ -57,34 +57,31 @@ class BookHelper(object):
             if IBook.providedBy(parent):
                 break
             else:
-                chapter_level.append(
-                    self._get_filtered_folder_position(parent))
+                chapter_level.insert(
+                    0, self._get_filtered_folder_position(parent))
                 parent = aq_parent(aq_inner(parent))
-
-        chapter_level.reverse()
 
         return chapter_level
 
-    def _get_parent_titles(self, obj):
-        """ Get all titles of parent in a list: ['first', 'second']
+    def _get_hierarchy_titles(self, obj):
+        """ Get all titles in the hierarchy in a list: ['first', 'second']
         """
         titles = []
         parent = obj
         while not IPloneSiteRoot.providedBy(parent):
-            titles.append(parent.Title())
+            titles.insert(0, parent.Title())
             if IBook.providedBy(parent):
                 break
             else:
                 parent = aq_parent(aq_inner(parent))
 
-        titles.reverse()
         return titles
 
     def _get_hierarchy_position(self, obj):
         """ Get the hierarchy position of the object as int
         """
 
-        return len(self._get_parent_titles(obj))
+        return len(self._get_hierarchy_titles(obj))
 
     def _get_filtered_folder_position(self, obj):
         """ Return the filtered folder position as int
