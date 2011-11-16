@@ -41,13 +41,13 @@
       />
 
 
-    <subscriber for=".interfaces.IBook
-                     Products.Archetypes.interfaces.IObjectInitializedEvent"
-                handler=".eventhandler.add_navigation_portlet" />
+  <subscriber for=".interfaces.IBook
+                   Products.Archetypes.interfaces.IObjectInitializedEvent"
+              handler=".eventhandler.add_navigation_portlet" />
 
-    <adapter
-        factory="ftw.book.layer.BookTraverse"
-        />
+  <adapter
+      factory="ftw.book.layer.BookTraverse"
+      />
 
 
 </configure>
