@@ -40,7 +40,6 @@ Lets create some content
 >>> portletcolumn = pq('#portal-column-one')
 >>> parent = portletcolumn('dl.portletGoToParent')
 >>> link = parent('a')
->>> transaction.commit()
 >>> link.attr('href')
 'http://nohost/plone/folder/2_level/3_level'
 >>> print link('span')
