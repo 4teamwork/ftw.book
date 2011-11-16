@@ -1,12 +1,12 @@
 from simplelayout.base.viewlets import SimpleLayoutListingViewlet
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ftw.book.helpers import Numbering
+from ftw.book.helpers import BookHelper
 
 
 class SimpleLayoutListingViewlet(SimpleLayoutListingViewlet):
 
     render = ViewPageTemplateFile('listing.pt')
-    numbering = Numbering()
+    helper = BookHelper()
 
     def get_valid_parent_h_tags(self):
-        return self.numbering.generate_valid_parent_h_tags(self.context)
+        return self.helper.generate_valid_parent_h_tags(self.context)

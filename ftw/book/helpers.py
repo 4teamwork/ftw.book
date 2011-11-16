@@ -4,7 +4,7 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.CMFCore.interfaces._content import IFolderish
 
 
-class Numbering(object):
+class BookHelper(object):
 
     def __call__(self, obj):
         return self.generate_title(obj)
