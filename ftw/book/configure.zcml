@@ -42,11 +42,8 @@
       factory=".latexinjection.LaTeXCodeInjectionExtender"
       provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
 
-  <five:implements
-      class="Products.Archetypes.BaseObject.BaseObject"
-      interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
-      />
-
-
+  <class class="Products.Archetypes.BaseObject.BaseObject">
+    <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
+  </class>
 
 </configure>
