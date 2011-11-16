@@ -33,25 +33,23 @@
       />
 
   <browser:page
-    for="simplelayout.types.common.interfaces.IParagraph"
-  	name="block_view"
-	template="paragraph.pt"
-	class=".blockview.BlockView"
-  	permission="zope2.View"
-    layer="..interfaces.IWithinBookLayer"
-    />
+      for="simplelayout.types.common.interfaces.IParagraph"
+      name="block_view"
+      template="paragraph.pt"
+      class=".blockview.BlockView"
+      permission="zope2.View"
+      layer="..interfaces.IWithinBookLayer"
+      />
 
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
       for="simplelayout.base.interfaces.ISimplelayoutView"
-      name="simplelayout.base.listing.body" 
+      name="simplelayout.base.listing.body"
       manager="simplelayout.base.interfaces.ISimpleViewletListingProvider"
       class=".viewlets.viewlets.SimpleLayoutListingViewlet"
-      permission="zope2.View" 
+      permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
-
-
 
   <include package="plone.app.contentmenu" />
 

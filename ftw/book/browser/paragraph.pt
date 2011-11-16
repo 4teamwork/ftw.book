@@ -1,50 +1,50 @@
 <div class="#" id="#" i18n:domain="simplelayout"
-                tal:define="slclass view/getCSSClass;
-                text here/getBlockText|here/getText|nothing;
-                fullblock python: text and ' sl-fullblock' or ''"
-                tal:attributes="id here/id;
-                                class string:simplelayout-block-wrapper ${slclass}${fullblock};
-                                style string:height:${view/getBlockHeight}">
-    <span tal:replace="structure view/get_dynamic_title" tal:condition="here/getShowTitle|python:True" />
-    <a tal:attributes="name here/id" ></a>
-        <div class="sl-img-wrapper" tal:condition="view/checkForImage"
-             tal:attributes="style view/image_wrapper_style">
-                    <a  target="_blank"
-                        tal:attributes="
-                                        title context/Title;
-                                        href string:${context/absolute_url}/image
-                                        "
-                                        tal:omit-tag="not: here/getImageClickable|nothing"
-                    >
-                        <img tal:replace="structure view/getImageTag" />
-                        <p tal:define="image_desc context/getImageCaption | context/Description" 
-                           tal:condition="image_desc"
-                           tal:content="context/getImageCaption">Caption</p>
-                    </a>
+     tal:define="slclass view/getCSSClass;
+                 text here/getBlockText|here/getText|nothing;
+                 fullblock python: text and ' sl-fullblock' or ''"
+     tal:attributes="id here/id;
+                     class string:simplelayout-block-wrapper ${slclass}${fullblock};
+                     style string:height:${view/getBlockHeight}">
+  <span tal:replace="structure view/get_dynamic_title" tal:condition="here/getShowTitle|python:True" />
+  <a tal:attributes="name here/id" ></a>
+  <div class="sl-img-wrapper" tal:condition="view/checkForImage"
+       tal:attributes="style view/image_wrapper_style">
+    <a  target="_blank"
+        tal:attributes="
+                        title context/Title;
+                        href string:${context/absolute_url}/image
+                        "
+        tal:omit-tag="not: here/getImageClickable|nothing"
+        >
+      <img tal:replace="structure view/getImageTag" />
+      <p tal:define="image_desc context/getImageCaption | context/Description"
+         tal:condition="image_desc"
+         tal:content="context/getImageCaption">Caption</p>
+    </a>
+  </div>
+  <div tal:condition="text" class="sl-text-wrapper" tal:content="structure text"></div>
+
+
+  <tal:ifteaser tal:condition="here/getTeaserblock | nothing"
+                tal:define="related view/related_items">
+    <div class="teaserItems">
+      <b class="teaserHeader" i18n:translate="">Further informations</b>
+      <ul id="relatedItemBox">
+        <tal:related repeat="item related">
+          <li tal:define="
+                          desc                item/Description;
+                          item_url            item/getURL|item/absolute_url">
+            <a href="" class=""
+               tal:attributes="href  item_url;
+                               title desc;"
+               tal:content="item/pretty_title_or_id">
+              Related Item
+            </a>
+          </li>
+        </tal:related>
+      </ul>
     </div>
-    <div tal:condition="text" class="sl-text-wrapper" tal:content="structure text"></div>
-
-
-    <tal:ifteaser tal:condition="here/getTeaserblock | nothing" 
-                  tal:define="related view/related_items">
-        <div class="teaserItems">
-            <b class="teaserHeader" i18n:translate="">Further informations</b>
-            <ul id="relatedItemBox">
-                <tal:related repeat="item related">
-                    <li tal:define="
-                            desc                item/Description;
-                            item_url            item/getURL|item/absolute_url">
-                            <a href="" class=""
-                               tal:attributes="href  item_url;
-                                               title desc;"
-                               tal:content="item/pretty_title_or_id">
-                                Related Item
-                            </a>
-                    </li>
-                </tal:related>
-            </ul>
-        </div>
-    </tal:ifteaser>
+  </tal:ifteaser>
 
 </div>
 <span class="visualClear">&nbsp;</span>
