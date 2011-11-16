@@ -1,9 +1,10 @@
-from plone.mocktestcase import MockTestCase
-from zope.interface import directlyProvides
 from ftw.book.helpers import BookHelper
 from ftw.book.interfaces import IBook
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from plone.mocktestcase import MockTestCase
 from Products.CMFCore.interfaces._content import IFolderish
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from zope.interface import directlyProvides
+
 
 class TestUnitBookHelper(MockTestCase):
     """ Unittests for helper methods in BookHelper Class
@@ -48,13 +49,15 @@ class TestUnitBookHelper(MockTestCase):
         # Childs of book
         self.chapter1 = self.create_dummy()
         directlyProvides(self.chapter1, IFolderish)
-        self.chapter1 = self.mocker.proxy(self.chapter1, spec=False, count=False)
+        self.chapter1 = self.mocker.proxy(
+            self.chapter1, spec=False, count=False)
         self.expect(self.chapter1.__parent__).result(self.book)
         self.expect(self.chapter1.Title()).result('Chapter1')
         self.expect(self.chapter1.portal_type).result('Chapter')
         self.chapter2 = self.create_dummy()
         directlyProvides(self.chapter2, IFolderish)
-        self.chapter2 = self.mocker.proxy(self.chapter2, spec=False, count=False)
+        self.chapter2 = self.mocker.proxy(
+            self.chapter2, spec=False, count=False)
         self.expect(self.chapter2.__parent__).result(self.book)
         self.expect(self.chapter2.Title()).result('Chapter2')
         self.expect(self.chapter2.portal_type).result('Chapter')
@@ -62,13 +65,15 @@ class TestUnitBookHelper(MockTestCase):
         #  Childs of chapter 2
         self.chapter3 = self.create_dummy()
         directlyProvides(self.chapter3, IFolderish)
-        self.chapter3 = self.mocker.proxy(self.chapter3, spec=False, count=False)
+        self.chapter3 = self.mocker.proxy(
+            self.chapter3, spec=False, count=False)
         self.expect(self.chapter3.__parent__).result(self.chapter2)
         self.expect(self.chapter3.Title()).result('Chapter3')
         self.expect(self.chapter3.portal_type).result('Chapter')
         self.chapter4 = self.create_dummy()
         directlyProvides(self.chapter4, IFolderish)
-        self.chapter4 = self.mocker.proxy(self.chapter4, spec=False, count=False)
+        self.chapter4 = self.mocker.proxy(
+            self.chapter4, spec=False, count=False)
         self.expect(self.chapter4.__parent__).result(self.chapter2)
         self.expect(self.chapter4.Title()).result('Chapter4')
         self.expect(self.chapter4.portal_type).result('Chapter')
@@ -76,7 +81,8 @@ class TestUnitBookHelper(MockTestCase):
         #  Childs of chapter 3
         self.chapter5 = self.create_dummy()
         directlyProvides(self.chapter5, IFolderish)
-        self.chapter5 = self.mocker.proxy(self.chapter5, spec=False, count=False)
+        self.chapter5 = self.mocker.proxy(
+            self.chapter5, spec=False, count=False)
         self.expect(self.chapter5.__parent__).result(self.chapter3)
         self.expect(self.chapter5.Title()).result('Chapter5')
         self.expect(self.chapter5.portal_type).result('Chapter')
