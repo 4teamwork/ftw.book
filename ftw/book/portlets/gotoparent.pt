@@ -1,0 +1,7 @@
+<dl class="portlet portletGoToParent">
+    <dd class="portletItem">
+        <div>
+            <a tal:attributes="href view/parent_url" i18n:translate="label_gotoparent">Return to <span i18n:name="book_name" tal:content="view/parent_title" /></a>
+        <div>
+    </dd>
+</dl>

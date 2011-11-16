@@ -5,7 +5,17 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use TOC-prefixes for displaying headers within a book.
+  Display headers within a book in the right size.
+  [eschmutz]
+
+- Add a IWithinBookLayer request layer.
+  [jone]
+
+- Implemented a navigation portlet on book level, which does not display
+  parents for narrowing into the context. An additional back-to-parent portlet
+  provides a link to the parent.
+  [ttschanz]
 
 
 1.1.1 (2011-10-19)

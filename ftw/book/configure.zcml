@@ -17,7 +17,8 @@
   <include package=".latex" />
   <include package=".browser" />
   <include package=".content" />
-
+  <include package=".portlets" />
+  <include package=".v02" />
 
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
@@ -38,5 +39,15 @@
       class="Products.Archetypes.BaseObject.BaseObject"
       interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled"
       />
+
+
+  <subscriber for=".interfaces.IBook
+                   Products.Archetypes.interfaces.IObjectInitializedEvent"
+              handler=".eventhandler.add_navigation_portlet" />
+
+  <adapter
+      factory="ftw.book.layer.BookTraverse"
+      />
+
 
 </configure>
