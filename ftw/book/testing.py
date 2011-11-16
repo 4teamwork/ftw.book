@@ -1,12 +1,12 @@
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
-from plone.app.testing import PLONE_FIXTURE
-from plone.app.testing import IntegrationTesting
-from plone.testing import z2
-from zope.configuration import xmlconfig
+from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.testing import Layer
+from plone.testing import z2
 from plone.testing import zca
-from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD, login
+from zope.configuration import xmlconfig
 
 
 class FtwBookLayer(PloneSandboxLayer):
@@ -42,7 +42,7 @@ class FtwBookLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.book:default')
         applyProfile(portal, 'simplelayout.base:default')
         applyProfile(portal, 'simplelayout.types.common:default')
-        
+
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
 
@@ -72,7 +72,7 @@ class BasicMockRendererLayer(Layer):
             'configure.zcml',
             plone.portlets,
             context=context)
-        
+
         # import ftw.workspace
         # xmlconfig.file(
         #     'configure.zcml',
@@ -80,5 +80,5 @@ class BasicMockRendererLayer(Layer):
         #     context=context)
 
 
-RENDERER_LAYER = BasicMockRendererLayer()        
+RENDERER_LAYER = BasicMockRendererLayer()
 
