@@ -1,8 +1,57 @@
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
+from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
 from mocker import ANY
 from plone.mocktestcase import MockTestCase
 from plonegov.pdflatex.browser.converter import LatexCTConverter
 from zope.interface import directlyProvides
+
+
+class TestLatexInjectionExtender(MockTestCase):
+
+    layer = FTW_BOOK_INTEGRATION_TESTING
+
+    def setUp(self):
+        portal = self.layer['portal']
+
+        self.folder = portal.get(portal.invokeFactory('Folder',
+                                                      'latex-injection-test'))
+
+        self.page = self.folder.get(
+            self.folder.invokeFactory('Page', 'latex-test-page',
+                                      title='First page'))
+
+        self.book = self.folder.get(
+            self.folder.invokeFactory('Book', 'latex-injection-book',
+                                      title='My Book'))
+
+        self.chapter = self.book.get(self.book.invokeFactory(
+                'Chapter', 'chapter-one', title='Chapter One'))
+
+    def tearDown(self):
+        portal = self.layer['portal']
+        portal.manage_delObjects(['latex-injection-test'])
+
+    def test_page_is_enabled_on_all_objects(self):
+        self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.folder))
+        self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.page))
+        self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.book))
+        self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.chapter))
+
+    def test_page_has_no_injected_fields(self):
+        self.assertTrue(self.page.getField('preLatexCode') is None)
+        self.assertTrue(self.page.getField('postLatexCode') is None)
+
+    def test_folder_has_no_injected_fields(self):
+        self.assertTrue(self.folder.getField('preLatexCode') is None)
+        self.assertTrue(self.folder.getField('postLatexCode') is None)
+
+    def test_book_has_injected_fields(self):
+        self.assertTrue(self.book.getField('preLatexCode') is not None)
+        self.assertTrue(self.book.getField('postLatexCode') is not None)
+
+    def test_chapter_has_injected_fields(self):
+        self.assertTrue(self.chapter.getField('preLatexCode') is not None)
+        self.assertTrue(self.chapter.getField('postLatexCode') is not None)
 
 
 class TestInjectionAwareConvertObject(MockTestCase):
