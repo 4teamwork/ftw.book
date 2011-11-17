@@ -3,9 +3,7 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
-from plone.testing import Layer
 from plone.testing import z2
-from plone.testing import zca
 from zope.configuration import xmlconfig
 
 
@@ -50,35 +48,4 @@ class FtwBookLayer(PloneSandboxLayer):
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_BOOK_FIXTURE,), name="FtwBook:Integration")
-
-
-
-class BasicMockRendererLayer(Layer):
-
-    defaultBases = (z2.FUNCTIONAL_TESTING, )
-
-    def setUp(self):
-        super(BasicMockRendererLayer, self).setUp()
-
-        import pdb; pdb.set_trace( )
-        self['configurationContext'] = context = zca.stackConfigurationContext(self.get('configurationContext'))
-        import zope.traversing
-        xmlconfig.file(
-            'configure.zcml',
-            zope.traversing,
-            context=context)
-        import plone.portlets
-        xmlconfig.file(
-            'configure.zcml',
-            plone.portlets,
-            context=context)
-
-        # import ftw.workspace
-        # xmlconfig.file(
-        #     'configure.zcml',
-        #     ftw.workspace,
-        #     context=context)
-
-
-RENDERER_LAYER = BasicMockRendererLayer()
 
