@@ -18,7 +18,7 @@
   <property name="allow_discussion">False</property>
 
   <property name="immediate_view">atct_edit</property>
-  <property name="default_view">folder_listing</property>
+  <property name="default_view">book_view</property>
   <property name="view_methods">
     <element value="folder_listing" />
   </property>

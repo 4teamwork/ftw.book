@@ -48,4 +48,3 @@ class FtwBookLayer(PloneSandboxLayer):
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_BOOK_FIXTURE,), name="FtwBook:Integration")
-

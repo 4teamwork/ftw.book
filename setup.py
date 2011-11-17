@@ -12,7 +12,7 @@ tests_require = [
     'plone.mocktestcase',
     'plone.portlets',
     'ftw.testing',
-    'pyquery'
+    'pyquery',
     ]
 
 
@@ -49,7 +49,7 @@ setup(name='ftw.book',
         'simplelayout.base',
         'plonegov.pdflatex',
         'archetypes.schemaextender',
-        'plone.portlets'
+        'plone.portlets',
         ],
 
       tests_require=tests_require,

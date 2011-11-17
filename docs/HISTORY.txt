@@ -5,6 +5,9 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Added Bookview which displays the table of contents of the book
+  [ttschanz]
+
 - Fix bug where PDF rendering failed:
   Remove uncessary / wrong acqusition wrapper check.
   [jone]
