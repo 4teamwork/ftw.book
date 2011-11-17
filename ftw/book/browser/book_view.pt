@@ -4,7 +4,8 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.book">
 
-<div metal:fill-slot="main">
+<div metal:fill-slot="content-core">
+    
     <tal:level tal:define="level python:0">
     <ul tal:define="item view/tree; children view/tree/children;">
     <tal:navitem>
