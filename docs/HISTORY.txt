@@ -5,6 +5,10 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Fix bug where PDF rendering failed:
+  Remove uncessary / wrong acqusition wrapper check.
+  [jone]
+
 - Use TOC-prefixes for displaying headers within a book.
   Display headers within a book in the right size.
   [eschmutz]

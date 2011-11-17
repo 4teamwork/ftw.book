@@ -51,9 +51,6 @@ class LaTeXCodeInjectionExtender(object):
         self.context = context
 
     def getFields(self):
-        if not self._context_is_acquisition_wrapped():
-            return []
-
         if not self._context_is_within_book():
             return []
 
@@ -73,6 +70,3 @@ class LaTeXCodeInjectionExtender(object):
                 obj = aq_parent(aq_inner(obj))
 
         return False
-
-    def _context_is_acquisition_wrapped(self):
-        return aq_parent(aq_inner(self.context)) is not None
