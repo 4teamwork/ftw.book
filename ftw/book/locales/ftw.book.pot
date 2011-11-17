@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-04 07:37+0000\n"
+"POT-Creation-Date: 2011-11-17 09:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,11 @@ msgstr ""
 #. Default: "Embedd table of contents"
 #: ./ftw/book/content/book.py:32
 msgid "book_label_use_toc"
+msgstr ""
+
+#. Default: "Return to ${book_name}"
+#: ./ftw/book/portlets/gotoparent.pt:4
+msgid "label_gotoparent"
 msgstr ""
 
 #. Default: "Oneside"

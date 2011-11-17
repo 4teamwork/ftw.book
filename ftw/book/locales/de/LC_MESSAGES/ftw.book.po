@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2011-10-04 07:37+0000\n"
+"POT-Creation-Date: 2011-11-17 09:20+0000\n"
 "PO-Revision-Date: 2011-10-04 09:36+0200\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -69,6 +69,11 @@ msgstr "Titelseite einbetten"
 #: ./ftw/book/content/book.py:32
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
+
+#. Default: "Return to ${book_name}"
+#: ./ftw/book/portlets/gotoparent.pt:4
+msgid "label_gotoparent"
+msgstr "Zurück zu ${book_name}"
 
 #. Default: "Oneside"
 #: ./ftw/book/content/book.py:67
