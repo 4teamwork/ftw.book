@@ -14,7 +14,7 @@ HEADING_COMMANDS = [
 
 
 def get_latex_heading(context, layout, toc=True):
-    title = layout.convert(context.pretty_title_or_id())
+    title = layout.get_converter().convert(context.pretty_title_or_id())
 
     # level: depth of rendering
     level = -1

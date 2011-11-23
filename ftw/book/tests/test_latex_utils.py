@@ -137,7 +137,9 @@ class TestNewLatexHeading(MockTestCase):
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
 
         layout = self.mocker.mock()
-        self.expect(layout.convert('My Chapter')).result('My Chapter')
+        self.expect(
+            layout.get_converter().convert('My Chapter')).result(
+            'My Chapter')
 
         self.mocker.replay()
 
@@ -153,7 +155,8 @@ class TestNewLatexHeading(MockTestCase):
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
 
         layout = self.mocker.mock()
-        self.expect(layout.convert('My Chapter')).result('My Chapter')
+        self.expect(layout.get_converter().convert('My Chapter')
+                    ).result('My Chapter')
 
         self.mocker.replay()
 
@@ -175,7 +178,8 @@ class TestNewLatexHeading(MockTestCase):
         self.expect(chapter3.pretty_title_or_id()).result('Sub chapter')
 
         layout = self.mocker.mock()
-        self.expect(layout.convert('Sub chapter')).result('Sub chapter')
+        self.expect(layout.get_converter().convert('Sub chapter')
+                    ).result('Sub chapter')
 
         self.mocker.replay()
 
@@ -196,7 +200,8 @@ class TestNewLatexHeading(MockTestCase):
         self.expect(obj.pretty_title_or_id()).result('the title')
 
         layout = self.mocker.mock()
-        self.expect(layout.convert('the title')).result('the title')
+        self.expect(layout.get_converter().convert('the title')
+                    ).result('the title')
 
         self.mocker.replay()
 
@@ -213,7 +218,8 @@ class TestNewLatexHeading(MockTestCase):
         self.expect(chapter.pretty_title_or_id()).result('Any chapter')
 
         layout = self.mocker.mock()
-        self.expect(layout.convert('Any chapter')).result('Any chapter')
+        self.expect(layout.get_converter().convert('Any chapter')
+                    ).result('Any chapter')
 
         self.mocker.replay()
 
