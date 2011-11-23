@@ -50,6 +50,7 @@ setup(name='ftw.book',
         'plonegov.pdflatex',
         'archetypes.schemaextender',
         'plone.portlets',
+        'ftw.pdfgenerator',
         ],
 
       tests_require=tests_require,
