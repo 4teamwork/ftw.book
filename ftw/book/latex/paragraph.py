@@ -1,46 +1,50 @@
 from ftw.book.latex import utils
-from plonegov.pdflatex.browser.converter import LatexCTConverter
+from ftw.pdfgenerator.view import MakoLaTeXView
 from simplelayout.base.interfaces import IBlockConfig
+from simplelayout.types.common.interfaces import IParagraph
+from zope.component import adapts
+from zope.interface import Interface
 
 
-class ParagraphLatexConverter(LatexCTConverter):
+class ParagraphLaTeXView(MakoLaTeXView):
+    adapts(IParagraph, Interface, Interface)
 
-    def __call__(self, context, view):
-        super(ParagraphLatexConverter, self).__call__(context, view)
+    def render(self):
         latex = []
 
         # generate TITLE latex
-        if context.getShowTitle():
-            latex.append(utils.getLatexHeading(context, view))
+        if self.context.getShowTitle():
+            latex.append(utils.get_latex_heading(self.context, self.layout))
 
-        image = context.getImage()
+        image = self.context.getImage()
         if image or image != 0:
-            latex.append(self.getImageLatex(context, view))
+            latex.append(self.get_image_latex())
 
         # generate latex for field "text"
-        latex.append(self.getTextLatex(context, view))
+        latex.append(self.get_text_latex())
         return '\n'.join(latex)
 
-    def getTextLatex(self, context, view):
+    def get_text_latex(self):
         tex = ''
-        if len(context.getText().strip()) > 0:
-            tex += view.convert(context.getText().strip())
+        text = self.context.getText().strip()
+        if len(text) > 0:
+            tex += self.convert(text)
             tex += '\n'
         return tex
 
-    def getImageLatex(self, context, view):
-        image = context.getImage()
+    def get_image_latex(self):
+        image = self.context.getImage()
 
         # test for image
         if not image or image.size == 0:
             return ''
 
         # imageLayout
-        imageLayout = IBlockConfig(context).image_layout
+        imageLayout = IBlockConfig(self.context).image_layout
         width = ''
         command = ''
         align = ''
-        caption = context.getImageCaption()
+        caption = self.context.getImageCaption()
 
         if imageLayout == 'no-image':
             return ''
@@ -70,7 +74,7 @@ class ParagraphLatexConverter(LatexCTConverter):
             align = 'r'
 
         # generate latex
-        uid = '%s_image' % context.UID()
+        uid = '%s_image' % self.context.UID()
         tex = []
 
         if command == 'figure':
@@ -86,9 +90,9 @@ class ParagraphLatexConverter(LatexCTConverter):
         tex.append(r'\end{%s}' % command)
 
         # register image
-        view.addImage(uid=uid, image=image)
+        self.layout.get_builder().add_file('%s.jpg' % uid, image)
 
         # register latex packages
-        view.conditionalRegisterPackage('graphicx')
-        view.conditionalRegisterPackage('wrapfig')
+        self.layout.use_package('graphicx')
+        self.layout.use_package('wrapfig')
         return '\n'.join(tex)

@@ -13,11 +13,9 @@
       provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />
 
-  <browser:view
-      for="simplelayout.types.common.interfaces.IParagraph"
-      name="pdflatex_convert_object"
-      class=".paragraph.ParagraphLatexConverter"
-      permission="zope2.View"
+  <adapter
+      factory="ftw.book.latex.paragraph.ParagraphLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
       />
 
   <adapter
