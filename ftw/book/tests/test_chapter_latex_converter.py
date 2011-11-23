@@ -1,37 +1,33 @@
 from Acquisition import aq_inner, aq_parent
-from mocker import ANY
 from ftw.book.interfaces import IBook
-from ftw.book.latex.chapter import ChapterLatexConverter
-from plone.mocktestcase import MockTestCase
-from zope.interface import directlyProvides
+from ftw.book.testing import LATEX_ZCML_LAYER
+from ftw.pdfgenerator.interfaces import ILaTeXView
+from ftw.testing import MockTestCase
+from simplelayout.types.common.interfaces import IPage
+from zope.component import getMultiAdapter
 
 
-class TestChapterLatexConverter(MockTestCase):
+class TestChapterLaTeXView(MockTestCase):
+
+    layer = LATEX_ZCML_LAYER
 
     def test_converter(self):
         request = self.create_dummy()
+        book = self.providing_stub([IBook])
 
-        book = self.create_dummy()
-        directlyProvides(book, IBook)
+        chapter = self.providing_mock([IPage])
+        self.expect(aq_parent(aq_inner(chapter))).result(book)
+        self.expect(chapter.pretty_title_or_id()).result('chapter title')
+        self.expect(chapter.listFolderContents()).result([])
 
-        context = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(context))).result(book)
-        self.expect(context.pretty_title_or_id()).result('chapter title')
-
-        view = self.mocker.mock()
-        self.expect(view.level).result(1)
-        self.expect(view.convert('chapter title')).result(
+        layout = self.mocker.mock()
+        self.expect(layout.convert('chapter title')).result(
             'converted chapter title')
-        self.expect(view.context).result(context)
-
-        patch = self.mocker.patch(ChapterLatexConverter)
-        self.expect(patch.convertChilds(ANY, ANY)).result(
-            'child LaTeX')
 
         self.replay()
 
-        latex = ChapterLatexConverter(context, request)(context, view)
+        view = getMultiAdapter((chapter, request, layout),
+                               ILaTeXView)
+        latex = view.render()
 
-        self.assertEqual(latex, '\n'.join((
-                    r'\chapter{converted chapter title}',
-                    'child LaTeX')))
+        self.assertEqual(latex, '\\chapter{converted chapter title}\n')

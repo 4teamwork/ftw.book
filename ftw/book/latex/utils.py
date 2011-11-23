@@ -13,6 +13,39 @@ HEADING_COMMANDS = [
     ]
 
 
+def get_latex_heading(context, layout, toc=True):
+    title = layout.convert(context.pretty_title_or_id())
+
+    # level: depth of rendering
+    level = -1
+    max_level = len(HEADING_COMMANDS) - 1
+
+    obj = context
+    while obj and not IBook.providedBy(obj) and level != max_level:
+        obj = aq_parent(aq_inner(obj))
+        level += 1
+
+        if INavigationRoot.providedBy(obj):
+            # cancel, use section
+            level = 1
+            break
+
+    command = HEADING_COMMANDS[level]
+
+    # generate latex
+    tocmark = ''
+    if not toc:
+        tocmark = '*'
+
+    latex = '\%s%s{%s}\n' % (
+        command,
+        tocmark,
+        title)
+
+    return latex
+
+
+# XXX remove when switched to ftw.pdfgenerator
 def getLatexHeading(context, view, toc=True):
     title = view.convert(context.pretty_title_or_id())
 

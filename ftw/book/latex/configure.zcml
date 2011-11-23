@@ -8,11 +8,9 @@
       provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />
 
-  <browser:view
-      for="simplelayout.types.common.interfaces.IPage"
-      name="pdflatex_convert_object"
-      class=".chapter.ChapterLatexConverter"
-      permission="zope2.View"
+  <adapter
+      factory="ftw.book.latex.chapter.ChapterLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />
 
   <browser:view

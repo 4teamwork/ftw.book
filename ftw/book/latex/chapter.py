@@ -1,11 +1,14 @@
-from plonegov.pdflatex.browser.converter import LatexCTConverter
 from ftw.book.latex import utils
+from ftw.pdfgenerator.view import RecursiveLaTeXView
+from simplelayout.types.common.interfaces import IPage
+from zope.component import adapts
+from zope.interface import Interface
 
 
-class ChapterLatexConverter(LatexCTConverter):
+class ChapterLaTeXView(RecursiveLaTeXView):
+    adapts(IPage, Interface, Interface)
 
-    def __call__(self, context, view):
-        super(ChapterLatexConverter, self).__call__(context, view)
-        latex = utils.getLatexHeading(context, view)
-        latex += self.convertChilds(context, view)
+    def render(self):
+        latex = utils.get_latex_heading(self.context, self.layout)
+        latex += self.render_children()
         return latex

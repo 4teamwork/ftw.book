@@ -1,14 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            i18n_domain="ftw.book">
 
-  <!-- XXX this may be removed later, when no browser:views are defined
-  in the configure.zcml of ftw.book.latex -->
-  <include package="Products.Five" file="meta.zcml" />
-  <permission
-      id="zope2.View"
-      title="View"
-      />
-
+  <include package="ftw.pdfgenerator.tests" file="test.zcml" />
   <include package="ftw.book.latex"  />
 
 </configure>
