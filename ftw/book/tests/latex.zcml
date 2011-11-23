@@ -2,6 +2,7 @@
            i18n_domain="ftw.book">
 
   <include package="ftw.pdfgenerator.tests" file="test.zcml" />
+  <include package="ftw.pdfgenerator" />
   <include package="ftw.book.latex"  />
 
 </configure>

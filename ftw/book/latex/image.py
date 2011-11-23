@@ -1,27 +1,30 @@
-from plonegov.pdflatex.browser.converter import LatexCTConverter
+from Products.ATContentTypes.interfaces.image import IATImage
+from ftw.pdfgenerator.view import MakoLaTeXView
 from simplelayout.base.interfaces import IBlockConfig
+from zope.component import adapts
+from zope.interface import Interface
 
 
-class ImageLatexConverter(LatexCTConverter):
+class ImageLaTeXView(MakoLaTeXView):
+    adapts(IATImage, Interface , Interface)
 
-    def __call__(self, context, view):
-        super(ImageLatexConverter, self).__call__(context, view)
+    def render(self):
         latex = []
 
         image = self.context.getImage()
-        imageLayout = IBlockConfig(context).image_layout
+        imageLayout = IBlockConfig(self.context).image_layout
         width = ''
         command = 'figure'
         align = ''
 
-        caption = "%s: %s" % (
-            view.convert(context.Title()),
-            view.convert(context.description))
-
         if imageLayout == 'no-image':
             return ''
 
-        elif imageLayout == 'small':
+        caption = "%s: %s" % (
+            self.convert(self.context.Title()),
+            self.convert(self.context.description))
+
+        if imageLayout == 'small':
             command = 'wrapfigure'
             width = r'0.25\textwidth'
             align = 'l'
@@ -46,7 +49,7 @@ class ImageLatexConverter(LatexCTConverter):
             align = 'r'
 
         # generate latex
-        uid = '%s_image' % context.UID()
+        uid = '%s_image' % self.context.UID()
         if command == 'figure':
             latex.append(r'\begin{%s}[htbp]' % command)
 
@@ -60,10 +63,11 @@ class ImageLatexConverter(LatexCTConverter):
         latex.append(r'\end{%s}' % command)
 
         # register image
-        view.addImage(uid=uid, image=image)
+        builder = self.layout.get_builder()
+        builder.add_file('%s.jpg' % uid, image)
 
         # register latex packages
-        view.conditionalRegisterPackage('graphicx')
-        view.conditionalRegisterPackage('wrapfig')
+        self.layout.use_package('graphicx')
+        self.layout.use_package('wrapfig')
 
         return '\n'.join(latex)
