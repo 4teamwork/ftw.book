@@ -3,11 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
 
-  <browser:view
-      for="..interfaces.IBook"
-      name="pdflatex_convert_object"
-      class=".book.BookLatexConverter"
-      permission="zope2.View"
+  <adapter
+      factory="ftw.book.latex.book.BookLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />
 
   <browser:view

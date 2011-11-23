@@ -1,3 +1,5 @@
+from plone.testing import zca
+from plone.testing import Layer
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
@@ -5,6 +7,29 @@ from plone.app.testing import applyProfile
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.testing import z2
 from zope.configuration import xmlconfig
+
+
+
+class LatexZCMLLayer(Layer):
+    """A layer which only sets up the zcml, but does not start a zope
+    instance.
+    """
+
+    defaultBases = (zca.ZCML_DIRECTIVES,)
+
+    def testSetUp(self):
+        import ftw.book.tests
+        self['configurationContext'] = zca.stackConfigurationContext(
+            self.get('configurationContext'))
+
+        xmlconfig.file('latex.zcml', ftw.book.tests,
+                       context=self['configurationContext'])
+
+    def testTearDown(self):
+        del self['configurationContext']
+
+
+LATEX_ZCML_LAYER = LatexZCMLLayer()
 
 
 class FtwBookLayer(PloneSandboxLayer):
@@ -21,7 +46,7 @@ class FtwBookLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', ftw.book,
                        context=configurationContext)
         xmlconfig.file('configure.zcml', ftw.book.portlets,
-                      context=configurationContext)
+                       context=configurationContext)
 
         xmlconfig.file('configure.zcml', simplelayout.base,
                        context=configurationContext)

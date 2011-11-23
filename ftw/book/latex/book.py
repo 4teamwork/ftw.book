@@ -1,10 +1,11 @@
-from plonegov.pdflatex.browser.converter import LatexCTConverter
+from ftw.book.interfaces import IBook
+from ftw.pdfgenerator.view import RecursiveLaTeXView
+from zope.component import adapts
+from zope.interface import Interface
 
 
-class BookLatexConverter(LatexCTConverter):
+class BookLaTeXView(RecursiveLaTeXView):
+    adapts(IBook, Interface, Interface)
 
-    def __call__(self, context, view):
-        super(BookLatexConverter, self).__call__(context, view)
-        latex = ''
-        latex += self.convertChilds(context, view)
-        return latex
+    def render(self):
+        return self.render_children()
