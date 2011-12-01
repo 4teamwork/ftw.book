@@ -25,26 +25,30 @@ def injection_aware_convertObject(view, object=None, brain=None):
 
     latex = []
 
-    pre_code = obj.getField('preLatexCode').get(obj)
-    if pre_code:
-        latex.append('')
-        latex.append('%% ---- LaTeX pre code injection at %s' % '/'.join(
-                obj.getPhysicalPath()))
-        latex.append(pre_code)
-        latex.append('%% ---- / LaTeX pre code injection')
-        latex.append('')
+    pre_field = obj.Schema().getField('preLatexCode')
+    if pre_field:
+        pre_code = pre_field.get(obj)
+        if pre_code:
+            latex.append('')
+            latex.append('%% ---- LaTeX pre code injection at %s' % '/'.join(
+                    obj.getPhysicalPath()))
+            latex.append(pre_code)
+            latex.append('%% ---- / LaTeX pre code injection')
+            latex.append('')
 
     latex.append(content_latex)
 
-    post_code = obj.getField('postLatexCode').get(obj)
-    if post_code:
-        latex.append('')
-        latex.append('%% ---- LaTeX post code injection at %s' % '/'.join(
-                obj.getPhysicalPath()))
-        latex.append(post_code)
-        latex.append('%% ---- / LaTeX post code injection')
-        latex.append('')
-
+    post_field = obj.Schema().getField('postLatexCode')
+    if post_field:
+        post_code = post_field.get(obj)
+        if post_code:
+            latex.append('')
+            latex.append('%% ---- LaTeX post code injection at %s' % '/'.join(
+                    obj.getPhysicalPath()))
+            latex.append(post_code)
+            latex.append('%% ---- / LaTeX post code injection')
+            latex.append('')
+     
     return '\n'.join(latex)
 
 

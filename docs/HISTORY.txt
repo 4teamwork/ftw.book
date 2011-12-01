@@ -5,6 +5,9 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Fix schema extender problem with schema extender.
+  [jone]
+
 - Added Bookview which displays the table of contents of the book
   [ttschanz]
 
