@@ -23,11 +23,9 @@
       provides="ftw.pdfgenerator.interfaces.ILaTeXView"
       />
 
-  <browser:view
-      for="Products.ATContentTypes.interfaces.link.IATLink"
-      name="pdflatex_convert_object"
-      class=".link.LinkLatexConverter"
-      permission="zope2.View"
+  <adapter
+      factory="ftw.book.latex.link.LinkLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
       />
 
 </configure>

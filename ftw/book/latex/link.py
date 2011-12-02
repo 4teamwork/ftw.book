@@ -1,20 +1,23 @@
-from plonegov.pdflatex.browser.converter import LatexCTConverter
+from Products.ATContentTypes.interfaces.link import IATLink
+from ftw.pdfgenerator.view import MakoLaTeXView
+from zope.component import adapts
+from zope.interface import Interface
 
 
-class LinkLatexConverter(LatexCTConverter):
+class LinkLaTeXView(MakoLaTeXView):
+    adapts(IATLink, Interface, Interface)
 
-    def __call__(self, context, view):
-        super(LinkLatexConverter, self).__call__(context, view)
+    def render(self):
         latex = []
         latex.append(r'\begin{description}')
 
-        title = view.convert(self.context.Title())
+        title = self.convert(self.context.Title())
         url = r'\href{%s}{%s}' % (
-            view.convert(self.context.remoteUrl),
-            view.convert(self.context.remoteUrl))
+            self.convert(self.context.remoteUrl),
+            self.convert(self.context.remoteUrl))
 
         latex.append(r'\item[%s (%s)]{%s}' % (
-            title, url, view.convert(self.context.getRawDescription())))
+                title, url, self.convert(self.context.getRawDescription())))
 
         latex.append(r'\end{description}')
         return '\n'.join(latex)
