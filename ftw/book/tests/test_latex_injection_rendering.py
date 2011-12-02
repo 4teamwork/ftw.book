@@ -38,20 +38,20 @@ class TestLatexInjectionExtender(MockTestCase):
         self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.chapter))
 
     def test_page_has_no_injected_fields(self):
-        self.assertTrue(self.page.getField('preLatexCode') is None)
-        self.assertTrue(self.page.getField('postLatexCode') is None)
+        self.assertTrue(self.page.Schema().getField('preLatexCode') is None)
+        self.assertTrue(self.page.Schema().getField('postLatexCode') is None)
 
     def test_folder_has_no_injected_fields(self):
-        self.assertTrue(self.folder.getField('preLatexCode') is None)
-        self.assertTrue(self.folder.getField('postLatexCode') is None)
+        self.assertTrue(self.folder.Schema().getField('preLatexCode') is None)
+        self.assertTrue(self.folder.Schema().getField('postLatexCode') is None)
 
     def test_book_has_injected_fields(self):
-        self.assertTrue(self.book.getField('preLatexCode') is not None)
-        self.assertTrue(self.book.getField('postLatexCode') is not None)
+        self.assertTrue(self.book.Schema().getField('preLatexCode') is not None)
+        self.assertTrue(self.book.Schema().getField('postLatexCode') is not None)
 
     def test_chapter_has_injected_fields(self):
-        self.assertTrue(self.chapter.getField('preLatexCode') is not None)
-        self.assertTrue(self.chapter.getField('postLatexCode') is not None)
+        self.assertTrue(self.chapter.Schema().getField('preLatexCode') is not None)
+        self.assertTrue(self.chapter.Schema().getField('postLatexCode') is not None)
 
 
 class TestInjectionAwareConvertObject(MockTestCase):
@@ -64,7 +64,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.expect(obj.restrictedTraverse(
                 '/myobj/pdflatex_convert_object')).result(None)
 
-        self.expect(obj.getField(ANY)).count(0)
+        self.expect(obj.Schema()).count(0)
 
         self.replay()
 
@@ -82,6 +82,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
 
         directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
         obj = self.mocker.proxy(obj_dummy, spec=None)
+        self.expect(obj.Schema()).result(obj).count(1, None)
 
         self.expect(obj.getField('preLatexCode').get(obj)).result(
             latex_pre_code)
@@ -108,6 +109,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
 
         directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
         obj = self.mocker.proxy(obj_dummy, spec=None)
+        self.expect(obj.Schema()).result(obj).count(1, None)
 
         self.expect(obj.getField('preLatexCode').get(obj)).result(
             latex_pre_code)
