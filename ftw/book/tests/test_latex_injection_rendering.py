@@ -82,11 +82,12 @@ class TestInjectionAwareConvertObject(MockTestCase):
 
         directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
         obj = self.mocker.proxy(obj_dummy, spec=None)
-        self.expect(obj.Schema()).result(obj).count(1, None)
+        schema = self.mocker.mock()
+        self.expect(obj.Schema()).result(schema).count(1, None)
 
-        self.expect(obj.getField('preLatexCode').get(obj)).result(
+        self.expect(schema.getField('preLatexCode').get(obj)).result(
             latex_pre_code)
-        self.expect(obj.getField('postLatexCode').get(obj)).result(
+        self.expect(schema.getField('postLatexCode').get(obj)).result(
             latex_post_code)
 
         self.expect(obj.getPhysicalPath()).result(
@@ -109,11 +110,12 @@ class TestInjectionAwareConvertObject(MockTestCase):
 
         directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
         obj = self.mocker.proxy(obj_dummy, spec=None)
-        self.expect(obj.Schema()).result(obj).count(1, None)
+        schema = self.mocker.mock()
+        self.expect(obj.Schema()).result(schema).count(1, None)
 
-        self.expect(obj.getField('preLatexCode').get(obj)).result(
+        self.expect(schema.getField('preLatexCode').get(obj)).result(
             latex_pre_code)
-        self.expect(obj.getField('postLatexCode').get(obj)).result(
+        self.expect(schema.getField('postLatexCode').get(obj)).result(
             latex_post_code)
 
         self.expect(obj.getPhysicalPath()).result(
