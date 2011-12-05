@@ -18,8 +18,8 @@ tests_require = [
 
 setup(name='ftw.book',
       version=version,
-      description='This package provides content types for ' + \
-          'creating a book, which can be exported as PDF.',
+      description='Produce books with Plone and export them in a high ' + \
+          'quality PDF.',
 
       long_description=open('README.rst').read() + '\n' + \
           open(os.path.join('docs', 'HISTORY.txt')).read(),
