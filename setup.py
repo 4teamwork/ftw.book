@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 version = '1.1.2dev'
-maintainer = 'Julian Infanger'
+maintainer = 'Jonas Baumann'
 
 
 tests_require = [
