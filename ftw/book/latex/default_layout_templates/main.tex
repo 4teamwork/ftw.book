@@ -1,0 +1,55 @@
+\def\sphinxdocclass{report}
+<%block name="documentclass">
+ \documentclass[letterpaper,10pt,ngerman]{sphinxmanual}
+</%block>
+
+<%block name="use_packages">
+  ${packages}
+</%block>
+
+<%block name="settings">
+  \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+  \renewcommand{\familydefault}{\sfdefault}
+  \setlength{\parskip}{0.5em}
+  \setlength{\parindent}{0em}
+</%block>
+
+<%block name="book_vars">
+  \title{${title}}
+  %% \release{2.1.1}
+  %% \author{4teamwork GmbH}
+  %% \authoraddress{4teamwork GmbH \\ Engehaldenstrasse 53 \\ 3012 Bern \\ 031 305 90 24 \\ info@4teamwork.ch}
+</%block>
+
+\begin{document}
+
+<%block name="front_matter">
+  % if context_is_book:
+    % if use_titlepage:
+      \maketitle
+    % endif
+
+    % if use_toc:
+      \tableofcontents
+      \clearpage
+    % endif
+  % endif
+</%block>
+
+<%block name="body_matter">
+  ${content}
+</%block>
+
+<%block name="back_matter">
+  % if context_is_book:
+    % if use_loi:
+      \listoffigures
+    % endif
+
+    % if use_lot:
+      \listoftables
+    % endif
+  % endif
+</%block>
+
+\end{document}

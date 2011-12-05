@@ -4,6 +4,11 @@
     i18n_domain="ftw.book">
 
   <adapter
+      factory="ftw.book.latex.layouts.DefaultBookLayout"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
+      />
+
+  <adapter
       factory="ftw.book.latex.book.BookLaTeXView"
       provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />

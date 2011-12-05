@@ -4,7 +4,6 @@ from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
 from zope.component import getMultiAdapter
-from zope.interface import Interface
 
 
 class TestBookLaTeXView(MockTestCase):
@@ -20,12 +19,9 @@ class TestBookLaTeXView(MockTestCase):
         child2 = self.mocker.mock()
         self.expect(context.listFolderContents()).result([child1, child2])
 
-        childview = self.mocker.mock()
-        self.mock_adapter(childview, ILaTeXView, ((Interface,) * 3))
-
-        self.expect(childview(child1, request, layout).render()).result(
+        self.expect(layout.render_latex_for(child1)).result(
             'child one latex')
-        self.expect(childview(child2, request, layout).render()).result(
+        self.expect(layout.render_latex_for(child2)).result(
             'child two latex')
 
         self.replay()
