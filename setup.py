@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 version = '1.1.2dev'
-maintainer = 'Julian Infanger'
+maintainer = 'Jonas Baumann'
 
 
 tests_require = [
@@ -19,23 +19,24 @@ tests_require = [
 setup(name='ftw.book',
       version=version,
       description='This package provides content types for ' + \
-          'creating a book, which can be exported as PDF.' + \
-          ' (Maintainer %s)' % maintainer,
+          'creating a book, which can be exported as PDF.',
 
       long_description=open('README.rst').read() + '\n' + \
           open(os.path.join('docs', 'HISTORY.txt')).read(),
 
       classifiers=[
         'Framework :: Plone',
+        'Framework :: Plone :: 4.0',
+        'Framework :: Plone :: 4.1',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
 
-      keywords='ftw book',
-      author='%s, 4teamwork GmbH' % maintainer,
+      keywords='ftw book pdf plone',
+      author='4teamwork GmbH',
       author_email='mailto:info@4teamwork.ch',
       maintainer=maintainer,
-      url='http://github.com/4teamwork',
+      url='http://github.com/4teamwork/ftw.book',
 
       license='GPL2',
       packages=find_packages(exclude=['ez_setup']),
