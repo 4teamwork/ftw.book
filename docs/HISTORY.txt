@@ -2,8 +2,11 @@ Changelog
 =========
 
 
-1.1.2 (unreleased)
+2.0 (unreleased)
 ------------------
+
+- Replace ``plonegov.pdflatex`` with ``ftw.pdfgenerator``.
+  [jone]
 
 - Fix schema extender problem with schema extender.
   [jone]
