@@ -29,7 +29,7 @@ Usage
 
 - Install the generic import profile.
 
-- Install a LaTeX distribution, see ``ftw.pdfgenerator``_  install instructions.
+- Install a LaTeX distribution, see `ftw.pdfgenerator`_  install instructions.
 
 
 Links
