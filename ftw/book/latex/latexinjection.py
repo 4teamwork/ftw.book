@@ -1,62 +1,56 @@
-"""Contains a monkey patch patching LatexCTConverter.convertObject, so that
-it includes pre- and post-latex code configured with
-ILaTeXCodeInjectionEnabled.
+"""Adds pre- and post-latex-views for every object within a book,
+mixing in the additional preLatexCode and postLatexCode.
 """
 
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
-from plonegov.pdflatex.browser.converter import LatexCTConverter
-import logging
+from ftw.book.interfaces import IWithinBookLayer
+from ftw.pdfgenerator.view import MakoLaTeXView
+from zope.component import adapts
+from zope.interface import Interface
 
 
-@staticmethod
-def injection_aware_convertObject(view, object=None, brain=None):
-    content_latex = LatexCTConverter._old_convertObject(view=view,
-                                                        object=object,
-                                                        brain=brain)
+class InjectionLaTeXViewBase(MakoLaTeXView):
 
-    if brain:
-        obj = view.context.restrictedTraverse(brain.getPath())
+    def get_rendered_latex_for(self, fieldname):
+        field = self.context.Schema().getField(fieldname)
 
-    else:
-        obj = object
+        # in some cases the field can not be retrieved.
+        if not field:
+            return ''
 
-    if not ILaTeXCodeInjectionEnabled.providedBy(obj):
-        return content_latex
+        code = field.get(self.context)
+        if not code:
+            return ''
 
-    latex = []
+        latex = [
+            '',
+            '%% ---- LaTeX injection (%s) at %s' % (
+                fieldname,
+                '/'.join(self.context.getPhysicalPath())),
+            code,
+            '%% ---- end LaTeX injection (%s)' % fieldname
+            ]
 
-    pre_field = obj.Schema().getField('preLatexCode')
-    if pre_field:
-        pre_code = pre_field.get(obj)
-        if pre_code:
-            latex.append('')
-            latex.append('%% ---- LaTeX pre code injection at %s' % '/'.join(
-                    obj.getPhysicalPath()))
-            latex.append(pre_code)
-            latex.append('%% ---- / LaTeX pre code injection')
-            latex.append('')
-
-    latex.append(content_latex)
-
-    post_field = obj.Schema().getField('postLatexCode')
-    if post_field:
-        post_code = post_field.get(obj)
-        if post_code:
-            latex.append('')
-            latex.append('%% ---- LaTeX post code injection at %s' % '/'.join(
-                    obj.getPhysicalPath()))
-            latex.append(post_code)
-            latex.append('%% ---- / LaTeX post code injection')
-            latex.append('')
-     
-    return '\n'.join(latex)
+        return '\n'.join(latex)
 
 
-# monkey patch not done with collective.monkeypatcher since patching
-# staticmethod is not supported.
-logging.getLogger('ftw.book').info(
-    'Monkeypatching LatexCTConverter.convertObject: '
-    'adding ILaTeXCodeInjectionEnabled support')
-LatexCTConverter._old_convertObject = staticmethod(
-    LatexCTConverter.convertObject)
-LatexCTConverter.convertObject = injection_aware_convertObject
+class PreInjectionLaTeXView(InjectionLaTeXViewBase):
+    """Mixes in the preLatexCode for every object providing
+    ILaTeXCodeInjectionEnabled and within a book.
+    """
+
+    adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
+
+    def render(self):
+        return self.get_rendered_latex_for('preLatexCode')
+
+
+class PostInjectionLaTeXView(InjectionLaTeXViewBase):
+    """Mixes in the postLatexCode for every object providing
+    ILaTeXCodeInjectionEnabled and within a book.
+    """
+
+    adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
+
+    def render(self):
+        return self.get_rendered_latex_for('postLatexCode')

@@ -28,4 +28,16 @@
       provides="ftw.pdfgenerator.interfaces.ILaTeXView"
       />
 
+  <adapter
+      factory="ftw.book.latex.latexinjection.PreInjectionLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      name="pre-hook"
+      />
+
+  <adapter
+      factory="ftw.book.latex.latexinjection.PostInjectionLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      name="post-hook"
+      />
+
 </configure>
