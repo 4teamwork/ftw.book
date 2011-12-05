@@ -21,14 +21,15 @@ class TestImageLaTeXView(MockTestCase):
         converter = getMultiAdapter((object(), object(), layout_obj),
                                     IHTML2LaTeXConverter)
 
-        image = self.create_dummy(size=1)
+        image = self.create_dummy(size=11,
+                                  data='hello world')
         context = self.providing_stub([IATImage, IBlockConfig])
         request = self.create_dummy()
         layout = self.providing_mock([ILaTeXLayout])
         builder = self.mocker.mock()
 
         self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.add_file('%s_image.jpg' % uid, image))
+        self.expect(builder.add_file('%s_image.jpg' % uid, image.data))
 
         self.expect(layout.get_converter()).result(converter).count(0, None)
         self.expect(layout.use_package('graphicx'))

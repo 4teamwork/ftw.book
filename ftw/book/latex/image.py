@@ -1,4 +1,5 @@
 from Products.ATContentTypes.interfaces.image import IATImage
+from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.view import MakoLaTeXView
 from simplelayout.base.interfaces import IBlockConfig
 from zope.component import adapts
@@ -64,10 +65,11 @@ class ImageLaTeXView(MakoLaTeXView):
 
         # register image
         builder = self.layout.get_builder()
-        builder.add_file('%s.jpg' % uid, image)
+        builder.add_file('%s.jpg' % uid, get_raw_image_data(image))
 
         # register latex packages
         self.layout.use_package('graphicx')
         self.layout.use_package('wrapfig')
 
         return '\n'.join(latex)
+

@@ -31,11 +31,11 @@ class TestParagraphLaTeXView(MockTestCase):
     def create_image_mocks(self, image_layout, caption, uid):
         context, request, layout = self.get_mocks()
 
-        image = self.create_dummy(size=1)
+        image = self.create_dummy(size=11, data='hello world')
         builder = self.mocker.mock()
 
         self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.add_file('%s_image.jpg' % uid, image))
+        self.expect(builder.add_file('%s_image.jpg' % uid, image.data))
 
         self.expect(layout.use_package('graphicx'))
         self.expect(layout.use_package('wrapfig'))

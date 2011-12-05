@@ -1,4 +1,5 @@
 from Acquisition import aq_inner, aq_parent
+from Products.ATContentTypes.lib.imagetransform import ATCTImageTransform
 from ftw.book.interfaces import IBook
 from plone.app.layout.navigation.interfaces import INavigationRoot
 
@@ -86,3 +87,18 @@ def getLatexHeading(context, view, toc=True):
         title)
 
     return latex
+
+
+def get_raw_image_data(image):
+    # XXX use scaling?
+    transformer = ATCTImageTransform()
+    img = transformer.getImageAsFile(img=image)
+
+    if img is not None:
+        return img.read()
+
+    elif isinstance(image.data, str):
+        return image.data
+
+    else:
+        return image.data.read()

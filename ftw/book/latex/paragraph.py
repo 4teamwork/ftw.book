@@ -1,4 +1,5 @@
 from ftw.book.latex import utils
+from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.view import MakoLaTeXView
 from simplelayout.base.interfaces import IBlockConfig
 from simplelayout.types.common.interfaces import IParagraph
@@ -90,7 +91,8 @@ class ParagraphLaTeXView(MakoLaTeXView):
         tex.append(r'\end{%s}' % command)
 
         # register image
-        self.layout.get_builder().add_file('%s.jpg' % uid, image)
+        self.layout.get_builder().add_file(
+            '%s.jpg' % uid, get_raw_image_data(image))
 
         # register latex packages
         self.layout.use_package('graphicx')

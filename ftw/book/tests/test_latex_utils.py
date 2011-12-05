@@ -1,6 +1,8 @@
 from Acquisition import aq_inner, aq_parent
+from StringIO import StringIO
 from ftw.book.interfaces import IBook
 from ftw.book.latex.utils import getLatexHeading, get_latex_heading
+from ftw.book.latex.utils import get_raw_image_data
 from ftw.testing import MockTestCase
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from zope.interface import directlyProvides
@@ -225,3 +227,15 @@ class TestNewLatexHeading(MockTestCase):
 
         self.assertEquals(get_latex_heading(chapter, layout),
                           '\\section{Any chapter}\n')
+
+    def test_get_raw_image_data(self):
+        already_raw = 'Image data'
+        self.assertEquals(get_raw_image_data(already_raw),
+                          already_raw)
+
+        image = self.create_dummy(data=StringIO('stream data'))
+        self.assertEquals(get_raw_image_data(image), 'stream data')
+
+        image2 = self.create_dummy(data='direct data')
+        self.assertEquals(get_raw_image_data(image2), 'direct data')
+
