@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Fix a bug which made the pdflatex process hanging when an image had no
+  valid layout defined. Defaulting to 100% width fixes the issue.
+  [jone]
+
 - Replace ``plonegov.pdflatex`` with ``ftw.pdfgenerator``.
   [jone]
 

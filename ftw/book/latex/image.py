@@ -14,7 +14,7 @@ class ImageLaTeXView(MakoLaTeXView):
 
         image = self.context.getImage()
         imageLayout = IBlockConfig(self.context).image_layout
-        width = ''
+        width = r'\textwidth'
         command = 'figure'
         align = ''
 

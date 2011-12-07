@@ -139,3 +139,21 @@ class TestImageLaTeXView(MockTestCase):
         self.assertIn(r'\begin{wrapfigure}{r}{0.25\textwidth}', latex)
         self.assertIn(r'\includegraphics[width=0.25\textwidth]{1sr_image}',
                       latex)
+
+    def test_default_width(self):
+        # The includegraphics options should never have an empty width
+        # option, like [image=], so the default is be 100% when the layout
+        # is not recognized.
+        # Having a [image=] will make pdflatex hang and this will block the
+        # zope thread.
+
+        paragraph, request, layout, converter = self.create_mocks(
+            'a really bad unkown layout', 'title', 'desc', '123')
+
+        self.replay()
+
+        view = getMultiAdapter((paragraph, request, layout))
+        latex = view.render()
+
+        self.assertNotIn('[width=]', latex)
+        self.assertIn(r'[width=\textwidth]', latex)

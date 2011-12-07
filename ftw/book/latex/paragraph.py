@@ -42,7 +42,7 @@ class ParagraphLaTeXView(MakoLaTeXView):
 
         # imageLayout
         imageLayout = IBlockConfig(self.context).image_layout
-        width = ''
+        width = r'\textwidth'
         command = ''
         align = ''
         caption = self.context.getImageCaption()

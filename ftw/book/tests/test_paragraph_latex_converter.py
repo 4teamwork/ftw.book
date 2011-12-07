@@ -211,3 +211,21 @@ class TestParagraphLaTeXView(MockTestCase):
         self.assertIn(r'\includegraphics', imagepart)
         self.assertIn('123_image', imagepart)
         self.assertIn(r'Thats {\bf some} text.', textpart)
+
+    def test_default_width(self):
+        # The includegraphics options should never have an empty width
+        # option, like [image=], so the default is be 100% when the layout
+        # is not recognized.
+        # Having a [image=] will make pdflatex hang and this will block the
+        # zope thread.
+
+        paragraph, request, layout = self.create_image_mocks(
+            'a really bad unkown layout', 'THE image', '123')
+
+        self.replay()
+
+        view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
+        latex = view.get_image_latex()
+
+        self.assertNotIn('[width=]', latex)
+        self.assertIn(r'[width=\textwidth]', latex)
