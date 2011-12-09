@@ -38,7 +38,7 @@ Links
 - Main github project repository: https://github.com/4teamwork/ftw.book
 - Issue tracker: https://github.com/4teamwork/ftw.book/issues
 - Package on pypi: http://pypi.python.org/pypi/ftw.book
-- Continous integration: https://jenkins.4teamwork.ch/job/ftw.book
+- Continuous integration: https://jenkins.4teamwork.ch/job/ftw.book
 
 
 Maintainer
