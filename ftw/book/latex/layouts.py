@@ -46,6 +46,7 @@ class DefaultBookLayout(MakoLayoutBase):
         self.use_package('sphinx')
 
         self.add_raw_template_file('sphinx.sty')
+        self.add_raw_template_file('fncychap.sty')
         self.add_raw_template_file('sphinxftw.cls')
         self.add_raw_template_file('sphinxhowto.cls')
         self.add_raw_template_file('sphinxmanual.cls')
