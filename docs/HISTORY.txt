@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Add missing fncychap.sty to default layout (required by sphinx layout).
+  [jone]
+
 - Fix a bug which made the pdflatex process hanging when an image had no
   valid layout defined. Defaulting to 100% width fixes the issue.
   [jone]
