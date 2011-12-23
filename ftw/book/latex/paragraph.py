@@ -87,7 +87,8 @@ class ParagraphLaTeXView(MakoLaTeXView):
         tex.append(r'\begin{center}')
         tex.append(r'\includegraphics[width=%s]{%s}' % (width, uid))
         tex.append(r'\end{center}')
-        tex.append(r'\caption{%s}' % caption)
+        if caption:
+            tex.append(r'\caption{%s}' % caption)
         tex.append(r'\end{%s}' % command)
 
         # register image
