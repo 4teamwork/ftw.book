@@ -53,7 +53,7 @@ def getLatexHeading(context, view, toc=True):
     # level: depth of rendering
     level = view.level
 
-    # root: object, on which as_pdf was run
+    # root: object, on which export_pdf was run
     root = view.context
 
     # fix level depending of root type

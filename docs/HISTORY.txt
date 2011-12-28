@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Use export_pdf view instead of as_pdf since it was changed in ftw.pdfgenerator.
+  [jone]
+
 - Image block PDF representation: use description as caption and use no
   caption if description is empty.
   [jone]
