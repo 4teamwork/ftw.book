@@ -14,13 +14,25 @@ class TestDefaultBookLayout(MockTestCase):
 
     layer = LATEX_ZCML_LAYER
 
-    def _mock_book(self):
+    def _mock_book(self, data=None):
+        options = {
+            'Title': 'My book',
+            'getUse_titlepage': True,
+            'getUse_toc': True,
+            'getUse_lot': True,
+            'getUse_loi': True,
+            'getAuthor_address': 'Bern\nSwitzerland',
+            'getRelease': '2.5',
+            'getAuthor': '4teamwork',
+            }
+
+        if data:
+            options.update(data)
+
         book = self.providing_stub([IBook])
-        self.expect(book.Title()).result('My book')
-        self.expect(book.getUse_titlepage()).result(True)
-        self.expect(book.getUse_toc()).result(True)
-        self.expect(book.getUse_lot()).result(True)
-        self.expect(book.getUse_loi()).result(True)
+        for key, value in options.items():
+            self.expect(getattr(book, key)()).result(value)
+
         return book
 
     def test_component_is_registered(self):
@@ -90,7 +102,10 @@ class TestDefaultBookLayout(MockTestCase):
              'use_titlepage': True,
              'use_toc': True,
              'use_lot': True,
-             'use_loi': True})
+             'use_loi': True,
+             'authoraddress': r'Bern\\Switzerland',
+             'author': '4teamwork',
+             'release': '2.5'})
 
     def test_rendering_works(self):
         book = self._mock_book()
@@ -113,3 +128,28 @@ class TestDefaultBookLayout(MockTestCase):
         self.assertIn(r'\tableofcontents', latex)
         self.assertIn(r'\listoffigures', latex)
         self.assertIn(r'\listoftables', latex)
+        self.assertIn(r'\release{2.5}', latex)
+        self.assertIn(r'\author{4teamwork}', latex)
+        self.assertIn(r'\authoraddress{Bern\\Switzerland}', latex)
+
+    def test_disabled_metadata(self):
+        book = self._mock_book({
+                'getRelease': '',
+                'getAuthor': '',
+                'getAuthor_address': ''})
+        builder = self.mocker.mock()
+
+        self.expect(builder.add_file('sphinx.sty', data=ANY))
+        self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('sphinxftw.cls', data=ANY))
+        self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
+        self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), builder)
+
+        latex = layout.render_latex('content latex')
+
+        self.assertNotIn(r'\release', latex)
+        self.assertNotIn(r'\author', latex)
+        self.assertNotIn(r'\authoraddress', latex)
