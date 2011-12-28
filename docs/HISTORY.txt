@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Image block PDF representation: use description as caption and use no
+  caption if description is empty.
+  [jone]
+
 - Add fields release, author and author address to book, used in latex layout.
   [jone]
 

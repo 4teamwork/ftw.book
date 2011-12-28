@@ -21,9 +21,10 @@ class ImageLaTeXView(MakoLaTeXView):
         if imageLayout == 'no-image':
             return ''
 
-        caption = "%s: %s" % (
-            self.convert(self.context.Title()),
-            self.convert(self.context.description))
+        if self.context.Description():
+            caption = self.convert(self.context.Description())
+        else:
+            caption = None
 
         if imageLayout == 'small':
             command = 'wrapfigure'
@@ -60,7 +61,8 @@ class ImageLaTeXView(MakoLaTeXView):
         latex.append(r'\begin{center}')
         latex.append(r'\includegraphics[width=%s]{%s}' % (width, uid))
         latex.append(r'\end{center}')
-        latex.append(r'\caption{%s}' % caption)
+        if caption:
+            latex.append(r'\caption{%s}' % caption)
         latex.append(r'\end{%s}' % command)
 
         # register image

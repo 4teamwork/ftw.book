@@ -12,7 +12,7 @@ class TestImageLaTeXView(MockTestCase):
 
     layer = LATEX_ZCML_LAYER
 
-    def create_mocks(self, image_layout, title,
+    def create_mocks(self, image_layout,
                      description, uid):
 
         # mock is not yet in replay mode, so we use another layout dummy..
@@ -38,8 +38,7 @@ class TestImageLaTeXView(MockTestCase):
         self.expect(context.getImage()).result(image).count(1, None)
         self.expect(context.image_layout).result(image_layout)
         self.expect(context.UID()).result(uid)
-        self.expect(context.Title()).result(title)
-        self.expect(context.description).result(description)
+        self.expect(context.Description()).result(description)
 
         return context, request, layout, converter
 
@@ -59,7 +58,7 @@ class TestImageLaTeXView(MockTestCase):
 
     def test_latex_with_small_layout(self):
         context, request, layout, converter = self.create_mocks(
-            'small', 'my title', 'my description', '123')
+            'small', 'my description', '123')
 
         self.replay()
 
@@ -73,12 +72,12 @@ class TestImageLaTeXView(MockTestCase):
                     r'\begin{center}',
                     r'\includegraphics[width=0.25\textwidth]{123_image}',
                     r'\end{center}',
-                    r'\caption{my title: my description}',
+                    r'\caption{my description}',
                     r'\end{wrapfigure}']))
 
     def test_latex_with_middle_layout(self):
         context, request, layout, converter = self.create_mocks(
-            'middle', 'the title', 'the description', '3434')
+            'middle', 'the description', '3434')
 
         self.replay()
 
@@ -92,12 +91,12 @@ class TestImageLaTeXView(MockTestCase):
                     r'\begin{center}',
                     r'\includegraphics[width=0.5\textwidth]{3434_image}',
                     r'\end{center}',
-                    r'\caption{the title: the description}',
+                    r'\caption{the description}',
                     r'\end{wrapfigure}']))
 
     def test_latex_with_full_layout(self):
         context, request, layout, converter = self.create_mocks(
-            'full', 'title', 'description', '12full')
+            'full', 'description', '12full')
 
         self.replay()
 
@@ -111,12 +110,30 @@ class TestImageLaTeXView(MockTestCase):
                     r'\begin{center}',
                     r'\includegraphics[width=\textwidth]{12full_image}',
                     r'\end{center}',
-                    r'\caption{title: description}',
+                    r'\caption{description}',
+                    r'\end{figure}']))
+
+    def test_latex_with_full_layout_no_description(self):
+        context, request, layout, converter = self.create_mocks(
+            'full', '', '123full')
+
+        self.replay()
+
+        view = getMultiAdapter((context, request, layout))
+        latex = view.render()
+
+        self.assertEqual(
+            latex,
+            '\n'.join([
+                    r'\begin{figure}[htbp]',
+                    r'\begin{center}',
+                    r'\includegraphics[width=\textwidth]{123full_image}',
+                    r'\end{center}',
                     r'\end{figure}']))
 
     def test_latex_with_middle_right_layout(self):
         context, request, layout, converter = self.create_mocks(
-            'middle-right', 'title', 'description', '1mr')
+            'middle-right', 'description', '1mr')
 
         self.replay()
 
@@ -129,7 +146,7 @@ class TestImageLaTeXView(MockTestCase):
 
     def test_latex_with_middle_small_layout(self):
         context, request, layout, converter = self.create_mocks(
-            'small-right', 'title', 'description', '1sr')
+            'small-right', 'description', '1sr')
 
         self.replay()
 
@@ -148,7 +165,7 @@ class TestImageLaTeXView(MockTestCase):
         # zope thread.
 
         paragraph, request, layout, converter = self.create_mocks(
-            'a really bad unkown layout', 'title', 'desc', '123')
+            'a really bad unkown layout', 'desc', '123')
 
         self.replay()
 
