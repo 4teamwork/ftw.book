@@ -18,13 +18,22 @@ class DefaultBookLayout(MakoLayoutBase):
 
     def get_render_arguments(self):
         book = self.get_book()
+
+        convert = self.get_converter().convert
+
+        address = book.getAuthor_address().replace('\n', '<br />')
+        address = convert(address).replace('\n', '')
+
         args = {
             'context_is_book': self.context == book,
-            'title': book.Title(),
+            'title': convert(book.Title()),
             'use_titlepage': book.getUse_titlepage(),
             'use_toc': book.getUse_toc(),
             'use_lot': book.getUse_lot(),
             'use_loi': book.getUse_loi(),
+            'release': convert(book.getRelease()),
+            'author': convert(book.getAuthor()),
+            'authoraddress': address,
             # XXX: how to use in this layout?
             # 'pagestyle': book.getPagestyle(),
             }

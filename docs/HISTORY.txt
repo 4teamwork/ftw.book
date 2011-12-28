@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Add fields release, author and author address to book, used in latex layout.
+  [jone]
+
 - Add missing fncychap.sty to default layout (required by sphinx layout).
   [jone]
 

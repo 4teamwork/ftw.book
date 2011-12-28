@@ -16,9 +16,17 @@
 
 <%block name="book_vars">
   \title{${title}}
-  %% \release{2.1.1}
-  %% \author{4teamwork GmbH}
-  %% \authoraddress{4teamwork GmbH \\ Engehaldenstrasse 53 \\ 3012 Bern \\ 031 305 90 24 \\ info@4teamwork.ch}
+  % if release:
+    \release{${release}}
+  % endif
+
+  % if author:
+    \author{${author}}
+  % endif
+
+  % if authoraddress:
+    \authoraddress{${authoraddress}}
+  % endif
 </%block>
 
 \begin{document}
