@@ -15,6 +15,9 @@ class TestBookLaTeXView(MockTestCase):
         request = self.mocker.mock()
         layout = self.mocker.mock()
 
+        self.expect(layout.context).result(context)
+        self.expect(request.get('paths', None)).result(None)
+
         child1 = self.mocker.mock()
         child2 = self.mocker.mock()
         self.expect(context.listFolderContents()).result([child1, child2])

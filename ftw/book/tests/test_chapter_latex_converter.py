@@ -21,6 +21,7 @@ class TestChapterLaTeXView(MockTestCase):
         self.expect(chapter.listFolderContents()).result([])
 
         layout = self.mocker.mock()
+        self.expect(layout.context).result(book)
         self.expect(layout.get_converter().convert('chapter title')).result(
             'converted chapter title')
 
