@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Add "PDF" action to folder_contents on book and chapter types. This allows
+  do export only the selected chapters.
+  [jone]
+
 - Use export_pdf view instead of as_pdf since it was changed in ftw.pdfgenerator.
   [jone]
 
