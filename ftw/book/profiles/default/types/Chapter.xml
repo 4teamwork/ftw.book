@@ -41,48 +41,18 @@
 
   <action title="Edit" action_id="edit" category="object"
           condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user"
-          url_expr="string:${object_url}/edit" visible="False">
+          url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content"/>
-  </action>
-
-  <action title="Edit" action_id="edit-toggle" category="object"
-          condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user"
-          url_expr="string:javascript:simplelayout.toggleEditMode()" visible="True">
-    <permission value="Modify portal content"/>
-  </action>
-
-  <action title="Properties" action_id="metadata" category="object"
-          condition_expr="" url_expr="string:${object_url}/properties"
-          visible="False">
-    <permission value="Modify portal content"/>
-  </action>
-
-  <action title="References" action_id="references" category="object"
-          condition_expr="object/archetype_tool/has_graphviz"
-          url_expr="string:${object_url}/reference_graph" visible="True">
-    <permission value="Modify portal content"/>
-    <permission value="Review portal content"/>
-  </action>
-
-  <action title="preview" action_id="preview" category="object"
-          condition_expr="" url_expr="string:${object_url}?disable_border=1" visible="True">
-    <permission value="Modify portal content"/>
-  </action>
-
-  <action title="History" action_id="history" category="object"
-          condition_expr="" url_expr="string:${object_url}/atct_history"
-          visible="False">
-    <permission value="ATContentTypes: View history"/>
   </action>
 
   <action title="Edit" action_id="sl-edit" category="sl-actions"
-          condition_expr="" url_expr="string:${object_url}/edit" visible="True">
+          condition_expr="" url_expr="string:${object_url}/edit" visible="True" icon_expr="string:edit_icon.gif">
     <permission value="Modify portal content"/>
   </action>
 
   <action title="Delete" action_id="sl-delete" category="sl-actions"
           condition_expr=""
-          url_expr="string:${here/absolute_url}/delete_confirmation" visible="True">
+          url_expr="string:${here/absolute_url}/delete_confirmation" visible="True" icon_expr="string:delete_icon.gif">
     <permission value="Modify portal content"/>
   </action>
 
