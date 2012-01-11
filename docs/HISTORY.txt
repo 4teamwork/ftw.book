@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Re-add converting visualHighlight to new ftw.pdfgenerator implementation.
+  [jone]
+
 - Add "PDF" action to folder_contents on book and chapter types. This allows
   do export only the selected chapters.
   [jone]

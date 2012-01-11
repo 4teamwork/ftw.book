@@ -9,6 +9,11 @@
       />
 
   <adapter
+      factory="ftw.book.latex.converter.BookHTML2LatexConverter"
+      provides="ftw.pdfgenerator.interfaces.IHTML2LaTeXConverter"
+      />
+
+  <adapter
       factory="ftw.book.latex.book.BookLaTeXView"
       provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
       />
