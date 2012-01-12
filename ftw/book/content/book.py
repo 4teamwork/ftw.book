@@ -6,11 +6,25 @@ from ftw.book import _
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IBook
 from zope.interface import implements
+from zope.schema.vocabulary import getVocabularyRegistry
 
 
 BookSchema = (folder.ATFolderSchema.copy() + \
                   NextPreviousAwareSchema.copy() + \
                   atapi.Schema((
+
+            atapi.StringField(
+                name='latex_layout',
+                required=True,
+
+                vocabulary_factory='ftw.book.layoutsVocabulary',
+                default_method='getDefaultLaTeXLayout',
+
+                widget=atapi.SelectionWidget(
+                    label=_(u'book_label_layout',
+                            default=u'Layout'),
+                    description=_(u'book_help_layout',
+                                  default=u''))),
 
             atapi.BooleanField(
                 name='use_titlepage',
@@ -126,6 +140,14 @@ class Book(folder.ATFolder):
     use_lot = atapi.ATFieldProperty('use_lot')
     use_loi = atapi.ATFieldProperty('use_loi')
     pagestyle = atapi.ATFieldProperty('pagestyle')
+
+    def getDefaultLaTeXLayout(self):
+        voc = getVocabularyRegistry().get(self, 'ftw.book.layoutsVocabulary')
+
+        if len(voc) > 0:
+            return voc.by_value.keys()[0]
+        else:
+            return None
 
 
 atapi.registerType(Book, PROJECTNAME)

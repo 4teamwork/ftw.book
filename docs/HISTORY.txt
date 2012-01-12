@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Implement support for multiple layouts, selectable in the book.
+  [jone]
+
 - Re-add converting visualHighlight to new ftw.pdfgenerator implementation.
   [jone]
 

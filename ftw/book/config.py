@@ -9,3 +9,8 @@ ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
     'Book': 'ftw.book: Add Book',
     }
+
+
+# Book LaTeX layout registry. Do not change manually, use
+# ftw.book.latex.utils.register_book_layout
+BOOK_LAYOUT_REGISTRY = {}

@@ -1,6 +1,6 @@
 from ftw.book.interfaces import IBook
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.layouts import DefaultBookLayout
+from ftw.book.latex.layouts import IDefaultBookLayoutSelectionLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
@@ -37,7 +37,7 @@ class TestDefaultBookLayout(MockTestCase):
 
     def test_component_is_registered(self):
         context = object()
-        request = self.providing_stub([IWithinBookLayer])
+        request = self.providing_stub([IDefaultBookLayoutSelectionLayer])
         builder = self.providing_stub([IBuilder])
 
         self.replay()
@@ -49,7 +49,7 @@ class TestDefaultBookLayout(MockTestCase):
 
     def test_layout_only_registered_within_book(self):
         context = object()
-        request = self.providing_stub([IWithinBookLayer])
+        request = self.providing_stub([IDefaultBookLayoutSelectionLayer])
         builder = object()
 
         self.replay()
