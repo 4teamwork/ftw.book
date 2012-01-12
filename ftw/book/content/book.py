@@ -88,36 +88,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                     description=_(u'book_help_pagestyle',
                                   default=u''))),
 
-            atapi.StringField(
-                name='release',
-                default='',
-                required=False,
-                widget=atapi.StringWidget(
-                    label=_(u'book_label_release', default=u'Release'),
-                    description=_(u'book_help_release', default=u''))),
-
-            atapi.StringField(
-                name='author',
-                default='',
-                required=False,
-                widget=atapi.StringWidget(
-                    label=_(u'book_label_author', default=u'Author'),
-                    description=_(u'book_help_author', default=u''))),
-
-            atapi.TextField(
-                name='author_address',
-                default='',
-                required=False,
-                default_content_type='text/plain',
-                allowable_content_types=('text/plain',),
-                default_output_type='text/plain',
-
-                widget=atapi.TextAreaWidget(
-                    label=_(u'book_label_author_address',
-                            default=u'Author Address'),
-                    description=_(u'book_help_author_address',
-                                  default=u''))),
-
             )))
 
 

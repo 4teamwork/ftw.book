@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Use schema extender for enabling default-layout specific fields.
+  Move default layout to seperate module.
+  [jone]
+
 - Implement support for multiple layouts, selectable in the book.
   [jone]
 

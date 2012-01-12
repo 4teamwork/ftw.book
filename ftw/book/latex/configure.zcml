@@ -8,8 +8,14 @@
         name="ftw.book.layoutsVocabulary" />
 
     <adapter
-        factory="ftw.book.latex.layouts.DefaultBookLayout"
+        factory="ftw.book.latex.defaultlayout.DefaultBookLayout"
         provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
+        />
+
+    <adapter
+        name="ftw.book.latex.DefaultLayoutExtender"
+        factory="ftw.book.latex.defaultlayout.DefaultBookLayoutExtender"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
         />
 
     <adapter
