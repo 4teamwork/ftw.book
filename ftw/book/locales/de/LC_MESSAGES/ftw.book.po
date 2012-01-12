@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2011-11-17 09:20+0000\n"
+"POT-Creation-Date: 2012-01-12 09:09+0000\n"
 "PO-Revision-Date: 2011-10-04 09:36+0200\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -25,48 +25,83 @@ msgstr "Buch"
 msgid "Chapter"
 msgstr "Kapitel"
 
-#: ./ftw/book/content/book.py:74
-msgid "book_help_pagestyle"
-msgstr "Diese Option bestimmt die Darstellung der geraden und ungeraden Seiten. Ein einsitiges Layout ist für Berichte geeignet, ein zweiseitiges Layout wird für Bücher verwendet."
+#: ./ftw/book/latex/defaultlayout.py:28
+msgid "Default layout"
+msgstr "Standardlayout"
 
-#: ./ftw/book/content/book.py:56
+#: ./ftw/book/profiles/default/actions.xml
+msgid "PDF"
+msgstr "PDF"
+
+#: ./ftw/book/latex/defaultlayout.py:54
+msgid "book_help_author"
+msgstr ""
+
+#: ./ftw/book/latex/defaultlayout.py:67
+msgid "book_help_author_address"
+msgstr ""
+
+#: ./ftw/book/content/book.py:26
+msgid "book_help_layout"
+msgstr ""
+
+#: ./ftw/book/latex/defaultlayout.py:46
+msgid "book_help_release"
+msgstr ""
+
+#: ./ftw/book/content/book.py:70
 msgid "book_help_use_loi"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Abbildungsverzeichnis erstellt."
 
-#: ./ftw/book/content/book.py:45
+#: ./ftw/book/content/book.py:59
 msgid "book_help_use_lot"
 msgstr "Wenn dies Option angewählt ist, wird automatisch ein Tabbellenverzeichnis erstellt."
 
-#: ./ftw/book/content/book.py:23
+#: ./ftw/book/content/book.py:37
 msgid "book_help_use_titlepage"
 msgstr "Wenn diese Option angewählt ist, wird eine Titelseite erzeugt."
 
-#: ./ftw/book/content/book.py:34
+#: ./ftw/book/content/book.py:48
 msgid "book_help_use_toc"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
 
-#. Default: "Pagestyle"
-#: ./ftw/book/content/book.py:72
-msgid "book_label_pagestyle"
-msgstr "Seitenlayout"
+#. Default: "Author"
+#: ./ftw/book/latex/defaultlayout.py:53
+msgid "book_label_author"
+msgstr "Autor"
+
+#. Default: "Author Address"
+#: ./ftw/book/latex/defaultlayout.py:65
+msgid "book_label_author_address"
+msgstr "Adresse des Autors"
+
+#. Default: "Layout"
+#: ./ftw/book/content/book.py:24
+msgid "book_label_layout"
+msgstr "Layout"
+
+#. Default: "Release"
+#: ./ftw/book/latex/defaultlayout.py:45
+msgid "book_label_release"
+msgstr "Release"
 
 #. Default: "Embedd list of illustrations"
-#: ./ftw/book/content/book.py:54
+#: ./ftw/book/content/book.py:68
 msgid "book_label_use_loi"
 msgstr "Abbildungsverzeichnis einbetten"
 
 #. Default: "Embedd list of tables."
-#: ./ftw/book/content/book.py:43
+#: ./ftw/book/content/book.py:57
 msgid "book_label_use_lot"
 msgstr "Tabellenverzeichnis einbetten"
 
 #. Default: "Embedd a title page"
-#: ./ftw/book/content/book.py:21
+#: ./ftw/book/content/book.py:35
 msgid "book_label_use_titlepage"
 msgstr "Titelseite einbetten"
 
 #. Default: "Embedd table of contents"
-#: ./ftw/book/content/book.py:32
+#: ./ftw/book/content/book.py:46
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
@@ -74,16 +109,6 @@ msgstr "Inhaltsverzeichnis einbetten"
 #: ./ftw/book/portlets/gotoparent.pt:4
 msgid "label_gotoparent"
 msgstr "Zurück zu ${book_name}"
-
-#. Default: "Oneside"
-#: ./ftw/book/content/book.py:67
-msgid "pagestyle_oneside"
-msgstr "Einseitig (Bericht)"
-
-#. Default: "Twoside"
-#: ./ftw/book/content/book.py:68
-msgid "pagestyle_twoside"
-msgstr "Zweiseitig (Buch)"
 
 #: ./ftw/book/latexinjection.py:47
 msgid "post_latex_code_help"
@@ -102,5 +127,3 @@ msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objek
 #: ./ftw/book/latexinjection.py:32
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
-
-

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-11-17 09:20+0000\n"
+"POT-Creation-Date: 2012-01-12 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,64 +25,89 @@ msgstr ""
 msgid "Chapter"
 msgstr ""
 
-#: ./ftw/book/content/book.py:74
-msgid "book_help_pagestyle"
+#: ./ftw/book/latex/defaultlayout.py:28
+msgid "Default layout"
 msgstr ""
 
-#: ./ftw/book/content/book.py:56
+#: ./ftw/book/profiles/default/actions.xml
+msgid "PDF"
+msgstr ""
+
+#: ./ftw/book/latex/defaultlayout.py:54
+msgid "book_help_author"
+msgstr ""
+
+#: ./ftw/book/latex/defaultlayout.py:67
+msgid "book_help_author_address"
+msgstr ""
+
+#: ./ftw/book/content/book.py:26
+msgid "book_help_layout"
+msgstr ""
+
+#: ./ftw/book/latex/defaultlayout.py:46
+msgid "book_help_release"
+msgstr ""
+
+#: ./ftw/book/content/book.py:70
 msgid "book_help_use_loi"
 msgstr ""
 
-#: ./ftw/book/content/book.py:45
+#: ./ftw/book/content/book.py:59
 msgid "book_help_use_lot"
 msgstr ""
 
-#: ./ftw/book/content/book.py:23
+#: ./ftw/book/content/book.py:37
 msgid "book_help_use_titlepage"
 msgstr ""
 
-#: ./ftw/book/content/book.py:34
+#: ./ftw/book/content/book.py:48
 msgid "book_help_use_toc"
 msgstr ""
 
-#. Default: "Pagestyle"
-#: ./ftw/book/content/book.py:72
-msgid "book_label_pagestyle"
+#. Default: "Author"
+#: ./ftw/book/latex/defaultlayout.py:53
+msgid "book_label_author"
+msgstr ""
+
+#. Default: "Author Address"
+#: ./ftw/book/latex/defaultlayout.py:65
+msgid "book_label_author_address"
+msgstr ""
+
+#. Default: "Layout"
+#: ./ftw/book/content/book.py:24
+msgid "book_label_layout"
+msgstr ""
+
+#. Default: "Release"
+#: ./ftw/book/latex/defaultlayout.py:45
+msgid "book_label_release"
 msgstr ""
 
 #. Default: "Embedd list of illustrations"
-#: ./ftw/book/content/book.py:54
+#: ./ftw/book/content/book.py:68
 msgid "book_label_use_loi"
 msgstr ""
 
 #. Default: "Embedd list of tables."
-#: ./ftw/book/content/book.py:43
+#: ./ftw/book/content/book.py:57
 msgid "book_label_use_lot"
 msgstr ""
 
 #. Default: "Embedd a title page"
-#: ./ftw/book/content/book.py:21
+#: ./ftw/book/content/book.py:35
 msgid "book_label_use_titlepage"
 msgstr ""
 
 #. Default: "Embedd table of contents"
-#: ./ftw/book/content/book.py:32
+#: ./ftw/book/content/book.py:46
 msgid "book_label_use_toc"
 msgstr ""
 
 #. Default: "Return to ${book_name}"
 #: ./ftw/book/portlets/gotoparent.pt:4
 msgid "label_gotoparent"
-msgstr ""
-
-#. Default: "Oneside"
-#: ./ftw/book/content/book.py:67
-msgid "pagestyle_oneside"
-msgstr ""
-
-#. Default: "Twoside"
-#: ./ftw/book/content/book.py:68
-msgid "pagestyle_twoside"
 msgstr ""
 
 #: ./ftw/book/latexinjection.py:47

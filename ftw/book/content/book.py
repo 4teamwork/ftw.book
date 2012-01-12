@@ -70,24 +70,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                     description=_(u'book_help_use_loi',
                                   default=u''))),
 
-
-            atapi.StringField(
-                name='pagestyle',
-                default='oneside',
-                storage=atapi.AnnotationStorage(),
-                required=True,
-
-                vocabulary=(
-                    ('oneside', _(u'pagestyle_oneside', default=u'Oneside')),
-                    ('twoside', _(u'pagestyle_twoside', default=u'Twoside')),
-                    ),
-
-                widget=atapi.SelectionWidget(
-                    label=_(u'book_label_pagestyle',
-                            default=u'Pagestyle'),
-                    description=_(u'book_help_pagestyle',
-                                  default=u''))),
-
             )))
 
 

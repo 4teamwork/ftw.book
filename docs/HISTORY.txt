@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Remove pagestyle field: pagestyle is not support by the new layout.
+  [jone]
+
 - Use schema extender for enabling default-layout specific fields.
   Move default layout to seperate module.
   [jone]

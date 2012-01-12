@@ -106,8 +106,6 @@ class DefaultBookLayout(MakoLayoutBase):
             'release': convert(book.Schema().getField('release').get(book)),
             'author': convert(book.Schema().getField('author').get(book)),
             'authoraddress': address,
-            # XXX: how to use in this layout?
-            # 'pagestyle': book.getPagestyle(),
             }
         return args
 

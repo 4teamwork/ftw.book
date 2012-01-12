@@ -21,9 +21,9 @@ class TestDefaultBookLayout(MockTestCase):
             'getUse_toc': True,
             'getUse_lot': True,
             'getUse_loi': True,
-            'getAuthor_address': 'Bern\nSwitzerland',
-            'getRelease': '2.5',
-            'getAuthor': '4teamwork',
+            'author_address': 'Bern\nSwitzerland',
+            'release': '2.5',
+            'author': '4teamwork',
             }
 
         if data:
@@ -32,6 +32,10 @@ class TestDefaultBookLayout(MockTestCase):
         book = self.providing_stub([IBook])
         for key, value in options.items():
             self.expect(getattr(book, key)()).result(value)
+
+        for key in ['author_address', 'author', 'release']:
+            value = options.get(key)
+            self.expect(book.Schema().getField(key).get(book)).result(value)
 
         return book
 
@@ -134,9 +138,9 @@ class TestDefaultBookLayout(MockTestCase):
 
     def test_disabled_metadata(self):
         book = self._mock_book({
-                'getRelease': '',
-                'getAuthor': '',
-                'getAuthor_address': ''})
+                'release': '',
+                'author': '',
+                'author_address': ''})
         builder = self.mocker.mock()
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
