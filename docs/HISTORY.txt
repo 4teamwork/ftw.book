@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Fix edit icon for chapters.
+  [jone]
+
 - Remove pagestyle field: pagestyle is not support by the new layout.
   [jone]
 
