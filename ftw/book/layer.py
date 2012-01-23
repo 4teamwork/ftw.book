@@ -13,9 +13,10 @@ class BookTraverse(DefaultPublishTraverse):
         provide_layers = []
 
         layout_layer_name = getattr(self.context, 'latex_layout', '')
-        layout_layer = resolve(layout_layer_name)
-        if not layout_layer.providedBy(request):
-            provide_layers.append(layout_layer)
+        if layout_layer_name:
+            layout_layer = resolve(layout_layer_name)
+            if not layout_layer.providedBy(request):
+                provide_layers.append(layout_layer)
 
         if not IWithinBookLayer.providedBy(request):
             provide_layers.append(IWithinBookLayer)
