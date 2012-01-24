@@ -1,3 +1,4 @@
+from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
@@ -81,6 +82,7 @@ schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
 
 class Book(folder.ATFolder):
     implements(IBook)
+    security = ClassSecurityInfo()
 
     meta_type = "Book"
     schema = BookSchema
