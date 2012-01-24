@@ -19,6 +19,7 @@
   <include package=".content" />
   <include package=".portlets" />
   <include package=".v02" />
+  <include package=".v03" />
 
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile

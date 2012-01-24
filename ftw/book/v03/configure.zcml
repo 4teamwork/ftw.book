@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.book">
+
+    <genericsetup:upgradeSteps
+        source="0.2"
+        destination="0.3"
+        profile="ftw.book:default">
+
+        <genericsetup:upgradeStep
+            title="Migration classes of chapter objects."
+            handler="ftw.book.v03.upgrades.migrate_chapter_classes"
+            />
+
+    </genericsetup:upgradeSteps>
+
+</configure>
