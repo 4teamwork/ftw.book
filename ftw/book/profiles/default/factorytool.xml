@@ -11,5 +11,6 @@
   <factorytypes>
     <!-- -*- extra stuff goes here -*- -->
     <type portal_type="Book" />
+    <type portal_type="Chapter" />
   </factorytypes>
 </object>

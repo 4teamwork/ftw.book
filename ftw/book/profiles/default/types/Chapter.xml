@@ -7,8 +7,8 @@
   <property name="description"></property>
   <property name="content_icon">++resource++ftw.book-resources/icon_chapter.gif</property>
   <property name="content_meta_type" i18n:translate="">Chapter</property>
-  <property name="product">simplelayout.types.common</property>
-  <property name="factory">addPage</property>
+  <property name="product">ftw.book</property>
+  <property name="factory">addChapter</property>
 
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>

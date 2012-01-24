@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Implement a seperate class for chapters. There is a migration step for
+  migrating existing chapters.
+  [jone]
+
 - Fix edit icon for chapters.
   [jone]
 

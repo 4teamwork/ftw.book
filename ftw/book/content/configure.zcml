@@ -15,8 +15,16 @@
         />
   </class>
 
-  <class class="simplelayout.types.common.content.page.Page">
-    <implements interface="simplelayout.base.interfaces.ISimpleLayoutBlock" />
+  <class class=".chapter.Chapter">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IChapter"
+        />
+
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IChapter"
+        />
   </class>
 
 </configure>

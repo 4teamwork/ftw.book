@@ -10,7 +10,7 @@
       directory="resources" />
 
   <browser:page
-      for="simplelayout.types.common.interfaces.IPage"
+      for="ftw.book.interfaces.IChapter"
       name="block_view"
       template="chapter.pt"
       class=".blockview.BlockView"

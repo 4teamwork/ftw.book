@@ -1,8 +1,15 @@
+from simplelayout.types.common.interfaces import IPage
 from zope.interface import Interface
 
 
 class IBook(Interface):
-    """example book"""
+    """Book marker interface.
+    """
+
+
+class IChapter(IPage):
+    """Chapter marker interface.
+    """
 
 
 class IWithinBookLayer(Interface):
