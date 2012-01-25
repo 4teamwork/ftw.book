@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Compatibility with new simplelayout version on plone4 branch.
+  [jone]
+
 - Implement a seperate class for chapters. There is a migration step for
   migrating existing chapters.
   [jone]

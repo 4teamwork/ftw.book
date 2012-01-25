@@ -13,6 +13,11 @@
             handler="ftw.book.v03.upgrades.migrate_chapter_classes"
             />
 
+        <genericsetup:upgradeStep
+            title="Remove old actions from chapter."
+            handler="ftw.book.v03.upgrades.remove_old_chapter_actions"
+            />
+
     </genericsetup:upgradeSteps>
 
 </configure>
