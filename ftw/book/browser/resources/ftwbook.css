@@ -1,3 +1,9 @@
 div#portal-column-one div.portletWrapper dl.portletGoToParent {
     margin-bottom:0em;
 }
+
+/* Disable simplelayout design menu on chapter, since we cannot
+   create a PDF with multiple columns. */
+.portaltype-chapter #simplelayout-contentmenu-design {
+  display: none;
+}
