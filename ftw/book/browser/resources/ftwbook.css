@@ -7,3 +7,8 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 .portaltype-chapter #simplelayout-contentmenu-design {
   display: none;
 }
+
+.BlockOverallWrapper.chapter > a {
+  display: block;
+  margin-bottom: 2em;
+}
