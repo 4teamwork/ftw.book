@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Set Content-Type header for JSON responses to 'application/json' to prevent
+  theming.
+  [buchi]
+
 - Compatibility with new simplelayout version on plone4 branch.
   [jone]
 

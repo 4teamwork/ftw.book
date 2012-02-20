@@ -83,6 +83,7 @@ class ReaderView(BrowserView):
                          'data': data,
                          'first_uid': data and data[0][0],
                          'last_uid': data and data[-1][0]}
+        self.request.response.setHeader('Content-Type', 'application/json')
         return dumps(response_data)
 
     def render_previous(self, block_render_threshold=_marker):
@@ -131,6 +132,7 @@ class ReaderView(BrowserView):
                          'data': data,
                          'first_uid': data and data[0][0],
                          'last_uid': data and data[-1][0]}
+        self.request.response.setHeader('Content-Type', 'application/json')
         return dumps(response_data)
 
     def render_block(self, brain):
