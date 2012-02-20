@@ -5,6 +5,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Look for css class 'bookReaderLastElement' when trying to determine the
+  last element for reader height calculation.
+  [buchi]
+
 - Set Content-Type header for JSON responses to 'application/json' to prevent
   theming.
   [buchi]
