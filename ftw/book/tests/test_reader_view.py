@@ -42,7 +42,6 @@ class TestReaderView(MockTestCase):
         self.expect(request.set('disable_border', True))
         self.expect(request.set('disable_plone.leftcolumn', True))
         self.expect(request.set('disable_plone.rightcolumn', True))
-
         view = self.mocker.patch(ReaderView(object(), request))
         self.expect(view.template()).result('TEMPLATE RESULT')
 
@@ -54,6 +53,8 @@ class TestReaderView(MockTestCase):
         request = self.stub()
         self.expect(request.get('after_uid', '')).result('')
         self.expect(request.get('loaded_blocks[]', [])).result([])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
@@ -90,6 +91,8 @@ class TestReaderView(MockTestCase):
         request = self.stub()
         self.expect(request.get('after_uid', '')).result('')
         self.expect(request.get('loaded_blocks[]', [])).result([])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
@@ -129,6 +132,8 @@ class TestReaderView(MockTestCase):
         request = self.stub()
         self.expect(request.get('after_uid', '')).result('1book1')
         self.expect(request.get('loaded_blocks[]', [])).result(['1book1'])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
@@ -175,6 +180,8 @@ class TestReaderView(MockTestCase):
         self.expect(request.get('after_uid', '')).result('one')
         self.expect(request.get('loaded_blocks[]', [])).result(
             ['one', 'five'])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         renderer_factory = self.stub()
         self.mock_adapter(renderer_factory, IBookReaderRenderer,
@@ -217,6 +224,8 @@ class TestReaderView(MockTestCase):
         request = self.stub()
         self.expect(request.get('before_uid', '')).result('2chapter2')
         self.expect(request.get('loaded_blocks[]', [])).result(['2chapter2'])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_stub([IBook])
         book_brain = self.stub()
@@ -286,6 +295,8 @@ class TestReaderView(MockTestCase):
         request = self.stub()
         self.expect(request.get('before_uid', '')).result('five')
         self.expect(request.get('loaded_blocks[]', [])).result(['five'])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_mock([IBook])
         book_brain = self.stub()
@@ -332,6 +343,8 @@ class TestReaderView(MockTestCase):
         self.expect(request.get('before_uid', '')).result('five')
         self.expect(request.get('loaded_blocks[]', [])).result(
             ['five', 'two'])
+        self.expect(request.response.setHeader('Content-Type',
+                                               'application/json'))
 
         book = self.providing_mock([IBook])
         book_brain = self.stub()
