@@ -24,16 +24,23 @@ class TestDefaultBookLayout(MockTestCase):
             'author_address': 'Bern\nSwitzerland',
             'release': '2.5',
             'author': '4teamwork',
+            'titlepage_logo': None,
+            'titlepage_width': 0,
             }
 
         if data:
             options.update(data)
 
+        if options.get('titlepage_logo', None):
+            options['titlepage_logo'] = self.create_dummy(
+                data=options['titlepage_logo'])
+
         book = self.providing_stub([IBook])
         for key, value in options.items():
             self.expect(getattr(book, key)()).result(value)
 
-        for key in ['author_address', 'author', 'release']:
+        for key in ['author_address', 'author', 'release', 'titlepage_logo',
+                    'titlepage_logo_width']:
             value = options.get(key)
             self.expect(book.Schema().getField(key).get(book)).result(value)
 
@@ -109,7 +116,9 @@ class TestDefaultBookLayout(MockTestCase):
              'use_loi': True,
              'authoraddress': r'Bern\\Switzerland',
              'author': '4teamwork',
-             'release': '2.5'})
+             'release': '2.5',
+             'logo': False,
+             'logo_width': 0})
 
     def test_rendering_works(self):
         book = self._mock_book()
@@ -157,3 +166,53 @@ class TestDefaultBookLayout(MockTestCase):
         self.assertNotIn(r'\release', latex)
         self.assertNotIn(r'\author', latex)
         self.assertNotIn(r'\authoraddress', latex)
+
+    def test_logo_with_width(self):
+        book = self._mock_book({
+                'titlepage_logo': 'my-image',
+                'titlepage_logo_width': 55})
+
+        builder = self.mocker.mock()
+
+        self.expect(builder.add_file('titlepage_logo.jpg', data='my-image'))
+
+        self.expect(builder.add_file('sphinx.sty', data=ANY))
+        self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('sphinxftw.cls', data=ANY))
+        self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
+        self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), builder)
+
+        latex = layout.render_latex('content latex')
+
+        self.assertIn(
+            r'\def\sphinxlogo{\includegraphics[width=.55\textwidth]{' + \
+                r'titlepage_logo.jpg}}',
+            latex)
+
+    def test_logo_without_width(self):
+        book = self._mock_book({
+                'titlepage_logo': 'my-image',
+                'titlepage_logo_width': 0})
+
+        builder = self.mocker.mock()
+
+        self.expect(builder.add_file('titlepage_logo.jpg', data='my-image'))
+
+        self.expect(builder.add_file('sphinx.sty', data=ANY))
+        self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('sphinxftw.cls', data=ANY))
+        self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
+        self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), builder)
+
+        latex = layout.render_latex('content latex')
+
+        self.assertIn(
+            r'\def\sphinxlogo{\includegraphics{' + \
+                r'titlepage_logo.jpg}}',
+            latex)

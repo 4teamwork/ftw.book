@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Default layout: add logo and logo-width fields.
+  [jone]
+
 - Look for css class 'bookReaderLastElement' when trying to determine the
   last element for reader height calculation.
   [buchi]

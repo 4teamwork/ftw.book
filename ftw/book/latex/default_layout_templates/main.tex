@@ -15,6 +15,14 @@
 </%block>
 
 <%block name="book_vars">
+  % if logo:
+    % if logo_width:
+        \def\sphinxlogo{\includegraphics[width=.${logo_width}\textwidth]{${logo}}}
+    % else:
+        \def\sphinxlogo{\includegraphics{${logo}}}
+    % endif
+  % endif
+
   \title{${title}}
   % if release:
     \release{${release}}

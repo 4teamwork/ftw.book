@@ -6,6 +6,7 @@ from archetypes.schemaextender.interfaces import ISchemaExtender
 from ftw.book import _
 from ftw.book.interfaces import IBook
 from ftw.book.latex.layouts import register_book_layout
+from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from zope.component import adapts
@@ -17,6 +18,14 @@ class StringField(ExtensionField, public.StringField):
 
 
 class TextField(ExtensionField, public.TextField):
+    pass
+
+
+class FileField(ExtensionField, public.FileField):
+    pass
+
+
+class IntegerField(ExtensionField, public.IntegerField):
     pass
 
 
@@ -66,6 +75,33 @@ class DefaultBookLayoutExtender(object):
                         default=u'Author Address'),
                 description=_(u'book_help_author_address',
                               default=u''))),
+
+        FileField(
+            name='titlepage_logo',
+            required=False,
+
+            widget=atapi.FileWidget(
+                label=_(u'book_label_titlepage_logo',
+                        default=u'Titlepage logo'),
+                description=_(u'book_help_titlepage_logo',
+                              default=u'Upload an image or a PDF, which '
+                              u'will be displayed on the titlepage'))),
+
+        IntegerField(
+            name='titlepage_logo_width',
+            default=0,
+            required=False,
+            size=3,
+
+            widget=atapi.IntegerWidget(
+                label=_(u'book_label_titlepage_logo_width',
+                       default=u'Titlepage logo width (%)'),
+                description=_(u'book_help_titlepage_logo_width',
+                              default=u'Width of the titlepage logo in '
+                              u'percent of the content width.'),
+                size=3,
+                maxlength=3)),
+
         ]
 
     def __init__(self, context):
@@ -96,10 +132,25 @@ class DefaultBookLayout(MakoLayoutBase):
         address = book.Schema().getField('author_address').get(book)
         address = convert(address.replace('\n', '<br />')).replace('\n', '')
 
+        logo = book.Schema().getField('titlepage_logo').get(book)
+        if logo:
+            logo_filename = 'titlepage_logo.jpg'
+            self.get_builder().add_file(
+                logo_filename,
+                data=get_raw_image_data(logo.data))
+
+            logo_width = book.Schema().getField(
+                'titlepage_logo_width').get(book)
+        else:
+            logo_filename = False
+            logo_width = 0
+
         args = {
             'context_is_book': self.context == book,
             'title': convert(book.Title()),
             'use_titlepage': book.getUse_titlepage(),
+            'logo': logo_filename,
+            'logo_width': logo_width,
             'use_toc': book.getUse_toc(),
             'use_lot': book.getUse_lot(),
             'use_loi': book.getUse_loi(),
