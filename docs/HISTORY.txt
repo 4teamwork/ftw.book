@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Add HTML Block content type.
+  [jone]
+
 - Add upgrade step for setting default book layout.
   [jone]
 
