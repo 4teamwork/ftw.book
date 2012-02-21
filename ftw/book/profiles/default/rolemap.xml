@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <rolemap>
-  <permissions>
-    <!-- -*- extra stuff goes here -*- -->
-    <permission name="ftw.book: Add Book" acquire="False">
-      <role name="Manager" />
-      <role name="Contributor" />
-    </permission>
+    <permissions>
+        <!-- -*- extra stuff goes here -*- -->
+        <permission name="ftw.book: Add Book" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
 
-    <permission name="ftw.book: Modify LaTeX Injection" acquire="False">
-        <role name="Manager" />
-    </permission>
+        <permission name="ftw.book: Modify LaTeX Injection" acquire="False">
+            <role name="Manager" />
+        </permission>
 
-  </permissions>
+    </permissions>
 </rolemap>
