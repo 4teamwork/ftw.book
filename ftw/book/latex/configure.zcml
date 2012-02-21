@@ -39,6 +39,11 @@
         />
 
     <adapter
+        factory="ftw.book.latex.htmlblock.HTMLBlockLaTeXView"
+        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+        />
+
+    <adapter
         factory="ftw.book.latex.image.ImageLaTeXView"
         provides="ftw.pdfgenerator.interfaces.ILaTeXView"
         />
