@@ -27,6 +27,14 @@
       layer="..interfaces.IWithinBookLayer"
       />
 
+  <browser:page
+      for="ftw.book.interfaces.IHTMLBlock"
+      name="block_view"
+      template="paragraph.pt"
+      class=".blockview.BlockView"
+      permission="zope2.View"
+      />
+
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
       for="simplelayout.base.interfaces.ISimplelayoutView"
