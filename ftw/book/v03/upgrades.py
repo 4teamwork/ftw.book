@@ -35,3 +35,13 @@ def remove_old_chapter_actions(setup):
     remove_fti_action(setup, 'Chapter', 'references')
     remove_fti_action(setup, 'Chapter', 'preview')
     remove_fti_action(setup, 'Chapter', 'history')
+
+
+def set_book_layout(setup):
+    catalog = getToolByName(setup, 'portal_catalog')
+
+    brains = catalog(portal_type='Book')
+    for brain in brains:
+        obj = brain.getObject()
+        obj.setLatex_layout(
+            'ftw.book.latex.defaultlayout.IDefaultBookLayoutSelectionLayer')

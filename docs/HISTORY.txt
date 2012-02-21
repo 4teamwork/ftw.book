@@ -5,6 +5,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Add upgrade step for setting default book layout.
+  [jone]
+
 - Default layout: add logo and logo-width fields.
   [jone]
 

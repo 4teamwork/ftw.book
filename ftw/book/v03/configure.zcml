@@ -18,6 +18,11 @@
             handler="ftw.book.v03.upgrades.remove_old_chapter_actions"
             />
 
+        <genericsetup:upgradeStep
+            title="Set book layout"
+            handler="ftw.book.v03.upgrades.set_book_layout"
+            />
+
     </genericsetup:upgradeSteps>
 
 </configure>
