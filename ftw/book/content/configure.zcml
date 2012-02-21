@@ -27,4 +27,16 @@
         />
   </class>
 
+  <class class=".htmlblock.HTMLBlock">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IHTMLBlock"
+        />
+
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IHTMLBlock"
+        />
+  </class>
+
 </configure>

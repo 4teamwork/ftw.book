@@ -12,6 +12,11 @@ class IChapter(IPage):
     """
 
 
+class IHTMLBlock(Interface):
+    """HTMLBlock marker interface.
+    """
+
+
 class IWithinBookLayer(Interface):
     """Request layer interface, automatically provided by request
     when traversing over book.
