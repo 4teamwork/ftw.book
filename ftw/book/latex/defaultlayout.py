@@ -133,7 +133,7 @@ class DefaultBookLayout(MakoLayoutBase):
         address = convert(address.replace('\n', '<br />')).replace('\n', '')
 
         logo = book.Schema().getField('titlepage_logo').get(book)
-        if logo:
+        if logo and logo.data:
             logo_filename = 'titlepage_logo.jpg'
             self.get_builder().add_file(
                 logo_filename,
