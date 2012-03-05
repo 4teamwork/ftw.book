@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.0 (unreleased)
-------------------
+2.0 (2012-03-05)
+----------------
 
 - Add HTML Block content type.
   [jone]
