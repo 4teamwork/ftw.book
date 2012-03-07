@@ -11,7 +11,7 @@ class BookHelper(object):
     def generate_title(self, obj):
         """ Generates a title embedded in a h-tag
         """
-        chapter_string = self._get_chapter_level_string(obj)
+        chapter_string = self.get_chapter_level_string(obj)
         title = obj.title_or_id()
         hierarchy = self.get_hierarchy_position(obj)
         title = "<h%s>%s %s</h%s>" % (
@@ -39,14 +39,14 @@ class BookHelper(object):
         """
         return self._get_hierarchy_position(obj)
 
-    def _get_chapter_level_string(self, obj):
+    def get_chapter_level_string(self, obj):
         """ Return the string of the chapter levele: 1.4.3
         """
-        chapter_level = self._get_chapter_level(obj)
+        chapter_level = self.get_chapter_level(obj)
         chapter_level = [str(level) for level in chapter_level]
         return '.'.join(chapter_level)
 
-    def _get_chapter_level(self, obj):
+    def get_chapter_level(self, obj):
         """ Return the chapterlevel in a list
         of int
         """

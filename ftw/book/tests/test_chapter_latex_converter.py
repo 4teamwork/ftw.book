@@ -21,7 +21,7 @@ class TestChapterLaTeXView(MockTestCase):
         self.expect(chapter.listFolderContents()).result([])
 
         layout = self.mocker.mock()
-        self.expect(layout.context).result(book)
+        self.expect(layout.context).result(book).count(2)
         self.expect(layout.get_converter().convert('chapter title')).result(
             'converted chapter title')
 
@@ -32,3 +32,67 @@ class TestChapterLaTeXView(MockTestCase):
         latex = view.render()
 
         self.assertEqual(latex, '\\chapter{converted chapter title}\n')
+
+    def test_get_heading_counters_latex_with_book(self):
+        request = self.create_dummy()
+        book = self.providing_stub([IBook])
+        chapter = self.providing_stub([IChapter])
+        self.set_parent(chapter, book)
+
+        layout = self.stub()
+        self.expect(layout.context).result(book)
+
+        self.replay()
+
+        view = getMultiAdapter((chapter, request, layout), ILaTeXView)
+
+        # Since we are exporting the book and not the chapter directly
+        # there is no need to reset the heading counters.
+        self.assertEqual(view.get_heading_counters_latex(), '')
+
+    def test_get_heading_counters_latex_with_chapter(self):
+        request = self.create_dummy()
+
+        book = self.providing_stub([IBook])
+        chapter1 = self.providing_stub([IChapter])
+        chapter2 = self.providing_stub([IChapter])
+        chapter2a = self.providing_stub([IChapter])
+        chapter2b = self.providing_stub([IChapter])
+
+        self.expect(chapter1.portal_type).result('Chapter')
+        self.expect(chapter2.portal_type).result('Chapter')
+        self.expect(chapter2a.portal_type).result('Chapter')
+        self.expect(chapter2b.portal_type).result('Chapter')
+
+        self.expect(book.listFolderContents()).result([chapter1, chapter2])
+        self.set_parent(chapter1, book)
+        self.set_parent(chapter2, book)
+
+        self.expect(chapter2.listFolderContents()).result(
+            [chapter2a, chapter2b])
+        self.set_parent(chapter2a, chapter2)
+        self.set_parent(chapter2b, chapter2)
+
+        self.expect(chapter1.listFolderContents()).result([])
+        self.expect(chapter2a.listFolderContents()).result([])
+        self.expect(chapter2b.listFolderContents()).result([])
+
+        self.replay()
+
+        # We are exporting the chapter directly, so there is no book / parent
+        # chapter heading and we need to reset the heading counters.
+
+        layout2a = self.create_dummy(context=chapter2a)
+        view2a = getMultiAdapter((chapter2a, request, layout2a), ILaTeXView)
+        self.assertEqual(view2a.get_heading_counters_latex(), '\n'.join((
+                    r'\setcounter{chapter}{2}',
+                    r''
+                    )))
+
+        layout2b = self.create_dummy(context=chapter2b)
+        view2b = getMultiAdapter((chapter2b, request, layout2b), ILaTeXView)
+        self.assertEqual(view2b.get_heading_counters_latex(), '\n'.join((
+                    r'\setcounter{chapter}{2}',
+                    r'\setcounter{section}{1}',
+                    r''
+                    )))

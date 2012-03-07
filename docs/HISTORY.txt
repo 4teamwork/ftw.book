@@ -5,6 +5,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
+- Reset heading counters for getting consistent heading numbers on partical exports. #6
+  [jone]
+
 - Use term "Version" instead of "Release" in default book layout. #5
   [jone]
 
