@@ -1,7 +1,6 @@
 from Acquisition import aq_inner, aq_parent
 from ftw.book.interfaces import IBook
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from Products.CMFCore.interfaces._content import IFolderish
 
 
 class BookHelper(object):
