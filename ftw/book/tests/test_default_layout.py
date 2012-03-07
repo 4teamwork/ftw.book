@@ -163,7 +163,7 @@ class TestDefaultBookLayout(MockTestCase):
 
         latex = layout.render_latex('content latex')
 
-        self.assertNotIn(r'\release', latex)
+        self.assertNotIn(r'\release{', latex)
         self.assertNotIn(r'\author', latex)
         self.assertNotIn(r'\authoraddress', latex)
 
