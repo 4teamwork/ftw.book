@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "POT-Creation-Date: 2012-02-21 11:02+0000\n"
-"PO-Revision-Date: 2011-10-04 09:36+0200\n"
+"PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgstr "Layout"
 #. Default: "Release"
 #: ./1buildout/latex/defaultlayout.py:54
 msgid "book_label_release"
-msgstr "Release"
+msgstr "Version"
 
 #. Default: "Titlepage logo"
 #: ./1buildout/latex/defaultlayout.py:84

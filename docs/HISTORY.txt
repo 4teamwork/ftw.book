@@ -5,6 +5,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
+- Use term "Version" instead of "Release" in default book layout. #5
+  [jone]
+
 - Added simplelayout-block-wrapper to chapter view (Simplelayout issue).
   [mathias.leimgruber]
 
