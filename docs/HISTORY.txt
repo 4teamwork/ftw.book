@@ -5,7 +5,8 @@ Changelog
 2.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added simplelayout-block-wrapper to chapter view (Simplelayout issue).
+  [mathias.leimgruber]
 
 
 2.0 (2012-03-05)
