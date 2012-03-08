@@ -46,49 +46,6 @@ def get_latex_heading(context, layout, toc=True):
     return latex
 
 
-# XXX remove when switched to ftw.pdfgenerator
-def getLatexHeading(context, view, toc=True):
-    title = view.convert(context.pretty_title_or_id())
-
-    # level: depth of rendering
-    level = view.level
-
-    # root: object, on which export_pdf was run
-    root = view.context
-
-    # fix level depending of root type
-    book = root
-    while not IBook.providedBy(book):
-        book = aq_parent(aq_inner(book))
-        level += 1
-
-        if INavigationRoot.providedBy(book):
-            # fallback to "section" command, if we are not
-            # within a book.
-            level = 3
-            break
-
-    # decrement level with 2 so that book is -1 and chapter is 0
-    level -= 2
-
-    # default command is last in HEADING_COMMANDS
-    command = HEADING_COMMANDS[-1]
-    if level < len(HEADING_COMMANDS):
-        command = HEADING_COMMANDS[level]
-
-    # generate latex
-    tocmark = ''
-    if not toc:
-        tocmark = '*'
-
-    latex = '\%s%s{%s}\n' % (
-        command,
-        tocmark,
-        title)
-
-    return latex
-
-
 def get_raw_image_data(image):
     # XXX use scaling?
     transformer = ATCTImageTransform()
