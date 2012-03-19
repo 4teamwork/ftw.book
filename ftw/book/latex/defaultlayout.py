@@ -180,3 +180,9 @@ class DefaultBookLayout(MakoLayoutBase):
         self.add_raw_template_file('sphinxftw.cls')
         self.add_raw_template_file('sphinxhowto.cls')
         self.add_raw_template_file('sphinxmanual.cls')
+
+        # The sphinx document class requires graphicx and hyperref, so we
+        # need to remove those packages from the document, otherwise it
+        # would clash.
+        self.remove_package('graphicx')
+        self.remove_package('hyperref')
