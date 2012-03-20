@@ -104,15 +104,15 @@ class TestUnitBookHelper(MockTestCase):
         self.expect(self.paragraph2.portal_type).result('Paragraph')
 
         # Folderish content
-        self.expect(self.book.listFolderContents()).result(
+        self.expect(self.book.contentValues()).result(
             [self.chapter1, self.chapter2])
-        self.expect(self.chapter1.listFolderContents()).result([])
-        self.expect(self.chapter2.listFolderContents()).result(
+        self.expect(self.chapter1.contentValues()).result([])
+        self.expect(self.chapter2.contentValues()).result(
             [self.chapter3, self.chapter4])
-        self.expect(self.chapter3.listFolderContents()).result(
+        self.expect(self.chapter3.contentValues()).result(
             [self.chapter5, self.image, self.paragraph1, self.paragraph2])
-        self.expect(self.chapter4.listFolderContents()).result([])
-        self.expect(self.chapter5.listFolderContents()).result([])
+        self.expect(self.chapter4.contentValues()).result([])
+        self.expect(self.chapter5.contentValues()).result([])
 
     def test_generate_title(self):
         """ Test generate title

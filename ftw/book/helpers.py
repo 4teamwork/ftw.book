@@ -52,6 +52,7 @@ class BookHelper(object):
         """
         chapter_level = []
         parent = obj
+
         while not IPloneSiteRoot.providedBy(parent):
             if IBook.providedBy(parent):
                 break
@@ -90,7 +91,7 @@ class BookHelper(object):
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
-        folder_content = parent.listFolderContents()
+        folder_content = parent.contentValues()
 
         for item in folder_content:
             if item.portal_type in consider_types:

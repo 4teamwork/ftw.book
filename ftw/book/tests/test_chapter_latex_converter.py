@@ -64,18 +64,18 @@ class TestChapterLaTeXView(MockTestCase):
         self.expect(chapter2a.portal_type).result('Chapter')
         self.expect(chapter2b.portal_type).result('Chapter')
 
-        self.expect(book.listFolderContents()).result([chapter1, chapter2])
+        self.expect(book.contentValues()).result([chapter1, chapter2])
         self.set_parent(chapter1, book)
         self.set_parent(chapter2, book)
 
-        self.expect(chapter2.listFolderContents()).result(
+        self.expect(chapter2.contentValues()).result(
             [chapter2a, chapter2b])
         self.set_parent(chapter2a, chapter2)
         self.set_parent(chapter2b, chapter2)
 
-        self.expect(chapter1.listFolderContents()).result([])
-        self.expect(chapter2a.listFolderContents()).result([])
-        self.expect(chapter2b.listFolderContents()).result([])
+        self.expect(chapter1.contentValues()).result([])
+        self.expect(chapter2a.contentValues()).result([])
+        self.expect(chapter2b.contentValues()).result([])
 
         self.replay()
 
