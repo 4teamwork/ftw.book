@@ -5,7 +5,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix view_methods of Book FTI (should include default view).
+  [jone]
 
 
 2.0.1 (2012-03-22)
