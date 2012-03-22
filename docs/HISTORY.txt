@@ -2,8 +2,14 @@ Changelog
 =========
 
 
-2.1 (unreleased)
-----------------
+2.0.2 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+2.0.1 (2012-03-22)
+------------------
 
 - Fix heading counters: count objects where the user has no View permission.
   [jone]
