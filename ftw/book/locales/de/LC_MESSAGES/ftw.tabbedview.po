@@ -14,3 +14,9 @@ msgstr ""
 
 msgid "books"
 msgstr "Bücher"
+
+msgid "index"
+msgstr "Inhaltsverzeichnis"
+
+msgid "bookdocuments"
+msgstr "Dokumente"

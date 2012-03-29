@@ -5,55 +5,8 @@
       i18n:domain="ftw.book">
 
 <div metal:fill-slot="content-core">
-    
-    <tal:level tal:define="level python:0">
-    <ul tal:define="item view/tree; children view/tree/children;">
-    <tal:navitem>
-    <li class="navTreeItem visualNoMarker">
 
-        <tal:level define="item_wf_state_class python: 'state-' + item['item'].review_state;">
+    <div tal:replace="structure view/renderindex">index contents</div>
 
-        <div tal:define="itemClass string:$item_wf_state_class;">
-
-            <a tal:attributes="href item/item/getURL;
-                               title item/item/Description;
-                               class string:$itemClass">
-    					 <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
-            </a>
-
-        </div>
-
-        </tal:level>
-    </li>
-    </tal:navitem>
-    <ul>
-    <metal:main define-macro="nav_item">
-    <tal:navitem tal:repeat="item children">
-    <li class="navTreeItem visualNoMarker">
-
-        <tal:level define="item_wf_state_class python: 'state-' + item['item'].review_state;">
-
-        <div tal:define="itemClass string:$item_wf_state_class;">
-
-            <a tal:attributes="href item/item/getURL;
-                               title item/item/Description;
-                               class string:$itemClass">
-    					 <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
-            </a>
-
-        </div>
-
-        </tal:level>
-    </li>
-        <ul tal:attributes="class python:'navTree navTreeLevel'+str(level)"
-            tal:define="level item/depth; children item/children"
-            tal:condition="nocall:item/children">
-            <metal:recurse use-macro="here/book_view/template/macros/nav_item"/>
-        </ul>
-    </tal:navitem>
-    </metal:main>
-    </ul>
-    </ul>
-    </tal:level>
- </div>
+</div>
 </html>

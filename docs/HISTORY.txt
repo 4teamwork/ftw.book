@@ -5,6 +5,9 @@ Changelog
 2.1 (unreleased)
 ----------------
 
+- Added a alternative default book view based on ftw.tabbedview
+  [mathias.leimgruber]
+
 - Added ftw.tabbedview based overview.
   [mathias.leimgruber]
 

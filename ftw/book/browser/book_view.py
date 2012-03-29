@@ -4,16 +4,8 @@ from ftw.book.browser.toc_tree import BookTocTree
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class BookView(BrowserView):
-    
+
     template = ViewPageTemplateFile('book_view.pt')
 
-    def __call__(self):
-        context = self.context
-        query = {
-            'path': '/'.join(context.getPhysicalPath())}
-        raw_tree = buildFolderTree(context, obj=context, query=query)
-        toc_tree = BookTocTree()
-        tree = toc_tree(raw_tree)
-        self.tree = tree
-        return self.template()
-    
+    def renderindex(self):
+        return self.context.restrictedTraverse('@@index_view')()

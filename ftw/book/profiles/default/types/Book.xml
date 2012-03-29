@@ -47,5 +47,21 @@
           url_expr="string:${object_url}/@@book_reader_view" visible="True">
     <permission value="View" />
   </action>
-
+  <!-- ftw.tabbedview tabs on Book -->
+  <action action_id="index"
+         visible="True"
+         url_expr="string:${object_url}#index"
+         title="Index"
+         category="tabbedview-tabs"
+         condition_expr="">
+     <permission value="View"/>
+  </action>
+  <action action_id="bookdocuments"
+         visible="True"
+         url_expr="string:${object_url}#bookdocuments"
+         title="BookDocuments"
+         category="tabbedview-tabs"
+         condition_expr="">
+     <permission value="View"/>
+  </action>
 </object>

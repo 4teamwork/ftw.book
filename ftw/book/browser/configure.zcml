@@ -51,8 +51,17 @@
       for="..interfaces.IBook"
       name="book_view"
       class=".book_view.BookView"
+      template="book_view.pt"
       permission="zope2.View"
       />
+
+  <browser:page
+      for="..interfaces.IBook"
+      name="index_view"
+      class=".index_view.IndexView"
+      permission="zope2.View"
+      />
+
 
   <include package="plone.app.contentmenu" />
 
@@ -67,9 +76,21 @@
          allowed_attributes="listing"
          />
      <browser:page
-        for="Products.CMFCore.interfaces._content.IFolderish"
+         for="Products.CMFCore.interfaces._content.IFolderish"
          name="tabbedview_view-books"
          class=".tabbed_book_view.BooksTab"
+         permission="zope2.View"
+         />
+     <browser:page
+         for="ftw.book.interfaces.IBook"
+         name="tabbedview_view-index"
+         class=".book_tabs.IndexTab"
+         permission="zope2.View"
+         />
+     <browser:page
+         for="ftw.book.interfaces.IBook"
+         name="tabbedview_view-bookdocuments"
+         class=".book_tabs.DocumentsTab"
          permission="zope2.View"
          />
   </configure>
