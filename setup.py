@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '2.0.3.dev0'
+version = '2.1.dev0'
 maintainer = 'Jonas Baumann'
 
 
@@ -15,6 +15,10 @@ tests_require = [
     'pyquery',
     ]
 
+extras_require = {
+    'tests': tests_require,
+    'tabbeview': [
+        'ftw.tabbedview']}
 
 setup(name='ftw.book',
       version=version,
@@ -54,7 +58,7 @@ setup(name='ftw.book',
         ],
 
       tests_require=tests_require,
-      extras_require=dict(tests=tests_require),
+      extras_require=extras_require,
 
       entry_points="""
       # -*- Entry points: -*-

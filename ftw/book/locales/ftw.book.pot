@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-02-21 11:02+0000\n"
+"POT-Creation-Date: 2012-03-29 12:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,134 +17,148 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ftw.book\n"
 
-#: ./1buildout/profiles/default/types/Book.xml
+#: ./ftw/book/profiles/default/types/Book.xml
 msgid "Book"
 msgstr ""
 
-#: ./1buildout/profiles/default/types/Chapter.xml
+#: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:37
+#: ./ftw/book/latex/defaultlayout.py:37
 msgid "Default layout"
 msgstr ""
 
-#: ./1buildout/profiles/default/actions.xml
+#: ./ftw/book/profiles/default/types/HTMLBlock.xml
+msgid "HTML Block"
+msgstr ""
+
+#: ./ftw/book/profiles/default/actions.xml
 msgid "PDF"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:63
+#: ./ftw/book/latex/defaultlayout.py:63
 msgid "book_help_author"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:76
+#: ./ftw/book/latex/defaultlayout.py:76
 msgid "book_help_author_address"
 msgstr ""
 
-#: ./1buildout/content/book.py:27
+#: ./ftw/book/content/book.py:27
 msgid "book_help_layout"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:55
+#: ./ftw/book/latex/defaultlayout.py:55
 msgid "book_help_release"
 msgstr ""
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./1buildout/latex/defaultlayout.py:86
+#: ./ftw/book/latex/defaultlayout.py:86
 msgid "book_help_titlepage_logo"
 msgstr ""
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./1buildout/latex/defaultlayout.py:99
+#: ./ftw/book/latex/defaultlayout.py:99
 msgid "book_help_titlepage_logo_width"
 msgstr ""
 
-#: ./1buildout/content/book.py:71
+#: ./ftw/book/content/book.py:71
 msgid "book_help_use_loi"
 msgstr ""
 
-#: ./1buildout/content/book.py:60
+#: ./ftw/book/content/book.py:60
 msgid "book_help_use_lot"
 msgstr ""
 
-#: ./1buildout/content/book.py:38
+#: ./ftw/book/content/book.py:38
 msgid "book_help_use_titlepage"
 msgstr ""
 
-#: ./1buildout/content/book.py:49
+#: ./ftw/book/content/book.py:49
 msgid "book_help_use_toc"
 msgstr ""
 
 #. Default: "Author"
-#: ./1buildout/latex/defaultlayout.py:62
+#: ./ftw/book/latex/defaultlayout.py:62
 msgid "book_label_author"
 msgstr ""
 
 #. Default: "Author Address"
-#: ./1buildout/latex/defaultlayout.py:74
+#: ./ftw/book/latex/defaultlayout.py:74
 msgid "book_label_author_address"
 msgstr ""
 
 #. Default: "Layout"
-#: ./1buildout/content/book.py:25
+#: ./ftw/book/content/book.py:25
 msgid "book_label_layout"
 msgstr ""
 
 #. Default: "Release"
-#: ./1buildout/latex/defaultlayout.py:54
+#: ./ftw/book/latex/defaultlayout.py:54
 msgid "book_label_release"
 msgstr ""
 
 #. Default: "Titlepage logo"
-#: ./1buildout/latex/defaultlayout.py:84
+#: ./ftw/book/latex/defaultlayout.py:84
 msgid "book_label_titlepage_logo"
 msgstr ""
 
 #. Default: "Titlepage logo width (%)"
-#: ./1buildout/latex/defaultlayout.py:97
+#: ./ftw/book/latex/defaultlayout.py:97
 msgid "book_label_titlepage_logo_width"
 msgstr ""
 
 #. Default: "Embedd list of illustrations"
-#: ./1buildout/content/book.py:69
+#: ./ftw/book/content/book.py:69
 msgid "book_label_use_loi"
 msgstr ""
 
 #. Default: "Embedd list of tables."
-#: ./1buildout/content/book.py:58
+#: ./ftw/book/content/book.py:58
 msgid "book_label_use_lot"
 msgstr ""
 
 #. Default: "Embedd a title page"
-#: ./1buildout/content/book.py:36
+#: ./ftw/book/content/book.py:36
 msgid "book_label_use_titlepage"
 msgstr ""
 
 #. Default: "Embedd table of contents"
-#: ./1buildout/content/book.py:47
+#: ./ftw/book/content/book.py:47
 msgid "book_label_use_toc"
 msgstr ""
 
+#. Default: "Creator"
+#: ./ftw/book/browser/tabbed_book_view.py:36
+msgid "column_creator"
+msgstr ""
+
+#. Default: "Title"
+#: ./ftw/book/browser/tabbed_book_view.py:32
+msgid "column_title"
+msgstr ""
+
 #. Default: "Return to ${book_name}"
-#: ./1buildout/portlets/gotoparent.pt:4
+#: ./ftw/book/portlets/gotoparent.pt:4
 msgid "label_gotoparent"
 msgstr ""
 
-#: ./1buildout/latexinjection.py:47
+#: ./ftw/book/latexinjection.py:47
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
-#: ./1buildout/latexinjection.py:45
+#: ./ftw/book/latexinjection.py:45
 msgid "post_latex_code_label"
 msgstr ""
 
-#: ./1buildout/latexinjection.py:34
+#: ./ftw/book/latexinjection.py:34
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
-#: ./1buildout/latexinjection.py:32
+#: ./ftw/book/latexinjection.py:32
 msgid "pre_latex_code_label"
 msgstr ""
 

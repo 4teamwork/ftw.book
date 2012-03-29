@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
   <include package=".reader" />
@@ -56,5 +57,23 @@
   <include package="plone.app.contentmenu" />
 
   <adapter factory=".nextprevious.BookNextPrevious" />
+
+  <configure zcml:condition="installed ftw.tabbedview">
+     <browser:page
+         for="Products.CMFCore.interfaces._content.IFolderish"
+         name="tabbed_book_view"
+         class=".tabbed_book_view.BooksView"
+         permission="zope2.View"
+         allowed_attributes="listing"
+         />
+     <browser:page
+        for="Products.CMFCore.interfaces._content.IFolderish"
+         name="tabbedview_view-books"
+         class=".tabbed_book_view.BooksTab"
+         permission="zope2.View"
+         />
+  </configure>
+
+
 
 </configure>

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-02-21 11:02+0000\n"
+"POT-Creation-Date: 2012-03-29 12:48+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -16,134 +16,150 @@ msgstr ""
 "X-Is-Fallback-For: de-de de-at de-ch\n"
 
 #. Default: "Book"
-#: ./1buildout/profiles/default/types/Book.xml
+#: ./ftw/book/profiles/default/types/Book.xml
 msgid "Book"
 msgstr "Buch"
 
 #. Default: "Chapter"
-#: ./1buildout/profiles/default/types/Chapter.xml
+#: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr "Kapitel"
 
-#: ./1buildout/latex/defaultlayout.py:37
+#: ./ftw/book/latex/defaultlayout.py:37
 msgid "Default layout"
 msgstr "Standardlayout"
 
-#: ./1buildout/profiles/default/actions.xml
+#: ./ftw/book/profiles/default/types/HTMLBlock.xml
+msgid "HTML Block"
+msgstr ""
+
+#: ./ftw/book/profiles/default/actions.xml
 msgid "PDF"
 msgstr "PDF"
 
-#: ./1buildout/latex/defaultlayout.py:63
+#: ./ftw/book/latex/defaultlayout.py:63
 msgid "book_help_author"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:76
+#: ./ftw/book/latex/defaultlayout.py:76
 msgid "book_help_author_address"
 msgstr ""
 
-#: ./1buildout/content/book.py:27
+#: ./ftw/book/content/book.py:27
 msgid "book_help_layout"
 msgstr ""
 
-#: ./1buildout/latex/defaultlayout.py:55
+#: ./ftw/book/latex/defaultlayout.py:55
 msgid "book_help_release"
 msgstr ""
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./1buildout/latex/defaultlayout.py:86
+#: ./ftw/book/latex/defaultlayout.py:86
 msgid "book_help_titlepage_logo"
 msgstr "Laden Sie ein Bild oder PDF hoch, welches auf der Titelseite im PDF eingebettet wird."
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./1buildout/latex/defaultlayout.py:99
+#: ./ftw/book/latex/defaultlayout.py:99
 msgid "book_help_titlepage_logo_width"
 msgstr "Wenn Sie ein Logo für die Titelseite benutze, definieren Sie hier die gewünschte Breite in Prozent der Inhaltsbreite."
 
-#: ./1buildout/content/book.py:71
+#: ./ftw/book/content/book.py:71
 msgid "book_help_use_loi"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Abbildungsverzeichnis erstellt."
 
-#: ./1buildout/content/book.py:60
+#: ./ftw/book/content/book.py:60
 msgid "book_help_use_lot"
 msgstr "Wenn dies Option angewählt ist, wird automatisch ein Tabbellenverzeichnis erstellt."
 
-#: ./1buildout/content/book.py:38
+#: ./ftw/book/content/book.py:38
 msgid "book_help_use_titlepage"
 msgstr "Wenn diese Option angewählt ist, wird eine Titelseite erzeugt."
 
-#: ./1buildout/content/book.py:49
+#: ./ftw/book/content/book.py:49
 msgid "book_help_use_toc"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
 
 #. Default: "Author"
-#: ./1buildout/latex/defaultlayout.py:62
+#: ./ftw/book/latex/defaultlayout.py:62
 msgid "book_label_author"
 msgstr "Autor"
 
 #. Default: "Author Address"
-#: ./1buildout/latex/defaultlayout.py:74
+#: ./ftw/book/latex/defaultlayout.py:74
 msgid "book_label_author_address"
 msgstr "Adresse des Autors"
 
 #. Default: "Layout"
-#: ./1buildout/content/book.py:25
+#: ./ftw/book/content/book.py:25
 msgid "book_label_layout"
 msgstr "Layout"
 
 #. Default: "Release"
-#: ./1buildout/latex/defaultlayout.py:54
+#: ./ftw/book/latex/defaultlayout.py:54
 msgid "book_label_release"
 msgstr "Version"
 
 #. Default: "Titlepage logo"
-#: ./1buildout/latex/defaultlayout.py:84
+#: ./ftw/book/latex/defaultlayout.py:84
 msgid "book_label_titlepage_logo"
 msgstr "Logo Titelseite"
 
 #. Default: "Titlepage logo width (%)"
-#: ./1buildout/latex/defaultlayout.py:97
+#: ./ftw/book/latex/defaultlayout.py:97
 msgid "book_label_titlepage_logo_width"
 msgstr "Breite Logo Titelseite (%)"
 
 #. Default: "Embedd list of illustrations"
-#: ./1buildout/content/book.py:69
+#: ./ftw/book/content/book.py:69
 msgid "book_label_use_loi"
 msgstr "Abbildungsverzeichnis einbetten"
 
 #. Default: "Embedd list of tables."
-#: ./1buildout/content/book.py:58
+#: ./ftw/book/content/book.py:58
 msgid "book_label_use_lot"
 msgstr "Tabellenverzeichnis einbetten"
 
 #. Default: "Embedd a title page"
-#: ./1buildout/content/book.py:36
+#: ./ftw/book/content/book.py:36
 msgid "book_label_use_titlepage"
 msgstr "Titelseite einbetten"
 
 #. Default: "Embedd table of contents"
-#: ./1buildout/content/book.py:47
+#: ./ftw/book/content/book.py:47
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
+#. Default: "Creator"
+#: ./ftw/book/browser/tabbed_book_view.py:36
+msgid "column_creator"
+msgstr "Ersteller"
+
+#. Default: "Title"
+#: ./ftw/book/browser/tabbed_book_view.py:32
+msgid "column_title"
+msgstr "Titel"
+
 #. Default: "Return to ${book_name}"
-#: ./1buildout/portlets/gotoparent.pt:4
+#: ./ftw/book/portlets/gotoparent.pt:4
 msgid "label_gotoparent"
 msgstr "Zurück zu ${book_name}"
 
-#: ./1buildout/latexinjection.py:47
+#: ./ftw/book/latexinjection.py:47
 msgid "post_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch nach dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code beneath content"
-#: ./1buildout/latexinjection.py:45
+#: ./ftw/book/latexinjection.py:45
 msgid "post_latex_code_label"
 msgstr "LaTeX-Code nach Inhalt"
 
-#: ./1buildout/latexinjection.py:34
+#: ./ftw/book/latexinjection.py:34
 msgid "pre_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code above content"
-#: ./1buildout/latexinjection.py:32
+#: ./ftw/book/latexinjection.py:32
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
+
+
