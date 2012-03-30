@@ -40,7 +40,7 @@
     <ul tal:attributes="class python:'navTree navTreeLevel'+str(level)"
         tal:define="level item/depth; children item/children"
         tal:condition="nocall:item/children">
-        <metal:recurse use-macro="here/book_view/template/macros/nav_item"/>
+        <metal:recurse use-macro="here/index_view/template/macros/nav_item"/>
     </ul>
 </tal:navitem>
 </metal:main>
