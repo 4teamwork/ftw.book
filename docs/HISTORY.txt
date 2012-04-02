@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.1 (unreleased)
+2.1 (2012-04-02)
 ----------------
 
 - Added a alternative default book view based on ftw.tabbedview
