@@ -12,3 +12,9 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
   display: block;
   margin-bottom: 2em;
 }
+
+.BlockOverallWrapper.remark {
+  background: none repeat scroll 0 0 #DDDDDD;
+  margin: 10px 0;
+  direction: ltr;
+}

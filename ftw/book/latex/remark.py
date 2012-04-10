@@ -11,6 +11,7 @@ class RemarkLaTeXView(MakoLaTeXView):
     def render(self):
         latex = []
 
+        import pdb; pdb.set_trace( )
         if self.context.getShowTitle():
             latex.append(utils.get_latex_heading(self.context, self.layout))
 

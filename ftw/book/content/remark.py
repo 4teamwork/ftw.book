@@ -29,15 +29,26 @@ remark_schema += atapi.Schema((
                 description=_sl(u'simplelayout_help_showtitle',
                                 default=u'Show title'))),
 
+        atapi.TextField('text',
+                  required=True,
+                  searchable=True,
+                  default_input_type = 'text/plain',
+                  default_output_type = ('text/plain',),
+                  widget = atapi.TextAreaWidget(
+                            description = '',
+                            label = _sl(
+                                u'label_body_text', default=u'Body Text'))),
+
+
         ))
 
-remark_schema += simplelayout_schemas.textSchema.copy()
 
-remark_schema['text'].widget = atapi.TextAreaWidget(
-    label=_at(u'label_body_text', default=u'Body Text'),
-    description='',
-    rows=32,
-    cols=70)
+# remark_schema += simplelayout_schemas.textSchema.copy()
+#
+# remark_schema['text'].widget = atapi.TextAreaWidget(
+#     label=_at(u'label_body_text', default=u'Body Text'),
+#     default_input_type = 'text/plain',
+#     default_output_type = 'text/plain',)
 
 remark_schema['title'].required = False
 remark_schema['title'].searchable = 0
