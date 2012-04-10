@@ -16,6 +16,9 @@ class IHTMLBlock(Interface):
     """HTMLBlock marker interface.
     """
 
+class IRemark(Interface):
+    """Remark marker interface.
+    """
 
 class IWithinBookLayer(Interface):
     """Request layer interface, automatically provided by request
