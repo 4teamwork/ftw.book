@@ -36,6 +36,14 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="ftw.book.interfaces.IRemark"
+      name="block_view"
+      template="remark.pt"
+      class=".remark.RemarkView"
+      permission="zope2.View"
+      />
+
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
       for="simplelayout.base.interfaces.ISimplelayoutView"

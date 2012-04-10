@@ -12,7 +12,8 @@ class RemarkLaTeXView(MakoLaTeXView):
         latex = []
 
         if self.context.getShowTitle():
-            latex.append(utils.get_latex_heading(self.context, self.layout))
+            latex.append(utils.get_latex_heading(
+                self.context, self.layout, toc=False))
 
         text = self.context.getText().strip()
         if len(text) > 0:

@@ -88,14 +88,21 @@ class BookHelper(object):
         """
 
         consider_types = ['Chapter']
+        ignored_types = ['Remark']
+
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
         folder_content = parent.contentValues()
 
         for item in folder_content:
-            if item.portal_type in consider_types:
+
+            if item.portal_type in ignored_types:
+                pass
+
+            elif item.portal_type in consider_types:
                 counter += 1
+
             elif hasattr(item, 'showTitle') and item.showTitle:
                 counter += 1
 
