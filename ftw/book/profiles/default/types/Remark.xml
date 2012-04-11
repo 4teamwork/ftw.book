@@ -14,8 +14,8 @@
     <property name="global_allow">False</property>
     <property name="allow_discussion">False</property>
 
-    <property name="immediate_view">paragraph_view</property>
-    <property name="default_view">paragraph_view</property>
+    <property name="immediate_view">block_view</property>
+    <property name="default_view">block_view</property>
     <property name="view_methods">
         <element value="paragraph_view" />
     </property>

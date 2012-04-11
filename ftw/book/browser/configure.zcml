@@ -47,7 +47,7 @@
       for="ftw.book.interfaces.IRemark"
       name="block_view"
       template="remark.pt"
-      class=".remark.RemarkView"
+      class="simplelayout.types.common.browser.views.BlockView"
       permission="zope2.View"
       />
 

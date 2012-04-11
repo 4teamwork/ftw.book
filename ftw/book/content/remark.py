@@ -14,21 +14,6 @@ _sl = MessageFactory('simplelayout')
 
 remark_schema = ATContentTypeSchema.copy()
 
-remark_schema += atapi.Schema((
-
-        atapi.BooleanField(
-            name='showTitle',
-            schemata='default',
-            default=False,
-
-            widget=atapi.BooleanWidget(
-                label=_sl(u'simplelayout_label_showtitle',
-                          default=u'Show Title'),
-                description=_sl(u'simplelayout_help_showtitle',
-                                default=u'Show title'))),
-
-    ))
-
 remark_schema += simplelayout_schemas.textSchema.copy()
 
 remark_schema['title'].required = False
