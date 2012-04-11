@@ -78,5 +78,5 @@ class TestRemarkLaTeXView(MockTestCase):
 
         latex = view.render()
 
-        self.assertIn(r'\chapter{My {\bf HTML} block}', latex)
+        self.assertIn(r'\chapter*{My {\bf HTML} block}', latex)
         self.assertIn(r'bar {\bf foo} baz', latex)
