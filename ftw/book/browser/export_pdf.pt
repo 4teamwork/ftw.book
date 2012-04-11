@@ -17,9 +17,9 @@
               tal:attributes="action context/@@plone_context_state/current_base_url">
 
         <tal:START_CUSTOM_______________________________________ />
-	        <p>
+	        <p i18n:domain="ftw.book">
 	            <input type="checkbox" name="embed_remarks" id="embed_remarks" checked="checked" />
-	            <label for="embed_remarks" i18n:translate="">Add comments</label>
+	            <label for="embed_remarks" i18n:translate="">Embed remarks</label>
 	        </p>
         <tal:END_CUSTOM_______________________________________ />
 

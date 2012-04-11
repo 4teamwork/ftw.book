@@ -12,11 +12,8 @@ class BookTocTree(object):
             if brain.portal_type in ('Book', 'Chapter'):
                 return True
 
-            elif brain.portal_type in ('Remark',):
-                return False
-
             else:
-                return brain.showTitle
+                return getattr(brain, 'showTitle', None)
 
         tree = filter_tree(filterer, tree, copy=True)
 

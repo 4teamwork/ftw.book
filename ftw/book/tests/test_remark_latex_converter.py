@@ -1,4 +1,4 @@
-from ftw.book.interfaces import IRemark, IWithinBookLayer, IAddRemarkLayer
+from ftw.book.interfaces import IRemark, IAddRemarkLayer
 from ftw.book.latex.remark import RemarkLaTeXView
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
@@ -8,7 +8,6 @@ from ftw.testing import MockTestCase
 from zope.component import queryMultiAdapter, getMultiAdapter
 from zope.interface import alsoProvides
 from zope.interface.verify import verifyClass
-from ftw.book.interfaces import IBook
 
 
 class TestRemarkLaTeXView(MockTestCase):
@@ -38,7 +37,7 @@ class TestRemarkLaTeXView(MockTestCase):
         verifyClass(ILaTeXView, RemarkLaTeXView)
 
 
-    def test_rendering_without_title(self):
+    def test_rendering(self):
         context = self.providing_stub([IRemark])
         self.expect(context.Title()).result('title')
         self.expect(context.getText()).result('foo <b>bar</b> baz')

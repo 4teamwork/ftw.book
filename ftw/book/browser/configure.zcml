@@ -17,6 +17,7 @@
       permission="zope2.View"
 	  layer="..interfaces.IWithinBookLayer"
       />
+
   <browser:page
       for="ftw.book.interfaces.IChapter"
       name="block_view"
