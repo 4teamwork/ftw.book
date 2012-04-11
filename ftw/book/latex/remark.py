@@ -1,4 +1,4 @@
-from ftw.book.interfaces import IRemark
+from ftw.book.interfaces import IRemark, IAddRemarkLayer
 from ftw.book.latex import utils
 from ftw.pdfgenerator.view import MakoLaTeXView
 from zope.component import adapts
@@ -6,7 +6,7 @@ from zope.interface import Interface
 
 
 class RemarkLaTeXView(MakoLaTeXView):
-    adapts(IRemark, Interface, Interface)
+    adapts(IRemark, IAddRemarkLayer, Interface)
 
     def render(self):
         latex = []
