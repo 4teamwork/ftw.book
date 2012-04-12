@@ -45,11 +45,17 @@ class TestRemarkLaTeXView(MockTestCase):
         request = self.providing_stub([IAddRemarkLayer])
 
         layout = self.providing_stub([ILaTeXLayout])
+
         self.expect(layout.get_converter()).result(self.converter)
+        self.expect(layout.use_package('color')).result(True)
 
         self.replay()
 
         view = queryMultiAdapter((context, request, layout),
                                  ILaTeXView)
 
-        self.assertEquals(view.render(), '{\\bf title}\\\nfoo {\\bf bar} baz\n')
+        self.assertEquals(view.render(),
+            '\\definecolor{light-gray}{gray}{0.8}\\fcolorbox{black}' + \
+            '{light-gray}{\\parbox[r]{\\textwidth}{{\\bf title}\\\\nfoo {' + \
+            '\\bf bar} baz\\n}}'
+        )
