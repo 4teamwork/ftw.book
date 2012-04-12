@@ -7,15 +7,15 @@
     <property name="title" i18n:translate="">Remark</property>
     <property name="description" i18n:translate=""></property>
     <property name="content_meta_type">Remark</property>
-    <property name="content_icon">++resource++simplelayout.types.common-resources/paragraph_icon.gif</property>
+    <property name="content_icon">++resource++ftw.book-resources/icon_remark.gif</property>
     <property name="product">ftw.book</property>
     <property name="factory">addRemark</property>
 
     <property name="global_allow">False</property>
     <property name="allow_discussion">False</property>
 
-    <property name="immediate_view">block_view</property>
-    <property name="default_view">block_view</property>
+    <property name="immediate_view">paragraph_view</property>
+    <property name="default_view">paragraph_view</property>
     <property name="view_methods">
         <element value="paragraph_view" />
     </property>
