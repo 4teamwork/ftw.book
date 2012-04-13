@@ -5,7 +5,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add new content-type: Remark. Used to add comments in a chapter of a book
+  [eschmutz]
 
 
 2.1 (2012-04-02)

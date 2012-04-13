@@ -10,6 +10,7 @@ ADD_PERMISSIONS = {
     'Book': 'ftw.book: Add Book',
     'Chapter': 'simplelayout.types.common: Add Page',
     'HTMLBlock': 'ftw.book: Add HTML Block',
+    'Remark': 'ftw.book: Add Remark',
     }
 
 

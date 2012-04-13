@@ -54,6 +54,11 @@
         />
 
     <adapter
+        factory="ftw.book.latex.remark.RemarkLaTeXView"
+        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+        />
+
+    <adapter
         factory="ftw.book.latex.latexinjection.PreInjectionLaTeXView"
         provides="ftw.pdfgenerator.interfaces.ILaTeXView"
         name="pre-hook"

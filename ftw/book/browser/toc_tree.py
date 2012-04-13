@@ -3,17 +3,17 @@ from ftw.book.browser.utils import modify_tree
 
 
 class BookTocTree(object):
-    
+
     def __call__(self, tree):
-        
-        
+
+
         def filterer(item):
             brain = item.get('item')
             if brain.portal_type in ('Book', 'Chapter'):
                 return True
 
             else:
-                return brain.showTitle
+                return getattr(brain, 'showTitle', None)
 
         tree = filter_tree(filterer, tree, copy=True)
 

@@ -11,6 +11,14 @@
       directory="resources" />
 
   <browser:page
+      for="*"
+      name="export_pdf"
+      class=".export_pdf.ExportBookPDFView"
+      permission="zope2.View"
+	    layer="..interfaces.IWithinBookLayer"
+      />
+
+  <browser:page
       for="ftw.book.interfaces.IChapter"
       name="block_view"
       template="chapter.pt"
@@ -33,6 +41,14 @@
       name="block_view"
       template="paragraph.pt"
       class=".blockview.BlockView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.IRemark"
+      name="block_view"
+      template="remark.pt"
+      class="simplelayout.types.common.browser.views.BlockView"
       permission="zope2.View"
       />
 

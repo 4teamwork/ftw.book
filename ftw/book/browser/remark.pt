@@ -1,0 +1,14 @@
+<div class="#" id="#" i18n:domain="simplelayout"
+     tal:define="slclass view/getCSSClass;
+                 text here/getBlockText|here/getText|nothing;
+                 fullblock python: text and ' sl-fullblock' or ''"
+     tal:attributes="id here/id;
+                     class string:simplelayout-block-wrapper ${slclass}${fullblock};
+                     style string:height:${view/getBlockHeight}">
+  <h3 tal:content="context/Title" tal:condition="context/Title" />
+  <a tal:attributes="name here/id" ></a>
+
+  <div tal:condition="text" class="sl-text-wrapper" tal:content="structure text"></div>
+
+  </div>
+<span class="visualClear">&nbsp;</span>

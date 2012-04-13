@@ -9,6 +9,7 @@ buildout.cfg
 coverage/
 develop-eggs/
 dist/
+eggs/
 parts/
 src/
 var/
