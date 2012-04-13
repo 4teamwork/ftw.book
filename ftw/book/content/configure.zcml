@@ -39,4 +39,15 @@
         />
   </class>
 
+  <class class=".remark.Remark">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IRemark"
+        />
+
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IRemark"
+        />
+  </class>
 </configure>
