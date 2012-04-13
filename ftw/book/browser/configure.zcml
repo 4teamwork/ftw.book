@@ -15,7 +15,7 @@
       name="export_pdf"
       class=".export_pdf.ExportBookPDFView"
       permission="zope2.View"
-	  layer="..interfaces.IWithinBookLayer"
+	    layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
