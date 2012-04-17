@@ -44,28 +44,31 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 
 /* Table content-type */
 
-table.bibliothekTable {
+.simplelayout-content table {
     width: 100%;    
 }
-table.bibliothekTable th {
+/*table.bibliothekTable th {
     font-weight: normal;
 }
-
-.table_border {
-    border : 1px solid #DEDEDE;
+*/
+.border-grid {
+    border: 1px solid #DEDEDE;
 }
-.rahmen_r {
+.border-grid td {
+    padding-left: 0.5em;
+}
+.border-right {
     border-right:1px solid #DEDEDE;
 }
-.rahmen_l {
+.border-left {
     border-left:1px solid #DEDEDE;
 }
-.underline {
+.border-bottom {
     border-bottom-width:1px;
     border-bottom-color: #DEDEDE;
     border-bottom-style:solid;
 }
-.overline {
+.border-top {
     border-top-width:1px;
     border-top-color:#DEDEDE;
     border-top-style:solid;
@@ -76,23 +79,25 @@ table.bibliothekTable th {
 .left {
     text-align: left;
 }
+.center {
+    text-align: center;
+}
 .indent2{
     padding-left: 2mm;
 }
 .indent10{
     padding-left: 10mm;
 }
-.center {
-    text-align: center;
+.bold {
+    font-weight: bold !important;
 }
 .grey {
     color: #808080;
 }
-.bold {
-    font-weight: bold !important;
-}
-.light, .light p {
+.scriptsize {
     font-size: 7.5pt;
     font-weight: normal;
 }
-
+.footnotesize {
+    font-size: 7pt;
+}

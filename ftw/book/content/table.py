@@ -280,7 +280,7 @@ class Table(ATDocumentBase):
                 ('indent10 bold', '10mm Einr. + Fett'),
                 ('noborders', 'Leerzeile ohne Linie'),
                 ('grey', 'Graue schrift'),
-                ('light', 'Kleine Schrift'),
+                ('footnotesize', 'Kleine Schrift'),
                 ('fullColspan', 'Erste Zelle strecken'),
                 ))
 

@@ -75,14 +75,14 @@ class TableGenerator(object):
         # lines layout: see getClassesForRow
         if self.context.borderLayout=='grid':
             if part in ['head', 'body']:
-                classes.append('underline')
+                classes.append('border-bottom')
             if colName != self.getActiveColumnNames()[-1]:
                 # ^^ not last column
-                classes.append('rahmen_r')
+                classes.append('border-right')
         if self.context.borderLayout=='vertical':
             if colName != self.getActiveColumnNames()[-1]:
                 # ^^ not last column
-                classes.append('rahmen_r')
+                classes.append('border-right')
         return classes
 
     def getClassesForRow(self, part, rowNum, colName):
@@ -101,15 +101,15 @@ class TableGenerator(object):
             if part=='head' and rowNum==0:
                 pass
             elif part=='head':
-                rowClasses.append('overline')
+                rowClasses.append('border-top')
             else:
-                rowClasses.append('underline')
+                rowClasses.append('border-bottom')
         if self.context.borderLayout=='vertical':
             # underline last rows of head and body
             lastRowOfHead = rowNum==len(self.context.data[:self.context.headerRows])-1
             lastRowOfBody = rowNum==len(self.context.data)-self.context.footerRows-1
             if lastRowOfHead or lastRowOfBody:
-                rowClasses.append('underline')
+                rowClasses.append('border-bottom')
         return rowClasses
 
     def createNode(self, tagName, parentNode, content='', **kwargs):
@@ -141,9 +141,9 @@ class TableGenerator(object):
     cleanAndParseHTML = staticmethod(cleanAndParseHTML)
 
     def createTableElement(self):
-        cssClasses = ['notListed', 'bibliothekTable']
+        cssClasses = ['notListed']
         if self.context.borderLayout=='grid' or self.context.borderLayout=='vertical':
-            cssClasses.append('table_border')
+            cssClasses.append('border-grid')
         try:
             if self.context.getNoLifting():
                 cssClasses.append('no-lifting')
@@ -250,14 +250,14 @@ class TableGenerator(object):
             classes += self.getClassesForRow(part, rowNum, colName)
             # cleanup classes
             if 'noborders' in classes:
-                for cls in ['underline', 'overline', 'noborders']:
+                for cls in ['border-bottom', 'border-top', 'noborders']:
                     if cls in classes:
                         classes.remove(cls)
                 if len(content)==0:
-                    content = '<span class="light">&nbsp;</span>'
+                    content = '<span class="scriptsize">&nbsp;</span>'
             if part=='foot' and self.context.footerIsBold:
                 classes.append('bold')
-            if 'light' in classes:
+            if 'footnotesize' in classes:
                 if 'bold' in classes:
                     classes.remove('bold')
             if len(classes)>0:
