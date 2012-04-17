@@ -139,10 +139,10 @@ table_schema = (ATContentTypeSchema.copy() + \
                         ) for i in range(MAX_AMOUNT_OF_COLUMNS)],
                 ),
 
-            atapi.IntegerField(
+            atapi.StringField(
                 name = 'headerRows',
                 schemata = 'Layout',
-                default = 1,
+                default = '1',
                 enforceVocabulary = True,
                 vocabulary = [
                     (str(i), '%i Zeilen' % i) for i
@@ -156,7 +156,7 @@ table_schema = (ATContentTypeSchema.copy() + \
                     ),
                 ),
 
-            atapi.IntegerField(
+            atapi.StringField(
                 name = 'footerRows',
                 schemata = 'Layout',
                 default = 0,
@@ -254,6 +254,31 @@ class Table(ATDocumentBase):
 
     def getTable(self):
         return generator.TableGenerator(self).render()
+
+    def convert_to_int(self, value):
+        """ Converts a value to integer. If its not possible we return the
+        unconverted value
+        """
+        try:
+            return int(value)
+        except ValueError:
+            return value
+
+    def getHeaderRows(self, as_int=False):
+        """ We need to calculate with the keys of the headerRows. So we need
+        integers. But the vocabulary of a ATField needs strings as keys.
+        """
+        if as_int:
+            return self.convert_to_int(self.headerRows)
+        return self.headerRows
+
+    def getFooterRows(self, as_int=False):
+        """ We need to calculate with the keys of the footerRsows. So we need
+        integers. But the vocabulary of a ATField needs strings as keys.
+        """
+        if as_int:
+            return self.convert_to_int(self.footerRows)
+        return self.footerRows
 
     def getAlignmentVocabulary(self):
         return DisplayList((

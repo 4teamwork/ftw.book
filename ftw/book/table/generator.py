@@ -104,10 +104,11 @@ class TableGenerator(object):
                 rowClasses.append('border-top')
             else:
                 rowClasses.append('border-bottom')
+
         if self.context.borderLayout=='vertical':
             # underline last rows of head and body
-            lastRowOfHead = rowNum==len(self.context.data[:self.context.headerRows])-1
-            lastRowOfBody = rowNum==len(self.context.data)-self.context.footerRows-1
+            lastRowOfHead = rowNum==len(self.context.data[:self.context.getHeaderRows(as_int=True)])-1
+            lastRowOfBody = rowNum==len(self.context.data)-self.context.getFooterRows(as_int=True)-1
             if lastRowOfHead or lastRowOfBody:
                 rowClasses.append('border-bottom')
         return rowClasses
@@ -214,11 +215,11 @@ class TableGenerator(object):
         return colgroup
 
     def createTableHead(self):
-        if self.context.headerRows==0:
+        if self.context.getHeaderRows(as_int=True)==0:
             return None
         thead = self.createNode('thead', self.tableNode)
         firstRow = True
-        for rowNum, row in enumerate(self.context.data[:self.context.headerRows]):
+        for rowNum, row in enumerate(self.context.data[:self.context.getHeaderRows(as_int=True)]):
             tr = self.createNode('tr', thead)
             for colName in self.getActiveColumnNames():
                 attrs = {}
@@ -287,23 +288,23 @@ class TableGenerator(object):
         return tr
 
     def createTableBody(self):
-        if self.context.headerRows + self.context.footerRows >= len(self.context.data):
+        if self.context.getHeaderRows(as_int=True) + self.context.getFooterRows(as_int=True) >= len(self.context.data):
             # no body rows
             return None
         tbody = self.createNode('tbody', self.tableNode)
-        bodyRows = self.context.data[self.context.headerRows:len(self.context.data)-self.context.footerRows]
+        bodyRows = self.context.data[self.context.getHeaderRows(as_int=True):len(self.context.data)-self.context.getFooterRows(as_int=True)]
         for rowNum, row in [(i, bodyRows[i]) for i in range(len(bodyRows))]:
-            self.createRow('body', tbody, rowNum+self.context.headerRows, row)
+            self.createRow('body', tbody, rowNum+self.context.getHeaderRows(as_int=True), row)
         return tbody
 
     def createTableFoot(self):
-        if self.context.footerRows==0:
+        if self.context.getFooterRows(as_int=True)==0:
             return None
         tfoot = self.createNode('tfoot', self.tableNode)
-        rows = self.context.data[-self.context.footerRows:]
+        rows = self.context.data[-self.context.getFooterRows(as_int=True):]
         for rowNum in range(len(rows)):
             row = rows[rowNum]
-            self.createRow('foot', tfoot, rowNum+len(self.context.data)-self.context.footerRows, row)
+            self.createRow('foot', tfoot, rowNum+len(self.context.data)-self.context.getFooterRows(as_int=True), row)
         return tfoot
 
     def createCaption(self):
