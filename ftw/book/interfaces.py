@@ -20,6 +20,10 @@ class IRemark(Interface):
     """Remark marker interface.
     """
 
+class ITable(Interface):
+    """Remark marker interface.
+    """
+
 class IAddRemarkLayer(Interface):
     """ Request layer interface, provided if we select to show remarks in
     the pdf export wizard

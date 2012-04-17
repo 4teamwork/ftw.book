@@ -1,0 +1,6 @@
+<div class="simplelayout-block-wrapper" id="#"
+				tal:attributes="id here/id">
+    <a tal:attributes="name here/id"></a>
+    <table tal:replace="structure context/getTable" />
+    <span class="light" tal:content="structure context/footnoteText" />
+</div>

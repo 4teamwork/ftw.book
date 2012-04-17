@@ -52,6 +52,22 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="ftw.book.interfaces.ITable"
+      name="block_view"
+      template="table_content.pt"
+      class="simplelayout.types.common.browser.views.BlockView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.ITable"
+      name="table_export_import"
+      class=".table_export_import.TableExportImport"
+      permission="zope.Public"
+      template="table_export_import.pt"
+      />
+      
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
       for="simplelayout.base.interfaces.ISimplelayoutView"

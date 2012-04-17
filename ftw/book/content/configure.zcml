@@ -39,12 +39,22 @@
         />
   </class>
 
+  <class class=".table.Table">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ITable"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.ITable"
+        />
+  </class>
+
   <class class=".remark.Remark">
     <require
         permission="zope2.View"
         interface="..interfaces.IRemark"
         />
-
     <require
         permission="cmf.ModifyPortalContent"
         set_schema="..interfaces.IRemark"
