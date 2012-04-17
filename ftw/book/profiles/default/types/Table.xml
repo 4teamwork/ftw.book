@@ -59,4 +59,12 @@
       <permission value="Delete objects"/>
   </action>
 
+  <action action_id="sl-export-import"
+          visible="True"
+          title="Export / Import"
+          url_expr="string:${here/absolute_url}/table_export_import"
+          category="sl-actions"
+          condition_expr="">
+      <permission value="Modify portal content"/>
+  </action>
 </object>
