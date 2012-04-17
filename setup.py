@@ -13,6 +13,7 @@ tests_require = [
     'plone.portlets',
     'ftw.testing',
     'pyquery',
+    'Products.DataGridField',
     ]
 
 extras_require = {
