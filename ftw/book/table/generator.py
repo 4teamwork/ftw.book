@@ -1,21 +1,16 @@
-
-"""
-Provides class for generating HTML-Tables with Table-Objects.
-"""
 import re
-
 from xml.dom import minidom
-
 from ftw.pdfgenerator.utils import html2xmlentities
 from ftw.book.interfaces import ITable
-
 from BeautifulSoup import BeautifulSoup
+
 
 class TableGenerator(object):
 
     def __init__(self, object):
         if not ITable.providedBy(object):
-            raise AttributeError('TableGenerator(object) : object must implement ITable')
+            raise AttributeError(
+                'TableGenerator(object) : object must implement ITable')
         self.context = object
 
     def render(self):
@@ -59,9 +54,13 @@ class TableGenerator(object):
 
     def getClassesForColumn(self, part, colName=None, colNum=None):
         if part not in ['head', 'body', 'foot']:
-            raise AttributeError('getClassesForColumn(): part argument must be one of "head", "body", "foot"')
+            raise AttributeError(
+                'getClassesForColumn(): part argument must be one ' \
+                'of "head", "body", "foot"')
         if not colName and not colNum:
-            raise AttributeError('getClassesForColumn() requires either colName or colNum attribute')
+            raise AttributeError(
+                'getClassesForColumn() requires either colName or ' \
+                'colNum attribute')
         if not colName:
             colName = 'column_%i' % colNum
         col = self.getColumnProperties(colName)
@@ -107,8 +106,10 @@ class TableGenerator(object):
 
         if self.context.borderLayout=='vertical':
             # underline last rows of head and body
-            lastRowOfHead = rowNum==len(self.context.data[:self.context.getHeaderRows(as_int=True)])-1
-            lastRowOfBody = rowNum==len(self.context.data)-self.context.getFooterRows(as_int=True)-1
+            lastRowOfHead = rowNum==len(
+                self.context.data[:self.context.getHeaderRows(as_int=True)])-1
+            lastRowOfBody = rowNum==len(
+                self.context.data)-self.context.getFooterRows(as_int=True)-1
             if lastRowOfHead or lastRowOfBody:
                 rowClasses.append('border-bottom')
         return rowClasses
@@ -143,7 +144,8 @@ class TableGenerator(object):
 
     def createTableElement(self):
         cssClasses = ['notListed']
-        if self.context.borderLayout=='grid' or self.context.borderLayout=='vertical':
+        if self.context.borderLayout=='grid' or \
+            self.context.borderLayout=='vertical':
             cssClasses.append('border-grid')
         try:
             if self.context.getNoLifting():
@@ -151,13 +153,14 @@ class TableGenerator(object):
         except AttributeError:
             pass
         attrs = {
-                'summary' : getattr(self.context, 'description', 'jajaja'),
-                'class' : ' '.join(cssClasses),
+                'summary': getattr(self.context, 'description', 'jajaja'),
+                'class': ' '.join(cssClasses),
         }
         return self.createNode('table', self.doc, **attrs)
 
     def createColgroup(self):
         colgroup = self.createNode('colgroup', self.tableNode)
+
         def getWidthOfColumn(name):
             try:
                 return int(self.getColumnProperties(name)['width'])
@@ -166,9 +169,10 @@ class TableGenerator(object):
         # calculate widths
         mapping = dict(zip(*(
                 self.getActiveColumnNames(),
-                [getWidthOfColumn(name) for name in self.getActiveColumnNames()],
+                [getWidthOfColumn(name) for name in \
+                self.getActiveColumnNames()],
         )))
-        widthlessColumns = len(filter(lambda x:x==0, mapping.values()))
+        widthlessColumns = len(filter(lambda x: x==0, mapping.values()))
         if widthlessColumns==len(mapping):
             # use oldschool algo
             widthPerColumn = 10
@@ -205,12 +209,13 @@ class TableGenerator(object):
             # fix rounding problems
             widthSum = sum(mapping.values())
             firstColumnName = self.getActiveColumnNames()[0]
-            mapping[firstColumnName] = mapping[firstColumnName] - widthSum + 100
+            mapping[firstColumnName] = \
+                mapping[firstColumnName] - widthSum + 100
         # create colgroup
         for name in self.getActiveColumnNames():
             width = mapping[name]
             col = self.createNode('col', colgroup, content=False, **{
-                    'width' : '%i%%' % width,
+                    'width': '%i%%' % width,
             })
         return colgroup
 
@@ -219,7 +224,8 @@ class TableGenerator(object):
             return None
         thead = self.createNode('thead', self.tableNode)
         firstRow = True
-        for rowNum, row in enumerate(self.context.data[:self.context.getHeaderRows(as_int=True)]):
+        for rowNum, row in enumerate(
+            self.context.data[:self.context.getHeaderRows(as_int=True)]):
             tr = self.createNode('tr', thead)
             for colName in self.getActiveColumnNames():
                 attrs = {}
@@ -240,7 +246,8 @@ class TableGenerator(object):
 
     def createRow(self, part, parentNode, rowNum, row):
         if part not in ['body', 'foot']:
-            raise AttributeError('createRow(): part argument must be one of "body", "foot"')
+            raise AttributeError(
+                'createRow(): part argument must be one of "body", "foot"')
         tr = self.createNode('tr', parentNode)
         firstColumn = True
         breakAfterFirstColumn = False
@@ -288,13 +295,19 @@ class TableGenerator(object):
         return tr
 
     def createTableBody(self):
-        if self.context.getHeaderRows(as_int=True) + self.context.getFooterRows(as_int=True) >= len(self.context.data):
+        if self.context.getHeaderRows(
+            as_int=True) + self.context.getFooterRows(
+                as_int=True) >= len(self.context.data):
             # no body rows
             return None
         tbody = self.createNode('tbody', self.tableNode)
-        bodyRows = self.context.data[self.context.getHeaderRows(as_int=True):len(self.context.data)-self.context.getFooterRows(as_int=True)]
+        bodyRows = self.context.data[self.context.getHeaderRows(
+            as_int=True):len(self.context.data)-self.context.getFooterRows(
+                as_int=True)]
         for rowNum, row in [(i, bodyRows[i]) for i in range(len(bodyRows))]:
-            self.createRow('body', tbody, rowNum+self.context.getHeaderRows(as_int=True), row)
+            self.createRow(
+                'body', tbody, rowNum+self.context.getHeaderRows(
+                as_int=True), row)
         return tbody
 
     def createTableFoot(self):
@@ -304,12 +317,15 @@ class TableGenerator(object):
         rows = self.context.data[-self.context.getFooterRows(as_int=True):]
         for rowNum in range(len(rows)):
             row = rows[rowNum]
-            self.createRow('foot', tfoot, rowNum+len(self.context.data)-self.context.getFooterRows(as_int=True), row)
+            self.createRow(
+                'foot', tfoot, rowNum+len(
+                    self.context.data)-self.context.getFooterRows(
+                        as_int=True), row)
         return tfoot
 
     def createCaption(self):
         if self.context.getShowTitle():
             caption = self.createNode('caption', self.tableNode)
-            textNode = self.doc.createTextNode(self.context.Title().decode('utf8'))
+            textNode = self.doc.createTextNode(
+                self.context.Title().decode('utf8'))
             caption.appendChild(textNode)
-
