@@ -88,6 +88,7 @@ table_schema = (ATContentTypeSchema.copy() + \
                 allow_delete = False,
                 allow_reorder = False,
                 columns = (
+                    'columnId',
                     'columnTitle',
                     'active',
                     'alignment',
@@ -100,6 +101,11 @@ table_schema = (ATContentTypeSchema.copy() + \
                     label_msgid='izug_label_columnProperties',
                     i18n_domain = 'izug',
                     columns = {
+                        'columnId': DataGridField.FixedColumn(
+                            'column_id',
+                            default = 'column_x',
+                            visible = False,
+                            ),
                         'columnTitle': DataGridField.FixedColumn(
                             _(u'izug_label_column', default=u'Column'),
                             default = 'Spalte X',
@@ -130,6 +136,7 @@ table_schema = (ATContentTypeSchema.copy() + \
                     DataGridField.FixedRow(
                         keyColumn = 'columnTitle',
                         initialData = {
+                            'columnId':'column_%i' % (i),
                             'columnTitle': 'Spalte %i' % (i + 1),
                             'active': False,
                             'alignment': '',
@@ -242,6 +249,10 @@ table_schema = (ATContentTypeSchema.copy() + \
 
             )))
 
+# We need a text-field if we inherit from ATDocumentBase
+table_schema += simplelayout_schemas.textSchema.copy()
+table_schema['text'].widget.visible = {'edit': 0, 'view': 0}
+
 simplelayout_schemas.finalize_simplelayout_schema(table_schema)
 
 
@@ -305,7 +316,7 @@ class Table(ATDocumentBase):
                 ('indent10 bold', '10mm Einr. + Fett'),
                 ('noborders', 'Leerzeile ohne Linie'),
                 ('grey', 'Graue schrift'),
-                ('footnotesize', 'Kleine Schrift'),
+                ('scriptsize', 'Kleine Schrift'),
                 ('fullColspan', 'Erste Zelle strecken'),
                 ))
 

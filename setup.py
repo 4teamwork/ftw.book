@@ -56,6 +56,7 @@ setup(name='ftw.book',
         'archetypes.schemaextender',
         'plone.portlets',
         'ftw.pdfgenerator',
+        'BeautifulSoup',
         ],
 
       tests_require=tests_require,

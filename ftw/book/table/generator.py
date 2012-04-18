@@ -8,18 +8,16 @@ from BeautifulSoup import BeautifulSoup
 class TableGenerator(object):
 
     def __init__(self, object):
-        if not ITable.providedBy(object):
-            raise AttributeError(
-                'TableGenerator(object) : object must implement ITable')
         self.context = object
 
     def render(self):
-        if len(self.getActiveColumnNames())==0:
+        if not self.active_columns:
             return ''
+
         self.doc = minidom.Document()
-        self.tableNode = self.createTableElement()
-        self.createCaption()
-        self.createColgroup()
+        self.table_node = self.create_table_element()
+        self.create_caption()
+        self.create_colgroup()
         self.createTableHead()
         self.createTableBody()
         self.createTableFoot()
@@ -33,37 +31,188 @@ class TableGenerator(object):
             pass
         return html
 
-    def getActiveColumnNames(self):
+    @property
+    def active_columns(self):
+        """ Return number of active columns as int
+        """
+        return len(self.active_column_names)
+
+    @property
+    def active_column_names(self):
+        """ Return the names of all active columns in a list
+        """
         if '_activeColumns' not in dir(self):
-            self._activeColumns = []
-            for colNum in range(len(self.context.columnProperties)):
-                col = self.context.columnProperties[colNum]
-                colName = 'column_%i' % colNum
-                if col['active']:
-                    self._activeColumns.append(colName)
+            self._activeColumns = [column['columnId'] for column in \
+                self.context.columnProperties if column['active']]
         return self._activeColumns
 
-    def getColumnProperties(self, columnName):
+    def get_column_properties(self, columnName):
+        """ Return the proberties of all columns in a dict.
+        key: columnId
+        value: properties
+        """
         if '_columnProperties' not in dir(self):
             self._columnProperties = {}
-            for colNum in range(len(self.context.columnProperties)):
-                col = self.context.columnProperties[colNum]
-                name = 'column_%i' % colNum
-                self._columnProperties[name] = col
+            for i, column in enumerate(self.context.columnProperties):
+                self._columnProperties[column['columnId']] = column
         return self._columnProperties[columnName]
 
-    def getClassesForColumn(self, part, colName=None, colNum=None):
+    @property
+    def column_widths(self):
+        """ Return the columnwidths in a dict
+        """
+        column_widths = {}
+        for name in self.active_column_names:
+            try:
+                column_widths[name] = int(self.get_column_properties(
+                    name)['width'])
+            except ValueError:
+                column_widths[name] = 0
+        return column_widths
+
+    def create_node_with_text(
+        self, tagName, parentNode, text='', content='',  **kwargs):
+        """ Return a node with text inside
+        """
+
+        if isinstance(text, str):
+            text = text.decode('utf-8')
+
+        node = self.create_node(tagName, parentNode, content, **kwargs)
+        node.appendChild(self.doc.createTextNode(text))
+
+        return node
+
+    def create_caption(self):
+        """ Create the caption node object if we want to show the title
+        """
+        if not self.context.getShowTitle():
+            pass
+
+        self.create_node_with_text(
+            'caption', self.table_node, self.context.Title())
+
+    def create_table_element(self):
+        """ Create the table
+        """
+        css_classes = ['notListed']
+        if self.context.borderLayout in ['grid', 'vertical']:
+            css_classes.append('border-grid')
+
+        if self.context.getNoLifting():
+            css_classes.append('no-lifting')
+
+        attrs = {
+                'summary': getattr(self.context, 'description', ''),
+                'class': ' '.join(css_classes),
+        }
+        return self.create_node('table', self.doc, **attrs)
+
+    def calculate_column_widths(self):
+        """ Calculate the width for the columns.
+        The user can define his own widths. We have to validate that and
+        calculate not setted widths
+
+        mapping: dict with {'colid', width}
+        """
+
+        mapping = self.column_widths
+        max_width = 100 # %
+        given_width = sum([abs(x) for x in mapping.values()])
+        widthless_columns = len(filter(lambda x: x==0, mapping.values()))
+        remaining_width = max_width - given_width
+
+        # The user has set the width correctly so we can return the dict
+        if remaining_width == 0 and widthless_columns == 0:
+            pass
+
+        # If the user has set no width or he made calculation errors
+        elif widthless_columns == self.active_columns or \
+            remaining_width < widthless_columns:
+
+            mapping = self.set_column_width(
+                mapping, (max_width / self.active_columns))
+
+        # The user set the width correctly but not for every row
+        elif widthless_columns:
+            mapping = self.set_column_width(
+                mapping, (remaining_width / widthless_columns), 0)
+
+        # Because rounding-problems its possible that we get a rest. We put this
+        # rest on the first element
+        mapping[mapping.keys()[0]] += max_width - sum(mapping.values())
+
+        return mapping
+
+    def set_column_width(self, mapping, width, width_condition=False):
+        """ Set the column-widths in the mapping
+        """
+        for key in mapping.keys():
+            if width_condition is False or mapping[key] == width_condition:
+                mapping[key] = width
+
+        return mapping
+
+    def create_colgroup(self):
+        """ Create the colgroup and calculate the correct width
+        """
+        colgroup = self.create_node('colgroup', self.table_node)
+
+        mapping = self.calculate_column_widths()
+
+        # create colgroup
+        for name in self.active_column_names:
+            width = mapping[name]
+            col = self.create_node('col', colgroup, content=False, **{
+                    'width': '%i%%' % width,
+            })
+
+        return colgroup
+
+    def clean_and_parse_html(html):
+        """ Cleanup the given html and parse it
+        """
+        html = str(BeautifulSoup(html))
+        try:
+            doc = minidom.parseString('<data>%s</data>' % html)
+        except:
+            doc = minidom.parseString('<data>FEHLER</data>')
+        return doc
+    clean_and_parse_html = staticmethod(clean_and_parse_html)
+
+##########################################################
+
+    def create_node(self, tagName, parentNode, content='', **kwargs):
+        node = self.doc.createElement(tagName)
+        for k, v in kwargs.items():
+            if isinstance(v, str) and not isinstance(v, unicode):
+                v = v.decode('utf8')
+            node.setAttribute(k, v)
+        if content!=False:
+            if not content:
+                content = ' '
+            if isinstance(content, unicode):
+                content = content.encode('utf8')
+            content = html2xmlentities(content)
+            contentDoc = TableGenerator.clean_and_parse_html(content)
+            contentNode = contentDoc.getElementsByTagName('data')[0]
+            for elm in list(contentNode.childNodes):
+                node.appendChild(elm)
+        parentNode.appendChild(node)
+        return node
+
+    def get_classes_for_column(self, part, colName=None, colNum=None):
         if part not in ['head', 'body', 'foot']:
             raise AttributeError(
-                'getClassesForColumn(): part argument must be one ' \
+                'get_classes_for_column(): part argument must be one ' \
                 'of "head", "body", "foot"')
         if not colName and not colNum:
             raise AttributeError(
-                'getClassesForColumn() requires either colName or ' \
+                'get_classes_for_column() requires either colName or ' \
                 'colNum attribute')
         if not colName:
             colName = 'column_%i' % colNum
-        col = self.getColumnProperties(colName)
+        col = self.get_column_properties(colName)
         classes = []
         if col['alignment']:
             classes.append(col['alignment'])
@@ -75,11 +224,11 @@ class TableGenerator(object):
         if self.context.borderLayout=='grid':
             if part in ['head', 'body']:
                 classes.append('border-bottom')
-            if colName != self.getActiveColumnNames()[-1]:
+            if colName != self.active_column_names[-1]:
                 # ^^ not last column
                 classes.append('border-right')
         if self.context.borderLayout=='vertical':
-            if colName != self.getActiveColumnNames()[-1]:
+            if colName != self.active_column_names[-1]:
                 # ^^ not last column
                 classes.append('border-right')
         return classes
@@ -90,7 +239,7 @@ class TableGenerator(object):
         except:
             rowClasses = ''
         rowClasses = rowClasses.split(' ')
-        if colName != self.getActiveColumnNames()[0]:
+        if colName != self.active_column_names[0]:
             # not first column
             if 'indent2' in rowClasses:
                 rowClasses.remove('indent2')
@@ -114,124 +263,19 @@ class TableGenerator(object):
                 rowClasses.append('border-bottom')
         return rowClasses
 
-    def createNode(self, tagName, parentNode, content='', **kwargs):
-        node = self.doc.createElement(tagName)
-        for k, v in kwargs.items():
-            if isinstance(v, str) and not isinstance(v, unicode):
-                v = v.decode('utf8')
-            node.setAttribute(k, v)
-        if content!=False:
-            if not content:
-                content = ' '
-            if isinstance(content, unicode):
-                content = content.encode('utf8')
-            content = html2xmlentities(content)
-            contentDoc = TableGenerator.cleanAndParseHTML(content)
-            contentNode = contentDoc.getElementsByTagName('data')[0]
-            for elm in list(contentNode.childNodes):
-                node.appendChild(elm)
-        parentNode.appendChild(node)
-        return node
-
-    def cleanAndParseHTML(html):
-        html = str(BeautifulSoup(html))
-        try:
-            doc = minidom.parseString('<data>%s</data>' % html)
-        except:
-            doc = minidom.parseString('<data>FEHLER</data>')
-        return doc
-    cleanAndParseHTML = staticmethod(cleanAndParseHTML)
-
-    def createTableElement(self):
-        cssClasses = ['notListed']
-        if self.context.borderLayout=='grid' or \
-            self.context.borderLayout=='vertical':
-            cssClasses.append('border-grid')
-        try:
-            if self.context.getNoLifting():
-                cssClasses.append('no-lifting')
-        except AttributeError:
-            pass
-        attrs = {
-                'summary': getattr(self.context, 'description', 'jajaja'),
-                'class': ' '.join(cssClasses),
-        }
-        return self.createNode('table', self.doc, **attrs)
-
-    def createColgroup(self):
-        colgroup = self.createNode('colgroup', self.tableNode)
-
-        def getWidthOfColumn(name):
-            try:
-                return int(self.getColumnProperties(name)['width'])
-            except:
-                return 0
-        # calculate widths
-        mapping = dict(zip(*(
-                self.getActiveColumnNames(),
-                [getWidthOfColumn(name) for name in \
-                self.getActiveColumnNames()],
-        )))
-        widthlessColumns = len(filter(lambda x: x==0, mapping.values()))
-        if widthlessColumns==len(mapping):
-            # use oldschool algo
-            widthPerColumn = 10
-            if len(mapping)>10:
-                widthPerColumn = 100/len(mapping)
-            widthLeft = 100 # %
-            for c in self.getActiveColumnNames():
-                mapping[c] = widthPerColumn
-                widthLeft -= widthPerColumn
-            if widthLeft>0:
-                # first column is biggest one
-                width = widthPerColumn + widthLeft
-                mapping[self.getActiveColumnNames()[0]] = width
-        elif widthlessColumns!=0:
-            widthLeft = 100 - sum(mapping.values())
-            if widthLeft<1:
-                widthLeft = 2 * widthlessColumns
-            widthPerColumn = widthLeft / widthlessColumns
-            for k, v in mapping.items():
-                if v==0:
-                    mapping[k] = widthPerColumn
-        # cleanup widths: sum must be 100
-        if sum(mapping.values())!=100:
-            # ensure there are no negatives
-            for k, v in mapping.items():
-                if v<0:
-                    mapping[k] = v * (-1)
-            # scale to sum 100
-            widthSum = sum(mapping.values())
-            factor = 100 / float(widthSum)
-            # fix it
-            for k, v in mapping.items():
-                mapping[k] = int(float(v) * factor)
-            # fix rounding problems
-            widthSum = sum(mapping.values())
-            firstColumnName = self.getActiveColumnNames()[0]
-            mapping[firstColumnName] = \
-                mapping[firstColumnName] - widthSum + 100
-        # create colgroup
-        for name in self.getActiveColumnNames():
-            width = mapping[name]
-            col = self.createNode('col', colgroup, content=False, **{
-                    'width': '%i%%' % width,
-            })
-        return colgroup
-
     def createTableHead(self):
         if self.context.getHeaderRows(as_int=True)==0:
             return None
-        thead = self.createNode('thead', self.tableNode)
+        thead = self.create_node('thead', self.table_node)
         firstRow = True
         for rowNum, row in enumerate(
             self.context.data[:self.context.getHeaderRows(as_int=True)]):
-            tr = self.createNode('tr', thead)
-            for colName in self.getActiveColumnNames():
+            tr = self.create_node('tr', thead)
+            for colName in self.active_column_names:
                 attrs = {}
                 if firstRow:
                     attrs['id'] = colName
-                classes = self.getClassesForColumn('head', colName=colName)
+                classes = self.get_classes_for_column('head', colName=colName)
                 classes += self.getClassesForRow('head', rowNum, colName)
                 if self.context.headerIsBold:
                     classes.append('bold')
@@ -240,7 +284,7 @@ class TableGenerator(object):
                 if len(classes)>0:
                     attrs['class'] = ' '.join(classes)
                 attrs['align'] = 'left'
-                th = self.createNode('th', tr, content=row[colName], **attrs)
+                th = self.create_node('th', tr, content=row[colName], **attrs)
             firstRow = False
         return thead
 
@@ -248,13 +292,13 @@ class TableGenerator(object):
         if part not in ['body', 'foot']:
             raise AttributeError(
                 'createRow(): part argument must be one of "body", "foot"')
-        tr = self.createNode('tr', parentNode)
+        tr = self.create_node('tr', parentNode)
         firstColumn = True
         breakAfterFirstColumn = False
-        for colName in self.getActiveColumnNames():
+        for colName in self.active_column_names:
             content = row[colName]
             attrs = {}
-            classes = self.getClassesForColumn(part, colName=colName)
+            classes = self.get_classes_for_column(part, colName=colName)
             classes += self.getClassesForRow(part, rowNum, colName)
             # cleanup classes
             if 'noborders' in classes:
@@ -265,7 +309,7 @@ class TableGenerator(object):
                     content = '<span class="scriptsize">&nbsp;</span>'
             if part=='foot' and self.context.footerIsBold:
                 classes.append('bold')
-            if 'footnotesize' in classes:
+            if 'scriptsize' in classes:
                 if 'bold' in classes:
                     classes.remove('bold')
             if len(classes)>0:
@@ -273,7 +317,7 @@ class TableGenerator(object):
             if 'fullColspan' in classes:
                 # show first cell with colspan, dont show folling cells
                 classes.remove('fullColspan')
-                attrs['colspan'] = str(len(self.getActiveColumnNames()))
+                attrs['colspan'] = str(len(self.active_column_names))
                 breakAfterFirstColumn = True
 
             classes = list(set(classes))
@@ -281,14 +325,14 @@ class TableGenerator(object):
                 # create header cell
                 attrs['id'] = 'row%i' % rowNum
                 attrs['class'] = ' '.join(classes)
-                th = self.createNode('th', tr, content=content, **attrs)
+                th = self.create_node('th', tr, content=content, **attrs)
             else:
                 # create normal cell
                 if self.context.firstColumnIsHeader:
                     attrs['headers'] = '%s row%i' % (colName, rowNum)
                 else:
                     attrs['headers'] = colName
-                td = self.createNode('td', tr, content=content, **attrs)
+                td = self.create_node('td', tr, content=content, **attrs)
             firstColumn = False
             if breakAfterFirstColumn:
                 break
@@ -300,7 +344,7 @@ class TableGenerator(object):
                 as_int=True) >= len(self.context.data):
             # no body rows
             return None
-        tbody = self.createNode('tbody', self.tableNode)
+        tbody = self.create_node('tbody', self.table_node)
         bodyRows = self.context.data[self.context.getHeaderRows(
             as_int=True):len(self.context.data)-self.context.getFooterRows(
                 as_int=True)]
@@ -313,7 +357,7 @@ class TableGenerator(object):
     def createTableFoot(self):
         if self.context.getFooterRows(as_int=True)==0:
             return None
-        tfoot = self.createNode('tfoot', self.tableNode)
+        tfoot = self.create_node('tfoot', self.table_node)
         rows = self.context.data[-self.context.getFooterRows(as_int=True):]
         for rowNum in range(len(rows)):
             row = rows[rowNum]
@@ -323,9 +367,3 @@ class TableGenerator(object):
                         as_int=True), row)
         return tfoot
 
-    def createCaption(self):
-        if self.context.getShowTitle():
-            caption = self.createNode('caption', self.tableNode)
-            textNode = self.doc.createTextNode(
-                self.context.Title().decode('utf8'))
-            caption.appendChild(textNode)
