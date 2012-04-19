@@ -62,7 +62,7 @@
   <action action_id="sl-export-import"
           visible="True"
           title="Export / Import"
-          url_expr="string:${here/absolute_url}/table_export_import"
+          url_expr="string:${here/absolute_url}/++resource++ftw.book-resources/icon_export_import.png"
           category="sl-actions"
           condition_expr="">
       <permission value="Modify portal content"/>
