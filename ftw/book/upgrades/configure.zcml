@@ -2,5 +2,6 @@
 
   <include package=".v02" />
   <include package=".v03" />
+  <include package=".v202" />
 
 </configure>

@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.book">
+
+    <genericsetup:upgradeSteps
+        source="0.3"
+        destination="2.2"
+        profile="ftw.book:default">
+
+        <genericsetup:upgradeStep
+            title="Migrate book metadata to attribute storage."
+            handler=".upgrades.migrate_book_storage"
+            />
+
+    </genericsetup:upgradeSteps>
+
+</configure>

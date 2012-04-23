@@ -5,6 +5,9 @@ Changelog
 2.2 (unreleased)
 ----------------
 
+- Switch Book metadata fields to AttributeStorage.
+  [jone]
+
 - Add new content-type: Remark. Used to add comments in a chapter of a book
   [eschmutz]
 

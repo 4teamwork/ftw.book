@@ -30,7 +30,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
             atapi.BooleanField(
                 name='use_titlepage',
                 default=True,
-                storage=atapi.AnnotationStorage(),
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_titlepage',
@@ -41,7 +40,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
             atapi.BooleanField(
                 name='use_toc',
                 default=True,
-                storage=atapi.AnnotationStorage(),
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_toc',
@@ -52,7 +50,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
             atapi.BooleanField(
                 name='use_lot',
                 default=True,
-                storage=atapi.AnnotationStorage(),
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_lot',
@@ -63,7 +60,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
             atapi.BooleanField(
                 name='use_loi',
                 default=True,
-                storage=atapi.AnnotationStorage(),
 
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_loi',
@@ -74,9 +70,6 @@ BookSchema = (folder.ATFolderSchema.copy() + \
             )))
 
 
-BookSchema['title'].storage = atapi.AnnotationStorage()
-BookSchema['description'].storage = atapi.AnnotationStorage()
-
 schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
 
 
@@ -86,14 +79,6 @@ class Book(folder.ATFolder):
 
     meta_type = "Book"
     schema = BookSchema
-
-    title = atapi.ATFieldProperty('title')
-    description = atapi.ATFieldProperty('description')
-    use_titlepage = atapi.ATFieldProperty('use_titlepage')
-    use_toc = atapi.ATFieldProperty('use_toc')
-    use_lot = atapi.ATFieldProperty('use_lot')
-    use_loi = atapi.ATFieldProperty('use_loi')
-    pagestyle = atapi.ATFieldProperty('pagestyle')
 
     def getDefaultLaTeXLayout(self):
         voc = getVocabularyRegistry().get(self, 'ftw.book.layoutsVocabulary')
