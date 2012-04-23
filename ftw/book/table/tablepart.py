@@ -67,11 +67,6 @@ class TablePart(object):
         """
         self.is_first_cell
 
-    def get_part(self):
-        """ Return the part of the tablepart. Can be footer or body...
-        """
-        return ''
-
     def set_css(self, css):
         self.css = css
 
@@ -152,9 +147,6 @@ class TablePartHeader(TablePart):
 
         self.header_is_bold = header_is_bold
 
-    def get_part(self):
-        return 'head'
-
     def get_cell_type(self):
         return 'th'
 
@@ -218,20 +210,10 @@ class TablePartFooter(TablePart):
 
         return css
 
-    def get_part(self):
-        """ Return the part of the tablepart. Can be footer or body...
-        """
-        return 'foot'
-
 
 class TablePartBody(TablePart):
     """ Used for the Body
     """
-
-    def get_part(self):
-        """ Return the part of the tablepart. Can be footer or body...
-        """
-        return 'body'
 
     def get_additional_attrs(self, row_num, col_name):
         attrs = {}
