@@ -67,9 +67,6 @@ class TablePart(object):
         """
         self.is_first_cell
 
-    def set_css(self, css):
-        self.css = css
-
     def get_css(self, css, row_num, col_name):
         """ Return default and additional css classes in a list
         """
@@ -106,19 +103,33 @@ class TablePart(object):
         return css
 
     def cleanup_css(self, css):
+        """ Cleanup the given css. Remove double entries and
+        different other cleanups
+        """
         if 'noborders' in css:
             for css_class in ['border-bottom', 'border-top', 'noborders']:
                 if css_class in css:
-                    css.remove(css_class)
+                    self._remove_css_class(css, css_class)
 
-        if 'scriptsize' in css:
-            if 'bold' in css:
-                css.remove('bold')
+        if 'scriptsize' in css and 'bold' in css:
+                self._remove_css_class(css, 'bold')
 
         return set(css)
 
     def _is_last_column(self, col_name):
+        """ Ist the given column name the last of all available columns
+        """
         return col_name != self.column_names[-1] and True or False
+
+    def _remove_css_class(self, css, css_class):
+        """ Try to remove a css class from the given list of css-classes
+        """
+        try:
+            css.remove(css_class)
+        except ValueError:
+            pass
+
+        return css
 
 
 class TablePartHeader(TablePart):
@@ -156,7 +167,7 @@ class TablePartHeader(TablePart):
             self.is_last_row(row_num):
             css.append('border-bottom')
         else:
-            css.remove('border-bottom')
+            self._remove_css_class(css, 'border-bottom')
 
         if self.header_is_bold:
             css.append('bold')
