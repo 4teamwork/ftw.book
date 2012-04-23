@@ -2,7 +2,8 @@ import re
 from xml.dom import minidom
 from ftw.pdfgenerator.utils import html2xmlentities
 from BeautifulSoup import BeautifulSoup
-from ftw.book.table.tablepart import TablePartBody, TablePartFooter
+from ftw.book.table.tablepart import \
+    TablePartBody, TablePartFooter, TablePartHeader
 
 
 class TableGenerator(object):
@@ -45,7 +46,7 @@ class TableGenerator(object):
                 'summary': getattr(self.context, 'description', ''),
                 'class': ' '.join(css_classes),
         }
-        return self.create_node('table', self.doc, **attrs)
+        return self._create_node('table', self.doc, **attrs)
 
     def create_caption(self):
         """ Create the caption node object if we want to show the title
@@ -59,13 +60,13 @@ class TableGenerator(object):
     def create_colgroup(self):
         """ Create the colgroup and calculate the correct width
         """
-        colgroup = self.create_node('colgroup', self.table_node)
+        colgroup = self._create_node('colgroup', self.table_node)
 
         widths = self._calculate_column_widths()
 
         # create colgroup
         for name in self.active_column_names:
-            self.create_node('col', colgroup, content=False, **{
+            self._create_node('col', colgroup, content=False, **{
                     'width': '%i%%' % widths[name],
             })
 
@@ -80,20 +81,20 @@ class TableGenerator(object):
             return None
 
         # Table head
-        thead = self.create_node('thead', self.table_node)
+        thead = self._create_node('thead', self.table_node)
+        rows = self.context.data[:num_header_rows]
 
-        for i, row in enumerate(self.context.data[:num_header_rows]):
+        tablepart = TablePartHeader(
+            rows,
+            thead,
+            0,
+            self.active_column_names,
+            self.context.getFirstColumnIsHeader(),
+            self.context.getBorderLayout(),
+            self.context.getHeaderIsBold(),
+        )
 
-            # Table row
-            tr = self.create_node('tr', thead)
-            for col_name in self.active_column_names:
-                attrs = {}
-                attrs['align'] = 'left'
-                attrs['class'] = ' '.join(
-                    self._get_table_head_css_classes(col_name, i))
-
-                # Table column
-                self.create_node('th', tr, content=row[col_name], **attrs)
+        self._create_rows(tablepart)
 
         return thead
 
@@ -108,7 +109,7 @@ class TableGenerator(object):
         if num_body_rows <= 0:
             return None
 
-        tbody = self.create_node('tbody', self.table_node)
+        tbody = self._create_node('tbody', self.table_node)
         body_begins_at = available_rows - (num_body_rows + num_footer_rows)
         rows = self.context.data[
             num_header_rows:len(self.context.data) - num_footer_rows]
@@ -119,6 +120,7 @@ class TableGenerator(object):
             body_begins_at,
             self.active_column_names,
             self.context.getFirstColumnIsHeader(),
+            self.context.getBorderLayout(),
         )
 
         self._create_rows(tablepart)
@@ -132,7 +134,7 @@ class TableGenerator(object):
         if num_footer_rows == 0:
             return None
 
-        footer = self.create_node('tfoot', self.table_node)
+        footer = self._create_node('tfoot', self.table_node)
         footer_begins_at = len(self.context.data) - num_footer_rows
         rows = self.context.data[-num_footer_rows:]
 
@@ -142,6 +144,8 @@ class TableGenerator(object):
             footer_begins_at,
             self.active_column_names,
             self.context.getFirstColumnIsHeader(),
+            self.context.getBorderLayout(),
+            self.context.getFooterIsBold(),
         )
 
         self._create_rows(tablepart)
@@ -195,7 +199,7 @@ class TableGenerator(object):
         if isinstance(text, str):
             text = text.decode('utf-8')
 
-        node = self.create_node(tag_name, parent_node, content, **kwargs)
+        node = self._create_node(tag_name, parent_node, content, **kwargs)
         node.appendChild(self.doc.createTextNode(text))
 
         return node
@@ -253,93 +257,60 @@ class TableGenerator(object):
         return doc
     _clean_and_parse_html = staticmethod(_clean_and_parse_html)
 
-    def _get_table_head_css_classes(self, col_name, row_num):
-        """ Return the css classes for the header-rows
-        """
-
-        classes = self.get_classes_for_column('head', col_name)
-        classes += self.get_classes_for_row('head', row_num, col_name)
-
-        if self.context.getBorderLayout()=='grid':
-            classes.append('border-bottom')
-        elif self.context.borderLayout=='lines':
-            classes.append('border-top')
-
-        if self.context.getHeaderIsBold:
-            classes.append('bold')
-
-        return self._cleanup_css_classes(classes)
-
     def _create_rows(self, tablepart):
         """ Create rows with the given tablepart object
         """
-        for i, row in enumerate(tablepart.get_rows()):
+        for i, row in enumerate(tablepart.rows):
             tablepart.set_row_node(
-                self.create_node('tr', tablepart.get_parent()))
-            for j, col_name in enumerate(tablepart.get_column_names()):
+                self._create_node(tablepart.get_row_type(), tablepart.parent))
+
+            for j, col_name in enumerate(tablepart.column_names):
 
                 tablepart.set_is_first_cell(j == 0 and True or False)
-                tablepart.set_css(self._generate_css_for(
-                    tablepart.get_part(), i, col_name))
 
                 cell = self._create_cell(row, col_name, i, tablepart)
 
-                if 'fullColspan' in tablepart.get_css():
-                    # Just set the first cell, the we brak
+                if 'fullColspan' in self._get_css(i, col_name, tablepart):
+                    # Just set the first cell, then we brak
                     cell.setAttribute(
-                        'colspan', str(len(tablepart.get_column_names())))
+                        'colspan', str(len(tablepart.column_names)))
                     break
-
-    def _generate_css_for(self, part, row_num, col_name):
-        """ Generates the css
-        """
-        css = self.get_classes_for_column(part, col_name)
-        css += self.get_classes_for_row(part, row_num, col_name)
-        css = self._cleanup_css_classes(css)
-
-        return css
 
     def _create_cell(self, row, col_name, row_num, tablepart):
         """ Create a cell in a row with
         """
         attrs = {}
-        attrs['class'] = ' '.join(tablepart.get_css())
+        attrs['class'] = ' '.join(self._get_css(row_num, col_name, tablepart))
 
-        if tablepart.is_cell_header_cell():
-            # Header cell
-            attrs['id'] = 'row%i' % row_num
-        elif tablepart.is_first_column_a_header():
-            # Normal cell in a row with row headers
-            attrs['headers'] = '%s row%i' % (
-                col_name, row_num+tablepart.begin_at)
-        else:
-            # Normal cell
-            attrs['headers'] = col_name
+        # Add additional attrs
+        attrs.update(tablepart.get_additional_attrs(row_num, col_name))
 
-        return self.create_node(
+        return self._create_node(
             tablepart.get_cell_type(),
             tablepart.get_row_node(),
             row[col_name],
             **attrs)
 
-    def _cleanup_css_classes(self, classes):
-        """ Cleanup the css classes used for rows
+    def _get_css(self, row_num, col_name, tablepart):
+        """ Return global css and css generated from a tablepart object
         """
-        if 'noborders' in classes:
-            for css_class in ['border-bottom', 'border-top', 'noborders']:
-                if css_class in classes:
-                    classes.remove(css_class)
+        css = []
 
-        if 'scriptsize' in classes:
-            if 'bold' in classes:
-                classes.remove('bold')
+        # Add available column css classes
+        col = self._get_column_properties(col_name)
+        if col['alignment']:
+            css.append(col['alignment'])
+        if col['bold']:
+            css.append('bold')
+        if col['indent']:
+            css.append(col['indent'])
 
-        return set(classes)
+        # Add available row css classes
+        css += self.context.data[row_num].get('row_format', '').split(' ')
 
-##########################################################
-#  Code below is not refactored yet
-##########################################################
-    def create_node(self, tag_name, parent_node, content='', **kwargs):
+        return tablepart.get_css(css, row_num, col_name)
+
+    def _create_node(self, tag_name, parent_node, content='', **kwargs):
         """ Create a new minidom node
         """
         node = self.doc.createElement(tag_name)
@@ -352,72 +323,17 @@ class TableGenerator(object):
         if content != False:
             if not content:
                 content = ' '
+
             if isinstance(content, unicode):
                 content = content.encode('utf8')
+
             content = html2xmlentities(content)
             contentDoc = TableGenerator._clean_and_parse_html(content)
             contentNode = contentDoc.getElementsByTagName('data')[0]
+
             for elm in list(contentNode.childNodes):
                 node.appendChild(elm)
+
         parent_node.appendChild(node)
+
         return node
-
-    def get_classes_for_column(self, part, col_name):
-        if part not in ['head', 'body', 'foot']:
-            raise AttributeError(
-                'get_classes_for_column(): part argument must be one ' \
-                'of "head", "body", "foot"')
-        col = self._get_column_properties(col_name)
-        classes = []
-        if col['alignment']:
-            classes.append(col['alignment'])
-        if col['bold']:
-            classes.append('bold')
-        if col['indent']:
-            classes.append(col['indent'])
-        # lines layout: see get_classes_for_row
-        if self.context.borderLayout=='grid':
-            if part in ['head', 'body']:
-                classes.append('border-bottom')
-            if col_name != self.active_column_names[-1]:
-                # ^^ not last column
-                classes.append('border-right')
-        if self.context.borderLayout=='vertical':
-            if col_name != self.active_column_names[-1]:
-                # ^^ not last column
-                classes.append('border-right')
-        return classes
-
-    def get_classes_for_row(self, part, rowNum, col_name):
-        try:
-            rowClasses = self.context.data[rowNum]['row_format']
-        except:
-            rowClasses = ''
-        rowClasses = rowClasses.split(' ')
-
-        if part == 'foot' and self.context.getFooterIsBold():
-            rowClasses.append('bold')
-
-        if col_name != self.active_column_names[0]:
-            # not first column
-            if 'indent2' in rowClasses:
-                rowClasses.remove('indent2')
-            if 'indent10' in rowClasses:
-                rowClasses.remove('indent10')
-        if self.context.borderLayout=='lines':
-            if part=='head' and rowNum==0:
-                pass
-            elif part=='head':
-                rowClasses.append('border-top')
-            else:
-                rowClasses.append('border-bottom')
-
-        if self.context.borderLayout=='vertical':
-            # underline last rows of head and body
-            lastRowOfHead = rowNum==len(
-                self.context.data[:self.context.getHeaderRows(as_int=True)])-1
-            lastRowOfBody = rowNum==len(
-                self.context.data)-self.context.getFooterRows(as_int=True)-1
-            if lastRowOfHead or lastRowOfBody:
-                rowClasses.append('border-bottom')
-        return rowClasses

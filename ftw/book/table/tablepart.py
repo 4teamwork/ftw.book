@@ -8,37 +8,19 @@ class TablePart(object):
         rows,
         parent,
         begin_at,
-        active_column_names,
+        column_names,
         first_column_a_header,
+        border_layout,
     ):
 
         self.rows = rows
         self.begin_at = begin_at
         self.parent = parent
-        self.active_column_names = active_column_names
+        self.column_names = column_names
         self.first_column_a_header = first_column_a_header
         self.row_node = None
         self.is_first_cell = False
-
-    def get_begin_at(self):
-        """ We have a set of rows. Our part begins perhaps at row 3
-        """
-        return self.begin_at
-
-    def get_rows(self):
-        """ List of datagrid-rows
-        """
-        return self.rows
-
-    def get_parent(self):
-        """ The parent dom-object. Can be a tbody or thead...
-        """
-        return self.parent
-
-    def get_column_names(self):
-        """ Names of available columns
-        """
-        return self.active_column_names
+        self.border_layout = border_layout
 
     def is_first_column_a_header(self):
         """ Should the first column be a header-row
@@ -46,15 +28,20 @@ class TablePart(object):
         return self.first_column_a_header
 
     def is_cell_header_cell(self):
-        """ Are we on the first cell and has should the first column be a
+        """ Are we on the first cell and should the first column be a
         header-row
         """
         if self.is_first_cell and self.first_column_a_header:
             return True
         return False
 
+    def get_row_type(self):
+        """ Return the type of the row. Can be tr or th'
+        """
+        return 'tr'
+
     def get_cell_type(self):
-        """ Type of the cell, Can be td or tr...
+        """ Type of the cell, Can be td or th...
         """
         if self.is_cell_header_cell():
             return 'th'
@@ -88,17 +75,154 @@ class TablePart(object):
     def set_css(self, css):
         self.css = css
 
-    def get_css(self):
-        return self.css
+    def get_css(self, css, row_num, col_name):
+        """ Return default and additional css classes in a list
+        """
+        css = css
+
+        #  Border for vertical layout if we are on the last column
+        if self.border_layout == 'vertical' and self._is_last_column(col_name):
+                css.append('border-right')
+
+        # Border for grid layout
+        if self.border_layout == 'grid':
+            css.append('border-bottom')
+
+            if self._is_last_column(col_name):
+                css.append('border-right')
+
+        # Border for lines layout
+        if self.border_layout=='lines':
+            css.append('border-bottom')
+
+        css = self.get_additional_css(css, row_num, col_name)
+        css = self.cleanup_css(css)
+
+        return css
+
+    def get_additional_attrs(self, row_num, col_name):
+        """ Return additional attrs
+        """
+        return {}
+
+    def get_additional_css(self, css, row_num, col_name):
+        """ Get special css classes
+        """
+        return css
+
+    def cleanup_css(self, css):
+        if 'noborders' in css:
+            for css_class in ['border-bottom', 'border-top', 'noborders']:
+                if css_class in css:
+                    css.remove(css_class)
+
+        if 'scriptsize' in css:
+            if 'bold' in css:
+                css.remove('bold')
+
+        return set(css)
+
+    def _is_last_column(self, col_name):
+        return col_name != self.column_names[-1] and True or False
+
+
+class TablePartHeader(TablePart):
+    """ Used for the Head
+    """
+
+    def __init__(
+        self,
+        rows,
+        parent,
+        begin_at,
+        column_names,
+        first_column_a_header,
+        border_layout,
+        header_is_bold,
+    ):
+
+        super(TablePartHeader, self).__init__(
+            rows,
+            parent,
+            begin_at,
+            column_names,
+            first_column_a_header,
+            border_layout,
+        )
+
+        self.header_is_bold = header_is_bold
+
+    def get_part(self):
+        return 'head'
+
+    def get_cell_type(self):
+        return 'th'
+
+    def get_additional_css(self, css, row_num, col_name):
+
+        if self.border_layout in ['lines', 'grid'] and \
+            self.is_last_row(row_num):
+            css.append('border-bottom')
+        else:
+            css.remove('border-bottom')
+
+        if self.header_is_bold:
+            css.append('bold')
+
+        return css
+
+    def get_additional_attrs(self, row_num, col_name):
+        attrs = {'align': 'left'}
+
+        if row_num <= 0:
+            attrs['id'] = col_name
+
+        return attrs
+
+    def is_last_row(self, row_num):
+        """ Is it the last row
+        """
+        return len(self.rows) <= row_num + 1
+
 
 class TablePartFooter(TablePart):
     """ Used for the footer
     """
 
+    def __init__(
+        self,
+        rows,
+        parent,
+        begin_at,
+        column_names,
+        first_column_a_header,
+        border_layout,
+        footer_is_bold,
+    ):
+
+        super(TablePartFooter, self).__init__(
+            rows,
+            parent,
+            begin_at,
+            column_names,
+            first_column_a_header,
+            border_layout,
+        )
+
+        self.footer_is_bold = footer_is_bold
+
+    def get_additional_css(self, css, row_num, col_name):
+
+        if self.footer_is_bold:
+            css.append('bold')
+
+        return css
+
     def get_part(self):
         """ Return the part of the tablepart. Can be footer or body...
         """
         return 'foot'
+
 
 class TablePartBody(TablePart):
     """ Used for the Body
@@ -108,3 +232,15 @@ class TablePartBody(TablePart):
         """ Return the part of the tablepart. Can be footer or body...
         """
         return 'body'
+
+    def get_additional_attrs(self, row_num, col_name):
+        attrs = {}
+
+        if self.is_cell_header_cell():
+            attrs = {'id': 'row%i' % row_num}
+        elif self.is_first_column_a_header():
+            attrs = {'headers': '%s row%i' % (col_name, row_num)}
+        else:
+            attrs = {'headers': '%s' % col_name}
+
+        return attrs

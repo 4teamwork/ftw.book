@@ -54,9 +54,6 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 .border-grid {
     border: 1px solid #DEDEDE;
 }
-.border-grid td, .border-grid th {
-    padding-left: 0.5em;
-}
 .border-right {
     border-right:1px solid #DEDEDE;
 }
