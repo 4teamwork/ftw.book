@@ -10,17 +10,17 @@
 
         <genericsetup:upgradeStep
             title="Migration classes of chapter objects."
-            handler="ftw.book.v03.upgrades.migrate_chapter_classes"
+            handler=".upgrades.migrate_chapter_classes"
             />
 
         <genericsetup:upgradeStep
             title="Remove old actions from chapter."
-            handler="ftw.book.v03.upgrades.remove_old_chapter_actions"
+            handler=".upgrades.remove_old_chapter_actions"
             />
 
         <genericsetup:upgradeStep
             title="Set book layout"
-            handler="ftw.book.v03.upgrades.set_book_layout"
+            handler=".upgrades.set_book_layout"
             />
 
     </genericsetup:upgradeSteps>
