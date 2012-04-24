@@ -6,7 +6,6 @@ class BookTocTree(object):
 
     def __call__(self, tree):
 
-
         def filterer(item):
             brain = item.get('item')
             if brain.portal_type in ('Book', 'Chapter'):

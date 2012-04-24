@@ -33,7 +33,7 @@ class TableExportImport(BrowserView):
     def get_column_options(self):
         context = aq_inner(self.context)
         options = []
-        if len(context.data)==0:
+        if len(context.data) == 0:
             return options
         options.append(('', ' - Bitte auswaehlen - '))
         first_row = context.data[0].copy()
@@ -49,8 +49,8 @@ class TableExportImport(BrowserView):
 
     def export_table(self):
         context = aq_inner(self.context)
-        file = StringIO()
-        writer = csv.DictWriter(file, self.active_columns,
+        file_ = StringIO()
+        writer = csv.DictWriter(file_, self.active_columns,
                                 dialect='excel', delimiter=';')
         first_column = self.active_columns[0]
         first_row = dict([(first_column, self.context.absolute_url())])
@@ -60,7 +60,7 @@ class TableExportImport(BrowserView):
                         (col, row[col])
                         for col
                         in self.active_columns]))
-        file.seek(0)
+        file_.seek(0)
         self.request.RESPONSE.setHeader(
             'Content-Type', 'text/csv; charset=utf-8')
         # we use all parent-ids (seperated by "_") as filename.
@@ -78,7 +78,7 @@ class TableExportImport(BrowserView):
         # set the request and send the file
         self.request.RESPONSE.setHeader('Content-disposition',
                                         'attachment; filename=%s' % filename)
-        return file.read()
+        return file_.read()
 
     def import_table(self):
         column = self.request.get('column', None)
@@ -114,7 +114,7 @@ class TableExportImport(BrowserView):
         for i, row in enumerate(rows[1:]):
             # XXX This is very ugly! Perhaps we can also add new feature like
             # add new rows, just modify, or delete all rows and build it new
-            if i<context.headerRows:
+            if i < context.headerRows:
                 # do not update header- or footer-rows
                 continue
             try:

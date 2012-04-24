@@ -8,8 +8,10 @@ from ftw.book.table.tablepart import \
 
 class TableGenerator(object):
 
-    def __init__(self, object):
-        self.context = object
+    def __init__(self, context):
+        self.context = context
+        self.doc = None
+        self.table_node = None
 
     def render(self):
         if not self.active_columns:
@@ -28,7 +30,7 @@ class TableGenerator(object):
         pattern = re.compile('^<\?xml .*?\?>')
         try:
             html = pattern.sub('', html)
-        except:
+        except TypeError:
             pass
         return html
 
@@ -242,7 +244,7 @@ class TableGenerator(object):
         html = str(BeautifulSoup(html))
         try:
             doc = minidom.parseString('<data>%s</data>' % html)
-        except:
+        except UnicodeEncodeError:
             doc = minidom.parseString('<data>FEHLER</data>')
         return doc
     _clean_and_parse_html = staticmethod(_clean_and_parse_html)

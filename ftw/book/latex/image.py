@@ -7,7 +7,7 @@ from zope.interface import Interface
 
 
 class ImageLaTeXView(MakoLaTeXView):
-    adapts(IATImage, Interface , Interface)
+    adapts(IATImage, Interface, Interface)
 
     def render(self):
         latex = []
@@ -74,4 +74,3 @@ class ImageLaTeXView(MakoLaTeXView):
         self.layout.use_package('wrapfig')
 
         return '\n'.join(latex)
-

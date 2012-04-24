@@ -80,14 +80,14 @@ table_schema = (ATContentTypeSchema.copy() + \
                 ),
 
             DataGridField.DataGridField(
-                name = 'columnProperties',
-                schemata = 'Layout',
-                searchable = False,
-                required = False,
-                allow_insert = False,
-                allow_delete = False,
-                allow_reorder = False,
-                columns = (
+                name='columnProperties',
+                schemata='Layout',
+                searchable=False,
+                required=False,
+                allow_insert=False,
+                allow_delete=False,
+                allow_reorder=False,
+                columns=(
                     'columnId',
                     'columnTitle',
                     'active',
@@ -96,46 +96,46 @@ table_schema = (ATContentTypeSchema.copy() + \
                     'indent',
                     'width',
                     ),
-                widget = DataGridField.DataGridWidget(
-                    label = 'Column Properties',
+                widget=DataGridField.DataGridWidget(
+                    label='Column Properties',
                     label_msgid='izug_label_columnProperties',
-                    i18n_domain = 'izug',
-                    columns = {
+                    i18n_domain='izug',
+                    columns={
                         'columnId': DataGridField.FixedColumn(
                             'column_id',
-                            default = 'column_x',
-                            visible = False,
+                            default='column_x',
+                            visible=False,
                             ),
                         'columnTitle': DataGridField.FixedColumn(
                             _(u'izug_label_column', default=u'Column'),
-                            default = 'Spalte X',
+                            default='Spalte X',
                             ),
                         'active': DataGridField.CheckboxColumn(
                             _(u'izug_label_active', default=u'Active'),
-                            default = False,
+                            default=False,
                             ),
                         'alignment': DataGridField.SelectColumn(
                             _(u'izug_label_alignment', default=u'Alignment'),
-                            vocabulary = 'getAlignmentVocabulary',
+                            vocabulary='getAlignmentVocabulary',
                             ),
                         'bold': DataGridField.CheckboxColumn(
                             _(u'izug_label_bold', default=u'Bold'),
-                            default = False,
+                            default=False,
                             ),
                         'indent': DataGridField.SelectColumn(
                             _(u'izug_label_indent', default=u'Indent'),
-                            vocabulary = 'getIndentVocabulary',
+                            vocabulary='getIndentVocabulary',
                             ),
                         'width': DataGridField.Column(
-                            label = _(u'izug_label_width',
+                            label=_(u'izug_label_width',
                                       default=u'Width (%)'),
                             ),
                         },
                     ),
-                fixed_rows = [
+                fixed_rows=[
                     DataGridField.FixedRow(
-                        keyColumn = 'columnTitle',
-                        initialData = {
+                        keyColumn='columnTitle',
+                        initialData={
                             'columnId':'column_%i' % (i),
                             'columnTitle': 'Spalte %i' % (i + 1),
                             'active': False,
@@ -147,91 +147,91 @@ table_schema = (ATContentTypeSchema.copy() + \
                 ),
 
             atapi.StringField(
-                name = 'headerRows',
-                schemata = 'Layout',
-                default = '1',
-                enforceVocabulary = True,
-                vocabulary = [
+                name='headerRows',
+                schemata='Layout',
+                default='1',
+                enforceVocabulary=True,
+                vocabulary=[
                     (str(i), '%i Zeilen' % i) for i
-                    in range(MAX_AMOUNT_OF_HEADER_ROWS+1)],
-                widget = atapi.SelectionWidget(
-                    label = 'Amount of header rows',
+                    in range(MAX_AMOUNT_OF_HEADER_ROWS + 1)],
+                widget=atapi.SelectionWidget(
+                    label='Amount of header rows',
                     label_msgid='izug_label_headerRows',
-                    description = '',
+                    description='',
                     description_msgid='izug_help_headerRows',
-                    i18n_domain = 'izug'
+                    i18n_domain='izug'
                     ),
                 ),
 
             atapi.StringField(
-                name = 'footerRows',
-                schemata = 'Layout',
-                default = 0,
-                enforceVocabulary = True,
-                vocabulary = [
+                name='footerRows',
+                schemata='Layout',
+                default=0,
+                enforceVocabulary=True,
+                vocabulary=[
                     (str(i), '%i Zeilen' % i) for i
                     in range(MAX_AMOUNT_OF_FOOTER_ROWS+1)],
-                widget = atapi.SelectionWidget(
-                    label = 'Amount of footer rows',
+                widget=atapi.SelectionWidget(
+                    label='Amount of footer rows',
                     label_msgid='izug_label_footerRows',
-                    description = '',
+                    description='',
                     description_msgid='izug_help_footerRows',
-                    i18n_domain = 'izug'
+                    i18n_domain='izug'
                     ),
                 ),
 
             atapi.BooleanField(
-                name = 'firstColumnIsHeader',
-                schemata = 'Layout',
-                default = False,
-                widget = atapi.BooleanWidget(
-                    label = 'First column is a header column',
+                name='firstColumnIsHeader',
+                schemata='Layout',
+                default=False,
+                widget=atapi.BooleanWidget(
+                    label='First column is a header column',
                     label_msgid='izug_label_firstColumnIsHeader',
-                    description = 'Select this Option if the first column ' + \
+                    description='Select this Option if the first column ' + \
                         'contain row headers',
                     description_msgid='izug_help_firstColumnIsHeader',
-                    i18n_domain = 'izug',
+                    i18n_domain='izug',
                     ),
                 ),
 
             atapi.BooleanField(
-                name = 'headerIsBold',
-                schemata = 'Layout',
-                default = True,
-                widget = atapi.BooleanWidget(
-                    label = 'Header rows are bold',
-                    label_msgid = 'izug_label_headerIsBold',
-                    description = '',
-                    description_msgid = 'izug_help_headerIsBold',
-                    i18n_domain = 'izug.bibliothek',
+                name='headerIsBold',
+                schemata='Layout',
+                default=True,
+                widget=atapi.BooleanWidget(
+                    label='Header rows are bold',
+                    label_msgid='izug_label_headerIsBold',
+                    description='',
+                    description_msgid='izug_help_headerIsBold',
+                    i18n_domain='izug.bibliothek',
                     ),
                 ),
 
             atapi.BooleanField(
-                name = 'footerIsBold',
-                schemata = 'Layout',
-                default = True,
-                widget = atapi.BooleanWidget(
-                    label = 'Footer rows are bold',
-                    label_msgid = 'izug_label_footerIsBold',
-                    description = '',
-                    description_msgid = 'izug_help_footerIsBold',
-                    i18n_domain = 'izug.bibliothek',
+                name='footerIsBold',
+                schemata='Layout',
+                default=True,
+                widget=atapi.BooleanWidget(
+                    label='Footer rows are bold',
+                    label_msgid='izug_label_footerIsBold',
+                    description='',
+                    description_msgid='izug_help_footerIsBold',
+                    i18n_domain='izug.bibliothek',
                     ),
                 ),
 
             atapi.StringField(
-                name = 'borderLayout',
-                schemata = 'Layout',
-                default = 'lines',
-                enforceVocabulary = True,
-                vocabulary = BORDER_LAYOUTS,
-                widget = atapi.SelectionWidget(
-                    label = 'Border Layout',
+                name='borderLayout',
+                schemata='Layout',
+                default='lines',
+                enforceVocabulary=True,
+                vocabulary=BORDER_LAYOUTS,
+                widget=atapi.SelectionWidget(
+                    label='Border Layout',
                     label_msgid='izug_label_borderLayout',
-                    description = '',
+                    description='',
                     description_msgid='izug_help_borderLayout',
-                    i18n_domain = 'izug',
+                    i18n_domain='izug',
                     )
                 ),
 
