@@ -36,14 +36,14 @@ class TableGenerator(object):
         """ Create the table
         """
         css_classes = ['notListed']
-        if self.context.borderLayout in ['grid', 'vertical']:
+        if self.context.getBorderLayout() in ['grid', 'vertical']:
             css_classes.append('border-grid')
 
         if self.context.getNoLifting():
             css_classes.append('no-lifting')
 
         attrs = {
-                'summary': getattr(self.context, 'description', ''),
+                'summary': self.context.Description(),
                 'class': ' '.join(css_classes),
         }
         return self._create_node('table', self.doc, **attrs)
@@ -54,8 +54,11 @@ class TableGenerator(object):
         if not self.context.getShowTitle():
             return
 
-        self._create_node_with_text(
-            'caption', self.table_node, self.context.Title())
+        title = self.context.Title()
+        if isinstance(title, str):
+            title = title.decode('utf-8')
+
+        self._create_node('caption', self.table_node, title)
 
     def create_colgroup(self):
         """ Create the colgroup and calculate the correct width
@@ -82,7 +85,7 @@ class TableGenerator(object):
 
         # Table head
         thead = self._create_node('thead', self.table_node)
-        rows = self.context.data[:num_header_rows]
+        rows = self.context.getData()[:num_header_rows]
 
         tablepart = TablePartHeader(
             rows,
@@ -103,7 +106,7 @@ class TableGenerator(object):
         """
         num_header_rows = self.context.getHeaderRows(as_int=True)
         num_footer_rows = self.context.getFooterRows(as_int=True)
-        available_rows = len(self.context.data)
+        available_rows = len(self.context.getData())
         num_body_rows = available_rows - (num_header_rows + num_footer_rows)
 
         if num_body_rows <= 0:
@@ -111,8 +114,8 @@ class TableGenerator(object):
 
         tbody = self._create_node('tbody', self.table_node)
         body_begins_at = available_rows - (num_body_rows + num_footer_rows)
-        rows = self.context.data[
-            num_header_rows:len(self.context.data) - num_footer_rows]
+        rows = self.context.getData()[
+            num_header_rows:len(self.context.getData()) - num_footer_rows]
 
         tablepart = TablePartBody(
             rows,
@@ -135,8 +138,8 @@ class TableGenerator(object):
             return None
 
         footer = self._create_node('tfoot', self.table_node)
-        footer_begins_at = len(self.context.data) - num_footer_rows
-        rows = self.context.data[-num_footer_rows:]
+        footer_begins_at = len(self.context.getData()) - num_footer_rows
+        rows = self.context.getData()[-num_footer_rows:]
 
         tablepart = TablePartFooter(
             rows,
@@ -164,7 +167,7 @@ class TableGenerator(object):
         """
         if '_activeColumns' not in dir(self):
             self._activeColumns = [column['columnId'] for column in \
-                self.context.columnProperties if column['active']]
+                self.context.getColumnProperties() if column['active']]
         return self._activeColumns
 
     @property
@@ -187,22 +190,9 @@ class TableGenerator(object):
         """
         if '_columnProperties' not in dir(self):
             self._columnProperties = {}
-            for i, column in enumerate(self.context.columnProperties):
+            for i, column in enumerate(self.context.getColumnProperties()):
                 self._columnProperties[column['columnId']] = column
         return self._columnProperties[columnName]
-
-    def _create_node_with_text(
-        self, tag_name, parent_node, text='', content='', **kwargs):
-        """ Return a node with text inside
-        """
-
-        if isinstance(text, str):
-            text = text.decode('utf-8')
-
-        node = self._create_node(tag_name, parent_node, content, **kwargs)
-        node.appendChild(self.doc.createTextNode(text))
-
-        return node
 
     def _calculate_column_widths(self):
         """ Calculate the width for the columns.
@@ -306,7 +296,7 @@ class TableGenerator(object):
             css.append(col['indent'])
 
         # Add available row css classes
-        css += self.context.data[row_num].get('row_format', '').split(' ')
+        css += self.context.getData()[row_num].get('row_format', '').split(' ')
 
         return tablepart.get_css(css, row_num, col_name)
 
