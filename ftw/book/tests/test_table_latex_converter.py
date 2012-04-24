@@ -40,7 +40,7 @@ class TestTableLaTeXView(MockTestCase):
     def test_rendering(self):
         context = self.providing_stub([ITable])
         self.expect(context.getTable()).result('table')
-        self.expect(context.getFootnoteText().strip()).resutl('footnote')
+        self.expect(context.getFootnoteText().strip()).result('footnote')
 
         request = self.providing_stub([Interface])
         layout = self.providing_stub([ILaTeXLayout])
@@ -53,5 +53,5 @@ class TestTableLaTeXView(MockTestCase):
                                  ILaTeXView)
 
         self.assertEquals(view.render(),
-            'table\nfootnote'
+            'table\n\\vspace{0pt}\n\\{\\\\footnotesize footnote'
         )
