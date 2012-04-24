@@ -1,5 +1,6 @@
 import re
 from xml.dom import minidom
+from ftw.book.table.calculator import ColumnWidthsCalculator
 from ftw.pdfgenerator.utils import html2xmlentities
 from BeautifulSoup import BeautifulSoup
 from ftw.book.table.tablepart import \
@@ -66,13 +67,14 @@ class TableGenerator(object):
         """ Create the colgroup and calculate the correct width
         """
         colgroup = self._create_node('colgroup', self.table_node)
+        calculator = ColumnWidthsCalculator()
 
-        widths = self._calculate_column_widths()
+        widths = calculator(self.column_widths)
 
         # create colgroup
-        for name in self.active_column_names:
+        for i in range(len(self.active_column_names)):
             self._create_node('col', colgroup, content=False, **{
-                    'width': '%i%%' % widths[name],
+                    'width': '%i%%' % widths[i],
             })
 
         return colgroup
@@ -174,15 +176,11 @@ class TableGenerator(object):
 
     @property
     def column_widths(self):
-        """ Return the columnwidths in a dict
+        """ Return the columnwidths in a list
         """
-        column_widths = {}
+        column_widths = []
         for name in self.active_column_names:
-            try:
-                column_widths[name] = int(self._get_column_properties(
-                    name)['width'])
-            except ValueError:
-                column_widths[name] = 0
+            column_widths.append(self._get_column_properties(name)['width'])
         return column_widths
 
     def _get_column_properties(self, columnName):
@@ -195,39 +193,39 @@ class TableGenerator(object):
             for i, column in enumerate(self.context.getColumnProperties()):
                 self._columnProperties[column['columnId']] = column
         return self._columnProperties[columnName]
-
-    def _calculate_column_widths(self):
-        """ Calculate the width for the columns.
-        The user can define his own widths. We have to validate that and
-        calculate not setted widths
-        """
-        widths = self.column_widths
-        max_width = 100 # %
-        given_width = sum([abs(x) for x in widths.values()])
-        widthless_columns = len(filter(lambda x: x==0, widths.values()))
-        remaining_width = max_width - given_width
-
-        # The user has set the width correctly so we can return the dict
-        if remaining_width == 0 and widthless_columns == 0:
-            pass
-
-        # If the user has set no width or he made calculation errors
-        elif widthless_columns == self.active_columns or \
-            remaining_width < widthless_columns:
-
-            widths = self._set_column_width(
-                widths, (max_width / self.active_columns))
-
-        # The user set the width correctly but not for every row
-        elif widthless_columns:
-            widths = self._set_column_width(
-                widths, (remaining_width / widthless_columns), 0)
-
-        # Because rounding-problems its possible that we get a rest. We add
-        # the rest on the first elements width
-        widths[widths.keys()[0]] += max_width - sum(widths.values())
-
-        return widths
+    #
+    # def _calculate_column_widths(self):
+    #     """ Calculate the width for the columns.
+    #     The user can define his own widths. We have to validate that and
+    #     calculate not setted widths
+    #     """
+    #     widths = self.column_widths
+    #     max_width = 100 # %
+    #     given_width = sum([abs(x) for x in widths.values()])
+    #     widthless_columns = len(filter(lambda x: x==0, widths.values()))
+    #     remaining_width = max_width - given_width
+    #
+    #     # The user has set the width correctly so we can return the dict
+    #     if remaining_width == 0 and widthless_columns == 0:
+    #         pass
+    #
+    #     # If the user has set no width or he made calculation errors
+    #     elif widthless_columns == self.active_columns or \
+    #         remaining_width < widthless_columns:
+    #
+    #         widths = self._set_column_width(
+    #             widths, (max_width / self.active_columns))
+    #
+    #     # The user set the width correctly but not for every row
+    #     elif widthless_columns:
+    #         widths = self._set_column_width(
+    #             widths, (remaining_width / widthless_columns), 0)
+    #
+    #     # Because rounding-problems its possible that we get a rest. We add
+    #     # the rest on the first elements width
+    #     widths[widths.keys()[0]] += max_width - sum(widths.values())
+    #
+    #     return widths
 
     def _set_column_width(self, widths, width, width_condition=False):
         """ Set the column-widths in the widths

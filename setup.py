@@ -13,7 +13,6 @@ tests_require = [
     'plone.portlets',
     'ftw.testing',
     'pyquery',
-    'Products.DataGridField',
     ]
 
 extras_require = {
@@ -57,6 +56,7 @@ setup(name='ftw.book',
         'plone.portlets',
         'ftw.pdfgenerator',
         'BeautifulSoup!=4.0b',
+        'Products.DataGridField',
         ],
 
       tests_require=tests_require,
