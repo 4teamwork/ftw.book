@@ -47,8 +47,8 @@ class ColumnWidthsCalculator(object):
 
             pass
 
-        # If the user has set no width we split the maximum width to the number
-        # of columns
+        # If the user has set no width so we split the maximum width to the
+        # number of columns
         elif widthless_columns == len(widths):
             widths = self._set_column_widths(
                 widths, (self.MAX_WIDTH / len(widths)))
@@ -123,12 +123,7 @@ class ColumnWidthsCalculator(object):
     def _convert_list_elements(self, widths, type_):
         """ Converts the type of list elemenets into the given type_
         """
-        try:
-            widths = [type_(i) for i in widths]
-        except ValueError:
-            pass
-
-        return widths
+        return [type_(i) for i in widths]
 
     def _get_given_width(self, widths):
         """ Return the given width.

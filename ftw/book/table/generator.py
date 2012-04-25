@@ -193,39 +193,6 @@ class TableGenerator(object):
             for i, column in enumerate(self.context.getColumnProperties()):
                 self._columnProperties[column['columnId']] = column
         return self._columnProperties[columnName]
-    #
-    # def _calculate_column_widths(self):
-    #     """ Calculate the width for the columns.
-    #     The user can define his own widths. We have to validate that and
-    #     calculate not setted widths
-    #     """
-    #     widths = self.column_widths
-    #     max_width = 100 # %
-    #     given_width = sum([abs(x) for x in widths.values()])
-    #     widthless_columns = len(filter(lambda x: x==0, widths.values()))
-    #     remaining_width = max_width - given_width
-    #
-    #     # The user has set the width correctly so we can return the dict
-    #     if remaining_width == 0 and widthless_columns == 0:
-    #         pass
-    #
-    #     # If the user has set no width or he made calculation errors
-    #     elif widthless_columns == self.active_columns or \
-    #         remaining_width < widthless_columns:
-    #
-    #         widths = self._set_column_width(
-    #             widths, (max_width / self.active_columns))
-    #
-    #     # The user set the width correctly but not for every row
-    #     elif widthless_columns:
-    #         widths = self._set_column_width(
-    #             widths, (remaining_width / widthless_columns), 0)
-    #
-    #     # Because rounding-problems its possible that we get a rest. We add
-    #     # the rest on the first elements width
-    #     widths[widths.keys()[0]] += max_width - sum(widths.values())
-    #
-    #     return widths
 
     def _set_column_width(self, widths, width, width_condition=False):
         """ Set the column-widths in the widths

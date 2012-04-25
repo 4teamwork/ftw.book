@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-03-29 12:48+0000\n"
+"POT-Creation-Date: 2012-04-25 08:58+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -14,6 +14,34 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ftw.book\n"
 "X-Is-Fallback-For: de-de de-at de-ch\n"
+
+#: ./ftw/book/content/table.py:287
+msgid "10mm"
+msgstr ""
+
+#: ./ftw/book/content/table.py:297
+msgid "10mm ind. + bold"
+msgstr "10mm einr. + fett"
+
+#: ./ftw/book/content/table.py:295
+msgid "10mm indent"
+msgstr "10mm einrücken"
+
+#: ./ftw/book/content/table.py:286
+msgid "2mm"
+msgstr ""
+
+#: ./ftw/book/content/table.py:296
+msgid "2mm ind. + bold"
+msgstr "2mm einr. + fett"
+
+#: ./ftw/book/content/table.py:294
+msgid "2mm indent"
+msgstr "2mm einrücken"
+
+#: ./ftw/book/content/table.py:293
+msgid "Bold"
+msgstr "Fett"
 
 #. Default: "Book"
 #: ./ftw/book/profiles/default/types/Book.xml
@@ -29,13 +57,61 @@ msgstr "Kapitel"
 msgid "Default layout"
 msgstr "Standardlayout"
 
+#: ./ftw/book/browser/export_pdf.pt:22
+msgid "Embed remarks"
+msgstr "Kommentare einbinden"
+
+#: ./ftw/book/content/table.py:299
+msgid "Grey font"
+msgstr "Graue Schrift"
+
 #: ./ftw/book/profiles/default/types/HTMLBlock.xml
 msgid "HTML Block"
+msgstr ""
+
+#: ./ftw/book/content/table.py:292
+msgid "Normal"
 msgstr ""
 
 #: ./ftw/book/profiles/default/actions.xml
 msgid "PDF"
 msgstr "PDF"
+
+#: ./ftw/book/profiles/default/types/Remark.xml
+msgid "Remark"
+msgstr "Kommentar"
+
+#: ./ftw/book/content/table.py:298
+msgid "Row without line"
+msgstr "Zeile ohne Linie"
+
+#: ./ftw/book/content/table.py:300
+msgid "Small font"
+msgstr "Kleine Schrift"
+
+#: ./ftw/book/content/table.py:301
+msgid "Strech first line"
+msgstr "Zeilen Verbinden"
+
+#: ./ftw/book/profiles/default/types/Table.xml
+msgid "Table"
+msgstr "Tabelle"
+
+#: ./ftw/book/browser/table_export_import.py:109
+msgid "The file does not seem to belong to this table."
+msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
+
+#: ./ftw/book/browser/table_export_import.py:93
+msgid "You didn't choose a column."
+msgstr "Sie haben keine Spalte ausgewählt"
+
+#: ./ftw/book/browser/table_export_import.py:89
+msgid "You didn't choose a file."
+msgstr "Sie haben kein File ausgewählt"
+
+#: ./ftw/book/content/table.py:277
+msgid "automatically"
+msgstr "Automatisch"
 
 #: ./ftw/book/latex/defaultlayout.py:63
 msgid "book_help_author"
@@ -129,20 +205,135 @@ msgstr "Titelseite einbetten"
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
+#: ./ftw/book/content/table.py:280
+msgid "center"
+msgstr "Zentriert"
+
 #. Default: "Creator"
+#: ./ftw/book/browser/book_tabs.py:27
 #: ./ftw/book/browser/tabbed_book_view.py:36
 msgid "column_creator"
 msgstr "Ersteller"
 
+#. Default: "date"
+#: ./ftw/book/browser/book_tabs.py:24
+msgid "column_date"
+msgstr "Datum"
+
+#. Default: "modified"
+#: ./ftw/book/browser/book_tabs.py:31
+msgid "column_modified"
+msgstr "Geändert"
+
 #. Default: "Title"
+#: ./ftw/book/browser/book_tabs.py:20
 #: ./ftw/book/browser/tabbed_book_view.py:32
 msgid "column_title"
 msgstr "Titel"
+
+#: ./ftw/book/content/table.py:218
+msgid "description_border_layout"
+msgstr ""
+
+#: ./ftw/book/content/table.py:181
+msgid "description_first_column_is_header"
+msgstr ""
+
+#: ./ftw/book/content/table.py:205
+msgid "description_footer_is_bold"
+msgstr ""
+
+#: ./ftw/book/content/table.py:169
+msgid "description_footer_row"
+msgstr ""
+
+#: ./ftw/book/content/table.py:72
+msgid "description_footnote_text"
+msgstr ""
+
+#: ./ftw/book/content/table.py:193
+msgid "description_header_is_bold"
+msgstr ""
+
+#: ./ftw/book/content/table.py:153
+msgid "description_header_row"
+msgstr ""
+
+#: ./ftw/book/content/table.py:228
+msgid "description_no_lifting"
+msgstr ""
+
+#: ./ftw/book/content/table.py:34
+msgid "description_show_title"
+msgstr ""
+
+#. Default: "Border Layout"
+#: ./ftw/book/content/table.py:217
+msgid "label_border_layout"
+msgstr "Rahmenlayout"
+
+#. Default: "Column properties"
+#: ./ftw/book/content/table.py:94
+msgid "label_column_properties"
+msgstr "Spalteneigenschaften"
+
+#. Default: "First column is a header column"
+#: ./ftw/book/content/table.py:179
+msgid "label_first_column_is_header"
+msgstr "Erste Spalte ist eine Kopfspalte"
+
+#. Default: "Footer rows are bold"
+#: ./ftw/book/content/table.py:203
+msgid "label_footer_is_bold"
+msgstr "Fusszeilen fett darstellen"
+
+#. Default: "Amount of footer rows"
+#: ./ftw/book/content/table.py:167
+msgid "label_footer_rows"
+msgstr "Anzahl Fusszeilen"
+
+#. Default: "Footnote Text"
+#: ./ftw/book/content/table.py:71
+msgid "label_footnote_text"
+msgstr "Text Fussnote"
 
 #. Default: "Return to ${book_name}"
 #: ./ftw/book/portlets/gotoparent.pt:4
 msgid "label_gotoparent"
 msgstr "Zurück zu ${book_name}"
+
+#. Default: "Header rows are bold"
+#: ./ftw/book/content/table.py:191
+msgid "label_header_is_bold"
+msgstr "Kopfzeilen fett darstellen"
+
+#. Default: "Amount of header rows"
+#: ./ftw/book/content/table.py:151
+msgid "label_header_rows"
+msgstr "Anzahl Kopfzeilen"
+
+#. Default: "No lifting"
+#: ./ftw/book/content/table.py:227
+msgid "label_no_lifting"
+msgstr "Kein Heben der Tabelle"
+
+#. Default: "Show title"
+#: ./ftw/book/content/table.py:33
+msgid "label_show_title"
+msgstr "Titel anzeigen"
+
+#. Default: "Table content"
+#: ./ftw/book/content/table.py:46
+msgid "label_table_content"
+msgstr "Tabelleninhalt"
+
+#: ./ftw/book/content/table.py:278
+msgid "left"
+msgstr "Links"
+
+#: ./ftw/book/content/table.py:285
+msgid "no indent"
+msgstr "Nicht einrücken"
 
 #: ./ftw/book/latexinjection.py:47
 msgid "post_latex_code_help"
@@ -162,4 +353,59 @@ msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objek
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
 
+#: ./ftw/book/content/table.py:279
+msgid "right"
+msgstr "Rechts"
 
+#: ./ftw/book/content/table.py:51
+msgid "row"
+msgstr "Spalte"
+
+#: ./ftw/book/content/table.py:148
+msgid "rows"
+msgstr "Zeilen"
+
+#. Default: "Active"
+#: ./ftw/book/content/table.py:107
+msgid "table_label_active"
+msgstr "Aktiv"
+
+#. Default: "Alignment"
+#: ./ftw/book/content/table.py:111
+msgid "table_label_alignment"
+msgstr "Ausrichtung"
+
+#. Default: "Bold"
+#: ./ftw/book/content/table.py:115
+msgid "table_label_bold"
+msgstr "Fett"
+
+#. Default: "Column"
+#: ./ftw/book/content/table.py:103
+msgid "table_label_column"
+msgstr "Spalte"
+
+#. Default: "Grid Layout"
+#: ./ftw/book/content/table.py:19
+msgid "table_label_gridLayout"
+msgstr "Gitternetz"
+
+#. Default: "Indent"
+#: ./ftw/book/content/table.py:119
+msgid "table_label_indent"
+msgstr "Einrückung"
+
+#. Default: "Underline every row"
+#: ./ftw/book/content/table.py:20
+msgid "table_label_linesLayout"
+msgstr "Horizontale Linien"
+
+#. Default: "Vertical grid"
+#: ./ftw/book/content/table.py:21
+msgid "table_label_verticalLayout"
+msgstr "Vertikale Linien"
+
+#. Default: "Width (%)"
+#: ./ftw/book/content/table.py:123
+msgid "table_label_width"
+msgstr "Breite in %"

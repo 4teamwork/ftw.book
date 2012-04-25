@@ -16,9 +16,9 @@ MAX_AMOUNT_OF_COLUMNS = 12
 MAX_AMOUNT_OF_HEADER_ROWS = 5
 MAX_AMOUNT_OF_FOOTER_ROWS = 5
 BORDER_LAYOUTS = (
-    ('grid', _(u'izug_label_gridLayout', default=u'Grid Layout')),
-    ('lines', _(u'izug_label_linesLayout', default=u'Underline every row')),
-    ('vertical', _(u'izug_label_verticalLayout', default=u'Vertical grid')),
+    ('grid', _(u'table_label_gridLayout', default=u'Grid Layout')),
+    ('lines', _(u'table_label_linesLayout', default=u'Underline every row')),
+    ('vertical', _(u'table_label_verticalLayout', default=u'Vertical grid')),
     )
 
 
@@ -30,11 +30,8 @@ table_schema = (ATContentTypeSchema.copy() + \
                 schemata='default',
                 default=False,
                 widget=atapi.BooleanWidget(
-                    label='Show title',
-                    label_msgid='izug_label_showtitle',
-                    description='',
-                    description_msgid='izug_help_showtitle',
-                    i18n_domain='izug',
+                    label=_(u'label_show_title', default=u'Show title'),
+                    description=_(u'description_show_title', default=u''),
                     ),
                 ),
 
@@ -46,12 +43,12 @@ table_schema = (ATContentTypeSchema.copy() + \
                 columns=['column_%i' % i for i in
                          range(MAX_AMOUNT_OF_COLUMNS)] + ['row_format'],
                 widget=DataGridField.DataGridWidget(
-                    label='Tabellen Inhalt',
+                    label=_(u'label_table_content', default=u'Table content'),
                     macro='datagridwidget_bibliothek_table',
                     columns=dict(
                         [
                             ('column_%i' % i, DataGridField.Column(
-                                    label='Spalte %i' % (i + 1)))
+                                    label='%s %i' % (_('row'), i + 1)))
                             for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
                                 'row_format',
                                 DataGridField.SelectColumn(
@@ -71,11 +68,8 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default_input_type='text/html',
                 default_output_type='text/html',
                 widget=atapi.RichWidget(
-                    label='Footnote Text',
-                    label_msgid='izug_label_footnoteText',
-                    description='',
-                    description_msgid='izug_help_footnoteText',
-                    i18n_domain='izug.bibliothek',
+                    label=_(u'label_footnote_text', default=u'Footnote Text'),
+                    description=_(u'description_footnote_text', default=u""),
                     ),
                 ),
 
@@ -97,9 +91,8 @@ table_schema = (ATContentTypeSchema.copy() + \
                     'width',
                     ),
                 widget=DataGridField.DataGridWidget(
-                    label='Column Properties',
-                    label_msgid='izug_label_columnProperties',
-                    i18n_domain='izug',
+                    label=_(u'label_column_properties',
+                        default=u'Column properties'),
                     columns={
                         'columnId': DataGridField.FixedColumn(
                             'column_id',
@@ -107,34 +100,34 @@ table_schema = (ATContentTypeSchema.copy() + \
                             visible=False,
                             ),
                         'columnTitle': DataGridField.FixedColumn(
-                            _(u'izug_label_column', default=u'Column'),
-                            default='Spalte X',
+                            _(u'table_label_column', default=u'Column'),
+                            default='Row X',
                             ),
                         'active': DataGridField.CheckboxColumn(
-                            _(u'izug_label_active', default=u'Active'),
+                            _(u'table_label_active', default=u'Active'),
                             default=False,
                             ),
                         'alignment': DataGridField.SelectColumn(
-                            _(u'izug_label_alignment', default=u'Alignment'),
+                            _(u'table_label_alignment', default=u'Alignment'),
                             vocabulary='getAlignmentVocabulary',
                             ),
                         'bold': DataGridField.CheckboxColumn(
-                            _(u'izug_label_bold', default=u'Bold'),
+                            _(u'table_label_bold', default=u'Bold'),
                             default=False,
                             ),
                         'indent': DataGridField.SelectColumn(
-                            _(u'izug_label_indent', default=u'Indent'),
+                            _(u'table_label_indent', default=u'Indent'),
                             vocabulary='getIndentVocabulary',
                             ),
                         'width': DataGridField.Column(
-                            label=_(u'izug_label_width',
+                            label=_(u'table_label_width',
                                       default=u'Width (%)'),
                             ),
                         },
                     ),
                 fixed_rows=[
                     DataGridField.FixedRow(
-                        keyColumn='columnTitle',
+                        keyColumn='columnId',
                         initialData={
                             'columnId':'column_%i' % (i),
                             'columnTitle': 'Spalte %i' % (i + 1),
@@ -152,14 +145,13 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default='1',
                 enforceVocabulary=True,
                 vocabulary=[
-                    (str(i), '%i Zeilen' % i) for i
+                    (str(i), '%i %s' % (i, _('rows'))) for i
                     in range(MAX_AMOUNT_OF_HEADER_ROWS + 1)],
                 widget=atapi.SelectionWidget(
-                    label='Amount of header rows',
-                    label_msgid='izug_label_headerRows',
-                    description='',
-                    description_msgid='izug_help_headerRows',
-                    i18n_domain='izug'
+                    label=_(u'label_header_rows',
+                        default=u'Amount of header rows'),
+                    description=_(u'description_header_row',
+                        default=u''),
                     ),
                 ),
 
@@ -169,14 +161,13 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default=0,
                 enforceVocabulary=True,
                 vocabulary=[
-                    (str(i), '%i Zeilen' % i) for i
+                    (str(i), '%i %s' % (i, _('rows'))) for i
                     in range(MAX_AMOUNT_OF_FOOTER_ROWS+1)],
                 widget=atapi.SelectionWidget(
-                    label='Amount of footer rows',
-                    label_msgid='izug_label_footerRows',
-                    description='',
-                    description_msgid='izug_help_footerRows',
-                    i18n_domain='izug'
+                    label=_(u'label_footer_rows',
+                        default=u'Amount of footer rows'),
+                    description=_(u'description_footer_row',
+                        default=u''),
                     ),
                 ),
 
@@ -185,12 +176,10 @@ table_schema = (ATContentTypeSchema.copy() + \
                 schemata='Layout',
                 default=False,
                 widget=atapi.BooleanWidget(
-                    label='First column is a header column',
-                    label_msgid='izug_label_firstColumnIsHeader',
-                    description='Select this Option if the first column ' + \
-                        'contain row headers',
-                    description_msgid='izug_help_firstColumnIsHeader',
-                    i18n_domain='izug',
+                    label=_(u'label_first_column_is_header',
+                        default=u'First column is a header column'),
+                    description=_(u'description_first_column_is_header',
+                        default=u''),
                     ),
                 ),
 
@@ -199,11 +188,10 @@ table_schema = (ATContentTypeSchema.copy() + \
                 schemata='Layout',
                 default=True,
                 widget=atapi.BooleanWidget(
-                    label='Header rows are bold',
-                    label_msgid='izug_label_headerIsBold',
-                    description='',
-                    description_msgid='izug_help_headerIsBold',
-                    i18n_domain='izug.bibliothek',
+                    label=_(u'label_header_is_bold',
+                        u'Header rows are bold'),
+                    description=_(u'description_header_is_bold',
+                        default=''),
                     ),
                 ),
 
@@ -212,11 +200,10 @@ table_schema = (ATContentTypeSchema.copy() + \
                 schemata='Layout',
                 default=True,
                 widget=atapi.BooleanWidget(
-                    label='Footer rows are bold',
-                    label_msgid='izug_label_footerIsBold',
-                    description='',
-                    description_msgid='izug_help_footerIsBold',
-                    i18n_domain='izug.bibliothek',
+                    label=_(u'label_footer_is_bold',
+                        u'Footer rows are bold'),
+                    description=_(u'description_footer_is_bold',
+                        default=''),
                     ),
                 ),
 
@@ -227,11 +214,8 @@ table_schema = (ATContentTypeSchema.copy() + \
                 enforceVocabulary=True,
                 vocabulary=BORDER_LAYOUTS,
                 widget=atapi.SelectionWidget(
-                    label='Border Layout',
-                    label_msgid='izug_label_borderLayout',
-                    description='',
-                    description_msgid='izug_help_borderLayout',
-                    i18n_domain='izug',
+                    label=_(u'label_border_layout', default=u'Border Layout'),
+                    description=_(u'description_border_layout', default=u''),
                     )
                 ),
 
@@ -240,11 +224,8 @@ table_schema = (ATContentTypeSchema.copy() + \
                 schemata='Layout',
                 default=False,
                 widget=atapi.BooleanWidget(
-                    label='No lifting',
-                    label_msgid='izug_label_no-lifting',
-                    description='',
-                    description_msgid='izug_help_no-lifting',
-                    i18n_domain='izug.bibliothek',
+                    label=_(u'label_no_lifting', default=u'No lifting'),
+                    description=_(u'description_no_lifting', default=u''),
                     )),
 
             )))
@@ -257,7 +238,7 @@ simplelayout_schemas.finalize_simplelayout_schema(table_schema)
 
 
 class Table(ATDocumentBase):
-    """A Table for iZug Bibliothek"""
+    """A Table for ftw.book"""
     implements(ITable, ISimpleLayoutBlock)
 
     portal_type = "Table"
@@ -308,16 +289,16 @@ class Table(ATDocumentBase):
 
     def getRowFormatVocabulary(self):
         return DisplayList((
-                ('', 'Normal'),
-                ('bold', 'Fett'),
-                ('indent2', '2mm Einruecken'),
-                ('indent10', '10mm Einruecken'),
-                ('indent2 bold', '2mm Einr. + Fett'),
-                ('indent10 bold', '10mm Einr. + Fett'),
-                ('noborders', 'Leerzeile ohne Linie'),
-                ('grey', 'Graue schrift'),
-                ('scriptsize', 'Kleine Schrift'),
-                ('fullColspan', 'Erste Zelle strecken'),
+                ('', _('Normal')),
+                ('bold', _('Bold')),
+                ('indent2', _('2mm indent')),
+                ('indent10', _('10mm indent')),
+                ('indent2 bold', _('2mm ind. + bold')),
+                ('indent10 bold', _('10mm ind. + bold')),
+                ('noborders', _('Row without line')),
+                ('grey', _('Grey font')),
+                ('scriptsize', _('Small font')),
+                ('fullColspan', _('Strech first line')),
                 ))
 
 atapi.registerType(Table, PROJECTNAME)

@@ -1,11 +1,8 @@
-from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.book.table.calculator import ColumnWidthsCalculator
-from ftw.testing import MockTestCase
+from unittest2 import TestCase
 
 
-class TestTableCalculator(MockTestCase):
-
-    layer = LATEX_ZCML_LAYER
+class TestTableCalculator(TestCase):
 
     def setUp(self):
         self.calculator = ColumnWidthsCalculator()
