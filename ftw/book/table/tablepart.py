@@ -1,5 +1,5 @@
 class TablePart(object):
-    """ A Tablepart object to stores different attributes used to
+    """ A Tablepart object stores different attributes used to
     create tablerows
     """
 

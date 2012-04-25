@@ -31,7 +31,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default=False,
                 widget=atapi.BooleanWidget(
                     label=_(u'label_show_title', default=u'Show title'),
-                    description=_(u'description_show_title', default=u''),
                     ),
                 ),
 
@@ -69,7 +68,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default_output_type='text/html',
                 widget=atapi.RichWidget(
                     label=_(u'label_footnote_text', default=u'Footnote Text'),
-                    description=_(u'description_footnote_text', default=u""),
                     ),
                 ),
 
@@ -145,13 +143,11 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default='1',
                 enforceVocabulary=True,
                 vocabulary=[
-                    (str(i), '%i %s' % (i, _('rows'))) for i
-                    in range(MAX_AMOUNT_OF_HEADER_ROWS + 1)],
+                    (str(i), _('${num} rows', mapping={'num': str(i)}))
+                    for i in range(MAX_AMOUNT_OF_HEADER_ROWS + 1)],
                 widget=atapi.SelectionWidget(
                     label=_(u'label_header_rows',
                         default=u'Amount of header rows'),
-                    description=_(u'description_header_row',
-                        default=u''),
                     ),
                 ),
 
@@ -161,13 +157,11 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default=0,
                 enforceVocabulary=True,
                 vocabulary=[
-                    (str(i), '%i %s' % (i, _('rows'))) for i
-                    in range(MAX_AMOUNT_OF_FOOTER_ROWS+1)],
+                    (str(i), _('${num} rows', mapping={'num': str(i)}))
+                    for i in range(MAX_AMOUNT_OF_FOOTER_ROWS + 1)],
                 widget=atapi.SelectionWidget(
                     label=_(u'label_footer_rows',
                         default=u'Amount of footer rows'),
-                    description=_(u'description_footer_row',
-                        default=u''),
                     ),
                 ),
 
@@ -178,8 +172,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 widget=atapi.BooleanWidget(
                     label=_(u'label_first_column_is_header',
                         default=u'First column is a header column'),
-                    description=_(u'description_first_column_is_header',
-                        default=u''),
                     ),
                 ),
 
@@ -190,8 +182,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 widget=atapi.BooleanWidget(
                     label=_(u'label_header_is_bold',
                         u'Header rows are bold'),
-                    description=_(u'description_header_is_bold',
-                        default=''),
                     ),
                 ),
 
@@ -202,8 +192,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 widget=atapi.BooleanWidget(
                     label=_(u'label_footer_is_bold',
                         u'Footer rows are bold'),
-                    description=_(u'description_footer_is_bold',
-                        default=''),
                     ),
                 ),
 
@@ -215,7 +203,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 vocabulary=BORDER_LAYOUTS,
                 widget=atapi.SelectionWidget(
                     label=_(u'label_border_layout', default=u'Border Layout'),
-                    description=_(u'description_border_layout', default=u''),
                     )
                 ),
 
@@ -225,7 +212,13 @@ table_schema = (ATContentTypeSchema.copy() + \
                 default=False,
                 widget=atapi.BooleanWidget(
                     label=_(u'label_no_lifting', default=u'No lifting'),
-                    description=_(u'description_no_lifting', default=u''),
+                    description=_(
+                        u'description_no_lifting',
+                        default=u'''Just relevant if you export the book as
+                        pdf. Normally if you leave the first cell empty, the
+                        whole table moves up that the title of the table
+                        is on the same height like the first row. To suppress
+                        this behave, enable this checkbox.'''),
                     )),
 
             )))

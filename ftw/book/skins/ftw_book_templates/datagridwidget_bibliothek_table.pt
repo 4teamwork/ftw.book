@@ -56,9 +56,10 @@
                     <tr tal:condition="python:len([1 for x in columnActivity if x])==0">
                         <td colspan="5">
                             <dl class="portalMessage warning">
-                                <dd>
-                                    Bitte aktivieren Sie die gew&uuml;nschte Anzahl Spalten unter "Layout" und
-                                    <b>Speichern</b> Sie anschliessend das Objekt.
+                                <dd i18n:domain="ftw.book"
+                                    i18n:translate="info_actvate_columns_first">
+                                    Please activate the required columns under 'Layout' and and save
+                                    the Object.
                                 </dd>
                             </dl>
                         </td>
@@ -85,7 +86,7 @@
                  </tbody>
             </table>
 
-            <a class="datagridwidget-add-button" id="datagridwidget-add-button"
+            <a i18n:domain='ftw.book' i18n:translate="datagrid_add_button" class="datagridwidget-add-button" id="datagridwidget-add-button"
 			   tal:condition="field/allow_insert"
                    tal:attributes='onclick python: "dataGridFieldFunctions.addRow(\"" + field.getName() + "\")"'>Add new row</a>
 

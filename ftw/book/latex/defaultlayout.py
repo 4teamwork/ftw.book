@@ -52,15 +52,15 @@ class DefaultBookLayoutExtender(object):
             required=False,
             widget=atapi.StringWidget(
                 label=_(u'book_label_release', default=u'Release'),
-                description=_(u'book_help_release', default=u''))),
+                )),
 
         StringField(
-            name='author',
+            name='author_address',
             default='',
             required=False,
             widget=atapi.StringWidget(
                 label=_(u'book_label_author', default=u'Author'),
-                description=_(u'book_help_author', default=u''))),
+                )),
 
         TextField(
             name='author_address',
@@ -73,8 +73,7 @@ class DefaultBookLayoutExtender(object):
             widget=atapi.TextAreaWidget(
                 label=_(u'book_label_author_address',
                         default=u'Author Address'),
-                description=_(u'book_help_author_address',
-                              default=u''))),
+                        )),
 
         FileField(
             name='titlepage_logo',

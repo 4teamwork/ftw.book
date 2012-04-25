@@ -24,8 +24,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
                 widget=atapi.SelectionWidget(
                     label=_(u'book_label_layout',
                             default=u'Layout'),
-                    description=_(u'book_help_layout',
-                                  default=u''))),
+                            )),
 
             atapi.BooleanField(
                 name='use_titlepage',

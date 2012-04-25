@@ -4,51 +4,52 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="ftw.book">
 
   <body>
     <metal:main fill-slot="main">
 
       <div metal:define-macro="main">
 
-        <h1 class="documentFirstHeading">Tabellendaten importieren / exportieren</h1>
+        <h1 i18n:translate='title_import_export_tabledata' class="documentFirstHeading" >
+            Import / export tabledata
+        </h1>
         <p class="descreet"></p>
 
         <fieldset>
-          <legend>Tabelle exportieren</legend>
-          <p class="descreet">
-            Die Tabellendaten k&ouml;nnen als CSV-Datei exportiert werden.
-            Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder
-            verändert wird, ansonsten kann der Import nicht mehr funktionieren.
+          <legend i18n:translate='legend_export_table'>Export table</legend>
+          <p i18n:translate='info_table_export' class="descreet">
+            You can export the tabledata as CSV.
+            Do not manipulate the first row of the exported table to grant the
+            import.
           </p>
           <form method="post" class="clearfix"
                 tal:attributes="action request/URL">
-            <input type="submit" name="export" value="Exportieren" class="allowMultiSubmit submit" />
+            <input type="submit" name="export" value="Export" i18n:attributes="value" class="allowMultiSubmit submit" />
           </form>
         </fieldset>
 
         <p><br /></p>
 
         <fieldset>
-          <legend>Tabelle importieren</legend>
-          <p class="descreet">
-            Laden Sie die hier exportierte und modifizierte CSV-Datei wieder hoch. Beachten Sie, dass
-            es bei veränderter ersten Zeile zu Problemen kommen kann.<br />
-            Die Kopfzeilen werden nicht importiert!
+          <legend i18n:translate='legend_import_table'>Import table</legend>
+          <p class="descreet" i18n:translate="select_file_to_import">
+            Select the exported, modified CSV-file to reimport it.
+            The headerrows will be ignored.
           </p>
           <form action="" method="post" class="clearfix"
                 tal:attributes="action request/URL"
                 enctype="multipart/form-data">
 
             <p>
-              <label for="file">Bearbeitete CSV-Datei:</label>
+              <label for="file" i18n:translate='label_modified_csv_file'>Modified CSV-file:</label>
               <input type="file" name="file" id="file" class="clearfix" />
             </p>
 
             <br />
 
             <p>
-              <label for="column">Zu importierende Spalte</label>
+              <label for="column" i18n:translate='label_cols_to_import'>Columns to import</label>
               <select name="column" id="column" class="clearfix">
                 <option value=""></option>
                 <tal:columns tal:repeat="column view/get_column_options">
@@ -64,11 +65,11 @@
             <br />
 
             <p>
-              <input type="checkbox" name="enforce" id="enforce">
-              <label for="enforce">Import erzwingen</label>
+              <input type="checkbox" name="enforce" id="enforce" />
+              <label for="enforce" i18n:translate='label_enforce_import'>Enforce import</label>
             </p>
-
-            <input type="submit" name="import" value="Importieren" class="allowMultiSubmit submit" />
+            
+            <input type="submit" name="import" value="Import" i18n:attributes="value" class="allowMultiSubmit submit" />
 
           </form>
         </fieldset>
