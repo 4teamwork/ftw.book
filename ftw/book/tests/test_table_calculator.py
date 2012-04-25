@@ -14,10 +14,14 @@ class TestTableCalculator(MockTestCase):
         widths = [
             'james',
             'bond',
-            '007',
+            '0-0-7',
         ]
 
         self.assertEquals(self.calculator(widths), [34, 33, 33])
+
+    def test_number_as_string(self):
+        widths = self.calculator(['20', '20', 0, 0, '-50'])
+        self.assertEquals(widths, [20, 20, 5, 5, 50])
 
     def test_no_column(self):
 

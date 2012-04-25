@@ -10,8 +10,7 @@ class ColumnWidthsCalculator(object):
 
         if not widths:
             return widths
-        if widths == [50, 50, 0, 0]:
-            pass
+
         # List of available algorithms
         queue = [
             self.validate_widths,
@@ -101,10 +100,13 @@ class ColumnWidthsCalculator(object):
         """
 
         for i, width in enumerate(widths):
-            if isinstance(width, int):
-                widths[i] = abs(width)
-            else:
-                widths[i] = 0
+            if not (isinstance(width, int) or isinstance(width, float)):
+                try:
+                    width = int(width)
+                except ValueError:
+                    width = 0
+
+            widths[i] = abs(width)
 
         return widths
 
