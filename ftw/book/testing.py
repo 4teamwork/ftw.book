@@ -9,13 +9,12 @@ from plone.testing import z2
 from zope.configuration import xmlconfig
 
 
-
 class LatexZCMLLayer(Layer):
     """A layer which only sets up the zcml, but does not start a zope
     instance.
     """
 
-    defaultBases = (zca.ZCML_DIRECTIVES,)
+    defaultBases = (zca.ZCML_DIRECTIVES, )
 
     def testSetUp(self):
         import ftw.book.tests
@@ -34,7 +33,7 @@ LATEX_ZCML_LAYER = LatexZCMLLayer()
 
 class FtwBookLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE,)
+    defaultBases = (PLONE_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
@@ -72,4 +71,4 @@ class FtwBookLayer(PloneSandboxLayer):
 
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FTW_BOOK_FIXTURE,), name="FtwBook:Integration")
+    bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Integration")

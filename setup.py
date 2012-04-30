@@ -55,6 +55,8 @@ setup(name='ftw.book',
         'archetypes.schemaextender',
         'plone.portlets',
         'ftw.pdfgenerator',
+        'BeautifulSoup!=4.0b',
+        'Products.DataGridField',
         ],
 
       tests_require=tests_require,

@@ -7,7 +7,7 @@
                  tal:attributes="class python:'BlockOverallWrapper '+wrapperCSS+specialCSS;
                                  id string:uid_${result/UID}"
                  class="" 
-                 tal:content="structure python:view.renderBlockProvider(result)">block</div>
+                 tal:content="structure python:view.renderBlockProvider(result)" />
         </tal:repeat>
      </div>
     <span class="visualClear">&nbsp;</span>

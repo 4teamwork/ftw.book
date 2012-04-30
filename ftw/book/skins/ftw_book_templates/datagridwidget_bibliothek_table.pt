@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone">
+<body>
+
+    <!-- VIEW -->
+    <metal:define define-macro="view">
+
+        <table class="datagridwidget-table-view listing"
+               tal:define="columns python:widget.getColumnDefs(field, context);
+                           fielddata python:field.getAccessor(context)()">
+            <thead tal:condition="python: widget.hasHeader(context, field)">
+                <tr>
+				    <tal:block tal:repeat="c columns"
+					  ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column' or '';"
+                        tal:content="c/label" i18n:translate="">NAME</th
+					></tal:block>
+                </tr>
+            </thead>
+            <tbody>
+                <tal:row-loop tal:repeat="rows fielddata">
+                    <tal:view_row metal:use-macro="here/datagridwidget_view_row/macros/view_row"/>
+                </tal:row-loop>
+            </tbody>
+        </table>
+    </metal:define>
+
+
+    <!-- EDIT -->
+    <metal:define define-macro="edit">
+      <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+        <metal:body metal:fill-slot="widget_body"
+                    tal:define="columnActivity python:[c['active'] for c in context.getColumnProperties()];">
+
+            <table class="datagridwidget-table-edit"
+		       	tal:attributes="id python: 'datagridwidget-table-' + field.getName()"
+            	style="width: 100%"
+                tal:define="columns python:widget.getColumnDefs(field, context);
+                            fielddata python: value or field.getEditAccessor(context)();
+                            eventHandler python: test(widget.isAutoInsertEnabled(), 'dataGridFieldFunctions.autoInsertRow(event)', '');
+                           ">
+                <thead tal:condition="python: widget.hasHeader(context, field)">
+                    <tr>
+						<tal:block tal:repeat="c columns"
+                         ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column discreet' or 'discreet';"  style="text-align: left"
+                            tal:condition="python:not c['id'].startswith('column_') or columnActivity[repeat['c'].index]"
+                            tal:content="c/label"
+                            i18n:translate="">Column name</th
+						 ></tal:block>
+                        <th />
+                        <th />
+                        <th />
+                    </tr>
+                    <tr tal:condition="python:len([1 for x in columnActivity if x])==0">
+                        <td colspan="5">
+                            <dl class="portalMessage warning">
+                                <dd i18n:domain="ftw.book"
+                                    i18n:translate="info_actvate_columns_first">
+                                    Please activate the required columns under 'Layout' and and save
+                                    the object.
+                                </dd>
+                            </dl>
+                        </td>
+                    </tr>
+                </thead>
+
+                <tbody tal:attributes="id python: 'datagridwidget-tbody-' + field.getName()">
+
+                	<tal:comment replace="nothing">
+                		<!-- Existing data rows -->
+                	</tal:comment>
+
+                    <tal:row-loop tal:repeat="rows fielddata" tal:define="newRow python: False">
+                    	<tal:row metal:use-macro="here/datagridwidget_bibliothek_edit_row/macros/edit_row"/>
+                    </tal:row-loop>
+
+                	<tal:comment replace="nothing">
+                		<!-- A template row for adding new rows dynamically -->
+                	</tal:comment>
+
+	                <tal:empty-row tal:define="newRow python: True">
+	                	<tal:template metal:use-macro="here/datagridwidget_bibliothek_edit_row/macros/edit_empty_row"/>
+	                </tal:empty-row>
+                 </tbody>
+            </table>
+
+            <tal:columns_defined tal:condition="python:len([1 for x in columnActivity if x]) != 0">
+                <a i18n:domain='ftw.book' i18n:translate="datagrid_add_button" class="datagridwidget-add-button" id="datagridwidget-add-button"
+			             tal:condition="field/allow_insert"
+                   tal:attributes='onclick python: "dataGridFieldFunctions.addRow(\"" + field.getName() + "\")"'>Add new row</a>
+            </tal:columns_defined>
+
+			<tal:comment replace="nothing">
+				<!-- Button that allowes creation of the initial row when DGF is empty -->
+			</tal:comment>
+
+        </metal:body>
+      </metal:use>
+    </metal:define>
+
+    <div metal:define-macro="search">
+        <div metal:use-macro="here/widgets/string/macros/edit">
+        </div>
+    </div>
+
+</body>
+
+</html>

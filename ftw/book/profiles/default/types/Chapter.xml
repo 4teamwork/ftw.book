@@ -19,7 +19,8 @@
     <element value="Link"/>
     <element value="Image"/>
     <element value="HTMLBlock"/>
-	  <element value="Remark"/>
+	<element value="Remark"/>
+	<element value="Table"/>
   </property>
   <property name="allow_discussion">False</property>
 

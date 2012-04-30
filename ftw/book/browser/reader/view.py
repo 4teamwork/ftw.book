@@ -169,7 +169,6 @@ class ReaderView(BrowserView):
 
         raise Exception('Could not find book.')
 
-
     def render_navigation(self, item=None):
         if item is None:
             toc_tree = BookTocTree()

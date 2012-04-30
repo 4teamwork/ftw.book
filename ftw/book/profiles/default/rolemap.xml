@@ -17,9 +17,13 @@
             <role name="Contributor" />
         </permission>
 
+        <permission name="ftw.book: Add Table" acquire="False">
+            <role name="Manager" />
+        </permission>
+        
         <permission name="ftw.book: Modify LaTeX Injection" acquire="False">
             <role name="Manager" />
         </permission>
-
+        
     </permissions>
 </rolemap>

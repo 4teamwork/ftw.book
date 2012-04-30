@@ -42,3 +42,59 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
     padding-bottom: 5px;
 }
 
+/* Table content-type */
+
+.simplelayout-content table {
+    width: 100%;    
+}
+/*table.bibliothekTable th {
+    font-weight: normal;
+}
+*/
+.border-grid {
+    border: 1px solid #DEDEDE;
+}
+.border-right {
+    border-right:1px solid #DEDEDE;
+}
+.border-left {
+    border-left:1px solid #DEDEDE;
+}
+.border-bottom {
+    border-bottom-width:1px;
+    border-bottom-color: #DEDEDE;
+    border-bottom-style:solid;
+}
+.border-top {
+    border-top-width:1px;
+    border-top-color:#DEDEDE;
+    border-top-style:solid;
+}
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+}
+.center {
+    text-align: center;
+}
+.indent2{
+    padding-left: 2mm;
+}
+.indent10{
+    padding-left: 10mm;
+}
+.bold {
+    font-weight: bold !important;
+}
+.grey {
+    color: #808080;
+}
+.scriptsize {
+    font-size: 7.5pt;
+    font-weight: normal;
+}
+.footnotesize {
+    font-size: 7pt;
+}

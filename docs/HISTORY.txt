@@ -8,6 +8,9 @@ Changelog
 - Switch Book metadata fields to AttributeStorage.
   [jone]
 
+- Add new content-type: Table
+  [eschmutz]
+
 - Add new content-type: Remark. Used to add comments in a chapter of a book
   [eschmutz]
 
