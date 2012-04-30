@@ -55,7 +55,7 @@ class DefaultBookLayoutExtender(object):
                 )),
 
         StringField(
-            name='author_address',
+            name='author',
             default='',
             required=False,
             widget=atapi.StringWidget(
