@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-04-25 14:27+0000\n"
+"POT-Creation-Date: 2012-04-30 07:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,6 +55,10 @@ msgstr ""
 
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
+msgstr ""
+
+#: ./ftw/book/content/table.py:50
+msgid "Column ${num}"
 msgstr ""
 
 #: ./ftw/book/latex/defaultlayout.py:37
@@ -360,10 +364,6 @@ msgstr ""
 
 #: ./ftw/book/content/table.py:272
 msgid "right"
-msgstr ""
-
-#: ./ftw/book/content/table.py:50
-msgid "row"
 msgstr ""
 
 #. Default: "Select the exported, modified CSV-file to reimport it. The headerrows will be ignored."

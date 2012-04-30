@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-04-25 14:27+0000\n"
+"POT-Creation-Date: 2012-04-30 07:14+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -56,6 +56,10 @@ msgstr "Buch"
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr "Kapitel"
+
+#: ./ftw/book/content/table.py:50
+msgid "Column ${num}"
+msgstr "Spalte ${num}"
 
 #: ./ftw/book/latex/defaultlayout.py:37
 msgid "Default layout"
@@ -361,10 +365,6 @@ msgstr "LaTeX-Code vor Inhalt"
 #: ./ftw/book/content/table.py:272
 msgid "right"
 msgstr "Rechts"
-
-#: ./ftw/book/content/table.py:50
-msgid "row"
-msgstr "Spalte"
 
 #. Default: "Select the exported, modified CSV-file to reimport it. The headerrows will be ignored."
 #: ./ftw/book/browser/table_export_import.pt:36
