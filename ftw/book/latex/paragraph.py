@@ -37,7 +37,7 @@ class ParagraphLaTeXView(MakoLaTeXView):
         image = self.context.getImage()
 
         # test for image
-        if not image or image.size == 0:
+        if not image or image.get_size() == 0:
             return ''
 
         # imageLayout

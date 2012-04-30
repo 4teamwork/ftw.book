@@ -5,8 +5,8 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix condition in paragraph latex view (blob storage).
+  [mathias.leimgruber]
 
 2.2 (2012-04-30)
 ----------------
