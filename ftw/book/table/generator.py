@@ -18,6 +18,9 @@ class TableGenerator(object):
         if not self.active_columns:
             return ''
 
+        if not self.context.getData():
+            return ''
+
         self.doc = minidom.Document()
         self.table_node = self.create_table_element()
         self.create_caption()

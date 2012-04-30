@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-04-30 07:14+0000\n"
+"POT-Creation-Date: 2012-04-30 07:27+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -116,6 +116,10 @@ msgstr "Tabelle"
 #: ./ftw/book/browser/table_export_import.py:109
 msgid "The file does not seem to belong to this table."
 msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
+
+#: ./ftw/book/browser/table_content.pt:10
+msgid "The table has no content yet. Edit the table block for adding content."
+msgstr "Die Tabelle hat noch keinen Inhalt. Definieren Sie den Inhalt, indem Sie die Tabelle bearbeiten."
 
 #: ./ftw/book/browser/table_export_import.py:93
 msgid "You didn't choose a column."
