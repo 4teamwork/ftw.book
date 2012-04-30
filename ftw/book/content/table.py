@@ -47,7 +47,7 @@ table_schema = (ATContentTypeSchema.copy() + \
                     columns=dict(
                         [
                             ('column_%i' % i, DataGridField.Column(
-                                    label='%s %i' % (_('row'), i + 1)))
+                                    label=_('Row ${num}', mapping={'num': (i + 1)})))
                             for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
                                 'row_format',
                                 DataGridField.SelectColumn(
