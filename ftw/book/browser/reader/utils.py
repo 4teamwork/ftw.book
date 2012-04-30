@@ -9,4 +9,3 @@ def flaten_tree(item):
         for subitem in item.get('children'):
             for brain in flaten_tree(subitem):
                 yield brain
-

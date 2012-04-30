@@ -3,5 +3,6 @@
   <version>2.2</version>
     <dependencies>
       <dependency>profile-simplelayout.base:default</dependency>
+      <dependency>profile-Products.DataGridField:default</dependency>
     </dependencies>
 </metadata>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+    <object name="ftw_book_templates"
+        meta_type="Filesystem Directory View"
+        directory="ftw.book:skins/ftw_book_templates" />
+
+    <skin-path name="*" based-on="Plone Default">
+        <layer name="ftw_book_templates" insert-after="custom" />
+    </skin-path>
+</object>

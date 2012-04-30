@@ -3,6 +3,7 @@ from plone.app.layout.navigation.navtree import buildFolderTree
 from ftw.book.browser.toc_tree import BookTocTree
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+
 class IndexView(BrowserView):
 
     template = ViewPageTemplateFile('index_view.pt')
@@ -16,4 +17,3 @@ class IndexView(BrowserView):
         tree = toc_tree(raw_tree)
         self.tree = tree
         return self.template()
-

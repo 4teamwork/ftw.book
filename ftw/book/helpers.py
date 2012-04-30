@@ -26,7 +26,7 @@ class BookHelper(object):
         html = ""
 
         for i, title in enumerate(titles):
-            html += '<h%s>%s</h%s>' % (i+1, title, i+1)
+            html += '<h%s>%s</h%s>' % (i + 1, title, i + 1)
         return html
 
     def get_folder_position(self, obj):

@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="ftw.book">
+
+  <body>
+    <metal:main fill-slot="main">
+
+      <div metal:define-macro="main">
+
+        <h1 i18n:translate='title_import_export_tabledata' class="documentFirstHeading" >
+            Import / export tabledata
+        </h1>
+        <p class="descreet"></p>
+
+        <fieldset>
+          <legend i18n:translate='legend_export_table'>Export table</legend>
+          <p i18n:translate='info_table_export' class="descreet">
+            You can export the tabledata as CSV.
+            Do not manipulate the first row of the exported table to grant the
+            import.
+          </p>
+          <form method="post" class="clearfix"
+                tal:attributes="action request/URL">
+            <input type="submit" name="export" value="Export" i18n:attributes="value" class="allowMultiSubmit submit" />
+          </form>
+        </fieldset>
+
+        <p><br /></p>
+
+        <fieldset>
+          <legend i18n:translate='legend_import_table'>Import table</legend>
+          <p class="descreet" i18n:translate="select_file_to_import">
+            Select the exported, modified CSV-file to reimport it.
+            The headerrows will be ignored.
+          </p>
+          <form action="" method="post" class="clearfix"
+                tal:attributes="action request/URL"
+                enctype="multipart/form-data">
+
+            <p>
+              <label for="file" i18n:translate='label_modified_csv_file'>Modified CSV-file:</label>
+              <input type="file" name="file" id="file" class="clearfix" />
+            </p>
+
+            <br />
+
+            <p>
+              <label for="column" i18n:translate='label_cols_to_import'>Columns to import</label>
+              <select name="column" id="column" class="clearfix">
+                <option value=""></option>
+                <tal:columns tal:repeat="column view/get_column_options">
+                  <tal:block tal:define="key python:column[0];
+                                         value python:column[1]">
+                    <option tal:attributes="value key"
+                            tal:content="value"></option>
+                  </tal:block>
+                </tal:columns>
+              </select>
+            </p>
+
+            <br />
+
+            <p>
+              <input type="checkbox" name="enforce" id="enforce" />
+              <label for="enforce" i18n:translate='label_enforce_import'>Enforce import</label>
+            </p>
+            
+            <input type="submit" name="import" value="Import" i18n:attributes="value" class="allowMultiSubmit submit" />
+
+          </form>
+        </fieldset>
+
+      </div>
+
+    </metal:main>
+  </body>
+</html>
+

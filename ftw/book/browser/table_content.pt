@@ -1,0 +1,18 @@
+<div class="simplelayout-block-wrapper" id="#"
+				tal:attributes="id here/id"
+        i18n:domain="ftw.book">
+    <a tal:attributes="name here/id"></a>
+
+    <tal:table define="table context/getTable">
+        <table tal:condition="table"
+               tal:replace="structure table" />
+        <dl tal:condition="not:table" class="portalMessage warning">
+            <dd i18n:translate="">
+                The table has no content yet.
+                Edit the table block for adding content.
+            </dd>
+        </dl>
+    </tal:table>
+
+    <span class="footnotesize" tal:content="structure context/footnoteText" />
+</div>

@@ -8,6 +8,7 @@ class IndexTab(IndexView):
     """Index Tab (for tabbed_view)"""
     show_searchform = False
 
+
 class DocumentsTab(CatalogListingView):
 
     types = 'File'
@@ -15,7 +16,7 @@ class DocumentsTab(CatalogListingView):
     show_selects = False
     show_menu = False
 
-    columns = ({'column':'Title',
+    columns = ({'column': 'Title',
                 'column_title': _(u'column_title', default=u'Title'),
                 'sort_index':'sortable_title',
                 'transform': helper.linked},

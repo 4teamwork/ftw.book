@@ -37,9 +37,7 @@
             <a href="" class=""
                tal:attributes="href  item_url;
                                title desc;"
-               tal:content="item/pretty_title_or_id">
-              Related Item
-            </a>
+               tal:content="item/pretty_title_or_id" />
           </li>
         </tal:related>
       </ul>
