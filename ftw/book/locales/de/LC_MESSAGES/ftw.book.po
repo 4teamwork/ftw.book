@@ -235,7 +235,7 @@ msgstr "Neue Zeile hinzufügen"
 #. Default: "Just relevant if you export the book as\n                        pdf. Normally if you leave the first cell empty, the\n                        whole table moves up that the title of the table\n                        is on the same height like the first row. To suppress\n                        this behave, enable this checkbox."
 #: ./ftw/book/content/table.py:215
 msgid "description_no_lifting"
-msgstr "Ist beim exportieren eines Buches als PDF die erste Zelle leer, wird die gesammte Tablle um eine Zeile nach oben geschoben. Somit wird der Title der Tablle auf der gleichen höhe wie die erste Zeile der Tabelle dargestellt. Um dieses Verhalten zu unterdrücken, aktivieren Sie diese Checkbox"
+msgstr "Ist beim exportieren eines Buches als PDF die erste Zelle leer, wird die gesammte Tabelle um eine Zeile nach oben geschoben. Somit wird der Titel der Tabelle auf der gleichen Höhe wie die erste Zeile der Tabelle dargestellt. Um dieses Verhalten zu unterdrücken, aktivieren Sie diese Option."
 
 #. Default: "Please activate the required columns under 'Layout' and and save the Object."
 #: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:59
@@ -420,5 +420,3 @@ msgstr "Breite in %"
 #: ./ftw/book/browser/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
-
-
