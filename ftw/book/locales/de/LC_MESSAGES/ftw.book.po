@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-04-30 07:27+0000\n"
+"POT-Creation-Date: 2012-04-30 07:48+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -240,12 +240,12 @@ msgstr "Titel"
 msgid "datagrid_add_button"
 msgstr "Neue Zeile hinzufügen"
 
-#. Default: "Just relevant if you export the book as\n                        pdf. Normally if you leave the first cell empty, the\n                        whole table moves up that the title of the table\n                        is on the same height like the first row. To suppress\n                        this behave, enable this checkbox."
+#. Default: "When exporting the book as PDF the table will be pulled up if there is no content in the first cell. The aim is to place a preceding title at the same height as the first row of the table. For suppressing this behaviour enable this option."
 #: ./ftw/book/content/table.py:215
 msgid "description_no_lifting"
 msgstr "Ist beim exportieren eines Buches als PDF die erste Zelle leer, wird die gesammte Tabelle um eine Zeile nach oben geschoben. Somit wird der Titel der Tabelle auf der gleichen Höhe wie die erste Zeile der Tabelle dargestellt. Um dieses Verhalten zu unterdrücken, aktivieren Sie diese Option."
 
-#. Default: "Please activate the required columns under 'Layout' and and save the Object."
+#. Default: "Please activate the required columns under 'Layout' and and save the object."
 #: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:59
 msgid "info_actvate_columns_first"
 msgstr "Bitte aktivieren Sie die gewünschte Anzahl Spalten unter 'Layout' und Speichern Sie anschliessend das Objekt."

@@ -7,14 +7,14 @@
 
     <!-- VIEW -->
     <metal:define define-macro="view">
-       
+
         <table class="datagridwidget-table-view listing"
                tal:define="columns python:widget.getColumnDefs(field, context);
                            fielddata python:field.getAccessor(context)()">
             <thead tal:condition="python: widget.hasHeader(context, field)">
                 <tr>
 				    <tal:block tal:repeat="c columns"
-					  ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column' or '';" 
+					  ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column' or '';"
                         tal:content="c/label" i18n:translate="">NAME</th
 					></tal:block>
                 </tr>
@@ -22,7 +22,7 @@
             <tbody>
                 <tal:row-loop tal:repeat="rows fielddata">
                     <tal:view_row metal:use-macro="here/datagridwidget_view_row/macros/view_row"/>
-                </tal:row-loop>  
+                </tal:row-loop>
             </tbody>
         </table>
     </metal:define>
@@ -32,24 +32,24 @@
     <metal:define define-macro="edit">
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
         <metal:body metal:fill-slot="widget_body">
-            
+
             <table class="datagridwidget-table-edit"
 		       	tal:attributes="id python: 'datagridwidget-table-' + field.getName()"
             	style="width: 100%"
                 tal:define="columns python:widget.getColumnDefs(field, context);
-                            fielddata python: value or field.getEditAccessor(context)();                           
+                            fielddata python: value or field.getEditAccessor(context)();
                             eventHandler python: test(widget.isAutoInsertEnabled(), 'dataGridFieldFunctions.autoInsertRow(event)', '');
                             columnActivity python:[c['active'] for c in context.getColumnProperties()];
                            ">
                 <thead tal:condition="python: widget.hasHeader(context, field)">
                     <tr>
 						<tal:block tal:repeat="c columns"
-                         ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column discreet' or 'discreet';"  style="text-align: left" 
-                            tal:condition="python:not c['id'].startswith('column_') or columnActivity[repeat['c'].index]" 
+                         ><th tal:attributes="class python:not c['visible'] and 'dgw-hidden-column discreet' or 'discreet';"  style="text-align: left"
+                            tal:condition="python:not c['id'].startswith('column_') or columnActivity[repeat['c'].index]"
                             tal:content="c/label"
                             i18n:translate="">Column name</th
 						 ></tal:block>
-                        <th /> 
+                        <th />
                         <th />
                         <th />
                     </tr>
@@ -59,19 +59,19 @@
                                 <dd i18n:domain="ftw.book"
                                     i18n:translate="info_actvate_columns_first">
                                     Please activate the required columns under 'Layout' and and save
-                                    the Object.
+                                    the object.
                                 </dd>
                             </dl>
                         </td>
                     </tr>
-                </thead>     
-                       
+                </thead>
+
                 <tbody tal:attributes="id python: 'datagridwidget-tbody-' + field.getName()">
-                
+
                 	<tal:comment replace="nothing">
                 		<!-- Existing data rows -->
                 	</tal:comment>
-                
+
                     <tal:row-loop tal:repeat="rows fielddata" tal:define="newRow python: False">
                     	<tal:row metal:use-macro="here/datagridwidget_bibliothek_edit_row/macros/edit_row"/>
                     </tal:row-loop>
@@ -79,10 +79,10 @@
                 	<tal:comment replace="nothing">
                 		<!-- A template row for adding new rows dynamically -->
                 	</tal:comment>
-                    
+
 	                <tal:empty-row tal:define="newRow python: True">
-	                	<tal:template metal:use-macro="here/datagridwidget_bibliothek_edit_row/macros/edit_empty_row"/>	                
-	                </tal:empty-row>	                	
+	                	<tal:template metal:use-macro="here/datagridwidget_bibliothek_edit_row/macros/edit_empty_row"/>
+	                </tal:empty-row>
                  </tbody>
             </table>
 
@@ -93,7 +93,7 @@
 			<tal:comment replace="nothing">
 				<!-- Button that allowes creation of the initial row when DGF is empty -->
 			</tal:comment>
-                        	   
+
         </metal:body>
       </metal:use>
     </metal:define>
@@ -106,4 +106,3 @@
 </body>
 
 </html>
-

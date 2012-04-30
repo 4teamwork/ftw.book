@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-04-30 07:27+0000\n"
+"POT-Creation-Date: 2012-04-30 07:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,12 +240,12 @@ msgstr ""
 msgid "datagrid_add_button"
 msgstr ""
 
-#. Default: "Just relevant if you export the book as\n                        pdf. Normally if you leave the first cell empty, the\n                        whole table moves up that the title of the table\n                        is on the same height like the first row. To suppress\n                        this behave, enable this checkbox."
+#. Default: "When exporting the book as PDF the table will be pulled up if there is no content in the first cell. The aim is to place a preceding title at the same height as the first row of the table. For suppressing this behaviour enable this option."
 #: ./ftw/book/content/table.py:215
 msgid "description_no_lifting"
 msgstr ""
 
-#. Default: "Please activate the required columns under 'Layout' and and save the Object."
+#. Default: "Please activate the required columns under 'Layout' and and save the object."
 #: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:59
 msgid "info_actvate_columns_first"
 msgstr ""

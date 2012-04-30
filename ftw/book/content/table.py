@@ -214,12 +214,12 @@ table_schema = (ATContentTypeSchema.copy() + \
                     label=_(u'label_no_lifting', default=u'No lifting'),
                     description=_(
                         u'description_no_lifting',
-                        default=u'''Just relevant if you export the book as
-                        pdf. Normally if you leave the first cell empty, the
-                        whole table moves up that the title of the table
-                        is on the same height like the first row. To suppress
-                        this behave, enable this checkbox.'''),
-                    )),
+                        default=u'When exporting the book as PDF the table '
+                        u'will be pulled up if there is no content in the '
+                        u'first cell. The aim is to place a preceding title '
+                        u'at the same height as the first row of the table. '
+                        u'For suppressing this behaviour enable this '
+                        u'option.'))),
 
             )))
 
