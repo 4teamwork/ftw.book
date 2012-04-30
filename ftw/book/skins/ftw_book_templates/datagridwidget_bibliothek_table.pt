@@ -31,7 +31,8 @@
     <!-- EDIT -->
     <metal:define define-macro="edit">
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
-        <metal:body metal:fill-slot="widget_body">
+        <metal:body metal:fill-slot="widget_body"
+                    tal:define="columnActivity python:[c['active'] for c in context.getColumnProperties()];">
 
             <table class="datagridwidget-table-edit"
 		       	tal:attributes="id python: 'datagridwidget-table-' + field.getName()"
@@ -39,7 +40,6 @@
                 tal:define="columns python:widget.getColumnDefs(field, context);
                             fielddata python: value or field.getEditAccessor(context)();
                             eventHandler python: test(widget.isAutoInsertEnabled(), 'dataGridFieldFunctions.autoInsertRow(event)', '');
-                            columnActivity python:[c['active'] for c in context.getColumnProperties()];
                            ">
                 <thead tal:condition="python: widget.hasHeader(context, field)">
                     <tr>
@@ -86,9 +86,11 @@
                  </tbody>
             </table>
 
-            <a i18n:domain='ftw.book' i18n:translate="datagrid_add_button" class="datagridwidget-add-button" id="datagridwidget-add-button"
-			   tal:condition="field/allow_insert"
+            <tal:columns_defined tal:condition="python:len([1 for x in columnActivity if x]) != 0">
+                <a i18n:domain='ftw.book' i18n:translate="datagrid_add_button" class="datagridwidget-add-button" id="datagridwidget-add-button"
+			             tal:condition="field/allow_insert"
                    tal:attributes='onclick python: "dataGridFieldFunctions.addRow(\"" + field.getName() + "\")"'>Add new row</a>
+            </tal:columns_defined>
 
 			<tal:comment replace="nothing">
 				<!-- Button that allowes creation of the initial row when DGF is empty -->
