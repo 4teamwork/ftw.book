@@ -31,7 +31,7 @@ class TestParagraphLaTeXView(MockTestCase):
     def create_image_mocks(self, image_layout, caption, uid):
         context, request, layout = self.get_mocks()
 
-        image = self.create_dummy(size=11, data='hello world')
+        image = self.create_dummy(get_size=lambda: 11, data='hello world')
         builder = self.mocker.mock()
 
         self.expect(layout.get_builder()).result(builder)
@@ -66,7 +66,8 @@ class TestParagraphLaTeXView(MockTestCase):
 
         context = self.providing_stub([IParagraph, IBlockConfig])
 
-        self.expect(context.getImage()).result(self.create_dummy(size=1))
+        self.expect(context.getImage()).result(self.create_dummy(
+                get_size=lambda: 1))
         self.expect(context.image_layout).result('no-image')
         self.expect(context.getImageCaption()).result('')
 
