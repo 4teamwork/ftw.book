@@ -17,8 +17,9 @@ MAX_AMOUNT_OF_HEADER_ROWS = 5
 MAX_AMOUNT_OF_FOOTER_ROWS = 5
 BORDER_LAYOUTS = (
     ('grid', _(u'table_label_gridLayout', default=u'Grid Layout')),
-    ('lines', _(u'table_label_linesLayout', default=u'Underline every row')),
-    ('vertical', _(u'table_label_verticalLayout', default=u'Vertical grid')),
+    ('invisible', _(u'table_label_invisible', default=u'No borders')),
+    ('fancy_listing', _(u'table_label_fancy_listing',
+        default=u'Horizontal borders')),
     )
 
 
@@ -44,17 +45,18 @@ table_schema = (ATContentTypeSchema.copy() + \
                 widget=DataGridField.DataGridWidget(
                     label=_(u'label_table_content', default=u'Table content'),
                     macro='datagridwidget_bibliothek_table',
-                    columns=dict(
-                        [
-                            ('column_%i' % i, DataGridField.Column(
-                                    label=_('Column ${num}', mapping={'num': (i + 1)})))
-                            for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
-                                'row_format',
-                                DataGridField.SelectColumn(
-                                    title='Format',
-                                    vocabulary='getRowFormatVocabulary',
-                                    ),
-                                )]
+                    columns=dict([
+                        ('column_%i' % i, DataGridField.Column(
+                            label=_(
+                                'Column ${num}',
+                                mapping={'num': (i + 1)})))
+                        for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
+                            'row_format',
+                            DataGridField.SelectColumn(
+                                title='Format',
+                                vocabulary='getRowFormatVocabulary',
+                            ),
+                        )]
                         ),
                     ),
                 ),
@@ -128,7 +130,9 @@ table_schema = (ATContentTypeSchema.copy() + \
                         keyColumn='columnId',
                         initialData={
                             'columnId':'column_%i' % (i),
-                            'columnTitle': _(u'Column ${num}', mapping=dict(num=(i + 1))),
+                            'columnTitle': _(
+                                u'Column ${num}',
+                                mapping=dict(num=(i + 1))),
                             'active': False,
                             'alignment': '',
                             'bold': False,
@@ -172,16 +176,6 @@ table_schema = (ATContentTypeSchema.copy() + \
                 widget=atapi.BooleanWidget(
                     label=_(u'label_first_column_is_header',
                         default=u'First column is a header column'),
-                    ),
-                ),
-
-            atapi.BooleanField(
-                name='headerIsBold',
-                schemata='Layout',
-                default=True,
-                widget=atapi.BooleanWidget(
-                    label=_(u'label_header_is_bold',
-                        u'Header rows are bold'),
                     ),
                 ),
 

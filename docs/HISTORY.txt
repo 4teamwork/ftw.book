@@ -5,6 +5,9 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
+- Optimized Table-layout so that it is more like plone default.
+  [eschmutz]
+
 - Fix condition in paragraph latex view (blob storage).
   [mathias.leimgruber]
 

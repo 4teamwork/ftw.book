@@ -18,7 +18,6 @@ class Table(object):
         self.footerRows = kwargs.get('footer_rows', 0)
         self.firstColumnIsHeader = kwargs.get(
             'first_column_is_header', False)
-        self.headerIsBold = kwargs.get('header_is_bold', False)
         self.footerIsBold = kwargs.get('footer_is_bold', False)
         self.title = kwargs.get('title', '')
         self.description = kwargs.get('description', '')
@@ -52,9 +51,6 @@ class Table(object):
 
     def getFirstColumnIsHeader(self):
         return self.firstColumnIsHeader
-
-    def getHeaderIsBold(self):
-        return self.headerIsBold
 
     def getFooterIsBold(self):
         return self.footerIsBold
@@ -229,19 +225,19 @@ class TestTableGenerator(MockTestCase):
             '<thead> '
                 '<tr> '
                     '<th align="left" ',
-                    'class=" border-right border-bottom left" ',
+                    'class=" border-right border-bottom border-top border-left left" ',
                     'id="column_0">Vörname</th>',
                     '<th align="left" ',
-                    'class=" border-right right border-bottom" ',
+                    'class=" right border-right border-bottom border-top border-left" ',
                     'id="column_1">Näme</th>',
                     '<th align="left" ',
-                    'class=" border-right indent2 center border-bottom" ',
+                    'class=" center border-right border-bottom border-top indent2 border-left" ',
                     'id="column_2">Wühnort</th>',
                     '<th align="left" ',
-                    'class=" border-right border-bottom" ',
+                    'class=" border-right border-top border-left border-bottom" ',
                     'id="column_3"> </th>',
                     '<th align="left" ',
-                    'class=" border-bottom" ',
+                    'class=" border-right border-top border-left border-bottom" ',
                     'id="column_4"> </th>',
                 '</tr>'
             '</thead>',
@@ -249,15 +245,15 @@ class TestTableGenerator(MockTestCase):
         tbody = [
             '<tbody> ',
                 '<tr> ',
-                    '<td class=" border-right border-bottom left" ',
+                    '<td class="border-left border-bottom border-top indent2 border-right left" ',
                     'headers="column_0">James</td>',
-                    '<td class=" border-right right border-bottom" ',
+                    '<td class="right border-right border-bottom border-top indent2 border-left" ',
                     'headers="column_1">Bond</td>',
-                    '<td class=" border-right indent2 center border-bottom" ',
+                    '<td class="center border-left border-bottom border-top indent2 border-right" ',
                     'headers="column_2">Secret</td>',
-                    '<td class=" border-right border-bottom" ',
+                    '<td class="border-right border-left border-top indent2 border-bottom" ',
                     'headers="column_3"> </td>',
-                    '<td class=" border-bottom" ',
+                    '<td class="border-right border-left border-top indent2 border-bottom" ',
                     'headers="column_4"> </td>',
                 '</tr>',
             '</tbody>',
@@ -265,14 +261,14 @@ class TestTableGenerator(MockTestCase):
         tfoot = [
             '<tfoot> ',
                 '<tr> ',
-                    '<td class=" border-right border-bottom left">',
+                    '<td class="bold border-right border-bottom border-top border-left indent10 left">',
                     'Bud</td>',
-                    '<td class=" border-right right border-bottom">',
+                    '<td class="right bold border-right border-bottom border-top border-left indent10">',
                     'Spencer</td>',
-                    '<td class=" border-right indent2 center border-bottom">',
+                    '<td class="bold border-right border-bottom border-top indent2 border-left indent10 center">',
                     'Italien</td>',
-                    '<td class=" border-right border-bottom"> </td>',
-                    '<td class=" border-bottom"> </td>',
+                    '<td class="bold border-left border-bottom border-top border-right indent10"> </td>',
+                    '<td class="bold border-left border-bottom border-top border-right indent10"> </td>',
                 '</tr>',
             '</tfoot>',
         ]

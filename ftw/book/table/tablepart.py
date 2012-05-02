@@ -72,20 +72,13 @@ class TablePart(object):
         """
         css = css
 
-        #  Border for vertical layout if we are on the last column
-        if self.border_layout == 'vertical' and self._is_last_column(col_name):
-                css.append('border-right')
-
-        # Border for grid layout
-        if self.border_layout == 'grid':
+        if self.border_layout in ['fancy_listing', 'grid']:
             css.append('border-bottom')
 
-            if self._is_last_column(col_name):
-                css.append('border-right')
-
-        # Border for lines layout
-        if self.border_layout=='lines':
-            css.append('border-bottom')
+        if self.border_layout in ['grid']:
+            css.append('border-top')
+            css.append('border-left')
+            css.append('border-right')
 
         css = self.get_additional_css(css, row_num, col_name)
         css = self.cleanup_css(css)
@@ -102,10 +95,16 @@ class TablePart(object):
         """
         return css
 
+    def wrap_text_in_attr(self, text):
+        """ Wrap a text into an attr
+        """
+        return text
+
     def cleanup_css(self, css):
         """ Cleanup the given css. Remove double entries and
         different other cleanups
         """
+
         if 'noborders' in css:
             for css_class in ['border-bottom', 'border-top', 'noborders']:
                 if css_class in css:
@@ -144,7 +143,6 @@ class TablePartHeader(TablePart):
         column_names,
         first_column_a_header,
         border_layout,
-        header_is_bold,
     ):
 
         super(TablePartHeader, self).__init__(
@@ -156,23 +154,8 @@ class TablePartHeader(TablePart):
             border_layout,
         )
 
-        self.header_is_bold = header_is_bold
-
     def get_cell_type(self):
         return 'th'
-
-    def get_additional_css(self, css, row_num, col_name):
-
-        if self.border_layout in ['lines', 'grid'] and \
-            self.is_last_row(row_num):
-            css.append('border-bottom')
-        else:
-            self._remove_css_class(css, 'border-bottom')
-
-        if self.header_is_bold:
-            css.append('bold')
-
-        return css
 
     def get_additional_attrs(self, row_num, col_name):
         attrs = {'align': 'left'}
@@ -214,12 +197,10 @@ class TablePartFooter(TablePart):
 
         self.footer_is_bold = footer_is_bold
 
-    def get_additional_css(self, css, row_num, col_name):
-
+    def wrap_text_in_attr(self, text):
         if self.footer_is_bold:
-            css.append('bold')
-
-        return css
+            return '<strong>%s</strong>' % (text)
+        return text
 
 
 class TablePartBody(TablePart):
