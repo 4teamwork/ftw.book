@@ -6,6 +6,12 @@ from BeautifulSoup import BeautifulSoup
 from ftw.book.table.tablepart import \
     TablePartBody, TablePartFooter, TablePartHeader
 
+BORDER_STYLE_MAPPING = {
+    'grid': ['raw-table'],
+    'invisible': ['invisible'],
+    'fancy_listing': ['raw-table'],
+}
+
 
 class TableGenerator(object):
 
@@ -42,8 +48,9 @@ class TableGenerator(object):
         """ Create the table
         """
         css_classes = ['notListed']
-        if self.context.getBorderLayout() in ['grid', 'vertical']:
-            css_classes.append('border-grid')
+
+        css_classes += BORDER_STYLE_MAPPING.get(
+            self.context.getBorderLayout(), '')
 
         if self.context.getNoLifting():
             css_classes.append('no-lifting')
@@ -101,7 +108,6 @@ class TableGenerator(object):
             self.active_column_names,
             self.context.getFirstColumnIsHeader(),
             self.context.getBorderLayout(),
-            self.context.getHeaderIsBold(),
         )
 
         self._create_rows(tablepart)
@@ -228,9 +234,12 @@ class TableGenerator(object):
 
                 tablepart.set_is_first_cell(j == 0 and True or False)
 
-                cell = self._create_cell(row, col_name, i, tablepart)
+                cell = self._create_cell(
+                    row, col_name, i + tablepart.begin_at, tablepart)
 
-                if 'fullColspan' in self._get_css(i, col_name, tablepart):
+                if 'fullColspan' in self._get_css(
+                    i + tablepart.begin_at, col_name, tablepart):
+
                     # Just set the first cell, then we brak
                     cell.setAttribute(
                         'colspan', str(len(tablepart.column_names)))
@@ -248,7 +257,7 @@ class TableGenerator(object):
         return self._create_node(
             tablepart.get_cell_type(),
             tablepart.get_row_node(),
-            row[col_name],
+            tablepart.wrap_text_in_attr(row[col_name]),
             **attrs)
 
     def _get_css(self, row_num, col_name, tablepart):
