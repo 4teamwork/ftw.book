@@ -19,7 +19,7 @@ class TableLaTeXView(MakoLaTeXView):
         if len(footnote_text)>0:
 
             latex.append(r'\vspace{0pt}')
-            latex.append(self.convert(
-                '{\\footnotesize %s' % footnote_text,).strip())
+            latex.append('{\\footnotesize %s}' % (
+                    self.convert(footnote_text.strip())))
 
         return '\n'.join(latex)
