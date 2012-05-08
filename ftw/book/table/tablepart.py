@@ -62,11 +62,6 @@ class TablePart(object):
         """
         self.is_first_cell = is_first_cell
 
-    def get_is_first_cell(self):
-        """ Return true if we are on the first cell
-        """
-        self.is_first_cell
-
     def get_css(self, css, row_num, col_name):
         """ Return default and additional css classes in a list
         """
@@ -111,7 +106,7 @@ class TablePart(object):
                     self._remove_css_class(css, css_class)
 
         if 'scriptsize' in css and 'bold' in css:
-                self._remove_css_class(css, 'bold')
+            self._remove_css_class(css, 'bold')
 
         return set(css)
 

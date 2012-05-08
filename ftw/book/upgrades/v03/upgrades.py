@@ -18,7 +18,6 @@ def remove_fti_action(setup, portal_type, action_id):
     fti._actions = tuple(actions)
 
 
-
 def migrate_chapter_classes(setup):
     catalog = getToolByName(setup, 'portal_catalog')
     brains = catalog(portal_type='Chapter')

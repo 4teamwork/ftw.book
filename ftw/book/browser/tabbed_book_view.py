@@ -1,7 +1,7 @@
+from ftw.book import _
+from ftw.tabbedview.browser.listing import CatalogListingView
 from ftw.tabbedview.browser.tabbed import TabbedView
 from ftw.table import helper
-from ftw.tabbedview.browser.listing import CatalogListingView
-from ftw.book import _
 
 
 class BooksView(TabbedView):
@@ -13,6 +13,10 @@ class BooksView(TabbedView):
 
 class Tab(CatalogListingView):
     """Search for the hole plone site"""
+
+    def __init__(self, *args, **kwargs):
+        super(Tab, self).__init__(*args, **kwargs)
+        self.filter_path = ''
 
     def update_config(self):
         super(Tab, self).update_config()

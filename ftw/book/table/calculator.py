@@ -2,7 +2,7 @@ class ColumnWidthsCalculator(object):
     """ Object to calculate table column widths
     """
 
-    MAX_WIDTH = 100 # The sum of all columnwidths
+    MAX_WIDTH = 100  # The sum of all columnwidths
 
     def __call__(self, widths):
         """ Start calculating the widths with two different algorithms
@@ -141,7 +141,7 @@ class ColumnWidthsCalculator(object):
     def _num_widthless_columns(self, widths):
         """ Return the number of columns which doesn't define a width
         """
-        return len(filter(lambda x: x==0, widths))
+        return len(filter(lambda x: x == 0, widths))
 
     def _set_column_widths(self, widths, width, width_condition=False, cond=0):
         """ Set the column-widths in the widths

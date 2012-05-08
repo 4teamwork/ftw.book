@@ -1,10 +1,12 @@
-import re
-from xml.dom import minidom
-from ftw.book.table.calculator import ColumnWidthsCalculator
-from ftw.pdfgenerator.utils import html2xmlentities
 from BeautifulSoup import BeautifulSoup
-from ftw.book.table.tablepart import \
-    TablePartBody, TablePartFooter, TablePartHeader
+from ftw.book.table.calculator import ColumnWidthsCalculator
+from ftw.book.table.tablepart import TablePartBody
+from ftw.book.table.tablepart import TablePartFooter
+from ftw.book.table.tablepart import TablePartHeader
+from ftw.pdfgenerator.utils import html2xmlentities
+from xml.dom import minidom
+import re
+
 
 BORDER_STYLE_MAPPING = {
     'grid': ['raw-table'],
@@ -19,6 +21,8 @@ class TableGenerator(object):
         self.context = context
         self.doc = None
         self.table_node = None
+        self._activeColumns = None
+        self._columnProperties = None
 
     def render(self):
         if not self.active_columns:
@@ -178,7 +182,7 @@ class TableGenerator(object):
     def active_column_names(self):
         """ Return the names of all active columns in a list
         """
-        if '_activeColumns' not in dir(self):
+        if self._activeColumns is None:
             self._activeColumns = [column['columnId'] for column in \
                 self.context.getColumnProperties() if column['active']]
         return self._activeColumns
@@ -197,9 +201,9 @@ class TableGenerator(object):
         key: columnId
         value: properties
         """
-        if '_columnProperties' not in dir(self):
+        if self._columnProperties is None:
             self._columnProperties = {}
-            for i, column in enumerate(self.context.getColumnProperties()):
+            for column in self.context.getColumnProperties():
                 self._columnProperties[column['columnId']] = column
         return self._columnProperties[columnName]
 

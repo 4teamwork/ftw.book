@@ -109,6 +109,7 @@ class TableExportImport(BrowserView):
                     _(u'The file does not seem to belong to this table.'),
                     type='error')
                 return False
+
         # import the data
         data = context.getData()
         for i, row in enumerate(rows[1:]):
@@ -121,6 +122,7 @@ class TableExportImport(BrowserView):
                 data[i][column] = row[column]
             except IndexError:
                 break
+
         context.setData(data)
         context.processForm()
         message = 'Die Spalte wurde erfolgreich importiert'

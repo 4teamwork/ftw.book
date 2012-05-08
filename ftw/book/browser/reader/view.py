@@ -3,12 +3,13 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import flaten_tree
+from ftw.book.browser.toc_tree import BookTocTree
 from ftw.book.interfaces import IBook
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
-from ftw.book.browser.toc_tree import BookTocTree
+
 
 RENDER_BLOCKS_PER_REQUEST_THRESHOLD = 4
 _marker = object()
@@ -20,6 +21,11 @@ class ReaderView(BrowserView):
     navigation_recurse = ViewPageTemplateFile(
         'templates/navigation_recurse.pt')
 
+    def __init__(self, *args, **kwargs):
+        super(ReaderView, self).__init__(*args, **kwargs)
+        self._book = None
+        self._tree = None
+
     def __call__(self):
         self.request.set('disable_border', True)
         self.request.set('disable_plone.leftcolumn', True)
@@ -29,13 +35,13 @@ class ReaderView(BrowserView):
 
     @property
     def book(self):
-        if not getattr(self, '_book', None):
+        if self._book is None:
             self._book = self.get_book_obj()
         return self._book
 
     @property
     def tree(self):
-        if not getattr(self, '_tree', None):
+        if self._tree is None:
             self._tree = self.get_tree(self.book)
         return self._tree
 

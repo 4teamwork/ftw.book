@@ -9,7 +9,6 @@ from zope.component import provideAdapter
 from zope.interface import Interface
 from zope.traversing.adapters import DefaultTraversable
 from zope.traversing.interfaces import ITraversable
-from ftw.book.browser.toc_tree import BookTocTree
 
 
 class TestReaderView(MockTestCase):
@@ -504,4 +503,3 @@ class TestReaderView(MockTestCase):
         self.assertIn('<a data-uid="subchapter-uid"', html)
         self.assertIn('href="/book/chapter/subchapter">1.1 SubChapter</a>',
             html)
-

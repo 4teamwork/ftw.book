@@ -1,9 +1,9 @@
-from simplelayout.base.viewlets import SimpleLayoutListingViewlet
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.helpers import BookHelper
+from simplelayout.base import viewlets
 
 
-class SimpleLayoutListingViewlet(SimpleLayoutListingViewlet):
+class SimpleLayoutListingViewlet(viewlets.SimpleLayoutListingViewlet):
 
     render = ViewPageTemplateFile('listing.pt')
     helper = BookHelper()
