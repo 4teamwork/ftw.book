@@ -1,7 +1,7 @@
 ftw.book
 ========
 
-This package provides content types for creating a book, which can be exported as PDF.
+This package provides content types for creating a book which can be exported as PDF.
 
 
 Features
@@ -14,6 +14,8 @@ Features
  - Provides LaTeX representations for the default simplelayout blocks.
  - Adds fields for injecting LaTeX code to every content type within a book using schemaextender.
  - Provides a "Reader" view which displays the book on one page for a enjoyable reading experience.
+ - Provides simplalayout "Table" block for enter tabular data using a datagrid widget which generates
+   HTML table representation which also convertable into a PDF.
 
 
 Usage
@@ -38,13 +40,14 @@ Links
 - Main github project repository: https://github.com/4teamwork/ftw.book
 - Issue tracker: https://github.com/4teamwork/ftw.book/issues
 - Package on pypi: http://pypi.python.org/pypi/ftw.book
-- Continuous integration: https://jenkins.4teamwork.ch/job/ftw.book
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.book
 
 
-Maintainer
-----------
+Copyright
+---------
 
-This package is produced and maintained by `4teamwork <http://www.4teamwork.ch/>`_ company.
+This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
+``ftw.book`` is licensed under GNU General Public License, version 2.
 
 .. _ftw.pdfgenerator: https://github.com/4teamwork/ftw.pdfgenerator
