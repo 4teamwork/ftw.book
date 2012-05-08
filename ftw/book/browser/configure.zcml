@@ -22,7 +22,7 @@
       for="ftw.book.interfaces.IChapter"
       name="block_view"
       template="chapter.pt"
-      class=".blockview.BlockView"
+      class=".blockview.BookBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
@@ -31,7 +31,7 @@
       for="simplelayout.types.common.interfaces.IParagraph"
       name="block_view"
       template="paragraph.pt"
-      class=".blockview.BlockView"
+      class=".blockview.BookBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
@@ -40,7 +40,7 @@
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
       template="paragraph.pt"
-      class=".blockview.BlockView"
+      class=".blockview.BookBlockView"
       permission="zope2.View"
       />
 
@@ -67,7 +67,7 @@
       permission="zope.Public"
       template="table_export_import.pt"
       />
-      
+
   <!-- override simplelayoutlisting for special display -->
   <browser:viewlet
       for="simplelayout.base.interfaces.ISimplelayoutView"

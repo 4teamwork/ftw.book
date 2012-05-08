@@ -1,8 +1,8 @@
-from simplelayout.types.common.browser.views import BlockView
 from ftw.book.helpers import BookHelper
+from simplelayout.types.common.browser.views import BlockView
 
 
-class BlockView(BlockView):
+class BookBlockView(BlockView):
 
     helper = BookHelper()
 
