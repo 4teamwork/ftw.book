@@ -8,22 +8,12 @@
         permission="zope2.View"
         interface="..interfaces.IBook"
         />
-
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IBook"
-        />
   </class>
 
   <class class=".chapter.Chapter">
     <require
         permission="zope2.View"
         interface="..interfaces.IChapter"
-        />
-
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IChapter"
         />
   </class>
 
@@ -32,11 +22,6 @@
         permission="zope2.View"
         interface="..interfaces.IHTMLBlock"
         />
-
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IHTMLBlock"
-        />
   </class>
 
   <class class=".table.Table">
@@ -44,20 +29,12 @@
         permission="zope2.View"
         interface="..interfaces.ITable"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.ITable"
-        />
   </class>
 
   <class class=".remark.Remark">
     <require
         permission="zope2.View"
         interface="..interfaces.IRemark"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.IRemark"
         />
   </class>
 </configure>
