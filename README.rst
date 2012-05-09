@@ -7,15 +7,15 @@ This package provides content types for creating a book which can be exported as
 Features
 --------
 
- - Provides a content type "Book" which defines the root of a book.
- - Provides a content type "Chapter" for creating the structure of a book. Chapters are nestable.
- - Content is added to chapters using simplelayout blocks.
- - Provides an action for exporting the book or a single chapter recursively as PDF.
- - Provides LaTeX representations for the default simplelayout blocks.
- - Adds fields for injecting LaTeX code to every content type within a book using schemaextender.
- - Provides a "Reader" view which displays the book on one page for a enjoyable reading experience.
- - Provides simplalayout "Table" block for enter tabular data using a datagrid widget which generates
-   HTML table representation which also convertable into a PDF.
+- Provides a content type "Book" which defines the root of a book.
+- Provides a content type "Chapter" for creating the structure of a book. Chapters are nestable.
+- Content is added to chapters using simplelayout blocks.
+- Provides an action for exporting the book or a single chapter recursively as PDF.
+- Provides LaTeX representations for the default simplelayout blocks.
+- Adds fields for injecting LaTeX code to every content type within a book using schemaextender.
+- Provides a "Reader" view which displays the book on one page for a enjoyable reading experience.
+- Provides simplalayout "Table" block for enter tabular data using a datagrid widget which generates
+  HTML table representation which also convertable into a PDF.
 
 
 Usage
