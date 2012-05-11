@@ -22,7 +22,7 @@
       for="ftw.book.interfaces.IChapter"
       name="block_view"
       template="chapter.pt"
-      class=".blockview.BookBlockView"
+      class=".blockview.BookChapterView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />

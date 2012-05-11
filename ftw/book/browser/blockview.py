@@ -4,7 +4,11 @@ from simplelayout.types.common.browser.views import BlockView
 
 class BookBlockView(BlockView):
 
-    helper = BookHelper()
+    def get_dynamic_title(self):
+        return BookHelper()(self.context)
+
+
+class BookChapterView(BlockView):
 
     def get_dynamic_title(self):
-        return self.helper(self.context)
+        return BookHelper()(self.context, linked=True)

@@ -1,5 +1,3 @@
 <div class="simplelayout-block-wrapper">
-    <a tal:attributes="href context/absolute_url">
-        <span tal:replace="structure view/get_dynamic_title" />
-    </a>
+    <span tal:replace="structure view/get_dynamic_title" />
 </div>

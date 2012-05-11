@@ -5,19 +5,24 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 class BookHelper(object):
 
-    def __call__(self, obj):
-        return self.generate_title(obj)
+    def __call__(self, obj, linked=False):
+        return self.generate_title(obj, linked=linked)
 
-    def generate_title(self, obj):
+    def generate_title(self, obj, linked=False):
         """ Generates a title embedded in a h-tag
         """
         chapter_string = self.get_chapter_level_string(obj)
         title = obj.title_or_id()
-        hierarchy = self.get_hierarchy_position(obj)
-        title = "<h%s>%s %s</h%s>" % (
-            hierarchy, chapter_string, title, hierarchy)
 
-        return title
+        html = '%s %s' % (chapter_string, title)
+        if linked:
+            html = '<a href="%s">%s</a>' % (obj.absolute_url(), html)
+
+        hierarchy = self.get_hierarchy_position(obj)
+        html = "<h%s>%s</h%s>" % (
+            hierarchy, html, hierarchy)
+
+        return html
 
     def generate_valid_hierarchy_h_tags(self, obj):
         """ Generates the h-tags for parent-objects for valid html
