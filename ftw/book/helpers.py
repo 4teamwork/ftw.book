@@ -81,7 +81,8 @@ class BookHelper(object):
         """ Get the hierarchy position of the object as int
         """
 
-        return len(self._get_hierarchy_titles(obj))
+        position = len(self._get_hierarchy_titles(obj))
+        return position < 6 and position or 6
 
     def _get_filtered_folder_position(self, obj):
         """ Return the filtered folder position as int
