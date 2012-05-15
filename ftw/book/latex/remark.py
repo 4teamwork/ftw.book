@@ -22,7 +22,7 @@ class RemarkLaTeXView(MakoLaTeXView):
 
         latex.append('')
 
-        return self.embed_in_grey_box(r'\n'.join(latex))
+        return self.embed_in_grey_box('\n'.join(latex))
 
     def embed_in_grey_box(self, latex):
         """ Embed the given latex code in a grey box

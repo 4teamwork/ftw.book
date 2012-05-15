@@ -56,6 +56,6 @@ class TestRemarkLaTeXView(MockTestCase):
 
         self.assertEquals(view.render(),
             '\\definecolor{light-gray}{gray}{0.8}\\fcolorbox{black}' + \
-            '{light-gray}{\\parbox[r]{\\textwidth}{{\\bf title}\\\\nfoo {' + \
-            '\\bf bar} baz\\n}}'
+            '{light-gray}{\\parbox[r]{\\textwidth}{{\\bf title}\\\nfoo {' + \
+            '\\bf bar} baz\n}}'
         )
