@@ -1,6 +1,9 @@
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
+from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
 from plone.mocktestcase import MockTestCase
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
 
 
 class TestLatexInjectionExtender(MockTestCase):
@@ -44,12 +47,24 @@ class TestLatexInjectionExtender(MockTestCase):
             self.folder.Schema().getField('postLatexCode'), None)
 
     def test_book_has_injected_fields(self):
+        # Usualy this happend during traversal - check layer.py
+        # In this case a browser test could be the better way
+        alsoProvides(self.book.REQUEST, IWithinBookLayer)
+
         self.assertNotEqual(self.book.Schema().getField('preLatexCode'), None)
         self.assertNotEqual(self.book.Schema().getField('postLatexCode'),
                             None)
+        # cleanup
+        noLongerProvides(self.book.REQUEST, IWithinBookLayer)
 
     def test_chapter_has_injected_fields(self):
+        # Usualy this happend during traversal - check layer.py
+        # In this case a browser test could be the better way
+        alsoProvides(self.chapter.REQUEST, IWithinBookLayer)
+
         self.assertNotEqual(self.chapter.Schema().getField('preLatexCode'),
                             None)
         self.assertNotEqual(self.chapter.Schema().getField('postLatexCode'),
                             None)
+        # cleanup
+        noLongerProvides(self.chapter.REQUEST, IWithinBookLayer)

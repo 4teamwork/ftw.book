@@ -1,11 +1,9 @@
-from Acquisition import aq_inner, aq_parent
 from Products.Archetypes import atapi
 from Products.Archetypes.public import TextField
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from ftw.book import _
-from ftw.book.interfaces import IBook
+from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from zope.component import adapts
 from zope.interface import implements
@@ -57,16 +55,7 @@ class LaTeXCodeInjectionExtender(object):
         return self.fields
 
     def _context_is_within_book(self):
-        obj = self.context
 
-        while obj is not None:
-            if IBook.providedBy(obj):
-                return True
-
-            elif IPloneSiteRoot.providedBy(obj):
-                return False
-
-            else:
-                obj = aq_parent(aq_inner(obj))
-
+        if IWithinBookLayer.providedBy(self.context.REQUEST):
+            return True
         return False

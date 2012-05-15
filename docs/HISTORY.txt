@@ -5,6 +5,9 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
+- Fix latexinjection extender - use IWithinBookLayer.
+  [mathias.leimgruber]
+
 - Fix LaTeX markup of Remark.
   [jone]
 
