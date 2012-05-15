@@ -1,10 +1,18 @@
 from Acquisition import aq_inner, aq_parent
 from StringIO import StringIO
 from ftw.book.interfaces import IBook
+from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.book.latex.utils import get_latex_heading
 from ftw.book.latex.utils import get_raw_image_data
+from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.testing import MockTestCase
+from mocker import ANY
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from zope.app.component.hooks import setSite
+from zope.component import getGlobalSiteManager
+from zope.i18n.interfaces import IUserPreferredLanguages
+from zope.interface import alsoProvides
 from zope.interface import directlyProvides
 
 
@@ -118,3 +126,251 @@ class TestLatexHeading(MockTestCase):
 
         image2 = self.create_dummy(data='direct data')
         self.assertEquals(get_raw_image_data(image2), 'direct data')
+
+
+class TestImageLaTeXGenerator(MockTestCase):
+
+    def setUp(self):
+        super(TestImageLaTeXGenerator, self).setUp()
+
+        self.image = self.create_dummy(
+            get_size=lambda: 11, data='hello world')
+
+        self.context = self.create_dummy(
+            UID=lambda: 'XUID')
+
+        setSite(self._create_site_with_request())
+
+    def tearDown(self):
+        setSite(None)
+
+    def _create_site_with_request(self):
+        request = self.create_dummy(getPreferredLanguages=lambda: [])
+        alsoProvides(request, IUserPreferredLanguages)
+
+        site = self.create_dummy(
+            REQUEST=request,
+            getSiteManager=getGlobalSiteManager)
+
+        return site
+
+    def test_no_image_layout(self):
+        self.replay()
+
+        generator = ImageLaTeXGenerator(None, None)
+        self.assertEqual(generator(None, 'no-image'), '')
+
+    def test_small_left_nonfloating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'small')
+
+        self.assertEqual(
+            latex,
+            r'\includegraphics[width=0.25\textwidth]{XUID_image}')
+
+    def test_small_left_nonfloating_caption(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('The Caption')).result(
+            'THE CAPTION')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'small', caption='The Caption')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    generate_manual_caption('THE CAPTION', 'figure'),
+                    )))
+
+    def test_small_left_floating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.use_package('wrapfig'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'small', floatable=True)
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
+                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\end{wrapfigure}',
+                    )))
+
+    def test_small_left_floating_caption(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.use_package('wrapfig'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('The Caption')).result(
+            'THE CAPTION')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'small', floatable=True,
+                          caption='The Caption')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
+                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\caption{THE CAPTION}',
+                    r'\end{wrapfigure}',
+                    )))
+
+    def test_middle_left_nonfloating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'middle')
+
+        self.assertEqual(
+            latex,
+            r'\includegraphics[width=0.5\textwidth]{XUID_image}')
+
+    def test_full(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'full')
+
+        self.assertEqual(
+            latex,
+            r'\includegraphics[width=\textwidth]{XUID_image}')
+
+    def test_middle_right_nonfloating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'middle-right')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{flushright}',
+                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    r'\end{flushright}',
+                    )))
+
+    def test_middle_right_nonfloating_caption(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('The Caption')).result(
+            'THE CAPTION')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'middle-right',
+                          caption='The Caption')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{flushright}',
+                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    generate_manual_caption('THE CAPTION', 'figure'),
+                    r'\end{flushright}',
+                    )))
+
+    def test_middle_right_floating_caption(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.use_package('wrapfig'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('The Caption')).result(
+            'THE CAPTION')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'middle-right', floatable=True,
+                          caption='The Caption')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{wrapfigure}{r}{0.5\textwidth}',
+                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    r'\caption{THE CAPTION}',
+                    r'\end{wrapfigure}',
+                    )))
+
+    def test_small_right_nonfloating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'small-right')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{flushright}',
+                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\end{flushright}',
+                    )))
+
+    def test_unkown_layout(self):
+        # The includegraphics options should never have an empty width
+        # option, like [image=], so the default is be 100% when the layout
+        # is not recognized.
+        # Having a [image=] will make pdflatex hang and this will block the
+        # zope thread.
+
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'fancy-unkown')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\includegraphics[width=\textwidth]{XUID_image}',
+                    )))
+
+    def test_render_floating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.use_package('wrapfig'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('The Caption')).result(
+            'THE CAPTION')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator.render(self.image, '0.56', 'c',
+                                 floatable=True,
+                                 caption='The Caption')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{wrapfigure}{c}{0.56\textwidth}',
+                    r'\includegraphics[width=0.56\textwidth]{XUID_image}',
+                    r'\caption{THE CAPTION}',
+                    r'\end{wrapfigure}',
+                    )))
+
+    def test_render_nofloating(self):
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator.render(self.image, '0.56', 'c')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\begin{center}',
+                    r'\includegraphics[width=0.56\textwidth]{XUID_image}',
+                    r'\end{center}',
+                    )))

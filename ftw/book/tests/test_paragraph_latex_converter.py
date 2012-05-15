@@ -57,7 +57,7 @@ class TestParagraphLaTeXView(MockTestCase):
         self.replay()
 
         view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
+        latex = view.get_image_latex(True)
         self.assertEqual(latex, '')
 
     def test_get_image_latex_with_layout_noimage(self):
@@ -74,94 +74,8 @@ class TestParagraphLaTeXView(MockTestCase):
         self.replay()
 
         view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
+        latex = view.get_image_latex(True)
         self.assertEqual(latex, '')
-
-    def test_get_image_latex_with_layout_small(self):
-        context, request, layout = self.create_image_mocks(
-            'small', 'THE image', '123')
-
-        self.replay()
-
-        view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-
-        self.assertEqual(
-            latex,
-            '\n'.join([
-                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
-                    r'\begin{center}',
-                    r'\includegraphics[width=0.25\textwidth]{123_image}',
-                    r'\end{center}',
-                    r'\caption{THE image}',
-                    r'\end{wrapfigure}']))
-
-    def test_get_image_latex_with_middle_layout(self):
-        caption = 'middle image caption'
-        context, request, layout = self.create_image_mocks(
-            'middle', caption, '23442')
-
-        self.replay()
-
-        view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-        lines = latex.split()
-
-        self.assertEqual(
-            lines[0], r'\begin{wrapfigure}{l}{0.5\textwidth}')
-        self.assertIn('23442_image', latex)
-        self.assertIn('{%s}' % caption, latex)
-
-    def test_get_image_latex_with_full_layout(self):
-        caption = 'full image caption'
-        context, request, layout = self.create_image_mocks(
-            'full', caption, '123ff')
-
-        self.replay()
-
-        view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-        lines = latex.split()
-
-        self.assertEqual(
-            lines[0], r'\begin{figure}[htbp]')
-        self.assertIn('123ff_image', latex)
-        self.assertIn('{%s}' % caption, latex)
-        self.assertEqual(lines[-1], r'\end{figure}')
-
-    def test_get_image_latex_with_middle_right_layout(self):
-        caption = 'middle right image caption'
-        uid = 'afdsadsf'
-        context, request, layout = self.create_image_mocks(
-            'middle-right', caption, uid)
-
-        self.replay()
-
-        view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-        lines = latex.split()
-
-        self.assertEqual(
-            lines[0], r'\begin{wrapfigure}{r}{0.5\textwidth}')
-        self.assertIn('%s_image' % uid, latex)
-        self.assertIn('{%s}' % caption, latex)
-
-    def test_get_image_latex_with_small_right_layout(self):
-        caption = 'small right image caption'
-        uid = '23442234'
-        context, request, layout = self.create_image_mocks(
-            'small-right', caption, uid)
-
-        self.replay()
-
-        view = getMultiAdapter((context, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-        lines = latex.split()
-
-        self.assertEqual(
-            lines[0], r'\begin{wrapfigure}{r}{0.25\textwidth}')
-        self.assertIn('%s_image' % uid, latex)
-        self.assertIn('{%s}' % caption, latex)
 
     def test_get_text_latex_some_text(self):
         context, request, layout = self.get_mocks()
@@ -212,21 +126,3 @@ class TestParagraphLaTeXView(MockTestCase):
         self.assertIn(r'\includegraphics', imagepart)
         self.assertIn('123_image', imagepart)
         self.assertIn(r'Thats {\bf some} text.', textpart)
-
-    def test_default_width(self):
-        # The includegraphics options should never have an empty width
-        # option, like [image=], so the default is be 100% when the layout
-        # is not recognized.
-        # Having a [image=] will make pdflatex hang and this will block the
-        # zope thread.
-
-        paragraph, request, layout = self.create_image_mocks(
-            'a really bad unkown layout', 'THE image', '123')
-
-        self.replay()
-
-        view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
-        latex = view.get_image_latex()
-
-        self.assertNotIn('[width=]', latex)
-        self.assertIn(r'[width=\textwidth]', latex)
