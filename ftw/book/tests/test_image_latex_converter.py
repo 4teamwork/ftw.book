@@ -1,16 +1,37 @@
 from Products.ATContentTypes.interfaces.image import IATImage
 from ftw.book.testing import LATEX_ZCML_LAYER
+from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.testing import MockTestCase
 from simplelayout.base.interfaces import IBlockConfig
+from zope.app.component.hooks import setSite
+from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
+from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
 
 
 class TestImageLaTeXView(MockTestCase):
 
     layer = LATEX_ZCML_LAYER
+
+    def setUp(self):
+        super(TestImageLaTeXView, self).setUp()
+        setSite(self._create_site_with_request())
+
+    def tearDown(self):
+        setSite(None)
+
+    def _create_site_with_request(self):
+        request = self.create_dummy(getPreferredLanguages=lambda: [])
+        alsoProvides(request, IUserPreferredLanguages)
+
+        site = self.create_dummy(
+            REQUEST=request,
+            getSiteManager=getGlobalSiteManager)
+
+        return site
 
     def create_mocks(self, image_layout,
                      description, uid):
@@ -33,7 +54,6 @@ class TestImageLaTeXView(MockTestCase):
 
         self.expect(layout.get_converter()).result(converter).count(0, None)
         self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
 
         self.expect(context.getImage()).result(image).count(1, None)
         self.expect(context.image_layout).result(image_layout)
@@ -47,6 +67,7 @@ class TestImageLaTeXView(MockTestCase):
         layout = self.create_dummy()
 
         context = self.providing_stub([IATImage, IBlockConfig])
+        self.expect(context.Description()).result(None)
         self.expect(context.getImage()).result(object())
         self.expect(context.image_layout).result('no-image')
 
@@ -68,12 +89,8 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
-                    r'\begin{center}',
                     r'\includegraphics[width=0.25\textwidth]{123_image}',
-                    r'\end{center}',
-                    r'\caption{my description}',
-                    r'\end{wrapfigure}']))
+                    generate_manual_caption('my description', 'figure')]))
 
     def test_latex_with_middle_layout(self):
         context, request, layout, converter = self.create_mocks(
@@ -87,12 +104,9 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\begin{wrapfigure}{l}{0.5\textwidth}',
-                    r'\begin{center}',
                     r'\includegraphics[width=0.5\textwidth]{3434_image}',
-                    r'\end{center}',
-                    r'\caption{the description}',
-                    r'\end{wrapfigure}']))
+                    generate_manual_caption('the description', 'figure'),
+                    ]))
 
     def test_latex_with_full_layout(self):
         context, request, layout, converter = self.create_mocks(
@@ -106,12 +120,9 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\begin{figure}[htbp]',
-                    r'\begin{center}',
                     r'\includegraphics[width=\textwidth]{12full_image}',
-                    r'\end{center}',
-                    r'\caption{description}',
-                    r'\end{figure}']))
+                    generate_manual_caption('description', 'figure'),
+                    ]))
 
     def test_latex_with_full_layout_no_description(self):
         context, request, layout, converter = self.create_mocks(
@@ -125,11 +136,8 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\begin{figure}[htbp]',
-                    r'\begin{center}',
                     r'\includegraphics[width=\textwidth]{123full_image}',
-                    r'\end{center}',
-                    r'\end{figure}']))
+                    ]))
 
     def test_latex_with_middle_right_layout(self):
         context, request, layout, converter = self.create_mocks(
@@ -140,7 +148,6 @@ class TestImageLaTeXView(MockTestCase):
         view = getMultiAdapter((context, request, layout))
         latex = view.render()
 
-        self.assertIn(r'\begin{wrapfigure}{r}{0.5\textwidth}', latex)
         self.assertIn(r'\includegraphics[width=0.5\textwidth]{1mr_image}',
                       latex)
 
@@ -153,7 +160,6 @@ class TestImageLaTeXView(MockTestCase):
         view = getMultiAdapter((context, request, layout))
         latex = view.render()
 
-        self.assertIn(r'\begin{wrapfigure}{r}{0.25\textwidth}', latex)
         self.assertIn(r'\includegraphics[width=0.25\textwidth]{1sr_image}',
                       latex)
 
