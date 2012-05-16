@@ -11,6 +11,9 @@ Changelog
 - Fix LaTeX markup of Remark.
   [jone]
 
+- Refactor image handling. 
+  [jone]
+
 
 2.2.1 (2012-05-09)
 ------------------
