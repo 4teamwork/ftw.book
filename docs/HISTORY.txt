@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.2 (unreleased)
+2.2.3 (2012-05-16)
 ------------------
 
 - Fix latexinjection extender - use IWithinBookLayer.
