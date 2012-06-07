@@ -5,7 +5,11 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Within books HTML <h?> tags should not be converted to LaTeX headers.
+  We use chapters and block titles for building the book structure.
+  This fixes inconsistency between plone view heading numbering and
+  LaTeX's numbering.
+  [jone]
 
 
 2.2.3 (2012-05-16)
@@ -17,7 +21,7 @@ Changelog
 - Fix LaTeX markup of Remark.
   [jone]
 
-- Refactor image handling. 
+- Refactor image handling.
   [jone]
 
 

@@ -17,7 +17,14 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
             (interfaces.HTML2LATEX_MODE_REGEXP,
              r'<span.*?class="[^=]*?visualHighlight[^"]*"[^>]*>(.*?)</span>',
              r'\\hl{\g<1>}'),
+
             ]
+
+        for num in range(1, 7):
+            custom_patterns.append(
+                (interfaces.HTML2LATEX_MODE_REGEXP,
+                 r'<h%s.*?>(.*?)</h%s>' % (num, num),
+                 r'{\\bf \g<1>}'))
 
         self.register_patterns(custom_patterns)
 

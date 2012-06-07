@@ -1,4 +1,5 @@
 from ftw.book.interfaces import IBook
+from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
@@ -15,14 +16,17 @@ class TestParagraphLaTeXView(MockTestCase):
     layer = LATEX_ZCML_LAYER
 
     def get_mocks(self):
+        request = self.create_dummy()
+        alsoProvides(request, IWithinBookLayer)
+
         # mock is not yet in replay mode, so we use another layout dummy..
-        layout_obj = self.create_dummy()
+        layout_obj = self.create_dummy(use_package=lambda pkg_name: None)
         alsoProvides(layout_obj, ILaTeXLayout)
-        converter = getMultiAdapter((object(), object(), layout_obj),
+        converter = getMultiAdapter((object(), request, layout_obj),
                                     IHTML2LaTeXConverter)
 
         context = self.providing_stub([IParagraph, IBlockConfig])
-        request = self.create_dummy()
+
         layout = self.providing_mock([ILaTeXLayout])
         self.expect(layout.get_converter()).result(converter).count(0, None)
 
@@ -126,3 +130,24 @@ class TestParagraphLaTeXView(MockTestCase):
         self.assertIn(r'\includegraphics', imagepart)
         self.assertIn('123_image', imagepart)
         self.assertIn(r'Thats {\bf some} text.', textpart)
+
+    def test_heading_converts_to_bold(self):
+        # Within books the book structure (section, subsection, etc) is
+        # defined using chapters and paragraph titles. Therefore the
+        # text of the paragraph should not contain headings since it would
+        # result in inconsistent chapter numberings and other problems.
+
+        context, request, layout = self.get_mocks()
+
+        self.expect(context.getText()).result(
+            '<h1>the</h1> <h2>heading</h2> <h3>tags</h3> <h4>will</h4> ' + \
+                '<h5>be</h5> <h5>bold</h5>.')
+
+        self.replay()
+        view = getMultiAdapter((context, request, layout), ILaTeXView)
+        latex = view.get_text_latex()
+
+        self.assertEqual(
+            latex,
+            '{\\bf the} {\\bf heading} {\\bf tags} {\\bf will} ' + \
+                '{\\bf be} {\\bf bold}.\n')
