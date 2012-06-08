@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-05-02 12:29+0000\n"
+"POT-Creation-Date: 2012-06-08 14:20+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -215,7 +215,7 @@ msgstr "Zentriert"
 
 #. Default: "Creator"
 #: ./ftw/book/browser/book_tabs.py:27
-#: ./ftw/book/browser/tabbed_book_view.py:36
+#: ./ftw/book/browser/tabbed_book_view.py:40
 msgid "column_creator"
 msgstr "Ersteller"
 
@@ -231,7 +231,7 @@ msgstr "Geändert"
 
 #. Default: "Title"
 #: ./ftw/book/browser/book_tabs.py:20
-#: ./ftw/book/browser/tabbed_book_view.py:32
+#: ./ftw/book/browser/tabbed_book_view.py:36
 msgid "column_title"
 msgstr "Titel"
 
@@ -343,21 +343,21 @@ msgstr "Tabelle importieren"
 msgid "no indent"
 msgstr "Nicht einrücken"
 
-#: ./ftw/book/latexinjection.py:47
+#: ./ftw/book/latexinjection.py:45
 msgid "post_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch nach dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code beneath content"
-#: ./ftw/book/latexinjection.py:45
+#: ./ftw/book/latexinjection.py:43
 msgid "post_latex_code_label"
 msgstr "LaTeX-Code nach Inhalt"
 
-#: ./ftw/book/latexinjection.py:34
+#: ./ftw/book/latexinjection.py:32
 msgid "pre_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code above content"
-#: ./ftw/book/latexinjection.py:32
+#: ./ftw/book/latexinjection.py:30
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
 

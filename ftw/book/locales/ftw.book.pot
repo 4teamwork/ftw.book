@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-02 12:29+0000\n"
+"POT-Creation-Date: 2012-06-08 14:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,7 +215,7 @@ msgstr ""
 
 #. Default: "Creator"
 #: ./ftw/book/browser/book_tabs.py:27
-#: ./ftw/book/browser/tabbed_book_view.py:36
+#: ./ftw/book/browser/tabbed_book_view.py:40
 msgid "column_creator"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 
 #. Default: "Title"
 #: ./ftw/book/browser/book_tabs.py:20
-#: ./ftw/book/browser/tabbed_book_view.py:32
+#: ./ftw/book/browser/tabbed_book_view.py:36
 msgid "column_title"
 msgstr ""
 
@@ -343,21 +343,21 @@ msgstr ""
 msgid "no indent"
 msgstr ""
 
-#: ./ftw/book/latexinjection.py:47
+#: ./ftw/book/latexinjection.py:45
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
-#: ./ftw/book/latexinjection.py:45
+#: ./ftw/book/latexinjection.py:43
 msgid "post_latex_code_label"
 msgstr ""
 
-#: ./ftw/book/latexinjection.py:34
+#: ./ftw/book/latexinjection.py:32
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
-#: ./ftw/book/latexinjection.py:32
+#: ./ftw/book/latexinjection.py:30
 msgid "pre_latex_code_label"
 msgstr ""
 
