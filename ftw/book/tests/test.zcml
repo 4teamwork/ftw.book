@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           i18n_domain="Five">
+
+    <include package="z3c.autoinclude" file="meta.zcml" />
+    <include package="Products.Five" file="meta.zcml" />
+    <include package="Products.Five.viewlet" file="meta.zcml" />
+    <include package="Products.GenericSetup" file="meta.zcml" />
+    <include package="Products.CMFCore" file="meta.zcml" />
+    <include package="plone.app.portlets" file="meta.zcml" />
+
+    <include package="AccessControl" file="permissions.zcml" />
+    <include package="Products.CMFCore" file="permissions.zcml" />
+
+    <include package="zope.traversing" />
+    <include package="zope.i18n" />
+
+    <include package="ftw.book" />
+
+</configure>
