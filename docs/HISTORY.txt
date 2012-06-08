@@ -5,6 +5,10 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
+- LaTeX: use soulutf8 instead of soul package for allowing utf8 characters
+  in highlighted text.
+  [jone]
+
 - Within books HTML <h?> tags should not be converted to LaTeX headers.
   We use chapters and block titles for building the book structure.
   This fixes inconsistency between plone view heading numbering and

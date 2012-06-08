@@ -18,7 +18,7 @@ class TestBookHTML2LatexConverter(MockTestCase):
         request = self.providing_stub([IWithinBookLayer])
         layout = self.providing_stub([ILaTeXLayout])
 
-        self.expect(layout.use_package('soul'))
+        self.expect(layout.use_package('soulutf8'))
 
         self.replay()
         component = queryMultiAdapter((context, request, layout),
@@ -55,7 +55,7 @@ class TestBookHTML2LatexConverter(MockTestCase):
     def test_converter_converts_visualHighlight(self):
         context = request = self.create_dummy()
         layout = self.mocker.mock()
-        self.expect(layout.use_package('soul'))
+        self.expect(layout.use_package('soulutf8'))
 
         self.replay()
 

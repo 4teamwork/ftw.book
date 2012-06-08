@@ -28,4 +28,4 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
 
         self.register_patterns(custom_patterns)
 
-        self.layout.use_package('soul')
+        self.layout.use_package('soulutf8')
