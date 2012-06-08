@@ -78,6 +78,14 @@
       layer="..interfaces.IWithinBookLayer"
       />
 
+  <browser:viewlet
+      name="ftw.book.paragraph.validation"
+      class=".viewlets.viewlets.TableValidationViewlet"
+      for="simplelayout.types.common.interfaces.IParagraph"
+      layer="ftw.book.interfaces.IWithinBookLayer"
+      manager="simplelayout.base.interfaces.ISimpleViewletProvider"
+      permission="cmf.ModifyPortalContent"
+      />
 
   <browser:page
       for="..interfaces.IBook"

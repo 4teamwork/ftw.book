@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-06-08 14:20+0000\n"
+"POT-Creation-Date: 2012-06-08 14:22+0000\n"
 "PO-Revision-Date: 2012-03-07 14:30+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -414,6 +414,11 @@ msgstr "Kein Rahmen"
 #: ./ftw/book/content/table.py:123
 msgid "table_label_width"
 msgstr "Breite in %"
+
+#. Default: "Please specify the width of the table columns / cells."
+#: ./ftw/book/browser/viewlets/viewlets.py:56
+msgid "table_width_validation_warning"
+msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses Blockes."
 
 #. Default: "Import / export tabledata"
 #: ./ftw/book/browser/table_export_import.pt:14

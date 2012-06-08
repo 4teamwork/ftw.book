@@ -5,6 +5,10 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
+- Paragraph: validate table widths and show a viewlet to editors with
+  a hint that the table widths should be defined.
+  [jone]
+
 - LaTeX: use soulutf8 instead of soul package for allowing utf8 characters
   in highlighted text.
   [jone]
