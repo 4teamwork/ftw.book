@@ -54,8 +54,8 @@ class TableValidationViewlet(ViewletBase):
             if not column.get_width():
                 errors.add(
                     _(u'table_width_validation_warning',
-                      u'Please specify the width of the table ' + \
-                          u'columns / cells.'))
+                      u'Please specify the width of the table ' +
+                      u'columns / cells.'))
                 return errors
 
         return errors

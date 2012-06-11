@@ -23,8 +23,8 @@ BORDER_LAYOUTS = (
     )
 
 
-table_schema = (ATContentTypeSchema.copy() + \
-                   atapi.Schema((
+table_schema = (ATContentTypeSchema.copy() +
+                atapi.Schema((
 
             atapi.BooleanField(
                 name='showTitle',

@@ -183,8 +183,9 @@ class TableGenerator(object):
         """ Return the names of all active columns in a list
         """
         if self._activeColumns is None:
-            self._activeColumns = [column['columnId'] for column in \
-                self.context.getColumnProperties() if column['active']]
+            self._activeColumns = [column['columnId'] for column in
+                                   self.context.getColumnProperties()
+                                   if column['active']]
         return self._activeColumns
 
     @property
@@ -293,7 +294,7 @@ class TableGenerator(object):
                 value = value.decode('utf8')
             node.setAttribute(key, value)
 
-        if content != False:
+        if content is False:
             if not content:
                 content = ' '
 

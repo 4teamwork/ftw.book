@@ -10,9 +10,9 @@ from zope.interface import implements
 from zope.schema.vocabulary import getVocabularyRegistry
 
 
-BookSchema = (folder.ATFolderSchema.copy() + \
-                  NextPreviousAwareSchema.copy() + \
-                  atapi.Schema((
+BookSchema = (folder.ATFolderSchema.copy() +
+              NextPreviousAwareSchema.copy() +
+              atapi.Schema((
 
             atapi.StringField(
                 name='latex_layout',
@@ -23,8 +23,7 @@ BookSchema = (folder.ATFolderSchema.copy() + \
 
                 widget=atapi.SelectionWidget(
                     label=_(u'book_label_layout',
-                            default=u'Layout'),
-                            )),
+                            default=u'Layout'))),
 
             atapi.BooleanField(
                 name='use_titlepage',
