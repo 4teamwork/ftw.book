@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.4 (unreleased)
+2.2.4 (2012-06-11)
 ------------------
 
 - Paragraph: validate table widths and show a viewlet to editors with
