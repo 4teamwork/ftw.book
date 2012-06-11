@@ -294,7 +294,7 @@ class TableGenerator(object):
                 value = value.decode('utf8')
             node.setAttribute(key, value)
 
-        if content is False:
+        if content is not False:
             if not content:
                 content = ' '
 
