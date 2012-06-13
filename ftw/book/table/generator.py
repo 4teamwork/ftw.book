@@ -3,7 +3,9 @@ from ftw.book.table.calculator import ColumnWidthsCalculator
 from ftw.book.table.tablepart import TablePartBody
 from ftw.book.table.tablepart import TablePartFooter
 from ftw.book.table.tablepart import TablePartHeader
+from ftw.pdfgenerator.utils import encode_htmlentities
 from ftw.pdfgenerator.utils import html2xmlentities
+from ftw.pdfgenerator.utils import xml2htmlentities
 from xml.dom import minidom
 import re
 
@@ -46,7 +48,7 @@ class TableGenerator(object):
             html = pattern.sub('', html)
         except TypeError:
             pass
-        return html
+        return xml2htmlentities(html)
 
     def create_table_element(self):
         """ Create the table
@@ -220,7 +222,10 @@ class TableGenerator(object):
     def _clean_and_parse_html(html):
         """ Cleanup the given html and parse it
         """
+        html = encode_htmlentities(html.decode('utf-8')).encode('utf-8')
         html = str(BeautifulSoup(html))
+        html = html2xmlentities(html)
+
         try:
             doc = minidom.parseString('<data>%s</data>' % html)
         except UnicodeEncodeError:

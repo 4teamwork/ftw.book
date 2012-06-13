@@ -5,7 +5,8 @@ Changelog
 2.2.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Table: fix enitity handling in table generator.
+  [jone]
 
 
 2.2.4 (2012-06-11)
