@@ -7,6 +7,7 @@ from ftw.testing import MockTestCase
 from mocker import ANY
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
+import tempfile
 
 
 class TestBookHTML2LatexConverter(MockTestCase):
@@ -55,7 +56,25 @@ class TestBookHTML2LatexConverter(MockTestCase):
     def test_converter_converts_visualHighlight(self):
         context = request = self.create_dummy()
         layout = self.mocker.mock()
-        self.expect(layout.use_package('soulutf8'))
+
+        expected_hls = 8
+
+        self.expect(layout.use_package(
+                'soulutf8')).count(expected_hls)
+
+        builder = self.mocker.mock()
+        self.expect(layout.get_builder()).result(builder).count(
+            expected_hls, None)
+
+        self.expect(builder.build_directory).result(
+            tempfile.gettempdir()).count(expected_hls, None)
+
+        self.expect(builder.add_file(
+                'soulutf8.sty', ANY)).count(expected_hls)
+        self.expect(builder.add_file(
+                'infwarerr.sty', ANY)).count(expected_hls)
+        self.expect(builder.add_file(
+                'etexcmds.sty', ANY)).count(expected_hls)
 
         self.replay()
 
@@ -64,6 +83,11 @@ class TestBookHTML2LatexConverter(MockTestCase):
         self.assertEqual(
             conv.convert(r'foo <span class="visualHighlight">bar</span> baz'),
             r'foo \hl{bar} baz')
+
+        self.assertEqual(
+            conv.convert(r'foo <span class="visualHighlight">bar</span> '
+                         r'<span class="visualHighlight">baz</span> !'),
+            r'foo \hl{bar} \hl{baz} !')
 
         self.assertEqual(
             conv.convert(r'foo <span id="myid" class="visualHighlight">'

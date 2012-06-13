@@ -5,6 +5,10 @@ Changelog
 2.2.5 (unreleased)
 ------------------
 
+- Higlighting: include soulutf8 LaTeX package and move conversion to
+  seperate subconverter for including the packages lazily.
+  [jone]
+
 - Table: fix enitity handling in table generator.
   [jone]
 

@@ -1,4 +1,5 @@
 from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.latex.highlight_subconverter import VisualHighlightSubconverter
 from ftw.pdfgenerator import interfaces
 from ftw.pdfgenerator.html2latex.converter import HTML2LatexConverter
 from zope.component import adapts
@@ -12,13 +13,7 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
     def __init__(self, context, request, layout):
         HTML2LatexConverter.__init__(self, context, request, layout)
 
-        custom_patterns = [
-            # requires package "soul", included in book_layout
-            (interfaces.HTML2LATEX_MODE_REGEXP,
-             r'<span.*?class="[^=]*?visualHighlight[^"]*"[^>]*>(.*?)</span>',
-             r'\\hl{\g<1>}'),
-
-            ]
+        custom_patterns = []
 
         for num in range(1, 7):
             custom_patterns.append(
@@ -28,4 +23,7 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
 
         self.register_patterns(custom_patterns)
 
-        self.layout.use_package('soulutf8')
+    def get_default_subconverters(self):
+        converters = list(HTML2LatexConverter.get_default_subconverters(self))
+        converters.append(VisualHighlightSubconverter)
+        return converters
