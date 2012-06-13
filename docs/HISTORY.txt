@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.5 (unreleased)
+2.2.5 (2012-06-13)
 ------------------
 
 - Higlighting: include soulutf8 LaTeX package and move conversion to
