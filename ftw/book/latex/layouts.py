@@ -24,10 +24,10 @@ class LayoutsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        """Returns a vocubulary with all known LaTeX layouts. A LaTeX layout
+        """Returns a vocabulary with all known LaTeX layouts. A LaTeX layout
         is "registered" by subclassing IBookLaTeXLayoutSelectionLayer and
         providing an adapter, which uses the new interface as request
-        descriminator.
+        discriminator.
         """
         terms = []
 
