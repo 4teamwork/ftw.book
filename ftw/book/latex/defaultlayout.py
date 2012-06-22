@@ -7,6 +7,7 @@ from ftw.book import _
 from ftw.book.interfaces import IBook
 from ftw.book.latex.layouts import register_book_layout
 from ftw.book.latex.utils import get_raw_image_data
+from ftw.pdfgenerator.babel import get_preferred_babel_option_for_context
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from zope.component import adapts
@@ -163,6 +164,7 @@ class DefaultBookLayout(MakoLayoutBase):
             'release': convert(book.Schema().getField('release').get(book)),
             'author': convert(book.Schema().getField('author').get(book)),
             'authoraddress': address,
+            'babel': get_preferred_babel_option_for_context(self.context),
             }
         return args
 
