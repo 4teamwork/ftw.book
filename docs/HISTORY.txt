@@ -5,7 +5,8 @@ Changelog
 2.2.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Support for LinguaPlone. 
+  [treinhard]
 
 
 2.2.5 (2012-06-13)
