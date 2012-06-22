@@ -10,6 +10,7 @@ from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from zope.component import adapts
+from zope.dottedname.resolve import resolve
 from zope.interface import implements, Interface
 
 
@@ -107,11 +108,17 @@ class DefaultBookLayoutExtender(object):
         self.context = context
 
     def getFields(self):
-        request = self.context.REQUEST
-        if IDefaultBookLayoutSelectionLayer.providedBy(request):
-            return self.fields
-        else:
-            return []
+        
+        # Checking whether the request provides the IDefaultBookLayoutSelectionLayer
+        # interface does not work when LinguaPlone is installed.
+        # Looks like this method is called before BookTraverse.publishTraverse()
+        # marks the request with the interface.
+        layout_layer_name = getattr(self.context, 'latex_layout', None)
+        if layout_layer_name:
+            layout_layer = resolve(layout_layer_name)
+            if layout_layer == IDefaultBookLayoutSelectionLayer:
+                return self.fields
+        return []
 
 
 class DefaultBookLayout(MakoLayoutBase):
