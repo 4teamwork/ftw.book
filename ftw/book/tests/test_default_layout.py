@@ -102,6 +102,11 @@ class TestDefaultBookLayout(MockTestCase):
 
     def test_get_render_arguments(self):
         book = self._mock_book()
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
+
         self.replay()
 
         layout = DefaultBookLayout(book, object(), object())
@@ -117,12 +122,17 @@ class TestDefaultBookLayout(MockTestCase):
              'authoraddress': r'Bern\\Switzerland',
              'author': '4teamwork',
              'release': '2.5',
+             'babel': 'english',
              'logo': False,
              'logo_width': 0})
 
     def test_rendering_works(self):
         book = self._mock_book()
         builder = self.mocker.mock()
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
         self.expect(builder.add_file('fncychap.sty', data=ANY))
@@ -150,6 +160,11 @@ class TestDefaultBookLayout(MockTestCase):
                 'release': '',
                 'author': '',
                 'author_address': ''})
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
+
         builder = self.mocker.mock()
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
@@ -171,6 +186,10 @@ class TestDefaultBookLayout(MockTestCase):
         book = self._mock_book({
                 'titlepage_logo': 'my-image',
                 'titlepage_logo_width': 55})
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
 
         builder = self.mocker.mock()
 
@@ -196,6 +215,10 @@ class TestDefaultBookLayout(MockTestCase):
         book = self._mock_book({
                 'titlepage_logo': 'my-image',
                 'titlepage_logo_width': 0})
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
 
         builder = self.mocker.mock()
 
