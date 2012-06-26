@@ -7,9 +7,11 @@ from ftw.book import _
 from ftw.book.interfaces import IBook
 from ftw.book.latex.layouts import register_book_layout
 from ftw.book.latex.utils import get_raw_image_data
+from ftw.pdfgenerator.babel import get_preferred_babel_option_for_context
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from zope.component import adapts
+from zope.dottedname.resolve import resolve
 from zope.interface import implements, Interface
 
 
@@ -107,11 +109,17 @@ class DefaultBookLayoutExtender(object):
         self.context = context
 
     def getFields(self):
-        request = self.context.REQUEST
-        if IDefaultBookLayoutSelectionLayer.providedBy(request):
-            return self.fields
-        else:
-            return []
+        
+        # Checking whether the request provides the IDefaultBookLayoutSelectionLayer
+        # interface does not work when LinguaPlone is installed.
+        # Looks like this method is called before BookTraverse.publishTraverse()
+        # marks the request with the interface.
+        layout_layer_name = getattr(self.context, 'latex_layout', None)
+        if layout_layer_name:
+            layout_layer = resolve(layout_layer_name)
+            if layout_layer == IDefaultBookLayoutSelectionLayer:
+                return self.fields
+        return []
 
 
 class DefaultBookLayout(MakoLayoutBase):
@@ -156,6 +164,7 @@ class DefaultBookLayout(MakoLayoutBase):
             'release': convert(book.Schema().getField('release').get(book)),
             'author': convert(book.Schema().getField('author').get(book)),
             'authoraddress': address,
+            'babel': get_preferred_babel_option_for_context(self.context),
             }
         return args
 

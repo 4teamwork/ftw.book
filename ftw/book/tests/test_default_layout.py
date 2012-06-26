@@ -45,6 +45,11 @@ class TestDefaultBookLayout(MockTestCase):
             self.expect(book.Schema().getField(key).get(book)).result(value)
 
         return book
+        
+    def _mock_portal_languages_tool(self):
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('en')
 
     def test_component_is_registered(self):
         context = object()
@@ -101,6 +106,7 @@ class TestDefaultBookLayout(MockTestCase):
         self.assertEqual(layout.get_book(), None)
 
     def test_get_render_arguments(self):
+        self._mock_portal_languages_tool()
         book = self._mock_book()
         self.replay()
 
@@ -117,10 +123,25 @@ class TestDefaultBookLayout(MockTestCase):
              'authoraddress': r'Bern\\Switzerland',
              'author': '4teamwork',
              'release': '2.5',
+             'babel': 'english',
              'logo': False,
              'logo_width': 0})
+             
+    def test_get_render_arguments_babel(self):
+        book = self._mock_book()
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('de')
+
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), object())
+
+        self.assertEqual(layout.get_render_arguments()['babel'], 'ngerman')
 
     def test_rendering_works(self):
+        self._mock_portal_languages_tool()
         book = self._mock_book()
         builder = self.mocker.mock()
 
@@ -146,6 +167,7 @@ class TestDefaultBookLayout(MockTestCase):
         self.assertIn(r'\authoraddress{Bern\\Switzerland}', latex)
 
     def test_disabled_metadata(self):
+        self._mock_portal_languages_tool()
         book = self._mock_book({
                 'release': '',
                 'author': '',
@@ -168,10 +190,10 @@ class TestDefaultBookLayout(MockTestCase):
         self.assertNotIn(r'\authoraddress', latex)
 
     def test_logo_with_width(self):
+        self._mock_portal_languages_tool()
         book = self._mock_book({
                 'titlepage_logo': 'my-image',
                 'titlepage_logo_width': 55})
-
         builder = self.mocker.mock()
 
         self.expect(builder.add_file('titlepage_logo.jpg', data='my-image'))
@@ -193,10 +215,10 @@ class TestDefaultBookLayout(MockTestCase):
             latex)
 
     def test_logo_without_width(self):
+        self._mock_portal_languages_tool()
         book = self._mock_book({
                 'titlepage_logo': 'my-image',
                 'titlepage_logo_width': 0})
-
         builder = self.mocker.mock()
 
         self.expect(builder.add_file('titlepage_logo.jpg', data='my-image'))
