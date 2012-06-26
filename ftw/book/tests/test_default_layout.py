@@ -125,6 +125,19 @@ class TestDefaultBookLayout(MockTestCase):
              'babel': 'english',
              'logo': False,
              'logo_width': 0})
+             
+    def test_get_render_arguments_babel(self):
+        book = self._mock_book()
+
+        language_tool = self.mocker.mock()
+        self.mock_tool(language_tool, 'portal_languages')
+        self.expect(language_tool.getPreferredLanguage()).result('de')
+
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), object())
+
+        self.assertEqual(layout.get_render_arguments()['babel'], 'ngerman')
 
     def test_rendering_works(self):
         book = self._mock_book()
