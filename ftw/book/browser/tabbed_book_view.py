@@ -36,7 +36,7 @@ class BooksTab(Tab):
          'column_title': _(u'column_title', default=u'Title'),
          'sort_index': 'sortable_title',
          'transform': helper.linked},
-         {'column': 'Creator',
-          'column_title': _(u'column_creator', default=u'Creator'),
-          'sort_index': 'sortable_creator',
-          'transform': helper.readable_author}, )
+        {'column': 'Creator',
+         'column_title': _(u'column_creator', default=u'Creator'),
+         'sort_index': 'sortable_creator',
+         'transform': helper.readable_author}, )
