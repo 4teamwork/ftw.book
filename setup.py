@@ -18,7 +18,9 @@ tests_require = [
 extras_require = {
     'tests': tests_require,
     'tabbeview': [
-        'ftw.tabbedview']}
+        'ftw.tabbedview'],
+    'linguaplone': [
+        'Products.LinguaPlone']}
 
 setup(name='ftw.book',
       version=version,
