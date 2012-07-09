@@ -2,7 +2,11 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content import folder
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.content.schemata import NextPreviousAwareSchema
-from Products.Archetypes import atapi
+try:
+    from Products.LinguaPlone import public as atapi
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes import atapi
 from ftw.book import _
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IBook

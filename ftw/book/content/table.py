@@ -1,7 +1,11 @@
 from Products import DataGridField
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from Products.ATContentTypes.content.document import ATDocumentBase
-from Products.Archetypes import atapi
+try:
+    from Products.LinguaPlone import public as atapi
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes import atapi
 from Products.Archetypes.public import DisplayList
 from ftw.book import _
 from ftw.book.config import PROJECTNAME

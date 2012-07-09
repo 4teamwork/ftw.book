@@ -1,7 +1,11 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.document import ATDocumentBase
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
-from Products.Archetypes import atapi
+try:
+    from Products.LinguaPlone import public as atapi
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes import atapi
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IRemark
 from simplelayout.base.interfaces import ISimpleLayoutBlock
