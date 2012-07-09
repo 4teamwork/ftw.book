@@ -7,18 +7,28 @@ maintainer = 'Jonas Baumann'
 
 
 tests_require = [
-    'zope.testing',
+    'Products.GenericSetup',
+    'ftw.testing',
+    'mocker',
     'plone.app.testing',
     'plone.mocktestcase',
     'plone.portlets',
-    'ftw.testing',
+    'plone.testing',
     'pyquery',
+    'unittest2',
+    'z3c.autoinclude',
+    'zope.app.component',
+    'zope.browser',
+    'zope.configuration',
+    'zope.i18n',
+    'zope.traversing',
     ]
 
 extras_require = {
     'tests': tests_require,
     'tabbeview': [
-        'ftw.tabbedview'],
+        'ftw.tabbedview',
+        'ftw.table'],
     'linguaplone': [
         'Products.LinguaPlone']}
 
@@ -52,13 +62,31 @@ setup(name='ftw.book',
 
       install_requires=[
         'setuptools',
-        'simplelayout.types.common',
-        'simplelayout.base',
-        'archetypes.schemaextender',
-        'plone.portlets',
-        'ftw.pdfgenerator',
+        'AccessControl',
+        'Acquisition',
         'BeautifulSoup!=4.0b',
+        'Products.ATContentTypes',
+        'Products.Archetypes',
+        'Products.CMFCore',
+        'Products.CMFPlone',
         'Products.DataGridField',
+        'Products.statusmessages',
+        'Zope2',
+        'archetypes.schemaextender',
+        'ftw.pdfgenerator',
+        'plone.app.contentmenu',
+        'plone.app.layout',
+        'plone.app.portlets',
+        'plone.portlets',
+        'simplelayout.base',
+        'simplelayout.types.common',
+        'zope.component',
+        'zope.dottedname',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.publisher',
+        'zope.schema',
+        'zope.viewlet',
         ],
 
       tests_require=tests_require,
