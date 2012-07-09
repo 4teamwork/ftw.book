@@ -1,5 +1,9 @@
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import registerType
+try:
+    from Products.LinguaPlone.public import registerType
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes.atapi import registerType
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IChapter
 from simplelayout.base.interfaces import ISimpleLayoutBlock

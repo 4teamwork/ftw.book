@@ -5,7 +5,9 @@ Changelog
 2.2.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix issue with LinguaPlone: Imports from Products.LinguaPlone instead of
+  Products.Archetypes.
+  [treinhard]
 
 
 2.2.6 (2012-06-26)
