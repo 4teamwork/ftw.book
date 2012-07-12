@@ -5,6 +5,9 @@ Changelog
 2.2.7 (unreleased)
 ------------------
 
+- Chapter: define schema explicitly.
+  [jone]
+
 - Fix issue with LinguaPlone: Imports from Products.LinguaPlone instead of
   Products.Archetypes.
   [treinhard]
@@ -13,7 +16,7 @@ Changelog
 2.2.6 (2012-06-26)
 ------------------
 
-- Support for LinguaPlone. 
+- Support for LinguaPlone.
   [treinhard]
 
 

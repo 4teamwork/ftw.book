@@ -16,5 +16,7 @@ class Chapter(Page):
     implements(IChapter, ISimpleLayoutCapable, ISimpleLayoutBlock)
     security = ClassSecurityInfo()
 
+    schema = Page.schema.copy()
+
 
 registerType(Chapter, PROJECTNAME)
