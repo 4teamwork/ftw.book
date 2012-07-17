@@ -7,7 +7,9 @@ from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
 from simplelayout.base.interfaces import IBlockConfig
 from simplelayout.types.common.interfaces import IParagraph
+from zope.app.component.hooks import setSite
 from zope.component import getMultiAdapter
+from zope.component import getSiteManager
 from zope.interface import alsoProvides
 
 
@@ -32,8 +34,14 @@ class TestParagraphLaTeXView(MockTestCase):
 
         return context, request, layout
 
-    def create_image_mocks(self, image_layout, caption, uid):
+    def create_image_mocks(self, image_layout, caption, uid,
+                           floated=True):
         context, request, layout = self.get_mocks()
+
+        self.site = self.create_dummy(
+            REQUEST=request,
+            getSiteManager=getSiteManager)
+        setSite(self.site)
 
         image = self.create_dummy(get_size=lambda: 11, data='hello world')
         builder = self.mocker.mock()
@@ -42,7 +50,8 @@ class TestParagraphLaTeXView(MockTestCase):
         self.expect(builder.add_file('%s_image.jpg' % uid, image.data))
 
         self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
+        if floated:
+            self.expect(layout.use_package('wrapfig'))
 
         self.expect(context.getImage()).result(image).count(1, None)
         self.expect(context.image_layout).result(image_layout)
@@ -151,3 +160,26 @@ class TestParagraphLaTeXView(MockTestCase):
             latex,
             '{\\bf the} {\\bf heading} {\\bf tags} {\\bf will} ' + \
                 '{\\bf be} {\\bf bold}.\n')
+
+    def test_full_latex_rendering(self):
+        """Using "full" layout should not make a floatable image
+        (wrapfigure), even there is also text in the block.
+        """
+        paragraph, request, layout = self.create_image_mocks(
+            'full', 'THE image', '123', floated=False)
+
+        self.expect(paragraph.getShowTitle()).result(False)
+        self.expect(paragraph.getText()).result(
+            'Text')
+
+        book = self.providing_stub([IBook])
+        self.set_parent(paragraph, book)
+
+        self.replay()
+
+        view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
+        latex = view.render()
+
+        self.assertNotIn(r'\end{wrapfigure}', latex)
+        self.assertIn(r'Text', latex)
+        self.assertIn(r'\includegraphics', latex)

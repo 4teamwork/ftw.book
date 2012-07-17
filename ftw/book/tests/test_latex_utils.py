@@ -251,6 +251,29 @@ class TestImageLaTeXGenerator(MockTestCase):
             latex,
             r'\includegraphics[width=\textwidth]{XUID_image}')
 
+    def test_fullwidth_does_not_float(self):
+        """Using a floating area (wrapfigure) with a 100% width causes the
+        following text to be floated over the image.
+        Since in this case floating is not possible (the image takes 100%)
+        it should switch to non-floating even when called with
+        ``floatable=True``.
+        """
+
+        layout = self.mock_interface(ILaTeXLayout)
+        self.expect(layout.use_package('graphicx'))
+        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.get_converter().convert('My Image')).result(
+            'MY IMAGE')
+        self.replay()
+
+        generator = ImageLaTeXGenerator(self.context, layout)
+        latex = generator(self.image, 'full', floatable=True,
+                          caption='My Image')
+
+        self.assertEqual(latex, '\n'.join((
+                    r'\includegraphics[width=\textwidth]{XUID_image}',
+                    generate_manual_caption('MY IMAGE', 'figure'))))
+
     def test_middle_right_nonfloating(self):
         layout = self.mock_interface(ILaTeXLayout)
         self.expect(layout.use_package('graphicx'))

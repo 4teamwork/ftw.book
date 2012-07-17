@@ -5,6 +5,9 @@ Changelog
 2.2.7 (unreleased)
 ------------------
 
+- Fix floating problem with full width images in paragraph blocks.
+  [jone]
+
 - Chapter: define schema explicitly.
   [jone]
 

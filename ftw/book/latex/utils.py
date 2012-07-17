@@ -130,6 +130,10 @@ class ImageLaTeXGenerator(object):
         caption -- The caption of the image.
         """
 
+        if floatable and width_ratio in (1, ''):
+            # 100% is not really floatable
+            floatable = False
+
         width = r'%s\textwidth' % width_ratio
         latex = self._generate_includegraphics_latex(image, width)
         latex = self._extend_latex_with_caption(latex, caption, floatable)
