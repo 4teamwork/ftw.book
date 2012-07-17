@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.7 (unreleased)
+2.2.7 (2012-07-17)
 ------------------
 
 - Fix floating problem with full width images in paragraph blocks.
