@@ -18,5 +18,9 @@ class Chapter(Page):
 
     schema = Page.schema.copy()
 
+    security.declarePublic('canSetDefaultPage')
+    def canSetDefaultPage(self):
+        return False
+
 
 registerType(Chapter, PROJECTNAME)

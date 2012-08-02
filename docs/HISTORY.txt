@@ -5,6 +5,10 @@ Changelog
 2.2.8 (unreleased)
 ------------------
 
+- Disable setting default page for Book and Chapter.
+  Those types are not normal folders and setting the default page is therefore not common.
+  [jone]
+
 - Nothing changed yet.
 
 

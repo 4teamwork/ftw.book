@@ -90,5 +90,9 @@ class Book(folder.ATFolder):
         else:
             return None
 
+    security.declarePublic('canSetDefaultPage')
+    def canSetDefaultPage(self):
+        return False
+
 
 atapi.registerType(Book, PROJECTNAME)
