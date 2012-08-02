@@ -16,7 +16,7 @@ msgid "Read Book"
 msgstr "Lesen"
 
 msgid "book_view"
-msgstr "Standard Buch Ansicht"
+msgstr "Inhaltsverzeichnis"
 
 msgid "tabbed_view"
 msgstr "Reiter Ansicht"
