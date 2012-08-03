@@ -5,6 +5,9 @@ Changelog
 2.2.8 (unreleased)
 ------------------
 
+- Fix positioning floating images by inserting a zero-hspace.
+  [jone]
+
 - Update German view translation.
   [jone]
 

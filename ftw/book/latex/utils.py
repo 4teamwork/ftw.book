@@ -203,4 +203,6 @@ class ImageLaTeXGenerator(object):
         return '\n'.join((
                 r'\begin{wrapfigure}{%s}{%s}' % (alignment, width),
                 latex,
-                r'\end{wrapfigure}'))
+                r'\end{wrapfigure}',
+                r'\hspace{0em}%%',
+                ))

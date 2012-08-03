@@ -203,6 +203,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                     r'\begin{wrapfigure}{l}{0.25\textwidth}',
                     r'\includegraphics[width=0.25\textwidth]{XUID_image}',
                     r'\end{wrapfigure}',
+                    r'\hspace{0em}%%'
                     )))
 
     def test_small_left_floating_caption(self):
@@ -223,6 +224,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                     r'\includegraphics[width=0.25\textwidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
+                    r'\hspace{0em}%%'
                     )))
 
     def test_middle_left_nonfloating(self):
@@ -326,6 +328,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                     r'\includegraphics[width=0.5\textwidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
+                    r'\hspace{0em}%%'
                     )))
 
     def test_small_right_nonfloating(self):
@@ -381,6 +384,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                     r'\includegraphics[width=0.56\textwidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
+                    r'\hspace{0em}%%'
                     )))
 
     def test_render_nofloating(self):
