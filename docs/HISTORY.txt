@@ -5,6 +5,8 @@ Changelog
 2.2.8 (unreleased)
 ------------------
 
+- Make documentstab work with document_date.
+
 - Fix positioning floating images by inserting a zero-hspace.
   [jone]
 
