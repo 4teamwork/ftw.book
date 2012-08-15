@@ -42,7 +42,7 @@ table_schema = (ATContentTypeSchema.copy() +
             DataGridField.DataGridField(
                 name='data',
                 schemata='default',
-                searchable=False,
+                searchable=True,
                 required=False,
                 columns=['column_%i' % i for i in
                          range(MAX_AMOUNT_OF_COLUMNS)] + ['row_format'],
