@@ -6,7 +6,9 @@ from ftw.table import helper
 
 class IndexTab(IndexView):
     """Index Tab (for tabbed_view)"""
-    show_searchform = False
+
+    def get_css_classes(self):
+        return ['searchform-hidden']
 
 
 class DocumentsTab(CatalogListingView):

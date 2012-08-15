@@ -5,6 +5,9 @@ Changelog
 2.2.8 (unreleased)
 ------------------
 
+- Disable filter box on "Index" tab.
+  [jone]
+
 - Do not search block types but their parents (chapter), as this
   concept was changed in simplelayout.
   [jone]
