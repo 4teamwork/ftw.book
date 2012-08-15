@@ -10,6 +10,7 @@ from simplelayout.types.common.interfaces import IParagraph
 from zope.app.component.hooks import setSite
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
 
 
@@ -18,8 +19,9 @@ class TestParagraphLaTeXView(MockTestCase):
     layer = LATEX_ZCML_LAYER
 
     def get_mocks(self):
-        request = self.create_dummy()
+        request = self.create_dummy(getPreferredLanguages=lambda: [])
         alsoProvides(request, IWithinBookLayer)
+        alsoProvides(request, IUserPreferredLanguages)
 
         # mock is not yet in replay mode, so we use another layout dummy..
         layout_obj = self.create_dummy(use_package=lambda pkg_name: None)
