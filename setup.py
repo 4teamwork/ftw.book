@@ -59,6 +59,7 @@ setup(name='ftw.book',
         'ftw.pdfgenerator',
         'BeautifulSoup!=4.0b',
         'Products.DataGridField',
+        'ftw.upgrade',
         ],
 
       tests_require=tests_require,
