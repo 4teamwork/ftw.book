@@ -5,7 +5,11 @@ Changelog
 2.2.8 (unreleased)
 ------------------
 
+- switch document_date to switchCase and fix CL
+  [tschanzt]
+
 - Make documentstab work with document_date.
+  [tschanzt]
 
 - Fix positioning floating images by inserting a zero-hspace.
   [jone]
