@@ -5,7 +5,8 @@ Changelog
 2.2.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make documentstab work with document_date.
+  [tschanzt]
 
 
 2.2.8 (2012-08-20)
@@ -27,8 +28,6 @@ Changelog
 - Disable setting default page for Book and Chapter.
   Those types are not normal folders and setting the default page is therefore not common.
   [jone]
-
-- Nothing changed yet.
 
 
 2.2.7 (2012-07-17)

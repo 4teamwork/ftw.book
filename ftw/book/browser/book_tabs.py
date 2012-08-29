@@ -22,7 +22,7 @@ class DocumentsTab(CatalogListingView):
                 'column_title': _(u'column_title', default=u'Title'),
                 'sort_index': 'sortable_title',
                 'transform': helper.linked},
-               {'column': 'effective',
+               {'column': 'documentDate',
                 'column_title': _(u'column_date', default=u'date'),
                 'transform': helper.readable_date},
                {'column': 'Creator',
