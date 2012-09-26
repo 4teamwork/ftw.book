@@ -5,6 +5,9 @@ Changelog
 2.2.9 (unreleased)
 ------------------
 
+- Fix navigation portlet when it is moved.
+  [tschanzt]
+
 - Make documentstab work with document_date.
   [tschanzt]
 
