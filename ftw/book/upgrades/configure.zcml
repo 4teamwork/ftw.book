@@ -20,15 +20,6 @@
         profile="ftw.book:default"
         />
 
-    <genericsetup:upgradeStep
-        title="Set Book portlets."
-        description=""
-        source="2.2"
-        destination="2200"
-        handler="ftw.book.upgrades.to2200.SetBookPortlest"
-        profile="ftw.book:default"
-        />
-
     <genericsetup:registerProfile
         name="2200"
         title="ftw.book.upgrades.2200"
@@ -36,6 +27,17 @@
         directory="profiles/2200"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+
+    <!-- 2200 -> 2201 -->
+    <genericsetup:upgradeStep
+        title="Fix broken navigation portlets of moved books."
+        description=""
+        source="2200"
+        destination="2201"
+        handler="ftw.book.upgrades.to2201.SetBookPortlets"
+        profile="ftw.book:default"
         />
 
 </configure>
