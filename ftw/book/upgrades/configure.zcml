@@ -29,4 +29,15 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+
+    <!-- 2200 -> 2201 -->
+    <genericsetup:upgradeStep
+        title="Fix broken navigation portlets of moved books."
+        description=""
+        source="2200"
+        destination="2201"
+        handler="ftw.book.upgrades.to2201.SetBookPortlets"
+        profile="ftw.book:default"
+        />
+
 </configure>
