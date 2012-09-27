@@ -163,7 +163,7 @@ class TestParagraphLaTeXView(MockTestCase):
             '{\\bf the} {\\bf heading} {\\bf tags} {\\bf will} ' + \
                 '{\\bf be} {\\bf bold}.\n')
 
-    def test_full_latex_rendering(self):
+    def test_full_latex_rendering_not_floatable(self):
         """Using "full" layout should not make a floatable image
         (wrapfigure), even there is also text in the block.
         """
