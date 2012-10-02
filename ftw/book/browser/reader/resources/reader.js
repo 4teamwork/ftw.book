@@ -40,12 +40,15 @@
 
   var update_reader_height = function() {
     $('.book-reader > div').height(0);
+    var content_div_minheight = $('#content').css('min-height');
+    $('#content').css('min-height', '0');
     var $last_element = $('.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last').first();
     $last_element.css('min-height', '0');
     var content_height = $last_element.offset().top + $last_element.height();
     $last_element.css('min-height', null);
     var h = $(window).height() - content_height - 30;
     $('.book-reader > div').height(h);
+    $('#content').css('min-height', content_div_minheight);
   };
 
   var update_viewport = function(direction) {

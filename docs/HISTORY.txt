@@ -5,6 +5,9 @@ Changelog
 2.2.9 (unreleased)
 ------------------
 
+- Reader view: support min-height on #content element.
+  [jone]
+
 - Fix navigation portlet when it is moved.
   [tschanzt]
 
