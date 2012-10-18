@@ -5,6 +5,11 @@ from plone.portlets.interfaces import ILocalPortletAssignmentManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from zope.component import getUtility, getMultiAdapter
+from zope.component.interfaces import ComponentLookupError
+import logging
+
+
+LOG = logging.getLogger('ftw.book')
 
 
 def add_navigation_portlet(object_, event):
@@ -21,7 +26,18 @@ def add_navigation_portlet(object_, event):
 def right_slot_portlets(object_):
     """ disable portlet inheritance at rightcolumn
     """
-    manager = getUtility(IPortletManager, name='plone.rightcolumn')
+
+    try:
+        manager = getUtility(IPortletManager, name='plone.rightcolumn')
+
+    except ComponentLookupError:
+        # This happens when the plone site is removed.
+        # In this case persistent utilites are already gone.
+        # Reindexing is not necessary in this situation, since
+        # everything will be gone.
+        LOG.error('eventhandler.left_slot_portlets threw', exc_info=True)
+        return
+
     assignable = getMultiAdapter((object_, manager,),
                                  ILocalPortletAssignmentManager)
     assignable.setBlacklistStatus(CONTEXT_CATEGORY, True)
@@ -31,7 +47,18 @@ def left_slot_portlets(object_):
     """ disable portlet inheritance at leftcolumn and
     add new navigation portlet
     """
-    manager = getUtility(IPortletManager, name='plone.leftcolumn')
+
+    try:
+        manager = getUtility(IPortletManager, name='plone.leftcolumn')
+
+    except ComponentLookupError:
+        # This happens when the plone site is removed.
+        # In this case persistent utilites are already gone.
+        # Reindexing is not necessary in this situation, since
+        # everything will be gone.
+        LOG.error('eventhandler.left_slot_portlets threw', exc_info=True)
+        return
+
     assignable = getMultiAdapter((object_, manager,),
                                  ILocalPortletAssignmentManager)
     assignable.setBlacklistStatus(CONTEXT_CATEGORY, True)
