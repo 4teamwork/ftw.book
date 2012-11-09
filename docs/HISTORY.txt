@@ -5,6 +5,10 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Index page: use navigation type configuration for excluding types, so that it
+  also works with comments.
+  [jone]
+
 - Fix navigation portlet eventhandler so that removing plone site does not break.
   [jone]
 
