@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+2.2.10 (unreleased)
+-------------------
+
+- Index page: use navigation type configuration for excluding types, so that it
+  also works with comments.
+  [jone]
+
 2.2.9 (2012-10-16)
 ------------------
 
