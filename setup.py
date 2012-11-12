@@ -42,7 +42,7 @@ setup(name='ftw.book',
       author='4teamwork GmbH',
       author_email='mailto:info@4teamwork.ch',
       maintainer=maintainer,
-      url='http://github.com/4teamwork/ftw.book',
+      url='https://github.com/4teamwork/ftw.book',
 
       license='GPL2',
       packages=find_packages(exclude=['ez_setup']),
