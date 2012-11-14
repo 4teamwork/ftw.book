@@ -1,8 +1,9 @@
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
+from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.baselayout import BaseLayout
-from plone.mocktestcase import MockTestCase
+from ftw.testing import MockTestCase
 from zope.interface import directlyProvides
 
 
@@ -14,11 +15,24 @@ class TestInjectionAwareConvertObject(MockTestCase):
         super(TestInjectionAwareConvertObject, self).setUp()
 
         context = self.create_dummy()
-        request = self.create_dummy()
-        directlyProvides(request, IWithinBookLayer)
-        builder = self.create_dummy()
+        request = self.providing_stub(IWithinBookLayer)
+        builder = self.providing_stub(IBuilder)
 
         self.layout = BaseLayout(context, request, builder)
+
+    def mock_extender_values(self, mock, **data):
+        default_data = {'preLatexCode': '',
+                        'postLatexCode': ''}
+        default_data.update(data)
+        data = default_data
+
+        schema = self.stub()
+        self.expect(mock.Schema()).result(schema).count(0, None)
+
+        for fieldname, value in data.items():
+            self.expect(schema.getField(fieldname).get(mock)).result(value)
+
+        return schema
 
     def test_not_injected_without_interface(self):
         obj = self.mocker.mock()
@@ -32,16 +46,10 @@ class TestInjectionAwareConvertObject(MockTestCase):
         latex_pre_code = 'INJECTED PRE LATEX CODE'
         latex_post_code = 'INJECTED POST LATEX CODE'
 
-        obj_dummy = self.create_dummy()
-        directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
-        obj = self.mocker.proxy(obj_dummy, spec=None)
-        schema = self.mocker.mock()
-        self.expect(obj.Schema()).result(schema).count(2)
+        obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
 
-        self.expect(schema.getField('preLatexCode').get(obj)).result(
-            latex_pre_code)
-        self.expect(schema.getField('postLatexCode').get(obj)).result(
-            latex_post_code)
+        self.mock_extender_values(obj, preLatexCode=latex_pre_code,
+                                  postLatexCode=latex_post_code)
 
         self.expect(obj.getPhysicalPath()).result(
             ['', 'myobj']).count(3)  # 3 = pre + post + assertion below
@@ -59,14 +67,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         obj_dummy = self.create_dummy()
         directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
         obj = self.mocker.proxy(obj_dummy, spec=None)
-        schema = self.mocker.mock()
-        self.expect(obj.Schema()).result(schema).count(2)
-
-        # pre latex: field not found
-        self.expect(schema.getField('preLatexCode')).result(None)
-
-        # post latex: field value is empty
-        self.expect(schema.getField('postLatexCode').get(obj)).result('')
+        self.mock_extender_values(obj, preLatexCode=None)
 
         self.replay()
         latex = self.layout.render_latex_for(obj)
