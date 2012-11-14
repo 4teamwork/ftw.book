@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Add LaTeX two column support by adding a "preferred layout" field (admin only).
+  [jone]
+
 - Index page: use navigation type configuration for excluding types, so that it
   also works with comments.
   [jone]

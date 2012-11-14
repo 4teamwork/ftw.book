@@ -64,6 +64,11 @@
         />
 
     <adapter
+        factory="ftw.book.latex.latexinjection.LaTeXInjectionController"
+        provides="ftw.book.interfaces.ILaTeXInjectionController"
+        />
+
+    <adapter
         factory="ftw.book.latex.latexinjection.PreInjectionLaTeXView"
         provides="ftw.pdfgenerator.interfaces.ILaTeXView"
         name="pre-hook"
