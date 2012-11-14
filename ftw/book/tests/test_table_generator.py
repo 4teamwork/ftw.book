@@ -60,6 +60,7 @@ class TestTableGenerator(MockTestCase):
     layer = LATEX_ZCML_LAYER
 
     def setUp(self):
+        super(TestTableGenerator, self).setUp()
 
         self.column_properties = ({
           'active': '1',

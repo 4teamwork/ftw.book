@@ -11,6 +11,7 @@ from zope.traversing.interfaces import ITraversable
 class TestPortletRenderer(MockTestCase):
 
     def setUp(self):
+        super(TestPortletRenderer, self).setUp()
         # Page templates use the traversing mechainsm for accessing
         # attributes on objects, so we need to register the default
         # traversable adapter.

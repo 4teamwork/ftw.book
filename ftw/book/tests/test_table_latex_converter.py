@@ -15,6 +15,7 @@ class TestTableLaTeXView(MockTestCase):
     layer = LATEX_ZCML_LAYER
 
     def setUp(self):
+        super(TestTableLaTeXView, self).setUp()
         layout_obj = self.create_dummy()
         alsoProvides(layout_obj, ILaTeXLayout)
         self.converter = getMultiAdapter((object(), object(), layout_obj),

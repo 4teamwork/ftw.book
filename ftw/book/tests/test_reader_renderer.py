@@ -52,6 +52,7 @@ class TestDefaultBlcokRenderer(MockTestCase):
 class TestBookRenderer(MockTestCase):
 
     def setUp(self):
+        super(TestBookRenderer, self).setUp()
         # Page templates use the traversing mechainsm for accessing
         # attributes on objects, so we need to register the default
         # traversable adapter.
