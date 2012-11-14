@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-11-14 13:20+0000\n"
+"POT-Creation-Date: 2012-11-14 14:06+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -257,10 +257,10 @@ msgstr "Bitte aktivieren Sie die gewünschte Anzahl Spalten unter 'Layout' und S
 msgid "info_table_export"
 msgstr "Die Tabellendaten können als CSV-Datei exportiert werden. Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder verändert wird, ansonsten kann der Import nicht mehr funktionieren."
 
-#. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept. It is not possible to present tables in a two column layout, the layout is automatically switched back when tables are used."
+#. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
 #: ftw/book/latexinjection.py:76
 msgid "injection_help_preferred_column_layout"
-msgstr "Diese Option stellt das Layout auf ein- resp. zweispaltig um. Die Layout-Änderung gilt für diesen und alle darauffolgende Inhalte. Wird die Standard-Option \"Layout übernehmen\" angewählt, so wird keine Layout-Änderung gemacht. Tabellen können im zweispaltigen Modus nicht dargestellt werden und bewirken, dass das Layout auf einspaltig geändert wird."
+msgstr "Diese Option stellt das Layout auf ein- resp. zweispaltig um. Die Layout-Änderung gilt für diesen und alle darauffolgende Inhalte. Wird die Standard-Option \"Layout übernehmen\" angewählt, so wird keine Layout-Änderung gemacht."
 
 #. Default: "No preferred column layout"
 #: ftw/book/latexinjection.py:62

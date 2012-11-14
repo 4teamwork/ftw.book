@@ -79,10 +79,7 @@ class LaTeXCodeInjectionExtender(object):
                     u'layout will switched for this content and all '
                     u'subsequent contents in the PDF, if necessary. '
                     u'If "no preferred layout" is selected the currently '
-                    u'active layout is kept. '
-                    u'It is not possible to present tables in a two column '
-                    u'layout, the layout is automatically switched back '
-                    u'when tables are used.'))))
+                    u'active layout is kept.'))))
 
     def __init__(self, context):
         self.context = context
