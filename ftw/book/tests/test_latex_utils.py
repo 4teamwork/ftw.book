@@ -1,4 +1,3 @@
-from Acquisition import aq_inner, aq_parent
 from StringIO import StringIO
 from ftw.book.interfaces import IBook
 from ftw.book.latex.utils import ImageLaTeXGenerator
@@ -13,65 +12,55 @@ from zope.app.component.hooks import setSite
 from zope.component import getGlobalSiteManager
 from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
-from zope.interface import directlyProvides
 
 
 class TestLatexHeading(MockTestCase):
 
     def test_latex_heading_of_primary_chapter(self):
-        book = self.create_dummy()
-        directlyProvides(book, IBook)
-
         chapter = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter))).result(book)
+        self.set_parent(chapter, self.stub_interface(IBook))
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
 
-        layout = self.mocker.mock()
+        layout = self.stub_interface(ILaTeXLayout)
         self.expect(
             layout.get_converter().convert('My Chapter')).result(
             'My Chapter')
 
-        self.mocker.replay()
+        self.replay()
 
         self.assertEquals(get_latex_heading(chapter, layout),
                           '\\chapter{My Chapter}\n')
 
     def test_latex_heading_of_primary_chapter_without_toc(self):
-        book = self.create_dummy()
-        directlyProvides(book, IBook)
-
         chapter = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter))).result(book)
+        self.set_parent(chapter, self.stub_interface(IBook))
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
 
-        layout = self.mocker.mock()
+        layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('My Chapter')
                     ).result('My Chapter')
 
-        self.mocker.replay()
+        self.replay()
 
         self.assertEquals(get_latex_heading(chapter, layout, toc=False),
                           '\\chapter*{My Chapter}\n')
 
     def test_latex_heading_of_third_level_chapter(self):
-        book = self.create_dummy()
-        directlyProvides(book, IBook)
-
         chapter1 = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter1))).result(book)
+        self.set_parent(chapter1, self.stub_interface(IBook))
 
         chapter2 = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter2))).result(chapter1)
+        self.set_parent(chapter2, chapter1)
 
         chapter3 = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter3))).result(chapter2)
+        self.set_parent(chapter3, chapter2)
         self.expect(chapter3.pretty_title_or_id()).result('Sub chapter')
 
-        layout = self.mocker.mock()
+        layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('Sub chapter')
                     ).result('Sub chapter')
 
-        self.mocker.replay()
+        self.replay()
 
         self.assertEquals(get_latex_heading(chapter3, layout),
                           '\\subsection{Sub chapter}\n')
@@ -89,43 +78,29 @@ class TestLatexHeading(MockTestCase):
 
         self.expect(obj.pretty_title_or_id()).result('the title')
 
-        layout = self.mocker.mock()
+        layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('the title')
                     ).result('the title')
 
-        self.mocker.replay()
+        self.replay()
 
         # subparagraph is the "smallest" heading..
         self.assertEquals(get_latex_heading(obj, layout),
                           '\\subparagraph{the title}\n')
 
     def test_not_within_book(self):
-        platform = self.create_dummy()
-        directlyProvides(platform, INavigationRoot)
-
         chapter = self.mocker.mock()
-        self.expect(aq_parent(aq_inner(chapter))).result(platform)
+        self.set_parent(chapter, self.stub_interface(INavigationRoot))
         self.expect(chapter.pretty_title_or_id()).result('Any chapter')
 
-        layout = self.mocker.mock()
+        layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('Any chapter')
                     ).result('Any chapter')
 
-        self.mocker.replay()
+        self.replay()
 
         self.assertEquals(get_latex_heading(chapter, layout),
                           '\\section{Any chapter}\n')
-
-    def test_get_raw_image_data(self):
-        already_raw = 'Image data'
-        self.assertEquals(get_raw_image_data(already_raw),
-                          already_raw)
-
-        image = self.create_dummy(data=StringIO('stream data'))
-        self.assertEquals(get_raw_image_data(image), 'stream data')
-
-        image2 = self.create_dummy(data='direct data')
-        self.assertEquals(get_raw_image_data(image2), 'direct data')
 
 
 class TestImageLaTeXGenerator(MockTestCase):
@@ -401,3 +376,17 @@ class TestImageLaTeXGenerator(MockTestCase):
                     r'\includegraphics[width=0.56\textwidth]{XUID_image}',
                     r'\end{center}',
                     )))
+
+
+class TestGetRawImageData(MockTestCase):
+
+    def test_get_raw_image_data(self):
+        already_raw = 'Image data'
+        self.assertEquals(get_raw_image_data(already_raw),
+                          already_raw)
+
+        image = self.create_dummy(data=StringIO('stream data'))
+        self.assertEquals(get_raw_image_data(image), 'stream data')
+
+        image2 = self.create_dummy(data='direct data')
+        self.assertEquals(get_raw_image_data(image2), 'direct data')
