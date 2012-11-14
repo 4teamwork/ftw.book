@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "POT-Creation-Date: 2012-11-14 13:20+0000\n"
-"PO-Revision-Date: 2012-03-07 14:30+0100\n"
+"PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
@@ -280,7 +280,7 @@ msgstr "Layout erzwingen"
 #. Default: "Two column layout"
 #: ftw/book/latexinjection.py:70
 msgid "injection_label_two_column_layout"
-msgstr "Zweispaltig"
+msgstr "Zweispaltiges Layout"
 
 #. Default: "Border Layout"
 #: ftw/book/content/table.py:203
