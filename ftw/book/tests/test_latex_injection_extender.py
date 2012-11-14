@@ -13,8 +13,9 @@ class TestLatexInjectionExtender(MockTestCase):
     def setUp(self):
         portal = self.layer['portal']
 
-        self.folder = portal.get(portal.invokeFactory('Folder',
-                                                      'latex-injection-test'))
+        self.folder = portal.get(portal.invokeFactory(
+                'Folder',
+                'latex-injection-test'))
 
         self.page = self.folder.get(
             self.folder.invokeFactory('Page', 'latex-test-page',
@@ -42,7 +43,8 @@ class TestLatexInjectionExtender(MockTestCase):
         self.assertEquals(self.page.Schema().getField('postLatexCode'), None)
 
     def test_folder_has_no_injected_fields(self):
-        self.assertEquals(self.folder.Schema().getField('preLatexCode'), None)
+        self.assertEquals(self.folder.Schema().getField('preLatexCode'),
+                          None)
         self.assertEquals(
             self.folder.Schema().getField('postLatexCode'), None)
 
@@ -51,7 +53,8 @@ class TestLatexInjectionExtender(MockTestCase):
         # In this case a browser test could be the better way
         alsoProvides(self.book.REQUEST, IWithinBookLayer)
 
-        self.assertNotEqual(self.book.Schema().getField('preLatexCode'), None)
+        self.assertNotEqual(self.book.Schema().getField('preLatexCode'),
+                            None)
         self.assertNotEqual(self.book.Schema().getField('postLatexCode'),
                             None)
         # cleanup
