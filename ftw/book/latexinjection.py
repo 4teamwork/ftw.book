@@ -75,8 +75,9 @@ class LaTeXCodeInjectionExtender(object):
                         default=u'Preferred layout'),
                 description=_(
                     u'injection_help_preferred_column_layout',
-                    default=u'When choosing a one or two column layout the '
-                    u'layout will before this content in the PDF. '
+                    default=u'When choosing a one or two column layout, the '
+                    u'layout will switched for this content and all '
+                    u'subsequent contents in the PDF, if necessary. '
                     u'If "no preferred layout" is selected the currently '
                     u'active layout is kept. '
                     u'It is not possible to present tables in a two column '
