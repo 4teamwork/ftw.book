@@ -1,3 +1,7 @@
+# pylint: disable=E0211, E0213
+# E0211: Method has no argument
+# E0213: Method should have "self" as first argument
+
 from simplelayout.types.common.interfaces import IPage
 from zope.interface import Interface
 
@@ -43,3 +47,39 @@ class ILaTeXCodeInjectionEnabled(Interface):
     """Enables LaTeX code injection for admins on
     book-objects (chapters, SL-paragraphs).
     """
+
+
+class ILaTeXInjectionController(Interface):
+    """This adapter controlls LaTeX injection and providing methods for
+    retrieving the current injection state, such as the current column
+    layout.
+    """
+
+    def __init__(layout, request):
+        """Adapts an ``ILaTeXLayout``. The current state is stored as
+        annotation on the layout.
+        """
+
+    def get_current_layout():
+        """Returns the current layout. This is one of:
+
+        - ``ftw.book.interfaces.NO_PREFERRED_LAYOUT``
+        - ``ftw.book.interfaces.ONECOLUMN_LAYOUT``
+        - ``ftw.book.interfaces.TWOCOLUMN_LAYOUT``
+        """
+
+    def set_layout(layout):
+        """Sets the current layout to one of:
+
+        - ``ftw.book.interfaces.NO_PREFERRED_LAYOUT``
+        - ``ftw.book.interfaces.ONECOLUMN_LAYOUT``
+        - ``ftw.book.interfaces.TWOCOLUMN_LAYOUT``
+
+        Returns the LaTeX code to be embedded for applying the
+        layout changes, if necessary.
+        """
+
+
+NO_PREFERRED_LAYOUT = u''
+ONECOLUMN_LAYOUT = u'onecolumn'
+TWOCOLUMN_LAYOUT = u'twocolumn'
