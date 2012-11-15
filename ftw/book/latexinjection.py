@@ -7,6 +7,7 @@ from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from ftw.book import _
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.interfaces import ModifyLaTeXInjection
 from ftw.book.interfaces import NO_PREFERRED_LAYOUT
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
@@ -39,7 +40,7 @@ class LaTeXCodeInjectionExtender(object):
             schemata='LaTeX',
             default_content_type='application/x-latex',
             allowable_content_types='application/x-latex',
-            write_permission='ftw.book: Modify LaTeX Injection',
+            write_permission=ModifyLaTeXInjection,
 
             widget=atapi.TextAreaWidget(
                 label=_(u'pre_latex_code_label',
@@ -52,7 +53,7 @@ class LaTeXCodeInjectionExtender(object):
             schemata='LaTeX',
             default_content_type='application/x-latex',
             allowable_content_types='application/x-latex',
-            write_permission='ftw.book: Modify LaTeX Injection',
+            write_permission=ModifyLaTeXInjection,
 
             widget=atapi.TextAreaWidget(
                 label=_(u'post_latex_code_label',
@@ -64,7 +65,7 @@ class LaTeXCodeInjectionExtender(object):
             name='preferredColumnLayout',
             schemata='LaTeX',
             default=NO_PREFERRED_LAYOUT,
-            write_permission='ftw.book: Modify LaTeX Injection',
+            write_permission=ModifyLaTeXInjection,
             vocabulary=((NO_PREFERRED_LAYOUT,
                          _('injection_label_no_preferred_column_layout',
                            default='No preferred column layout')),

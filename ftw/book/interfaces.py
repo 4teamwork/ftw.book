@@ -6,6 +6,9 @@ from simplelayout.types.common.interfaces import IPage
 from zope.interface import Interface
 
 
+ModifyLaTeXInjection = "ftw.book: Modify LaTeX Injection"
+
+
 class IBook(Interface):
     """Book marker interface.
     """
