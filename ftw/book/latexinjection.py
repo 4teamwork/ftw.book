@@ -89,6 +89,26 @@ class LaTeXCodeInjectionExtender(object):
                     u'If "no preferred layout" is selected the currently '
                     u'active layout is kept.'))))
 
+    fields.append(ExtensionBooleanField(
+            name='preLatexClearpage',
+            schemata='LaTeX',
+            default=False,
+            write_permission=ModifyLaTeXInjection,
+
+            widget=atapi.BooleanWidget(
+                label=_(u'injection_label_insert_clearpage_before_content',
+                        default=u'Insert page break before this content'))))
+
+    fields.append(ExtensionBooleanField(
+            name='postLatexClearpage',
+            schemata='LaTeX',
+            default=False,
+            write_permission=ModifyLaTeXInjection,
+
+            widget=atapi.BooleanWidget(
+                label=_(u'injection_label_insert_clearpage_after_content',
+                        default=u'Insert page break after this content'))))
+
     hide_from_toc_field = ExtensionBooleanField(
         name='hideFromTOC',
         default=False,

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-15 10:17+0000\n"
+"POT-Creation-Date: 2012-11-15 10:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,37 +256,47 @@ msgid "info_table_export"
 msgstr ""
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ftw/book/latexinjection.py:99
+#: ftw/book/latexinjection.py:120
 msgid "injection_help_hide_from_toc"
 msgstr ""
 
 #. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
-#: ftw/book/latexinjection.py:83
+#: ftw/book/latexinjection.py:84
 msgid "injection_help_preferred_column_layout"
 msgstr ""
 
 #. Default: "Hide from table of contents"
-#: ftw/book/latexinjection.py:97
+#: ftw/book/latexinjection.py:118
 msgid "injection_label_hide_from_toc"
 msgstr ""
 
+#. Default: "Insert page break after this content"
+#: ftw/book/latexinjection.py:109
+msgid "injection_label_insert_clearpage_after_content"
+msgstr ""
+
+#. Default: "Insert page break before this content"
+#: ftw/book/latexinjection.py:99
+msgid "injection_label_insert_clearpage_before_content"
+msgstr ""
+
 #. Default: "No preferred column layout"
-#: ftw/book/latexinjection.py:69
+#: ftw/book/latexinjection.py:70
 msgid "injection_label_no_preferred_column_layout"
 msgstr ""
 
 #. Default: "One column layout"
-#: ftw/book/latexinjection.py:73
+#: ftw/book/latexinjection.py:74
 msgid "injection_label_one_column_layout"
 msgstr ""
 
 #. Default: "Preferred layout"
-#: ftw/book/latexinjection.py:81
+#: ftw/book/latexinjection.py:82
 msgid "injection_label_preferred_column_layout"
 msgstr ""
 
 #. Default: "Two column layout"
-#: ftw/book/latexinjection.py:77
+#: ftw/book/latexinjection.py:78
 msgid "injection_label_two_column_layout"
 msgstr ""
 
@@ -378,21 +388,21 @@ msgstr ""
 msgid "no indent"
 msgstr ""
 
-#: ftw/book/latexinjection.py:60
+#: ftw/book/latexinjection.py:61
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
-#: ftw/book/latexinjection.py:58
+#: ftw/book/latexinjection.py:59
 msgid "post_latex_code_label"
 msgstr ""
 
-#: ftw/book/latexinjection.py:47
+#: ftw/book/latexinjection.py:48
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
-#: ftw/book/latexinjection.py:45
+#: ftw/book/latexinjection.py:46
 msgid "pre_latex_code_label"
 msgstr ""
 

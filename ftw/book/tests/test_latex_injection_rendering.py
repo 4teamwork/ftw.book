@@ -30,7 +30,9 @@ class TestInjectionAwareConvertObject(MockTestCase):
     def mock_extender_values(self, mock, **data):
         default_data = {'preLatexCode': '',
                         'postLatexCode': '',
-                        'preferredColumnLayout': NO_PREFERRED_LAYOUT}
+                        'preferredColumnLayout': NO_PREFERRED_LAYOUT,
+                        'preLatexClearpage': False,
+                        'postLatexClearpage': False}
         default_data.update(data)
         data = default_data
 
@@ -116,6 +118,30 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.assertIn(r'\onecolumn', latex_obj1b)
         self.assertNotIn('column', latex_obj1c)
         self.assertIn(r'\twocolumn', latex_obj2)
+
+    def test_pre_latex_clearpage_injected(self):
+        normal_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(normal_obj)
+
+        pre_clearpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(pre_clearpage_obj, preLatexClearpage=True)
+
+        post_clearpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(post_clearpage_obj, postLatexClearpage=True)
+
+        for obj in [normal_obj, pre_clearpage_obj, post_clearpage_obj]:
+            self.expect(obj.getPhysicalPath()).result(['', 'myobj'])
+
+        self.replay()
+
+        self.assertNotIn('\clearpage',
+                         self.layout.render_latex_for(normal_obj))
+
+        self.assertIn('\clearpage',
+                         self.layout.render_latex_for(pre_clearpage_obj))
+
+        self.assertIn('\clearpage',
+                         self.layout.render_latex_for(post_clearpage_obj))
 
 
 class TestLaTeXInjectionController(MockTestCase):

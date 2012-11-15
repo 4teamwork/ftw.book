@@ -60,13 +60,7 @@ class LaTeXInjectionController(object):
 class InjectionLaTeXViewBase(MakoLaTeXView):
 
     def get_rendered_latex_for(self, fieldname):
-        field = self.context.Schema().getField(fieldname)
-
-        # in some cases the field can not be retrieved.
-        if not field:
-            return ''
-
-        code = field.get(self.context)
+        code = self.get_field_value(fieldname)
         if not code:
             return ''
 
@@ -81,6 +75,16 @@ class InjectionLaTeXViewBase(MakoLaTeXView):
 
         return '\n'.join(latex)
 
+    def get_field_value(self, fieldname):
+        """Returns the value of the field ``fieldname`` or ``None``.
+        """
+        field = self.context.Schema().getField(fieldname)
+        if field is None:
+            return None
+
+        else:
+            return field.get(self.context)
+
 
 class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     """Mixes in the preLatexCode for every object providing
@@ -90,18 +94,22 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
 
     def render(self):
-        return '\n'.join((
-                self._render_preferred_layout(),
-                self.get_rendered_latex_for('preLatexCode'))).strip()
+        latex = []
+
+        if self.get_field_value('preLatexClearpage'):
+            latex.append(r'\clearpage')
+
+        latex.append(self._render_preferred_layout())
+        latex.append(self.get_rendered_latex_for('preLatexCode'))
+
+        return '\n'.join(latex).strip()
 
     def _get_controller(self):
         return getMultiAdapter((self.layout, self.request),
                                ILaTeXInjectionController)
 
     def _render_preferred_layout(self):
-        field = self.context.Schema().getField('preferredColumnLayout')
-        preferred_layout = field.get(self.context)
-
+        preferred_layout = self.get_field_value('preferredColumnLayout')
         controller = self._get_controller()
         return controller.set_layout(preferred_layout)
 
@@ -114,4 +122,11 @@ class PostInjectionLaTeXView(InjectionLaTeXViewBase):
     adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
 
     def render(self):
-        return self.get_rendered_latex_for('postLatexCode')
+        latex = []
+
+        if self.get_field_value('postLatexClearpage'):
+            latex.append(r'\clearpage')
+
+        latex.append(self.get_rendered_latex_for('postLatexCode'))
+
+        return '\n'.join(latex).strip()
