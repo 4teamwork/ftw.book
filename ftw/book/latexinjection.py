@@ -5,6 +5,7 @@ from Products.Archetypes.public import TextField
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from ftw.book import _
+from ftw.book.interfaces import IChapter
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import ModifyLaTeXInjection
@@ -12,9 +13,9 @@ from ftw.book.interfaces import NO_PREFERRED_LAYOUT
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
 from simplelayout.base.interfaces import ISimpleLayoutBlock
-from simplelayout.base.interfaces import ISimpleLayoutCapable
 from zope.component import adapts
 from zope.interface import implements
+import sys
 
 
 class LaTeXCodeField(ExtensionField, TextField):
@@ -29,13 +30,37 @@ class ExtensionBooleanField(ExtensionField, BooleanField):
     pass
 
 
+def add_field(field, condition=None, interfaces=None, insert_after=None):
+    """Add a field under certain conditions.
+
+    Arguments:
+
+    field -- The schema extender field (subclassing ExtensionField)
+
+    condition -- A function - called with context as argument - for deciding
+    whether to inject the field or not.
+
+    interfaces -- A list of interfaces from which at least one has to be
+    provided by the context for the field to be applied.
+
+    insert_after -- A string fieldname, after which this field is
+    positioned, if both fields are in the same schemata.
+    """
+
+    cls = sys._getframe(1).f_locals
+    cls['_fields'].append({'field': field,
+                           'condition': condition,
+                           'interfaces': interfaces,
+                           'insert_after': insert_after})
+
+
 class LaTeXCodeInjectionExtender(object):
     adapts(ILaTeXCodeInjectionEnabled)
     implements(IOrderableSchemaExtender)
 
-    fields = []
+    _fields = []
 
-    fields.append(LaTeXCodeField(
+    add_field(LaTeXCodeField(
             name='preLatexCode',
             schemata='LaTeX',
             default_content_type='application/x-latex',
@@ -48,7 +73,7 @@ class LaTeXCodeInjectionExtender(object):
                 description=_(u'pre_latex_code_help',
                               default=u''))))
 
-    fields.append(LaTeXCodeField(
+    add_field(LaTeXCodeField(
             name='postLatexCode',
             schemata='LaTeX',
             default_content_type='application/x-latex',
@@ -61,7 +86,7 @@ class LaTeXCodeInjectionExtender(object):
                 description=_(u'post_latex_code_help',
                               default=u''))))
 
-    fields.append(ExtensionStringField(
+    add_field(ExtensionStringField(
             name='preferredColumnLayout',
             schemata='LaTeX',
             default=NO_PREFERRED_LAYOUT,
@@ -89,7 +114,9 @@ class LaTeXCodeInjectionExtender(object):
                     u'If "no preferred layout" is selected the currently '
                     u'active layout is kept.'))))
 
-    fields.append(ExtensionBooleanField(
+    add_field(
+        interfaces=[IChapter, ISimpleLayoutBlock],
+        field=ExtensionBooleanField(
             name='preLatexClearpage',
             schemata='LaTeX',
             default=False,
@@ -99,7 +126,9 @@ class LaTeXCodeInjectionExtender(object):
                 label=_(u'injection_label_insert_clearpage_before_content',
                         default=u'Insert page break before this content'))))
 
-    fields.append(ExtensionBooleanField(
+    add_field(
+        interfaces=[IChapter, ISimpleLayoutBlock],
+        field=ExtensionBooleanField(
             name='postLatexClearpage',
             schemata='LaTeX',
             default=False,
@@ -109,19 +138,21 @@ class LaTeXCodeInjectionExtender(object):
                 label=_(u'injection_label_insert_clearpage_after_content',
                         default=u'Insert page break after this content'))))
 
-    hide_from_toc_field = ExtensionBooleanField(
-        name='hideFromTOC',
-        default=False,
-        required=False,
+    add_field(
+        # hideFromTOC is only useful when we have a showTitle checkbox too
+        condition=lambda context: context.schema.get('showTitle'),
+        insert_after='showTitle',
+        field=ExtensionBooleanField(
+            name='hideFromTOC',
+            default=False,
+            required=False,
 
-        widget=atapi.BooleanWidget(
-            label=_(u'injection_label_hide_from_toc',
-                    default=u'Hide from table of contents'),
-            description=_(u'injection_help_hide_from_toc',
-                          default=u'Hides the title from the table of '
-                          u'contents and does not number the heading.')))
-
-    block_fields = []
+            widget=atapi.BooleanWidget(
+                label=_(u'injection_label_hide_from_toc',
+                        default=u'Hide from table of contents'),
+                description=_(u'injection_help_hide_from_toc',
+                              default=u'Hides the title from the table of '
+                              u'contents and does not number the heading.'))))
 
     def __init__(self, context):
         self.context = context
@@ -130,37 +161,42 @@ class LaTeXCodeInjectionExtender(object):
         if not self._context_is_within_book():
             return []
 
-        fields = self.fields[:]
+        fields = []
 
-        if self._is_block():
-            fields.extend(self.block_fields)
+        for item in self._fields:
+            condition = item.get('condition')
+            if condition and not condition(self.context):
+                continue
 
-            if self.context.schema.get('showTitle'):
-                fields.append(self.hide_from_toc_field)
+            interfaces = item.get('interfaces')
+            if interfaces:
+                provided = [iface for iface in interfaces
+                            if iface.providedBy(self.context)]
+                if len(provided) == 0:
+                    continue
+
+            fields.append(item.get('field'))
 
         return fields
 
     def getOrder(self, schematas):
-        if 'default' in schematas:
-            default = schematas['default']
-            if 'hideFromTOC' in default and 'showTitle' in default:
-                # insert hideFromTOC after showTitle
-                default.remove('hideFromTOC')
-                default.insert(default.index('showTitle') + 1, 'hideFromTOC')
+        for item in self._fields:
+            insert_after = item.get('insert_after')
+            if not insert_after:
+                continue
+
+            field = item.get('field')
+            if field.schemata not in schematas:
+                continue
+
+            schemata = schematas[field.schemata]
+            if insert_after not in schemata or field.__name__ not in schemata:
+                continue
+
+            schemata.remove(field.__name__)
+            schemata.insert(schemata.index(insert_after) + 1, field.__name__)
 
         return schematas
-
-    def _is_block(self):
-        if not ISimpleLayoutBlock.providedBy(self.context):
-            return False
-
-        elif ISimpleLayoutCapable.providedBy(self.context):
-            # We have a chapter, which is also a kind of block but in
-            # this case should not match.
-            return False
-
-        else:
-            return True
 
     def _context_is_within_book(self):
 

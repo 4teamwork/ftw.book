@@ -63,8 +63,8 @@ class TestLatexInjectionExtender(MockTestCase):
             self.assertTrue(schema.getField('preLatexCode'))
             self.assertTrue(schema.getField('postLatexCode'))
             self.assertTrue(schema.getField('preferredColumnLayout'))
-            self.assertTrue(schema.getField('preLatexClearpage'))
-            self.assertTrue(schema.getField('postLatexClearpage'))
+            self.assertFalse(schema.getField('preLatexClearpage'))
+            self.assertFalse(schema.getField('postLatexClearpage'))
 
             # block-only fields
             self.assertFalse(schema.getField('hideFromTOC'))
