@@ -47,6 +47,34 @@ class LaTeXInjectionController(object):
         else:
             return ''
 
+    def is_landscape(self):
+        return self._get_storage().get('landscape_enabled', False)
+
+    def set_landscape(self, obj, enabled):
+        if not enabled or self.is_landscape():
+            return r''
+
+        self.layout.use_package('lscape')
+
+        storage = self._get_storage()
+        storage['landscape_enabled'] = True
+        storage['landscape_closing_object'] = obj
+
+        return r'\begin{landscape}'
+
+    def close_landscape(self, obj):
+        if not self.is_landscape():
+            return r''
+
+        storage = self._get_storage()
+        if storage.get('landscape_closing_object', None) == obj:
+            storage['landscape_enabled'] = False
+            storage['landscape_closing_object'] = None
+            return r'\end{landscape}'
+
+        else:
+            return r''
+
     def _get_storage(self):
         if self._storage is None:
             ann = IAnnotations(self.layout)
@@ -85,6 +113,10 @@ class InjectionLaTeXViewBase(MakoLaTeXView):
         else:
             return field.get(self.context)
 
+    def get_controller(self):
+        return getMultiAdapter((self.layout, self.request),
+                               ILaTeXInjectionController)
+
 
 class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     """Mixes in the preLatexCode for every object providing
@@ -102,18 +134,20 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
         if self.get_field_value('preLatexNewpage'):
             latex.append(r'\newpage')
 
+        latex.append(self._render_landscape())
         latex.append(self._render_preferred_layout())
         latex.append(self.get_rendered_latex_for('preLatexCode'))
 
         return '\n'.join(latex).strip()
 
-    def _get_controller(self):
-        return getMultiAdapter((self.layout, self.request),
-                               ILaTeXInjectionController)
+    def _render_landscape(self):
+        landscape = self.get_field_value('latexLandscape')
+        controller = self.get_controller()
+        return controller.set_landscape(self.context, landscape)
 
     def _render_preferred_layout(self):
         preferred_layout = self.get_field_value('preferredColumnLayout')
-        controller = self._get_controller()
+        controller = self.get_controller()
         return controller.set_layout(preferred_layout)
 
 
@@ -130,6 +164,11 @@ class PostInjectionLaTeXView(InjectionLaTeXViewBase):
         if self.get_field_value('postLatexClearpage'):
             latex.append(r'\clearpage')
 
+        latex.append(self._render_landscape())
         latex.append(self.get_rendered_latex_for('postLatexCode'))
 
         return '\n'.join(latex).strip()
+
+    def _render_landscape(self):
+        controller = self.get_controller()
+        return controller.close_landscape(self.context)

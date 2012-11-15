@@ -82,6 +82,21 @@ class ILaTeXInjectionController(Interface):
         layout changes, if necessary.
         """
 
+    def is_landscape():
+        """Returns ``True`` if the previous content was rendered in landscape
+        mode.
+        """
+
+    def set_landscape(obj, enabled):
+        """Set the landscape mode for an object and returns LaTeX code to
+        be inserted before the content of the object.
+        """
+
+    def close_landscape(obj):
+        """Returns LaTeX code to be inserted after the contents of the obj,
+        if necessary.
+        """
+
 
 NO_PREFERRED_LAYOUT = u''
 ONECOLUMN_LAYOUT = u'onecolumn'

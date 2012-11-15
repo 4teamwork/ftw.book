@@ -6,12 +6,19 @@ from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IBuilder
+from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.pdfgenerator.layout.baselayout import BaseLayout
 from ftw.testing import MockTestCase
+from zope.component import adapts
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
+from zope.interface import Interface
 from zope.interface import directlyProvides
 from zope.interface.verify import verifyClass
+
+
+class IFoo(Interface):
+    pass
 
 
 class TestInjectionAwareConvertObject(MockTestCase):
@@ -31,6 +38,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         default_data = {'preLatexCode': '',
                         'postLatexCode': '',
                         'preferredColumnLayout': NO_PREFERRED_LAYOUT,
+                        'latexLandscape': False,
                         'preLatexClearpage': False,
                         'postLatexClearpage': False,
                         'preLatexNewpage': False}
@@ -162,6 +170,60 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.assertIn(r'\newpage',
                          self.layout.render_latex_for(pre_newpage_obj))
 
+    def test_landscape_mode(self):
+        obj1 = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(obj1, latexLandscape=False)
+
+        obj2 = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(obj2, latexLandscape=True)
+
+        self.replay()
+
+        latex_obj1 = self.layout.render_latex_for(obj1)
+        latex_obj2 = self.layout.render_latex_for(obj2)
+
+        self.assertNotIn(r'landscape', latex_obj1)
+
+        self.assertIn(r'landscape', latex_obj2)
+        self.assertIn(r'\begin{landscape}', latex_obj2)
+        self.assertIn(r'\end{landscape}', latex_obj2)
+
+    def test_landscape_nested(self):
+        foo = self.providing_stub([ILaTeXCodeInjectionEnabled, IFoo])
+        self.mock_extender_values(foo, latexLandscape=True)
+
+        bar = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(bar, latexLandscape=False)
+
+        baz = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(baz, latexLandscape=True)
+
+        class FooLaTeXView(object):
+
+            def __init__(self, context, request, layout):
+                self.layout = layout
+
+            def render(self):
+                latex = []
+                return '\n'.join((
+                        'Bar: %s' % self.layout.render_latex_for(bar).strip(),
+                        'Baz: %s' % self.layout.render_latex_for(baz).strip(),
+                        ))
+
+        self.mock_adapter(FooLaTeXView, ILaTeXView,
+                          (IFoo, Interface, Interface))
+
+        self.replay()
+
+        self.assertEqual(
+            self.layout.render_latex_for(foo),
+
+            '\n'.join((
+                    r'\begin{landscape}',
+                    r'Bar: ',
+                    r'Baz: ',
+                    r'\end{landscape}')))
+
 
 class TestLaTeXInjectionController(MockTestCase):
 
@@ -189,14 +251,14 @@ class TestLaTeXInjectionController(MockTestCase):
                                     ILaTeXInjectionController)
         verifyClass(ILaTeXInjectionController, type(component))
 
-    def test_columns_defaults_to_onecolumn(self):
+    def test_layout_columns_defaults_to_onecolumn(self):
         self.replay()
         controller = getMultiAdapter((self.layout, self.request),
                                      ILaTeXInjectionController)
         self.assertEqual(controller.get_current_layout(),
                          ONECOLUMN_LAYOUT)
 
-    def test_columns_layout_switching_is_persistent(self):
+    def test_layout_columns_layout_switching_is_persistent(self):
         self.replay()
 
         controller = getMultiAdapter((self.layout, self.request),
@@ -211,7 +273,7 @@ class TestLaTeXInjectionController(MockTestCase):
         controller.set_layout(ONECOLUMN_LAYOUT)
         self.assertEqual(controller.get_current_layout(), ONECOLUMN_LAYOUT)
 
-    def test_returns_latex_code(self):
+    def test_layout_returns_latex_code(self):
         self.replay()
 
         controller = getMultiAdapter((self.layout, self.request),
@@ -229,3 +291,56 @@ class TestLaTeXInjectionController(MockTestCase):
                          r'\onecolumn')
         self.assertEqual(controller.set_layout(ONECOLUMN_LAYOUT), '')
         self.assertEqual(controller.set_layout(NO_PREFERRED_LAYOUT), '')
+
+    def test_landscape_disabled_by_default(self):
+        self.replay()
+        controller = getMultiAdapter((self.layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertFalse(controller.is_landscape())
+
+    def test_landscape_switching_is_persistent(self):
+        self.replay()
+
+        controller = getMultiAdapter((self.layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertFalse(controller.is_landscape())
+
+        controller.set_landscape(1, True)
+        self.assertTrue(controller.is_landscape())
+
+        controller = getMultiAdapter((self.layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertTrue(controller.is_landscape())
+
+        controller.close_landscape(1)
+        self.assertFalse(controller.is_landscape())
+
+        controller = getMultiAdapter((self.layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertFalse(controller.is_landscape())
+
+    def test_landscape_setting_returns_latex_code(self):
+        self.replay()
+
+        controller = getMultiAdapter((self.layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertFalse(controller.is_landscape())
+
+        self.assertEqual(controller.set_landscape('a', True),
+                         r'\begin{landscape}')
+
+        self.assertEqual(controller.set_landscape('b', True), r'')
+        self.assertEqual(controller.set_landscape('c', False), r'')
+        self.assertEqual(controller.close_landscape('c'), r'')
+        self.assertEqual(controller.close_landscape('b'), r'')
+        self.assertEqual(controller.close_landscape('a'), r'\end{landscape}')
+
+    def test_landscape_enabling_requires_package(self):
+        layout = self.mocker.proxy(self.layout)
+        self.expect(layout.use_package('lscape'))
+        self.replay()
+
+        controller = getMultiAdapter((layout, self.request),
+                                     ILaTeXInjectionController)
+        self.assertFalse(controller.is_landscape())
+        controller.set_landscape(1, True)

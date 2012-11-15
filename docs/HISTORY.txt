@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Add landscape support (admin only).
+  [jone]
+
 - Add a checkbox to the LaTeX schemata for inserting column breaks.
   [jone]
 

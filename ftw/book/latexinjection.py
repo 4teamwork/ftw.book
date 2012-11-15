@@ -117,6 +117,18 @@ class LaTeXCodeInjectionExtender(object):
     add_field(
         interfaces=[IChapter, ISimpleLayoutBlock],
         field=ExtensionBooleanField(
+            name='latexLandscape',
+            schemata='LaTeX',
+            default=False,
+            write_permission=ModifyLaTeXInjection,
+
+            widget=atapi.BooleanWidget(
+                label=_(u'injection_label_landscape',
+                        default=u'Use landscape'))))
+
+    add_field(
+        interfaces=[IChapter, ISimpleLayoutBlock],
+        field=ExtensionBooleanField(
             name='preLatexClearpage',
             schemata='LaTeX',
             default=False,

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-11-15 13:30+0000\n"
+"POT-Creation-Date: 2012-11-15 14:50+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -123,7 +123,7 @@ msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr "Die Tabelle hat noch keinen Inhalt. Definieren Sie den Inhalt, indem Sie die Tabelle bearbeiten."
 
-#: ftw/book/latexinjection.py:152
+#: ftw/book/latexinjection.py:164
 msgid "This option inserts a column break when two column layout is active."
 msgstr "Dies Option fügt einen Spaltenumbruch vor diesem Inhalt ein, sofern dieser im Zweispaltigen Layout angezeigt wird. Wird der Inhalt davor in der rechten Spalte dargestellt, so wird ein Seitenumbruch eingefügt."
 
@@ -262,7 +262,7 @@ msgid "info_table_export"
 msgstr "Die Tabellendaten können als CSV-Datei exportiert werden. Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder verändert wird, ansonsten kann der Import nicht mehr funktionieren."
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ftw/book/latexinjection.py:167
+#: ftw/book/latexinjection.py:179
 msgid "injection_help_hide_from_toc"
 msgstr "Wenn diese Option aktiviert ist, wird die Überschrift nicht im Inhaltsverzeichnis angezeigt und auch nicht nummeriert. Die Option ist nur relevant wenn \"Titel anzeigen\" aktiviert ist."
 
@@ -272,24 +272,29 @@ msgid "injection_help_preferred_column_layout"
 msgstr "Diese Option stellt das Layout auf ein- resp. zweispaltig um. Die Layout-Änderung gilt für diesen und alle darauffolgende Inhalte. Wird die Standard-Option \"Layout übernehmen\" angewählt, so wird keine Layout-Änderung gemacht."
 
 #. Default: "Hide from table of contents"
-#: ftw/book/latexinjection.py:165
+#: ftw/book/latexinjection.py:177
 msgid "injection_label_hide_from_toc"
 msgstr "Von Inhaltsverzeichnis ausschliessen"
 
 #. Default: "Insert page break after this content"
-#: ftw/book/latexinjection.py:138
+#: ftw/book/latexinjection.py:150
 msgid "injection_label_insert_clearpage_after_content"
 msgstr "Seitenumbruch nach diesem Inhalt einfügen"
 
 #. Default: "Insert page break before this content"
-#: ftw/book/latexinjection.py:126
+#: ftw/book/latexinjection.py:138
 msgid "injection_label_insert_clearpage_before_content"
 msgstr "Seitenumbruch vor diesem Inhalt einfügen"
 
 #. Default: "Insert column break before this content"
-#: ftw/book/latexinjection.py:150
+#: ftw/book/latexinjection.py:162
 msgid "injection_label_insert_newpage_before_content"
 msgstr "Spaltenumbruch vor diesem Inhalt einfügen"
+
+#. Default: "Use landscape"
+#: ftw/book/latexinjection.py:126
+msgid "injection_label_landscape"
+msgstr "Querformat verwenden"
 
 #. Default: "No preferred column layout"
 #: ftw/book/latexinjection.py:95
