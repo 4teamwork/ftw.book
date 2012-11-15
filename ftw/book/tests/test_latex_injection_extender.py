@@ -28,6 +28,9 @@ class TestLatexInjectionExtender(MockTestCase):
         self.chapter = self.book.get(self.book.invokeFactory(
                 'Chapter', 'chapter-one', title='Chapter One'))
 
+        self.paragraph = self.chapter.get(self.chapter.invokeFactory(
+                'Paragraph', 'paragraph-one', title='Paragraph One'))
+
     def tearDown(self):
         portal = self.layer['portal']
         portal.manage_delObjects(['latex-injection-test'])
@@ -54,12 +57,15 @@ class TestLatexInjectionExtender(MockTestCase):
         alsoProvides(self.book.REQUEST, IWithinBookLayer)
 
         try:
-            self.assertNotEqual(
-                self.book.Schema().getField('preLatexCode'), None)
-            self.assertNotEqual(
-                self.book.Schema().getField('postLatexCode'), None)
-            self.assertNotEqual(
-                self.book.Schema().getField('preferredColumnLayout'), None)
+            schema = self.book.Schema()
+
+            # general book fields
+            self.assertTrue(schema.getField('preLatexCode'))
+            self.assertTrue(schema.getField('postLatexCode'))
+            self.assertTrue(schema.getField('preferredColumnLayout'))
+
+            # block-only fields
+            self.assertFalse(schema.getField('hideFromTOC'))
 
         finally:
             # cleanup
@@ -71,13 +77,51 @@ class TestLatexInjectionExtender(MockTestCase):
         alsoProvides(self.chapter.REQUEST, IWithinBookLayer)
 
         try:
-            self.assertNotEqual(
-                self.chapter.Schema().getField('preLatexCode'), None)
-            self.assertNotEqual(
-                self.chapter.Schema().getField('postLatexCode'), None)
-            self.assertNotEqual(
-                self.chapter.Schema().getField('preferredColumnLayout'),
-                None)
+            schema = self.chapter.Schema()
+
+            # general book fields
+            self.assertTrue(schema.getField('preLatexCode'))
+            self.assertTrue(schema.getField('postLatexCode'))
+            self.assertTrue(schema.getField('preferredColumnLayout'))
+
+            # block-only fields
+            self.assertFalse(schema.getField('hideFromTOC'))
+
         finally:
             # cleanup
             noLongerProvides(self.chapter.REQUEST, IWithinBookLayer)
+
+    def test_paragraph_has_injected_fields(self):
+        # Usualy this happend during traversal - check layer.py
+        # In this case a browser test could be the better way
+        alsoProvides(self.paragraph.REQUEST, IWithinBookLayer)
+
+        try:
+            schema = self.paragraph.Schema()
+
+            # general book fields
+            self.assertTrue(schema.getField('preLatexCode'))
+            self.assertTrue(schema.getField('postLatexCode'))
+            self.assertTrue(schema.getField('preferredColumnLayout'))
+
+            # paragraph-only fields
+            self.assertTrue(schema.getField('hideFromTOC'))
+
+        finally:
+            # cleanup
+            noLongerProvides(self.paragraph.REQUEST, IWithinBookLayer)
+
+    def test_paragraph_reordering(self):
+        alsoProvides(self.paragraph.REQUEST, IWithinBookLayer)
+
+        try:
+            schema = self.paragraph.Schema()
+            fieldnames = schema.keys()
+
+            # hideFromTOC should be right after showTitle
+            self.assertEqual(fieldnames[fieldnames.index('showTitle') + 1],
+                             'hideFromTOC')
+
+        finally:
+            # cleanup
+            noLongerProvides(self.paragraph.REQUEST, IWithinBookLayer)

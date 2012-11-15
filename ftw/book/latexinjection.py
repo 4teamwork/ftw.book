@@ -1,14 +1,17 @@
 from Products.Archetypes import atapi
+from Products.Archetypes.public import BooleanField
 from Products.Archetypes.public import StringField
 from Products.Archetypes.public import TextField
 from archetypes.schemaextender.field import ExtensionField
-from archetypes.schemaextender.interfaces import ISchemaExtender
+from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from ftw.book import _
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import NO_PREFERRED_LAYOUT
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
+from simplelayout.base.interfaces import ISimpleLayoutBlock
+from simplelayout.base.interfaces import ISimpleLayoutCapable
 from zope.component import adapts
 from zope.interface import implements
 
@@ -21,9 +24,13 @@ class ExtensionStringField(ExtensionField, StringField):
     pass
 
 
+class ExtensionBooleanField(ExtensionField, BooleanField):
+    pass
+
+
 class LaTeXCodeInjectionExtender(object):
     adapts(ILaTeXCodeInjectionEnabled)
-    implements(ISchemaExtender)
+    implements(IOrderableSchemaExtender)
 
     fields = []
 
@@ -81,6 +88,20 @@ class LaTeXCodeInjectionExtender(object):
                     u'If "no preferred layout" is selected the currently '
                     u'active layout is kept.'))))
 
+    hide_from_toc_field = ExtensionBooleanField(
+        name='hideFromTOC',
+        default=False,
+        required=False,
+
+        widget=atapi.BooleanWidget(
+            label=_(u'injection_label_hide_from_toc',
+                    default=u'Hide from table of contents'),
+            description=_(u'injection_help_hide_from_toc',
+                          default=u'Hides the title from the table of '
+                          u'contents and does not number the heading.')))
+
+    block_fields = []
+
     def __init__(self, context):
         self.context = context
 
@@ -88,7 +109,37 @@ class LaTeXCodeInjectionExtender(object):
         if not self._context_is_within_book():
             return []
 
-        return self.fields
+        fields = self.fields[:]
+
+        if self._is_block():
+            fields.extend(self.block_fields)
+
+            if self.context.schema.get('showTitle'):
+                fields.append(self.hide_from_toc_field)
+
+        return fields
+
+    def getOrder(self, schematas):
+        if 'default' in schematas:
+            default = schematas['default']
+            if 'hideFromTOC' in default and 'showTitle' in default:
+                # insert hideFromTOC after showTitle
+                default.remove('hideFromTOC')
+                default.insert(default.index('showTitle') + 1, 'hideFromTOC')
+
+        return schematas
+
+    def _is_block(self):
+        if not ISimpleLayoutBlock.providedBy(self.context):
+            return False
+
+        elif ISimpleLayoutCapable.providedBy(self.context):
+            # We have a chapter, which is also a kind of block but in
+            # this case should not match.
+            return False
+
+        else:
+            return True
 
     def _context_is_within_book(self):
 

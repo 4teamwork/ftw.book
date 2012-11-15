@@ -62,6 +62,9 @@ class TestHTMLBlockLaTeXView(MockTestCase):
         self.expect(block.pretty_title_or_id()).result(
             'My <b>HTML</b> block')
         self.expect(block.getText()).result('bar <b>foo</b> baz')
+        schema = self.stub()
+        self.expect(block.Schema()).result(schema)
+        self.expect(schema.getField('hideFromTOC').get(block)).result(False)
 
         book = self.providing_stub([IBook])
         self.set_parent(block, book)

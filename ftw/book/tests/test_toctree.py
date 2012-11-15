@@ -1,5 +1,7 @@
 from ftw.testing import MockTestCase
 from ftw.book.browser.toc_tree import BookTocTree
+
+
 class TestTocTree(MockTestCase):
 
     def test_get_toc_tree(self):
@@ -7,6 +9,9 @@ class TestTocTree(MockTestCase):
         chapter_brain = self.create_dummy(portal_type='Chapter')
         paragraph_brain = self.create_dummy(showTitle=False,
                                             portal_type='Paragraph')
+        paragraph2_brain = self.create_dummy(showTitle=True,
+                                             hideFromTOC=True,
+                                             portal_type='Paragraph')
         subchapter_brain = self.create_dummy(portal_type='Chapter')
 
         tree = {
@@ -23,6 +28,13 @@ class TestTocTree(MockTestCase):
                  'children': [
 
                         {'item': paragraph_brain,
+                         'currentParent': False,
+                         'depth': 2,
+                         '_pruneSubtree': True,
+                         'currentItem': False,
+                         'children': []},
+
+                        {'item': paragraph2_brain,
                          'currentParent': False,
                          'depth': 2,
                          '_pruneSubtree': True,
@@ -74,7 +86,7 @@ class TestTocTree(MockTestCase):
         # The original tree should not be modified, so the paragraph
         # should be in the original tree dict.
         self.assertNotEqual(tree, toc_tree)
-        self.assertEqual(len(tree.get('children')[0].get('children')), 2)
+        self.assertEqual(len(tree.get('children')[0].get('children')), 3)
         self.assertEqual(len(toc_tree.get('children')[0].get('children')), 1)
 
         self.assertEqual(

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-14 14:06+0000\n"
+"POT-Creation-Date: 2012-11-15 10:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,28 +255,38 @@ msgstr ""
 msgid "info_table_export"
 msgstr ""
 
+#. Default: "Hides the title from the table of contents and does not number the heading."
+#: ftw/book/latexinjection.py:99
+msgid "injection_help_hide_from_toc"
+msgstr ""
+
 #. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
-#: ftw/book/latexinjection.py:76
+#: ftw/book/latexinjection.py:83
 msgid "injection_help_preferred_column_layout"
 msgstr ""
 
+#. Default: "Hide from table of contents"
+#: ftw/book/latexinjection.py:97
+msgid "injection_label_hide_from_toc"
+msgstr ""
+
 #. Default: "No preferred column layout"
-#: ftw/book/latexinjection.py:62
+#: ftw/book/latexinjection.py:69
 msgid "injection_label_no_preferred_column_layout"
 msgstr ""
 
 #. Default: "One column layout"
-#: ftw/book/latexinjection.py:66
+#: ftw/book/latexinjection.py:73
 msgid "injection_label_one_column_layout"
 msgstr ""
 
 #. Default: "Preferred layout"
-#: ftw/book/latexinjection.py:74
+#: ftw/book/latexinjection.py:81
 msgid "injection_label_preferred_column_layout"
 msgstr ""
 
 #. Default: "Two column layout"
-#: ftw/book/latexinjection.py:70
+#: ftw/book/latexinjection.py:77
 msgid "injection_label_two_column_layout"
 msgstr ""
 
@@ -368,21 +378,21 @@ msgstr ""
 msgid "no indent"
 msgstr ""
 
-#: ftw/book/latexinjection.py:53
+#: ftw/book/latexinjection.py:60
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
-#: ftw/book/latexinjection.py:51
+#: ftw/book/latexinjection.py:58
 msgid "post_latex_code_label"
 msgstr ""
 
-#: ftw/book/latexinjection.py:40
+#: ftw/book/latexinjection.py:47
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
-#: ftw/book/latexinjection.py:38
+#: ftw/book/latexinjection.py:45
 msgid "pre_latex_code_label"
 msgstr ""
 

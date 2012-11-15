@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Add field to blocks for hiding a shown title from the table of contents.
+  [jone]
+
 - Add LaTeX two column support by adding a "preferred layout" field (admin only).
   [jone]
 

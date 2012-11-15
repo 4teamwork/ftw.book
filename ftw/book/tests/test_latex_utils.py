@@ -16,10 +16,22 @@ from zope.interface import alsoProvides
 
 class TestLatexHeading(MockTestCase):
 
+    def mock_inject_settings(self, mock, **settings):
+        schema = self.stub()
+        self.expect(mock.Schema()).result(schema).count(0, None)
+
+        for fieldname, value in settings.items():
+            self.expect(schema.getField(fieldname).get(mock)).result(value)
+
+        self.expect(schema.getField(ANY)).result(None)
+
+        return schema
+
     def test_latex_heading_of_primary_chapter(self):
         chapter = self.mocker.mock()
         self.set_parent(chapter, self.stub_interface(IBook))
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
+        self.mock_inject_settings(chapter)
 
         layout = self.stub_interface(ILaTeXLayout)
         self.expect(
@@ -31,10 +43,37 @@ class TestLatexHeading(MockTestCase):
         self.assertEquals(get_latex_heading(chapter, layout),
                           '\\chapter{My Chapter}\n')
 
+    def test_hide_from_toc_setting_from_latex_injection(self):
+        paragraph = self.stub()
+        self.set_parent(paragraph, self.stub_interface(IBook))
+        self.expect(paragraph.pretty_title_or_id()).result('My Paragraph')
+
+        layout = self.stub_interface(ILaTeXLayout)
+        self.expect(layout.get_converter().convert('My Paragraph')).result(
+            'My Paragraph')
+
+        with self.mocker.order():
+            self.mock_inject_settings(paragraph, hideFromTOC=True)
+            self.mock_inject_settings(paragraph, hideFromTOC=True)
+            self.mock_inject_settings(paragraph, hideFromTOC=False)
+
+        self.replay()
+
+        self.assertEquals(get_latex_heading(paragraph, layout),
+                          '\\chapter*{My Paragraph}\n')
+
+        # Passed "toc" argument should take precedence
+        self.assertEquals(get_latex_heading(paragraph, layout, toc=True),
+                          '\\chapter{My Paragraph}\n')
+
+        self.assertEquals(get_latex_heading(paragraph, layout, toc=False),
+                          '\\chapter*{My Paragraph}\n')
+
     def test_latex_heading_of_primary_chapter_without_toc(self):
         chapter = self.mocker.mock()
         self.set_parent(chapter, self.stub_interface(IBook))
         self.expect(chapter.pretty_title_or_id()).result('My Chapter')
+        self.mock_inject_settings(chapter)
 
         layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('My Chapter')
@@ -55,6 +94,7 @@ class TestLatexHeading(MockTestCase):
         chapter3 = self.mocker.mock()
         self.set_parent(chapter3, chapter2)
         self.expect(chapter3.pretty_title_or_id()).result('Sub chapter')
+        self.mock_inject_settings(chapter3)
 
         layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('Sub chapter')
@@ -77,6 +117,7 @@ class TestLatexHeading(MockTestCase):
             previous = obj
 
         self.expect(obj.pretty_title_or_id()).result('the title')
+        self.mock_inject_settings(obj)
 
         layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('the title')
@@ -92,6 +133,7 @@ class TestLatexHeading(MockTestCase):
         chapter = self.mocker.mock()
         self.set_parent(chapter, self.stub_interface(INavigationRoot))
         self.expect(chapter.pretty_title_or_id()).result('Any chapter')
+        self.mock_inject_settings(chapter)
 
         layout = self.stub_interface(ILaTeXLayout)
         self.expect(layout.get_converter().convert('Any chapter')

@@ -11,8 +11,14 @@ class BookTocTree(object):
             if brain.portal_type in ('Book', 'Chapter'):
                 return True
 
+            elif not getattr(brain, 'showTitle', None):
+                return False
+
+            elif getattr(brain, 'hideFromTOC', None):
+                return False
+
             else:
-                return getattr(brain, 'showTitle', None)
+                return True
 
         tree = filter_tree(filterer, tree, copy=True)
 
