@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Add a checkbox to the LaTeX schemata for inserting column breaks.
+  [jone]
+
 - Add fields to LaTeX schemata (admin) for inserting page breaks.
   [jone]
 

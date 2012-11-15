@@ -32,7 +32,8 @@ class TestInjectionAwareConvertObject(MockTestCase):
                         'postLatexCode': '',
                         'preferredColumnLayout': NO_PREFERRED_LAYOUT,
                         'preLatexClearpage': False,
-                        'postLatexClearpage': False}
+                        'postLatexClearpage': False,
+                        'preLatexNewpage': False}
         default_data.update(data)
         data = default_data
 
@@ -119,7 +120,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.assertNotIn('column', latex_obj1c)
         self.assertIn(r'\twocolumn', latex_obj2)
 
-    def test_pre_latex_clearpage_injected(self):
+    def test_latex_clearpage_injected(self):
         normal_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
         self.mock_extender_values(normal_obj)
 
@@ -134,14 +135,32 @@ class TestInjectionAwareConvertObject(MockTestCase):
 
         self.replay()
 
-        self.assertNotIn('\clearpage',
+        self.assertNotIn(r'\clearpage',
                          self.layout.render_latex_for(normal_obj))
 
-        self.assertIn('\clearpage',
+        self.assertIn(r'\clearpage',
                          self.layout.render_latex_for(pre_clearpage_obj))
 
-        self.assertIn('\clearpage',
+        self.assertIn(r'\clearpage',
                          self.layout.render_latex_for(post_clearpage_obj))
+
+    def test_latex_newpage_injected(self):
+        normal_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(normal_obj)
+
+        pre_newpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.mock_extender_values(pre_newpage_obj, preLatexNewpage=True)
+
+        for obj in [normal_obj, pre_newpage_obj]:
+            self.expect(obj.getPhysicalPath()).result(['', 'myobj'])
+
+        self.replay()
+
+        self.assertNotIn(r'\newpage',
+                         self.layout.render_latex_for(normal_obj))
+
+        self.assertIn(r'\newpage',
+                         self.layout.render_latex_for(pre_newpage_obj))
 
 
 class TestLaTeXInjectionController(MockTestCase):

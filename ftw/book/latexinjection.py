@@ -139,6 +139,20 @@ class LaTeXCodeInjectionExtender(object):
                         default=u'Insert page break after this content'))))
 
     add_field(
+        interfaces=[IChapter, ISimpleLayoutBlock],
+        field=ExtensionBooleanField(
+            name='preLatexNewpage',
+            schemata='LaTeX',
+            default=False,
+            write_permission=ModifyLaTeXInjection,
+
+            widget=atapi.BooleanWidget(
+                label=_(u'injection_label_insert_newpage_before_content',
+                        default=u'Insert column break before this content'),
+                description=_(u'This option inserts a column break when '
+                              u'two column layout is active.'))))
+
+    add_field(
         # hideFromTOC is only useful when we have a showTitle checkbox too
         condition=lambda context: context.schema.get('showTitle'),
         insert_after='showTitle',

@@ -65,8 +65,7 @@ class TestLatexInjectionExtender(MockTestCase):
             self.assertTrue(schema.getField('preferredColumnLayout'))
             self.assertFalse(schema.getField('preLatexClearpage'))
             self.assertFalse(schema.getField('postLatexClearpage'))
-
-            # block-only fields
+            self.assertFalse(schema.getField('preLatexNewpage'))
             self.assertFalse(schema.getField('hideFromTOC'))
 
         finally:
@@ -87,8 +86,7 @@ class TestLatexInjectionExtender(MockTestCase):
             self.assertTrue(schema.getField('preferredColumnLayout'))
             self.assertTrue(schema.getField('preLatexClearpage'))
             self.assertTrue(schema.getField('postLatexClearpage'))
-
-            # block-only fields
+            self.assertTrue(schema.getField('preLatexNewpage'))
             self.assertFalse(schema.getField('hideFromTOC'))
 
         finally:
@@ -109,8 +107,7 @@ class TestLatexInjectionExtender(MockTestCase):
             self.assertTrue(schema.getField('preferredColumnLayout'))
             self.assertTrue(schema.getField('preLatexClearpage'))
             self.assertTrue(schema.getField('postLatexClearpage'))
-
-            # paragraph-only fields
+            self.assertTrue(schema.getField('preLatexNewpage'))
             self.assertTrue(schema.getField('hideFromTOC'))
 
         finally:
