@@ -7,10 +7,22 @@ maintainer = 'Jonas Baumann'
 
 
 tests_require = [
-    'zope.testing',
+    'unittest2',
+    'mocker',
+
+    'zope.app.component',
+    'zope.browser',
+    'zope.configuration',
+    'zope.i18n',
+    'zope.traversing',
+    'zope.viewlet',
+
+    'plone.testing',
     'plone.app.testing',
     'plone.mocktestcase',
     'plone.portlets',
+    'Products.GenericSetup',
+
     'ftw.testing',
     'pyquery',
     ]
@@ -52,11 +64,35 @@ setup(name='ftw.book',
 
       install_requires=[
         'setuptools',
+
+        # Zope
+        'AccessControl',
+        'Acquisition',
+        'Zope2',
+        'zope.annotation',
+        'zope.component',
+        'zope.dottedname',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.publisher',
+        'zope.schema',
+
+        # Plone
+        'Products.CMFPlone',
+        'Products.CMFCore',
+        'Products.ATContentTypes',
+        'Products.Archetypes',
+        'Products.statusmessages',
+        'plone.app.contentmenu',
+        'plone.app.layout',
+        'plone.app.portlets',
+        'plone.portlets',
+
+        # Addons
+        'ftw.pdfgenerator',
         'simplelayout.types.common',
         'simplelayout.base',
         'archetypes.schemaextender',
-        'plone.portlets',
-        'ftw.pdfgenerator',
         'BeautifulSoup!=4.0b',
         'Products.DataGridField',
         'ftw.upgrade',
