@@ -40,7 +40,7 @@ IMAGE_LAYOUTS = {
     }
 
 
-def get_latex_heading(context, layout, toc=True):
+def get_latex_heading(context, layout, toc=None):
     title = layout.get_converter().convert(context.pretty_title_or_id())
 
     # level: depth of rendering
@@ -59,9 +59,13 @@ def get_latex_heading(context, layout, toc=True):
 
     command = HEADING_COMMANDS[level]
 
+    hide_from_toc_field = context.Schema().getField('hideFromTOC')
+    hide_from_toc = hide_from_toc_field and hide_from_toc_field.get(context)
+
     # generate latex
     tocmark = ''
-    if not toc:
+
+    if toc is None and hide_from_toc is True or toc is False:
         tocmark = '*'
 
     latex = '\%s%s{%s}\n' % (

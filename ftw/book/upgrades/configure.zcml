@@ -40,4 +40,23 @@
         profile="ftw.book:default"
         />
 
+    <!-- 2201 -> 2300 -->
+    <genericsetup:upgradeStep
+        title="Add hideFromTOC to catalog metadata (no reindex required)"
+        description=""
+        source="2201"
+        destination="2300"
+        handler="ftw.book.upgrades.to2300.UpdateCatalogMetadata"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="2300"
+        title="ftw.book.upgrades.2300"
+        description=""
+        directory="profiles/2300"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>

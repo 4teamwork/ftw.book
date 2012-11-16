@@ -5,6 +5,21 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Fix table data importer.
+  [jone]
+
+- Add landscape support (admin only).
+  [jone]
+
+- Add a checkbox to the LaTeX schemata for inserting column breaks.
+  [jone]
+
+- Add fields to LaTeX schemata (admin) for inserting page breaks.
+  [jone]
+
+- Add field to blocks for hiding a shown title from the table of contents.
+  [jone]
+
 - Fix reader view so that it does not break when there are Discussion Items.
   [jone]
 

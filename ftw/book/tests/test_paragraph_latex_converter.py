@@ -129,6 +129,11 @@ class TestParagraphLaTeXView(MockTestCase):
         book = self.providing_stub([IBook])
         self.set_parent(paragraph, book)
 
+        schema = self.stub()
+        self.expect(paragraph.Schema()).result(schema)
+        self.expect(schema.getField('hideFromTOC').get(paragraph)
+                    ).result(False)
+
         self.replay()
 
         view = getMultiAdapter((paragraph, request, layout), ILaTeXView)

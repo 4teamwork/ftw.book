@@ -11,10 +11,15 @@ class BookHelper(object):
     def generate_title(self, obj, linked=False):
         """ Generates a title embedded in a h-tag
         """
-        chapter_string = self.get_chapter_level_string(obj)
+
+        if self._heading_is_numbered(obj):
+            chapter_string = self.get_chapter_level_string(obj)
+        else:
+            chapter_string = ''
+
         title = obj.title_or_id()
 
-        html = '%s %s' % (chapter_string, title)
+        html = ' '.join((chapter_string, title)).strip()
         if linked:
             html = '<a href="%s">%s</a>' % (obj.absolute_url(), html)
 
@@ -93,22 +98,31 @@ class BookHelper(object):
         """ Return the filtered folder position as int
         """
 
-        consider_types = ['Chapter']
-
         parent = aq_parent(aq_inner(obj))
         counter = 0
 
         folder_content = parent.contentValues()
 
         for item in folder_content:
-
-            if item.portal_type in consider_types:
-                counter += 1
-
-            elif hasattr(item, 'showTitle') and item.showTitle:
+            if self._heading_is_numbered(item):
                 counter += 1
 
             if obj == item:
                 break
 
         return counter
+
+    def _heading_is_numbered(self, item):
+        consider_types = ['Chapter']
+
+        if item.portal_type in consider_types:
+            return True
+
+        if not hasattr(item, 'showTitle') or not item.showTitle:
+            return False
+
+        field = item.Schema().getField('hideFromTOC')
+        if field and field.get(item):
+            return False
+
+        return True

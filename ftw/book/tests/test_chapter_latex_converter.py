@@ -4,6 +4,7 @@ from ftw.book.interfaces import IChapter
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
+from mocker import ANY
 from zope.component import getMultiAdapter
 
 
@@ -19,6 +20,9 @@ class TestChapterLaTeXView(MockTestCase):
         self.expect(aq_parent(aq_inner(chapter))).result(book)
         self.expect(chapter.pretty_title_or_id()).result('chapter title')
         self.expect(chapter.listFolderContents()).result([])
+        schema = self.stub()
+        self.expect(chapter.Schema()).result(schema)
+        self.expect(schema.getField(ANY)).result(None)
 
         layout = self.mocker.mock()
         self.expect(layout.context).result(book).count(2)
