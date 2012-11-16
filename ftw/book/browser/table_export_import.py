@@ -115,7 +115,7 @@ class TableExportImport(BrowserView):
         for i, row in enumerate(rows[1:]):
             # XXX This is very ugly! Perhaps we can also add new feature like
             # add new rows, just modify, or delete all rows and build it new
-            if i < context.headerRows:
+            if i < int(context.headerRows):
                 # do not update header- or footer-rows
                 continue
             try:

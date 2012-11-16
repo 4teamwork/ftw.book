@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Fix table data importer.
+  [jone]
+
 - Add landscape support (admin only).
   [jone]
 
