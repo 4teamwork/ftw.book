@@ -5,8 +5,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.book">
 
-  <!-- Include configuration for dependencies listed in setup.py -->
-  <includeDependencies package="." />
+  <include package="Products.DataGridField" />
 
   <five:registerPackage package="." initialize=".initialize" />
 
