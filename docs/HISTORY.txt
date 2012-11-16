@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Fix reader view so that it does not break when there are Discussion Items.
+  [jone]
+
 - Add LaTeX two column support by adding a "preferred layout" field (admin only).
   [jone]
 

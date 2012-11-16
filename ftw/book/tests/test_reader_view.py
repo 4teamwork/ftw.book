@@ -448,13 +448,21 @@ class TestReaderView(MockTestCase):
         self.assertEqual(view.render_block(brain), '')
 
     def test_building_tree(self):
+        catalog = self.mocker.mock()
+        self.mock_tool(catalog, 'portal_catalog')
+        self.expect(catalog.uniqueValuesFor('portal_type')).result(
+            ('Book', 'Chapter', 'Page', 'Discussion Item', 'Paragraph'))
+
         book = self.stub()
         self.expect(book.getPhysicalPath()).result(['', 'site', 'book'])
 
         builder = self.mocker.replace(
             'plone.app.layout.navigation.navtree.buildFolderTree')
         self.expect(builder(book, obj=book, query={
-                    'path': '/site/book'})).result({'tree': 1})
+                    'path': '/site/book',
+                    # portal_type should not contain "Discussion Item"
+                    'portal_type': ['Book', 'Chapter', 'Page', 'Paragraph']
+                    })).result({'tree': 1})
 
         self.replay()
 

@@ -1,4 +1,5 @@
 from Acquisition import aq_inner, aq_parent
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
@@ -157,6 +158,13 @@ class ReaderView(BrowserView):
         """
         query = {
             'path': '/'.join(book.getPhysicalPath())}
+
+        portal_catalog = getToolByName(self.context, 'portal_catalog')
+
+        types = list(portal_catalog.uniqueValuesFor('portal_type'))
+        if 'Discussion Item' in types:
+            types.remove('Discussion Item')
+        query['portal_type'] = types
 
         return buildFolderTree(book, obj=book, query=query)
 
