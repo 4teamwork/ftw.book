@@ -9,7 +9,6 @@ from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.pdfgenerator.layout.baselayout import BaseLayout
 from ftw.testing import MockTestCase
-from zope.component import adapts
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.interface import Interface
@@ -204,7 +203,6 @@ class TestInjectionAwareConvertObject(MockTestCase):
                 self.layout = layout
 
             def render(self):
-                latex = []
                 return '\n'.join((
                         'Bar: %s' % self.layout.render_latex_for(bar).strip(),
                         'Baz: %s' % self.layout.render_latex_for(baz).strip(),
