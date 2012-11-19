@@ -4,7 +4,7 @@ import os
 
 
 class VisualHighlightSubconverter(subconverter.SubConverter, MakoTemplating):
-    """Converts span tags with plones "visualHighlight" class to a \hl tag
+    r"""Converts span tags with plones "visualHighlight" class to a \hl tag
     (requires soulutf8 package) which highlights the text in the PDF too.
     """
 

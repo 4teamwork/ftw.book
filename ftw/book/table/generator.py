@@ -43,7 +43,7 @@ class TableGenerator(object):
         # render
         html = self.doc.toxml(encoding='utf8')
         # try to remove xml definition
-        pattern = re.compile('^<\?xml .*?\?>')
+        pattern = re.compile(r'^<\?xml .*?\?>')
         try:
             html = pattern.sub('', html)
         except TypeError:

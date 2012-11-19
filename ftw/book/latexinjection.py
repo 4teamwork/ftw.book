@@ -225,9 +225,7 @@ class LaTeXCodeInjectionExtender(object):
         return schematas
 
     def _context_is_within_book(self):
-
         # In some cases REQUEST is no available.
-        # XXX: This is a quick fix without debugging, just a guess
         if not hasattr(self.context, 'REQUEST'):
             return False
 

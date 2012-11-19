@@ -68,7 +68,7 @@ def get_latex_heading(context, layout, toc=None):
     if toc is None and hide_from_toc is True or toc is False:
         tocmark = '*'
 
-    latex = '\%s%s{%s}\n' % (
+    latex = '\\%s%s{%s}\n' % (
         command,
         tocmark,
         title)
