@@ -282,12 +282,16 @@ class Table(ATDocumentBase):
         return DisplayList((
                 ('', _('Normal')),
                 ('bold', _('Bold')),
+                ('grey', _('Grey font')),
+
                 ('indent2', _('2mm indent')),
                 ('indent10', _('10mm indent')),
                 ('indent2 bold', _('2mm ind. + bold')),
                 ('indent10 bold', _('10mm ind. + bold')),
+                ('indent2 grey', _('2mm ind. + grey font')),
+                ('indent10 grey', _('10mm ind. + grey font')),
+
                 ('noborders', _('Row without line')),
-                ('grey', _('Grey font')),
                 ('scriptsize', _('Small font')),
                 ('fullColspan', _('Strech first line')),
                 ))

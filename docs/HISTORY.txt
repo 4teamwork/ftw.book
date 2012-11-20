@@ -5,6 +5,9 @@ Changelog
 2.2.10 (unreleased)
 -------------------
 
+- Table: add new format combinations with indenting and grey.
+  [jone]
+
 - Fix table data importer.
   [jone]
 

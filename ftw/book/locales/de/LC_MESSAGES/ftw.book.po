@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-11-16 15:17+0000\n"
+"POT-Creation-Date: 2012-11-20 09:49+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -20,11 +20,15 @@ msgstr "${num} Zeilen"
 msgid "10mm"
 msgstr "10mm"
 
-#: ftw/book/content/table.py:288
+#: ftw/book/content/table.py:290
 msgid "10mm ind. + bold"
 msgstr "10mm einr. + fett"
 
-#: ftw/book/content/table.py:286
+#: ftw/book/content/table.py:292
+msgid "10mm ind. + grey font"
+msgstr "10mm einr. + grau"
+
+#: ftw/book/content/table.py:288
 msgid "10mm indent"
 msgstr "10mm einrücken"
 
@@ -32,11 +36,15 @@ msgstr "10mm einrücken"
 msgid "2mm"
 msgstr "2mm"
 
-#: ftw/book/content/table.py:287
+#: ftw/book/content/table.py:289
 msgid "2mm ind. + bold"
 msgstr "2mm einr. + fett"
 
-#: ftw/book/content/table.py:285
+#: ftw/book/content/table.py:291
+msgid "2mm ind. + grey font"
+msgstr "2mm einr. + grau"
+
+#: ftw/book/content/table.py:287
 msgid "2mm indent"
 msgstr "2mm einrücken"
 
@@ -70,7 +78,7 @@ msgstr "Kommentare einbinden"
 msgid "Export"
 msgstr "Exportieren"
 
-#: ftw/book/content/table.py:290
+#: ftw/book/content/table.py:285
 msgid "Grey font"
 msgstr "Graue Schrift"
 
@@ -94,15 +102,15 @@ msgstr "PDF"
 msgid "Remark"
 msgstr "Kommentar"
 
-#: ftw/book/content/table.py:289
+#: ftw/book/content/table.py:294
 msgid "Row without line"
 msgstr "Zeile ohne Linie"
 
-#: ftw/book/content/table.py:291
+#: ftw/book/content/table.py:295
 msgid "Small font"
 msgstr "Kleine Schrift"
 
-#: ftw/book/content/table.py:292
+#: ftw/book/content/table.py:296
 msgid "Strech first line"
 msgstr "Zeilen Verbinden"
 
@@ -480,3 +488,4 @@ msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses B
 #: ftw/book/browser/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
+
