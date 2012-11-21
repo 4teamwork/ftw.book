@@ -44,8 +44,8 @@ setup(name='ftw.book',
 
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Plone :: 4.0',
         'Framework :: Plone :: 4.1',
+        'Framework :: Plone :: 4.2',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
