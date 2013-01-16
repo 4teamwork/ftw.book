@@ -1,5 +1,5 @@
 from ftw.testing.layer import ComponentRegistryLayer
-from plone.app.testing import IntegrationTesting
+from plone.app.testing import IntegrationTesting, FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
@@ -86,3 +86,5 @@ class FtwBookLayer(PloneSandboxLayer):
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Integration")
+FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Functional")
