@@ -7,7 +7,7 @@ from plone.portlets.interfaces import IPortletManager
 from zope.component import getUtility, getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 import logging
-
+from Products.CMFCore.utils import getToolByName
 
 LOG = logging.getLogger('ftw.book')
 
@@ -71,8 +71,9 @@ def left_slot_portlets(object_):
     if not 'go-to-parent-portlet' in mapping.keys():
         mapping['go-to-parent-portlet'] = gotoparent.Assignment()
 
+    portal_url = getToolByName(object_, 'portal_url')
     relative_path = '/'.join(object_.getPhysicalPath())[
-        len(object_.portal_url.getPortalPath()):]
+        len(portal_url.getPortalPath()):]
 
     mapping['navigation'] = navigation.Assignment(
         root=relative_path,
