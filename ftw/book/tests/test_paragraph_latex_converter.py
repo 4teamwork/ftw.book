@@ -139,13 +139,13 @@ class TestParagraphLaTeXView(MockTestCase):
         view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
         latex = view.render()
 
-        self.assertIn(r'\chapter{My {\bf block} title}', latex)
+        self.assertIn(r'\chapter{My \textbf{block} title}', latex)
         self.assertIn(r'\end{wrapfigure}', latex)
         imagepart, textpart = latex.split(r'\end{wrapfigure}')
 
         self.assertIn(r'\includegraphics', imagepart)
         self.assertIn('123_image', imagepart)
-        self.assertIn(r'Thats {\bf some} text.', textpart)
+        self.assertIn(r'Thats \textbf{some} text.', textpart)
 
     def test_heading_converts_to_bold(self):
         # Within books the book structure (section, subsection, etc) is

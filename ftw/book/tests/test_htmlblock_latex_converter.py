@@ -54,7 +54,7 @@ class TestHTMLBlockLaTeXView(MockTestCase):
         view = queryMultiAdapter((context, request, layout),
                                  ILaTeXView)
 
-        self.assertEquals(view.render(), 'foo {\\bf bar} baz\n')
+        self.assertEquals(view.render(), 'foo \\textbf{bar} baz\n')
 
     def test_rendering_with_title(self):
         block = self.providing_stub([IHTMLBlock])
@@ -81,5 +81,5 @@ class TestHTMLBlockLaTeXView(MockTestCase):
 
         latex = view.render()
 
-        self.assertIn(r'\chapter{My {\bf HTML} block}', latex)
-        self.assertIn(r'bar {\bf foo} baz', latex)
+        self.assertIn(r'\chapter{My \textbf{HTML} block}', latex)
+        self.assertIn(r'bar \textbf{foo} baz', latex)

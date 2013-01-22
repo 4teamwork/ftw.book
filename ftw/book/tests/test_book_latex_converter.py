@@ -51,7 +51,7 @@ class TestBookHTML2LatexConverter(MockTestCase):
         conv = BookHTML2LatexConverter(context, request, layout)
 
         self.assertEqual(conv.convert('Hello <b>World</b>!'),
-                         'Hello {\\bf World}!')
+                         'Hello \\textbf{World}!')
 
     def test_converter_converts_visualHighlight(self):
         context = request = self.create_dummy()
@@ -112,7 +112,7 @@ class TestBookHTML2LatexConverter(MockTestCase):
         self.assertEqual(
             conv.convert(r'foo <span class="visualHighlight othercls">'
                          r'bar <b>BAR</b> bar</span> baz'),
-            r'foo \hl{bar {\bf BAR} bar} baz')
+            r'foo \hl{bar \textbf{BAR} bar} baz')
 
         self.assertEqual(
             conv.convert(r'foo <span class="othercls" id="visualHighlight">'

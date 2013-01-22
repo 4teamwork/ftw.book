@@ -55,5 +55,5 @@ class TestTableLaTeXView(MockTestCase):
                                  ILaTeXView)
 
         self.assertEquals(view.render(),
-            'table\n\\vspace{0pt}\n{\\footnotesize foot {\\bf note}}'
+            'table\n\\vspace{0pt}\n{\\footnotesize foot \\textbf{note}}'
         )
