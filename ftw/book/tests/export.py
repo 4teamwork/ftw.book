@@ -46,9 +46,11 @@ def diff_pdfs(result_path, expectation_path, difference_path):
     return failed_pages
 
 def run(cmd):
+    __traceback_info__ = 'Running command: %s' % cmd
     proc = subprocess.Popen(shlex.split(cmd),
                             stderr=subprocess.PIPE,
                             stdout=subprocess.PIPE)
+
     output, errors = proc.communicate()
     exitcode = proc.poll()
 
