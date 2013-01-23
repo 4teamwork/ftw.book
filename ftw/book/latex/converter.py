@@ -6,6 +6,9 @@ from zope.component import adapts
 from zope.interface import implements, Interface
 
 
+BOTTOM = interfaces.HTML2LATEX_CUSTOM_PATTERN_PLACEHOLDER_BOTTOM
+
+
 class BookHTML2LatexConverter(HTML2LatexConverter):
     implements(interfaces.IHTML2LaTeXConverter)
     adapts(Interface, IWithinBookLayer, interfaces.ILaTeXLayout)
@@ -22,6 +25,15 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
                  r'{\\bf \g<1>}'))
 
         self.register_patterns(custom_patterns)
+
+        # We should never use "= within a \\hl{}
+        self._insert_custom_pattern(
+            (interfaces.HTML2LATEX_MODE_REGEXP,
+             r'\\hl{(.*?)"=(.*?)}',
+             r'\hl{\g<1>-\g<2>}',
+             interfaces.HTML2LATEX_REPEAT_MODIFIER),
+            placeholder=BOTTOM)
+
 
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))

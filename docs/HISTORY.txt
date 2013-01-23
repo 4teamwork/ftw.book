@@ -5,6 +5,9 @@ Changelog
 2.2.11 (unreleased)
 -------------------
 
+- Fix bug when using hyphens within highlighted text.
+  [jone]
+
 - Use local text formatting commands, such as \textbf instead of {\bf }.
   [jone]
 

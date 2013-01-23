@@ -57,7 +57,7 @@ class TestBookHTML2LatexConverter(MockTestCase):
         context = request = self.create_dummy()
         layout = self.mocker.mock()
 
-        expected_hls = 8
+        expected_hls = 9
 
         self.expect(layout.use_package(
                 'soulutf8')).count(expected_hls)
@@ -118,3 +118,9 @@ class TestBookHTML2LatexConverter(MockTestCase):
             conv.convert(r'foo <span class="othercls" id="visualHighlight">'
                          r'bar</span> baz'),
             r'foo bar baz')
+
+        # no "= in \hl allowed
+        self.assertEqual(
+            conv.convert(r'one <span class="visualHighlight">two-three-four'
+                         r'</span> five-six'),
+            r'one \hl{two-three-four} five"=six')
