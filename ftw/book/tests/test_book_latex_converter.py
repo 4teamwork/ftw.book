@@ -53,74 +53,98 @@ class TestBookHTML2LatexConverter(MockTestCase):
         self.assertEqual(conv.convert('Hello <b>World</b>!'),
                          'Hello \\textbf{World}!')
 
-    def test_converter_converts_visualHighlight(self):
+
+class TestBookConverterVisualHighlight(MockTestCase):
+
+    layer = LATEX_ZCML_LAYER
+
+    def mock_visual_highlight(self, count):
+        super(TestBookConverterVisualHighlight, self).setUp()
+
         context = request = self.create_dummy()
         layout = self.mocker.mock()
 
-        expected_hls = 9
-
         self.expect(layout.use_package(
-                'soulutf8')).count(expected_hls)
+                'soulutf8')).count(count)
 
         builder = self.mocker.mock()
         self.expect(layout.get_builder()).result(builder).count(
-            expected_hls, None)
+            count, None)
 
         self.expect(builder.build_directory).result(
-            tempfile.gettempdir()).count(expected_hls, None)
+            tempfile.gettempdir()).count(count, None)
 
         self.expect(builder.add_file(
-                'soulutf8.sty', ANY)).count(expected_hls)
+                'soulutf8.sty', ANY)).count(count)
         self.expect(builder.add_file(
-                'infwarerr.sty', ANY)).count(expected_hls)
+                'infwarerr.sty', ANY)).count(count)
         self.expect(builder.add_file(
-                'etexcmds.sty', ANY)).count(expected_hls)
+                'etexcmds.sty', ANY)).count(count)
 
         self.replay()
 
-        conv = BookHTML2LatexConverter(context, request, layout)
+        self.convert = BookHTML2LatexConverter(
+            context, request, layout).convert
 
+    def test_simple_visual_highlight(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span class="visualHighlight">bar</span> baz'),
+            self.convert(r'foo <span class="visualHighlight">bar</span> baz'),
             r'foo \hl{bar} baz')
 
+    def test_multiple_visual_highlight(self):
+        self.mock_visual_highlight(2)
         self.assertEqual(
-            conv.convert(r'foo <span class="visualHighlight">bar</span> '
+            self.convert(r'foo <span class="visualHighlight">bar</span> '
                          r'<span class="visualHighlight">baz</span> !'),
             r'foo \hl{bar} \hl{baz} !')
 
+    def test_visual_highlight_with_other_args(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span id="myid" class="visualHighlight">'
+            self.convert(r'foo <span id="myid" class="visualHighlight">'
                          r'bar</span> baz'),
             r'foo \hl{bar} baz')
 
+    def test_visual_highlight_with_other_args2(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span class="visualHighlight" id="myid">'
+            self.convert(r'foo <span class="visualHighlight" id="myid">'
                          r'bar</span> baz'),
             r'foo \hl{bar} baz')
 
+    def test_visual_highlight_with_other_classes(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span class="othercls visualHighlight">'
+            self.convert(r'foo <span class="othercls visualHighlight">'
                          r'bar</span> baz'),
             r'foo \hl{bar} baz')
 
+    def test_visual_highlight_with_other_classes2(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span class="visualHighlight othercls">'
+            self.convert(r'foo <span class="visualHighlight othercls">'
                          r'bar</span> baz'),
             r'foo \hl{bar} baz')
 
+    def test_visual_highlight_with_bold(self):
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'foo <span class="visualHighlight othercls">'
+            self.convert(r'foo <span class="visualHighlight othercls">'
                          r'bar <b>BAR</b> bar</span> baz'),
             r'foo \hl{bar \textbf{BAR} bar} baz')
 
+    def test_non_visual_highlight(self):
+        self.mock_visual_highlight(0)
         self.assertEqual(
-            conv.convert(r'foo <span class="othercls" id="visualHighlight">'
+            self.convert(r'foo <span class="othercls" id="visualHighlight">'
                          r'bar</span> baz'),
             r'foo bar baz')
 
+    def test_visual_highlight_with_hyphens(self):
         # no "= in \hl allowed
+        self.mock_visual_highlight(1)
         self.assertEqual(
-            conv.convert(r'one <span class="visualHighlight">two-three-four'
+            self.convert(r'one <span class="visualHighlight">two-three-four'
                          r'</span> five-six'),
             r'one \hl{two-three-four} five"=six')
