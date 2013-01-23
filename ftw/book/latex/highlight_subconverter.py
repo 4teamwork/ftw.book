@@ -1,6 +1,7 @@
 from ftw.pdfgenerator.html2latex import subconverter
 from ftw.pdfgenerator.templating import MakoTemplating
 import os
+import re
 
 
 class VisualHighlightSubconverter(subconverter.SubConverter, MakoTemplating):
@@ -19,8 +20,18 @@ class VisualHighlightSubconverter(subconverter.SubConverter, MakoTemplating):
         self.register_packages()
 
         content = self.match.groups()[0]
+        content = self.eliminate_nested_visual_highlights(content)
+
         latex = r'\hl{%s}' % content
         self.replace(latex)
+
+    def eliminate_nested_visual_highlights(self, content):
+        """Removes nested visual highlights.
+        """
+        while re.search(self.pattern, content + '</span>'):
+            content = re.sub(self.pattern, r'\g<1>', content + '</span>')
+
+        return content
 
     def register_packages(self):
         layout = self.converter.converter.layout

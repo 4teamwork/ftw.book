@@ -148,3 +148,44 @@ class TestBookConverterVisualHighlight(MockTestCase):
             self.convert(r'one <span class="visualHighlight">two-three-four'
                          r'</span> five-six'),
             r'one \hl{two-three-four} five"=six')
+
+    def test_no_empty_visual_highlight(self):
+        self.mock_visual_highlight(1)  # is added and then removed
+        self.assertEqual(
+            self.convert(
+                r'foo <span class="visualHighlight"></span> bar'),
+            r'foo  bar')
+
+    def test_no_empty_visual_highlight2(self):
+        self.mock_visual_highlight(1)  # is added and then removed
+        self.assertEqual(
+            self.convert(
+                r'foo <span class="visualHighlight"> <br /></span> bar'),
+            r'foo  bar')
+
+    def test_no_empty_visual_highlight3(self):
+        self.mock_visual_highlight(1)  # is added and then removed
+        self.assertEqual(
+            self.convert(
+                r'foo <span class="visualHighlight"><br /> </span>bar'),
+            r'foo bar')
+
+    def test_no_nested_visual_highlight(self):
+        self.mock_visual_highlight(1)
+        self.assertEqual(
+            self.convert(
+                r'<p style="text-align: justify; ">'
+                r'<span class="visualHighlight">foo bar.<br />'
+                r'<span class="visualHighlight">baz</span></span></p>'),
+            '\\hl{foo bar.\\\\\nbaz}')
+
+    def test_no_nested_visual_highlight2(self):
+        self.mock_visual_highlight(1)
+        self.assertEqual(
+            self.convert(
+                r'<p style="text-align: justify; ">'
+                r'<span class="visualHighlight">foo bar.<br />'
+                r'<span class="visualHighlight">baz.'
+                r'<span class="visualHighlight"> <br /></span></span>'
+                r'</span></p>'),
+            '\\hl{foo bar.\\\\\nbaz. \\\\\n}')

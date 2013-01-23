@@ -5,6 +5,9 @@ Changelog
 2.2.11 (unreleased)
 -------------------
 
+- Fix nested and empty visual highlights causes LaTeX errors.
+  [jone]
+
 - Fix bug when using hyphens within highlighted text.
   [jone]
 

@@ -34,6 +34,14 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
              interfaces.HTML2LATEX_REPEAT_MODIFIER),
             placeholder=BOTTOM)
 
+        # Cleanup empty \hl{} (whitespace and \\)
+        self._insert_custom_pattern(
+            (interfaces.HTML2LATEX_MODE_REGEXP,
+             r'\\hl{[\s\\]*}',
+             r'',
+             interfaces.HTML2LATEX_REPEAT_MODIFIER),
+            placeholder=BOTTOM)
+
 
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))
