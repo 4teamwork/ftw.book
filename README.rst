@@ -40,6 +40,13 @@ Usage
 - Install a LaTeX distribution, see `ftw.pdfgenerator`_  install instructions.
 
 
+Development / tests
+-------------------
+
+For running the full PDF generation tests `ImageMagick`_ is required for diffing
+the PDFs.
+
+
 Links
 -----
 
@@ -57,3 +64,4 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 ``ftw.book`` is licensed under GNU General Public License, version 2.
 
 .. _ftw.pdfgenerator: https://github.com/4teamwork/ftw.pdfgenerator
+.. _ImageMagick: http://cactuslab.com/imagemagick/

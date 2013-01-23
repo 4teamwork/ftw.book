@@ -55,6 +55,7 @@ class FtwBookLayer(PloneSandboxLayer):
         import ftw.book.portlets
         import simplelayout.base
         import simplelayout.types.common
+        import ftw.pdfgenerator
 
         xmlconfig.file('configure.zcml', ftw.book,
                        context=configurationContext)
@@ -64,6 +65,9 @@ class FtwBookLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', simplelayout.base,
                        context=configurationContext)
         xmlconfig.file('configure.zcml', simplelayout.types.common,
+                       context=configurationContext)
+
+        xmlconfig.file('configure.zcml', ftw.pdfgenerator,
                        context=configurationContext)
 
         # installProduct() is *only* necessary for packages outside
