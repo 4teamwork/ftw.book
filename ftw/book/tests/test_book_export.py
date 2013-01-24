@@ -18,7 +18,8 @@ class TestPDFExport(TestCase):
 
     def setUp(self):
         assert os.getcwd().endswith('/parts/test'), \
-            'Assumed the working directory is .../parts/test, but it is %s' % os.getcwd()
+            'Assumed the working directory is .../parts/test, ' \
+            'but it is %s' % os.getcwd()
 
         if DIRNAME in os.listdir('.'):
             os.system('rm -r %s' % DIRNAME)
@@ -31,7 +32,8 @@ class TestPDFExport(TestCase):
         self._create_content()
         mark_layer(None, Dummy(request=self.book.REQUEST))
         provide_request_layer(self.book.REQUEST, IWithinBookLayer)
-        provide_request_layer(self.book.REQUEST, IDefaultBookLayoutSelectionLayer)
+        provide_request_layer(self.book.REQUEST,
+                              IDefaultBookLayoutSelectionLayer)
 
     def _create_content(self):
         portal = self.layer['portal']
@@ -63,7 +65,8 @@ class TestPDFExport(TestCase):
         export.export_pdf(self.book, target)
 
         expectation = os.path.join(self.booksdir, '%s.pdf' % filenamebase)
-        difference = os.path.join(self.resultdir, '%s-diff.pdf' % filenamebase)
+        difference = os.path.join(self.resultdir,
+                                  '%s-diff.pdf' % filenamebase)
         failed_pages = export.diff_pdfs(target, expectation, difference)
 
         self.assertEqual(
@@ -71,7 +74,8 @@ class TestPDFExport(TestCase):
 
             '\n'.join((
                     'The built PDF does not match the expected PDF.',
-                    'Differing page(s): %s' % ', '.join(map(str, failed_pages)),
+                    'Differing page(s): %s' % ', '.join(
+                        map(str, failed_pages)),
                     'Result PDF:        %s' % target,
                     'Expected PDF:      %s' % expectation,
                     'Diff PDF:          %s' % difference)))

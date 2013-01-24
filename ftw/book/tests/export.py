@@ -12,7 +12,33 @@ def export_pdf(obj, target_path):
         assembler = getMultiAdapter((obj, obj.REQUEST),
                                     IPDFAssembler)
 
-        target.write(assembler.build_pdf())
+        latex = assembler.render_latex()
+        latex = latex.replace(r'\today', '[DATE]')
+
+        builder = assembler.get_builder()
+        replace_date_in_directory(builder.build_directory)
+        pdf = builder.build(latex)
+
+        target.write(pdf)
+
+
+def replace_date_in_directory(dirpath):
+    """Replaces all \@date and \today in *.cls and *.tex files in the
+    directory `dirpath`.
+    """
+
+    for filename in os.listdir(dirpath):
+        name, ext = os.path.splitext(filename)
+        if ext not in ('.cls', '.tex'):
+            continue
+
+        path = os.path.join(dirpath, filename)
+        content = open(path).read()
+        content = content.replace(r'\@date', '[DATE]')
+        content = content.replace(r'\today', '[DATE]')
+
+        with open(path, 'w+') as file_:
+            file_.write(content)
 
 
 def diff_pdfs(result_path, expectation_path, difference_path):
