@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.11 (unreleased)
+2.2.11 (2013-01-24)
 -------------------
 
 - Fix nested and empty visual highlights causes LaTeX errors.
