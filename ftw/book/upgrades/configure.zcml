@@ -59,4 +59,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 2300 -> 2301 -->
+    <genericsetup:upgradeStep
+        title="Allow Contributors to add tables by default."
+        description=""
+        source="2300"
+        destination="2301"
+        handler="ftw.book.upgrades.to2301.UpdateRolemap"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="2301"
+        title="ftw.book.upgrades.2301"
+        description=""
+        directory="profiles/2301"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
