@@ -5,6 +5,9 @@ Changelog
 2.2.12 (unreleased)
 -------------------
 
+- Table footnotes: use text/x-html-safe output format and only allow text/html input.
+  [jone]
+
 - Let Contributors add Table objects by default.
   [jone]
 
