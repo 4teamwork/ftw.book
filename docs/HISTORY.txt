@@ -5,7 +5,11 @@ Changelog
 2.2.12 (unreleased)
 -------------------
 
+
 - Table footnotes: use text/x-html-safe output format and only allow text/html input.
+  [jone]
+
+- HTMLBlock: reset HTML otuput type of after making it more strict in simplelayout_schemas.
   [jone]
 
 - Let Contributors add Table objects by default.
