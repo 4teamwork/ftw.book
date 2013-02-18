@@ -70,8 +70,11 @@ table_schema = (ATContentTypeSchema.copy() +
                 schemata='default',
                 required=False,
                 searchable=True,
+                allowable_content_types=('text/html', ),
+                default_content_type='text/html',
+                validators=('isTidyHtmlWithCleanup', ),
                 default_input_type='text/html',
-                default_output_type='text/html',
+                default_output_type='text/x-html-safe',
                 widget=atapi.RichWidget(
                     label=_(u'label_footnote_text', default=u'Footnote Text'),
                     ),
