@@ -5,6 +5,9 @@ Changelog
 2.2.12 (unreleased)
 -------------------
 
+- HTMLBlock: reset HTML otuput type of after making it more strict in simplelayout_schemas.
+  [jone]
+
 - Let Contributors add Table objects by default.
   [jone]
 
