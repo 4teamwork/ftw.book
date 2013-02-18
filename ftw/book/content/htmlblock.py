@@ -37,6 +37,9 @@ htmlblock_schema += atapi.Schema((
 
 htmlblock_schema += simplelayout_schemas.textSchema.copy()
 
+htmlblock_schema['text'].validators = ()
+htmlblock_schema['text'].default_output_type = 'text/html'
+
 htmlblock_schema['text'].widget = atapi.TextAreaWidget(
     label=_at(u'label_body_text', default=u'Body Text'),
     description='',
