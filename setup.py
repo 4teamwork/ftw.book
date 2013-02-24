@@ -24,6 +24,7 @@ tests_require = [
     'Products.GenericSetup',
 
     'ftw.testing',
+    'ftw.inflator',
     'pyquery',
     ]
 

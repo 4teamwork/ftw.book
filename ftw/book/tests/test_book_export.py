@@ -1,6 +1,6 @@
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
-from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
+from ftw.book.testing import EXAMPLE_CONTENT_INTEGRATION_TESTING
 from ftw.book.tests import export
 from ftw.pdfgenerator.utils import provide_request_layer
 from plone.browserlayer.layer import mark_layer
@@ -14,7 +14,7 @@ DIRNAME = 'test_book_export'
 
 class TestPDFExport(TestCase):
 
-    layer = FTW_BOOK_INTEGRATION_TESTING
+    layer = EXAMPLE_CONTENT_INTEGRATION_TESTING
 
     def setUp(self):
         assert os.getcwd().endswith('/parts/test'), \
@@ -29,34 +29,12 @@ class TestPDFExport(TestCase):
         from ftw.book import tests
         self.booksdir = os.path.join(os.path.dirname(tests.__file__), 'books')
 
-        self._create_content()
+        self.book = self.layer['portal'].get('example-book')
+
         mark_layer(None, Dummy(request=self.book.REQUEST))
         provide_request_layer(self.book.REQUEST, IWithinBookLayer)
         provide_request_layer(self.book.REQUEST,
                               IDefaultBookLayoutSelectionLayer)
-
-    def _create_content(self):
-        portal = self.layer['portal']
-
-        self.folder = portal.get(portal.invokeFactory(
-                'Folder',
-                'latex-injection-test'))
-
-        self.book = self.folder.get(
-            self.folder.invokeFactory('Book', 'latex-injection-book',
-                                      title='My Book'))
-
-        chapter = self.book.get(self.book.invokeFactory(
-                'Chapter', 'chapter-one', title='Chapter One'))
-
-        chapter.get(chapter.invokeFactory(
-                'Paragraph', 'paragraph-one', title='Paragraph One',
-                text='Hello <b>little</b> world.'))
-
-    def tearDown(self):
-        portal = self.layer['portal']
-        portal.manage_delObjects(['latex-injection-test'])
-
 
     def test_book_export(self):
         filenamebase = 'test_book_export'

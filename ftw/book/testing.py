@@ -3,10 +3,12 @@ from plone.app.testing import IntegrationTesting, FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
+from plone.app.testing import ploneSite
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
+from plone.testing import zodb
 from zope.configuration import xmlconfig
 
 
@@ -92,3 +94,38 @@ FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Integration")
 FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Functional")
+
+
+
+class ExampleContentLayer(Layer):
+
+    defaultBases = (FTW_BOOK_FIXTURE, )
+
+    def setUp(self):
+        # Stack the component registry
+        self['configurationContext'] = zca.stackConfigurationContext(
+            self.get('configurationContext'))
+
+        # Stack the database
+        self['zodbDB'] = zodb.stackDemoStorage(
+            self.get('zodbDB'), name='ftw.book:examplecontent')
+
+        # Register and apply the example content GS profile
+        import ftw.book.tests
+        xmlconfig.file('examplecontent.zcml', ftw.book.tests,
+                       context=self['configurationContext'])
+
+        with ploneSite() as portal:
+            applyProfile(portal, 'ftw.book.tests:examplecontent')
+
+    def tearDown(self):
+        # Zap the stacked ZODB
+        self['zodbDB'].close()
+        del self['zodbDB']
+        # Zap the stacked component registry
+        del self['configurationContext']
+
+
+EXAMPLE_CONTENT_FIXTURE = ExampleContentLayer()
+EXAMPLE_CONTENT_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(EXAMPLE_CONTENT_FIXTURE, ), name="ftw.book:examplecontent:integration")

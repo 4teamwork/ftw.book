@@ -48,6 +48,8 @@ def diff_pdfs(result_path, expectation_path, difference_path):
     resimages = os.path.join(temp, 'result-images')
     eximages = os.path.join(temp, 'expectation-images')
     diffimages = os.path.join(temp, 'diff-images')
+    empty_page = os.path.join(os.path.basename(__file__),
+                              'books', 'empty-page.png')
 
     os.mkdir(resimages)
     os.mkdir(eximages)
@@ -56,13 +58,19 @@ def diff_pdfs(result_path, expectation_path, difference_path):
     run('convert %s %s/page.png' % (result_path, resimages))
     run('convert %s %s/page.png' % (expectation_path, eximages))
 
-    assert os.listdir(resimages) == os.listdir(eximages), 'different page amount not supported yet'
-
     failed_pages = []
 
-    for name in os.listdir(resimages):
-        _out, err = run(('compare -metric PSNR %(resimages)s/%(name)s '
-                              '%(eximages)s/%(name)s %(diffimages)s/%(name)s') % locals())
+    for name in set(os.listdir(resimages)) & set(os.listdir(eximages)):
+        rimg = os.path.join(resimages, name)
+        if not os.path.exists(rimg):
+            rimg = empty_page
+
+        eimg = os.path.join(eximages, name)
+        if not os.path.exists(eimg):
+            eimg = empty_page
+
+        _out, err = run(('compare -metric PSNR %(rimg)s '
+                         '%(eimg)s %(diffimages)s/%(name)s') % locals())
 
         if err.strip() != 'inf':
             page = re.match('page-([\d]*).png', name).groups()[0]

@@ -1,0 +1,16 @@
+[
+
+    {"_path": "example-book",
+     "_type": "Book",
+     "title": "My Book"},
+
+    {"_path": "example-book/chapter-one",
+     "_type": "Chapter",
+     "title": "Chapter One"},
+
+    {"_path": "example-book/chapter-one/paragraph-one",
+     "_type": "Paragraph",
+     "title": "Paragraph One",
+     "text": "Hello <b>little</b> world."}
+
+]
