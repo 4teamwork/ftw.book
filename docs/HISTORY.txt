@@ -6,6 +6,9 @@ Changelog
 -------------------
 
 
+- Fix image floating / image widths in two column environment.
+  [jone]
+
 - Table footnotes: use text/x-html-safe output format and only allow text/html input.
   [jone]
 

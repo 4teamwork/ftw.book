@@ -188,7 +188,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(
             latex,
-            r'\includegraphics[width=0.25\textwidth]{XUID_image}')
+            r'\includegraphics[width=0.25\linewidth]{XUID_image}')
 
     def test_small_left_nonfloating_caption(self):
         layout = self.mock_interface(ILaTeXLayout)
@@ -202,7 +202,7 @@ class TestImageLaTeXGenerator(MockTestCase):
         latex = generator(self.image, 'small', caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\includegraphics[width=0.25\linewidth]{XUID_image}',
                     generate_manual_caption('THE CAPTION', 'figure'),
                     )))
 
@@ -217,8 +217,8 @@ class TestImageLaTeXGenerator(MockTestCase):
         latex = generator(self.image, 'small', floatable=True)
 
         self.assertEqual(latex, '\n'.join((
-                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
-                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\begin{wrapfigure}{l}{0.25\linewidth}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\end{wrapfigure}',
                     r'\hspace{0em}%%'
                     )))
@@ -237,8 +237,8 @@ class TestImageLaTeXGenerator(MockTestCase):
                           caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\begin{wrapfigure}{l}{0.25\textwidth}',
-                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\begin{wrapfigure}{l}{0.25\linewidth}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
                     r'\hspace{0em}%%'
@@ -255,7 +255,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(
             latex,
-            r'\includegraphics[width=0.5\textwidth]{XUID_image}')
+            r'\includegraphics[width=0.5\linewidth]{XUID_image}')
 
     def test_full(self):
         layout = self.mock_interface(ILaTeXLayout)
@@ -268,7 +268,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(
             latex,
-            r'\includegraphics[width=\textwidth]{XUID_image}')
+            r'\includegraphics[width=\linewidth]{XUID_image}')
 
     def test_fullwidth_does_not_float(self):
         """Using a floating area (wrapfigure) with a 100% width causes the
@@ -290,7 +290,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                           caption='My Image')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=\textwidth]{XUID_image}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     generate_manual_caption('MY IMAGE', 'figure'))))
 
     def test_middle_right_nonfloating(self):
@@ -304,7 +304,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(latex, '\n'.join((
                     r'\begin{flushright}',
-                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    r'\includegraphics[width=0.5\linewidth]{XUID_image}',
                     r'\end{flushright}',
                     )))
 
@@ -322,7 +322,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(latex, '\n'.join((
                     r'\begin{flushright}',
-                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    r'\includegraphics[width=0.5\linewidth]{XUID_image}',
                     generate_manual_caption('THE CAPTION', 'figure'),
                     r'\end{flushright}',
                     )))
@@ -341,8 +341,8 @@ class TestImageLaTeXGenerator(MockTestCase):
                           caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\begin{wrapfigure}{r}{0.5\textwidth}',
-                    r'\includegraphics[width=0.5\textwidth]{XUID_image}',
+                    r'\begin{wrapfigure}{r}{0.5\linewidth}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
                     r'\hspace{0em}%%'
@@ -359,7 +359,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(latex, '\n'.join((
                     r'\begin{flushright}',
-                    r'\includegraphics[width=0.25\textwidth]{XUID_image}',
+                    r'\includegraphics[width=0.25\linewidth]{XUID_image}',
                     r'\end{flushright}',
                     )))
 
@@ -379,7 +379,7 @@ class TestImageLaTeXGenerator(MockTestCase):
         latex = generator(self.image, 'fancy-unkown')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=\textwidth]{XUID_image}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     )))
 
     def test_render_floating(self):
@@ -397,8 +397,8 @@ class TestImageLaTeXGenerator(MockTestCase):
                                  caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
-                    r'\begin{wrapfigure}{c}{0.56\textwidth}',
-                    r'\includegraphics[width=0.56\textwidth]{XUID_image}',
+                    r'\begin{wrapfigure}{c}{0.56\linewidth}',
+                    r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
                     r'\end{wrapfigure}',
                     r'\hspace{0em}%%'
@@ -415,7 +415,7 @@ class TestImageLaTeXGenerator(MockTestCase):
 
         self.assertEqual(latex, '\n'.join((
                     r'\begin{center}',
-                    r'\includegraphics[width=0.56\textwidth]{XUID_image}',
+                    r'\includegraphics[width=0.56\linewidth]{XUID_image}',
                     r'\end{center}',
                     )))
 

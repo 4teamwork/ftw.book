@@ -138,13 +138,16 @@ class ImageLaTeXGenerator(object):
             # 100% is not really floatable
             floatable = False
 
-        width = r'%s\textwidth' % width_ratio
-        latex = self._generate_includegraphics_latex(image, width)
-        latex = self._extend_latex_with_caption(latex, caption, floatable)
+        width = r'%s\linewidth' % width_ratio
 
         if floatable:
+            latex = self._generate_includegraphics_latex(image, r'\linewidth')
+            latex = self._extend_latex_with_caption(latex, caption, floatable)
             latex = self._extend_latex_with_floating(latex, alignment, width)
+
         else:
+            latex = self._generate_includegraphics_latex(image, width)
+            latex = self._extend_latex_with_caption(latex, caption, floatable)
             latex = self._extend_latex_with_alignment(latex, alignment)
 
         return latex
