@@ -8,7 +8,7 @@
 
          {"_id": "chapter-one",
           "_type": "Chapter",
-          "title": "Chapter One",
+          "title": "Chapter One: Image Tests",
           "_children": [
 
 
@@ -24,12 +24,173 @@
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
-              {"_id": "paragraph-three",
+              {"_id": "paragraph-image-small-left",
                "_type": "Paragraph",
-               "title": "Paragraph Three",
+               "title": "Image Small Left",
                "showTitle": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
-               "image:file": "images/image01.jpg"}
+               "image:file": "images/image01.jpg",
+               "_annotations": {"imageLayout": "small"}},
+
+
+              {"_id": "paragraph-three",
+               "_type": "Paragraph",
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+              {"_id": "paragraph-image-middle-left",
+               "_type": "Paragraph",
+               "title": "Image Middle Left",
+               "showTitle": true,
+               "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+               "image:file": "images/image01.jpg",
+               "_annotations": {"imageLayout": "middle"}},
+
+
+              {"_id": "paragraph-four",
+               "_type": "Paragraph",
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+              {"_id": "paragraph-image-full-width",
+               "_type": "Paragraph",
+               "title": "Image Full Width",
+               "showTitle": true,
+               "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+               "image:file": "images/image01.jpg",
+               "_annotations": {"imageLayout": "full"}},
+
+
+              {"_id": "paragraph-five",
+               "_type": "Paragraph",
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+              {"_id": "paragraph-image-middle-right",
+               "_type": "Paragraph",
+               "title": "Paragraph Middle Right",
+               "showTitle": true,
+               "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+               "image:file": "images/image01.jpg",
+               "_annotations": {"imageLayout": "middle-right"}},
+
+
+              {"_id": "paragraph-six",
+               "_type": "Paragraph",
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+              {"_id": "paragraph-image-small-right",
+               "_type": "Paragraph",
+               "title": "Image Small Right",
+               "showTitle": true,
+               "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+               "image:file": "images/image01.jpg",
+               "_annotations": {"imageLayout": "small-right"}},
+
+
+              {"_id": "paragraph-seven",
+               "_type": "Paragraph",
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+
+
+
+
+              {"_id": "chapter-one-one",
+               "_type": "Chapter",
+               "title": "Chapter One.One: Image tests in two columns mode",
+               "preferredColumnLayout": "twocolumn",
+               "_children": [
+
+
+
+                   {"_id": "paragraph-one",
+                    "_type": "Paragraph",
+                    "title": "Paragraph One",
+                    "text": "Hello <b>little</b> world."},
+
+
+                   {"_id": "paragraph-two",
+                    "_type": "Paragraph",
+                    "title": "Paragraph Two",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+                   {"_id": "paragraph-image-small-left",
+                    "_type": "Paragraph",
+                    "title": "Image Small Left",
+                    "showTitle": true,
+                    "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+                    "image:file": "images/image01.jpg",
+                    "_annotations": {"imageLayout": "small"}},
+
+
+                   {"_id": "paragraph-three",
+                    "_type": "Paragraph",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+                   {"_id": "paragraph-image-middle-left",
+                    "_type": "Paragraph",
+                    "title": "Image Middle Left",
+                    "showTitle": true,
+                    "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+                    "image:file": "images/image01.jpg",
+                    "_annotations": {"imageLayout": "middle"}},
+
+
+                   {"_id": "paragraph-four",
+                    "_type": "Paragraph",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+                   {"_id": "paragraph-image-full-width",
+                    "_type": "Paragraph",
+                    "title": "Image Full Width",
+                    "showTitle": true,
+                    "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+                    "image:file": "images/image01.jpg",
+                    "_annotations": {"imageLayout": "full"}},
+
+
+                   {"_id": "paragraph-five",
+                    "_type": "Paragraph",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+                   {"_id": "paragraph-image-middle-right",
+                    "_type": "Paragraph",
+                    "title": "Paragraph Middle Right",
+                    "showTitle": true,
+                    "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+                    "image:file": "images/image01.jpg",
+                    "_annotations": {"imageLayout": "middle-right"}},
+
+
+                   {"_id": "paragraph-six",
+                    "_type": "Paragraph",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+
+
+                   {"_id": "paragraph-image-small-right",
+                    "_type": "Paragraph",
+                    "title": "Image Small Right",
+                    "showTitle": true,
+                    "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
+                    "image:file": "images/image01.jpg",
+                    "_annotations": {"imageLayout": "small-right"}},
+
+
+                   {"_id": "paragraph-seven",
+                    "_type": "Paragraph",
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"}
+
+
+               ]}
+
+
 
           ]},
 
