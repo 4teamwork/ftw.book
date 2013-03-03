@@ -6,6 +6,9 @@ Changelog
 -------------------
 
 
+- Fix floated images overlapping footnotes / page border.
+  [jone]
+
 - Fix image floating / image widths in two column environment.
   [jone]
 

@@ -1,0 +1,12 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{checkheight}[2013/02/03 v1.0 make sure that floated images fit on the page]
+
+\newcommand{\checkheight}[1]{%
+  \par \penalty-100\begingroup%
+  \setbox8=\hbox{#1}%
+  \setlength{\dimen@}{\ht8}%
+  \dimen@ii\pagegoal \advance\dimen@ii-\pagetotal
+  \ifdim \dimen@>\dimen@ii
+  \break
+  \fi\endgroup
+}

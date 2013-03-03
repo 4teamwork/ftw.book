@@ -211,12 +211,18 @@ class TestImageLaTeXGenerator(MockTestCase):
         self.expect(layout.use_package('graphicx'))
         self.expect(layout.use_package('wrapfig'))
         self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
+        self.expect(layout.use_package('checkheight'))
+        builder = self.stub()
+        self.expect(layout.get_builder()).result(builder)
+        self.expect(builder.build_directory).result('/tmp')
+        self.expect(builder.add_file('checkheight.sty', ANY))
         self.replay()
 
         generator = ImageLaTeXGenerator(self.context, layout)
         latex = generator(self.image, 'small', floatable=True)
 
         self.assertEqual(latex, '\n'.join((
+                    r'\checkheight{\includegraphics[width=0.35\linewidth]{XUID_image}}',
                     r'\begin{wrapfigure}{l}{0.25\linewidth}',
                     r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\end{wrapfigure}',
@@ -230,6 +236,11 @@ class TestImageLaTeXGenerator(MockTestCase):
         self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
         self.expect(layout.get_converter().convert('The Caption')).result(
             'THE CAPTION')
+        self.expect(layout.use_package('checkheight'))
+        builder = self.stub()
+        self.expect(layout.get_builder()).result(builder)
+        self.expect(builder.build_directory).result('/tmp')
+        self.expect(builder.add_file('checkheight.sty', ANY))
         self.replay()
 
         generator = ImageLaTeXGenerator(self.context, layout)
@@ -237,6 +248,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                           caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
+                    r'\checkheight{\includegraphics[width=0.35\linewidth]{XUID_image}}',
                     r'\begin{wrapfigure}{l}{0.25\linewidth}',
                     r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
@@ -334,6 +346,11 @@ class TestImageLaTeXGenerator(MockTestCase):
         self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
         self.expect(layout.get_converter().convert('The Caption')).result(
             'THE CAPTION')
+        self.expect(layout.use_package('checkheight'))
+        builder = self.stub()
+        self.expect(layout.get_builder()).result(builder)
+        self.expect(builder.build_directory).result('/tmp')
+        self.expect(builder.add_file('checkheight.sty', ANY))
         self.replay()
 
         generator = ImageLaTeXGenerator(self.context, layout)
@@ -341,6 +358,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                           caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
+                    r'\checkheight{\includegraphics[width=0.6\linewidth]{XUID_image}}',
                     r'\begin{wrapfigure}{r}{0.5\linewidth}',
                     r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
@@ -389,6 +407,11 @@ class TestImageLaTeXGenerator(MockTestCase):
         self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
         self.expect(layout.get_converter().convert('The Caption')).result(
             'THE CAPTION')
+        self.expect(layout.use_package('checkheight'))
+        builder = self.stub()
+        self.expect(layout.get_builder()).result(builder)
+        self.expect(builder.build_directory).result('/tmp')
+        self.expect(builder.add_file('checkheight.sty', ANY))
         self.replay()
 
         generator = ImageLaTeXGenerator(self.context, layout)
@@ -397,6 +420,7 @@ class TestImageLaTeXGenerator(MockTestCase):
                                  caption='The Caption')
 
         self.assertEqual(latex, '\n'.join((
+                    r'\checkheight{\includegraphics[width=0.66\linewidth]{XUID_image}}',
                     r'\begin{wrapfigure}{c}{0.56\linewidth}',
                     r'\includegraphics[width=\linewidth]{XUID_image}',
                     r'\caption{THE CAPTION}',
