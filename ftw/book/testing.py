@@ -1,3 +1,6 @@
+from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
+from ftw.pdfgenerator.utils import provide_request_layer
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import IntegrationTesting, FunctionalTesting
 from plone.app.testing import PLONE_FIXTURE
@@ -5,6 +8,8 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import ploneSite
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
+from plone.browserlayer.layer import mark_layer
+from plone.mocktestcase.dummy import Dummy
 from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
@@ -116,6 +121,11 @@ class ExampleContentLayer(Layer):
                        context=self['configurationContext'])
 
         with ploneSite() as portal:
+            request = portal.REQUEST
+            mark_layer(None, Dummy(request=request))
+            provide_request_layer(request, IWithinBookLayer)
+            provide_request_layer(request, IDefaultBookLayoutSelectionLayer)
+
             applyProfile(portal, 'ftw.book.tests:examplecontent')
 
     def tearDown(self):

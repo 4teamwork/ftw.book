@@ -5,6 +5,7 @@ from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
+from mocker import ANY
 from simplelayout.base.interfaces import IBlockConfig
 from simplelayout.types.common.interfaces import IParagraph
 from zope.app.component.hooks import setSite
@@ -54,6 +55,10 @@ class TestParagraphLaTeXView(MockTestCase):
         self.expect(layout.use_package('graphicx'))
         if floated:
             self.expect(layout.use_package('wrapfig'))
+            self.expect(layout.use_package('checkheight'))
+            self.expect(layout.get_builder()).result(builder)
+            self.expect(builder.add_file('checkheight.sty', ANY))
+            self.expect(builder.build_directory).result('/tmp')
 
         self.expect(context.getImage()).result(image).count(1, None)
         self.expect(context.image_layout).result(image_layout)

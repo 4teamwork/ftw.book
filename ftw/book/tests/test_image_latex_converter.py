@@ -89,7 +89,7 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\includegraphics[width=0.25\textwidth]{123_image}',
+                    r'\includegraphics[width=0.25\linewidth]{123_image}',
                     generate_manual_caption('my description', 'figure')]))
 
     def test_latex_with_middle_layout(self):
@@ -104,7 +104,7 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\includegraphics[width=0.5\textwidth]{3434_image}',
+                    r'\includegraphics[width=0.5\linewidth]{3434_image}',
                     generate_manual_caption('the description', 'figure'),
                     ]))
 
@@ -120,7 +120,7 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\includegraphics[width=\textwidth]{12full_image}',
+                    r'\includegraphics[width=\linewidth]{12full_image}',
                     generate_manual_caption('description', 'figure'),
                     ]))
 
@@ -136,7 +136,7 @@ class TestImageLaTeXView(MockTestCase):
         self.assertEqual(
             latex,
             '\n'.join([
-                    r'\includegraphics[width=\textwidth]{123full_image}',
+                    r'\includegraphics[width=\linewidth]{123full_image}',
                     ]))
 
     def test_latex_with_middle_right_layout(self):
@@ -148,7 +148,7 @@ class TestImageLaTeXView(MockTestCase):
         view = getMultiAdapter((context, request, layout))
         latex = view.render()
 
-        self.assertIn(r'\includegraphics[width=0.5\textwidth]{1mr_image}',
+        self.assertIn(r'\includegraphics[width=0.5\linewidth]{1mr_image}',
                       latex)
 
     def test_latex_with_middle_small_layout(self):
@@ -160,7 +160,7 @@ class TestImageLaTeXView(MockTestCase):
         view = getMultiAdapter((context, request, layout))
         latex = view.render()
 
-        self.assertIn(r'\includegraphics[width=0.25\textwidth]{1sr_image}',
+        self.assertIn(r'\includegraphics[width=0.25\linewidth]{1sr_image}',
                       latex)
 
     def test_default_width(self):
@@ -179,4 +179,4 @@ class TestImageLaTeXView(MockTestCase):
         latex = view.render()
 
         self.assertNotIn('[width=]', latex)
-        self.assertIn(r'[width=\textwidth]', latex)
+        self.assertIn(r'[width=\linewidth]', latex)

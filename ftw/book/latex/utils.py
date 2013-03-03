@@ -2,7 +2,9 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.lib.imagetransform import ATCTImageTransform
 from ftw.book.interfaces import IBook
 from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
+from ftw.pdfgenerator.templating import MakoTemplating
 from plone.app.layout.navigation.interfaces import INavigationRoot
+import os.path
 
 
 HEADING_COMMANDS = [
@@ -91,10 +93,12 @@ def get_raw_image_data(image):
         return image.data.read()
 
 
-class ImageLaTeXGenerator(object):
+class ImageLaTeXGenerator(MakoTemplating):
     """Generates LaTeX code for including images. Optimized for simplelayout
     image layoutes.
     """
+
+    template_directories = ['latex_packages']
 
     def __init__(self, context, layout):
         """Arguments:
@@ -138,13 +142,17 @@ class ImageLaTeXGenerator(object):
             # 100% is not really floatable
             floatable = False
 
-        width = r'%s\textwidth' % width_ratio
-        latex = self._generate_includegraphics_latex(image, width)
-        latex = self._extend_latex_with_caption(latex, caption, floatable)
+        width = r'%s\linewidth' % width_ratio
 
         if floatable:
+            latex = self._generate_includegraphics_latex(image, r'\linewidth')
+            latex = self._extend_latex_with_caption(latex, caption, floatable)
             latex = self._extend_latex_with_floating(latex, alignment, width)
+            latex = '\n'.join((self._make_sure_image_fits_page(width_ratio), latex))
+
         else:
+            latex = self._generate_includegraphics_latex(image, width)
+            latex = self._extend_latex_with_caption(latex, caption, floatable)
             latex = self._extend_latex_with_alignment(latex, alignment)
 
         return latex
@@ -172,6 +180,28 @@ class ImageLaTeXGenerator(object):
             '%s.jpg' % name, get_raw_image_data(image))
 
         return r'\includegraphics[width=%s]{%s}' % (width, name)
+
+    def _make_sure_image_fits_page(self, width_ratio):
+        """This method generates latex which makes sure that the
+        image will fit the page even when its floated.
+        This fixes an issue where floated images overlapped the
+        footer and even the page border.
+        """
+        self._add_package('checkheight.sty')
+        self.layout.use_package('checkheight')
+        name = self._get_image_filename()
+
+        # We add 0.1\linewidth to the width, so that the image
+        # is calculated a little bit *higher*.
+        # This compensates top and bottom margins which otherwise
+        # would result in some strange effects on the next page.
+        if width_ratio:
+            width_ratio = str(float(width_ratio) + 0.1)
+        else:
+            width_ratio = '1.1'
+
+        return r'\checkheight{\includegraphics[width=%s\linewidth]{%s}}' % (
+            width_ratio, name)
 
     def _extend_latex_with_caption(self, latex, caption, floatable):
         if not caption:
@@ -210,3 +240,14 @@ class ImageLaTeXGenerator(object):
                 r'\end{wrapfigure}',
                 r'\hspace{0em}%%',
                 ))
+
+    def _add_package(self, filename):
+        layout = self.layout
+        builder = layout.get_builder()
+
+        filepath = os.path.join(builder.build_directory, filename)
+        if os.path.exists(filepath):
+            return False
+
+        file_ = self.get_raw_template(filename)
+        builder.add_file(filename, file_)
