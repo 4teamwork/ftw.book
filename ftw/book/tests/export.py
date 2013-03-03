@@ -42,6 +42,8 @@ def replace_date_in_directory(dirpath):
 
 
 def diff_pdfs(result_path, expectation_path, difference_path):
+    test_image_magick_commands()
+
     basename = os.path.splitext(os.path.basename(result_path))[0]
     temp = tempfile.mkdtemp(suffix='ftw.book-diff_pdfs-%s' % basename)
 
@@ -78,6 +80,18 @@ def diff_pdfs(result_path, expectation_path, difference_path):
 
     run('convert %s/* %s' % (diffimages, difference_path))
     return failed_pages
+
+
+def test_image_magick_commands():
+    for cmd in ('convert', 'compare'):
+        try:
+            run('which %s' % cmd)
+        except AssertionError:
+            raise AssertionError(
+                ('The command "%s" could not be found. '
+                 'Please install ImageMagick properly. '
+                 'See http://cactuslab.com/imagemagick/') % cmd)
+
 
 def run(cmd):
     __traceback_info__ = 'Running command: %s' % cmd
