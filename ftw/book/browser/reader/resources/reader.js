@@ -143,8 +143,8 @@
 
                   var $reader = $('.book-reader-content');
                   var posFromBottom = (
-                    $reader.attr('scrollHeight') - $reader.attr(
-                      'scrollTop'));
+                      $reader.attr('scrollHeight') - $reader.attr(
+                          'scrollTop'));
 
                   parse_and_register_blocks(data.data).each(function() {
                     $(this).insertBefore(loaded_blocks[data.insert_before]);
@@ -195,7 +195,7 @@
 
       var current_bottom = scrollTop + clientHeight;
       var preload_until = current_bottom + (
-        clientHeight * viewport_preload_factor);
+          clientHeight * viewport_preload_factor);
       var loaded_until = scrollHeight;
 
       return loaded_until <= preload_until;
