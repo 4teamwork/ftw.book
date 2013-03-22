@@ -6,6 +6,9 @@ Changelog
 -------------------
 
 
+- JQuery 1.7 support in reader view: access height / positioning differently.
+  [jone]
+
 - Fix floated images overlapping footnotes / page border.
   [jone]
 
