@@ -5,57 +5,57 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.book">
 
-  <include package="Products.CMFCore" file="permissions.zcml" />
-  <include package="Products.DataGridField" />
+    <include package="Products.CMFCore" file="permissions.zcml" />
+    <include package="Products.DataGridField" />
 
-  <five:registerPackage package="." initialize=".initialize" />
+    <five:registerPackage package="." initialize=".initialize" />
 
-  <i18n:registerTranslations directory="locales" />
+    <i18n:registerTranslations directory="locales" />
 
-  <!-- Include the sub-packages that use their own configure.zcml files. -->
-  <include file="permissions.zcml" />
-  <include package=".latex" />
-  <include package=".browser" />
-  <include package=".content" />
-  <include package=".portlets" />
-  <include package=".upgrades" />
+    <!-- Include the sub-packages that use their own configure.zcml files. -->
+    <include file="permissions.zcml" />
+    <include package=".latex" />
+    <include package=".browser" />
+    <include package=".content" />
+    <include package=".portlets" />
+    <include package=".upgrades" />
 
-  <include file="skins.zcml" />
+    <include file="skins.zcml" />
 
-  <!-- Register the installation GenericSetup extension profile -->
-  <genericsetup:registerProfile
-      name="default"
-      title="ftw.book"
-      directory="profiles/default"
-      description=""
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+        name="default"
+        title="ftw.book"
+        directory="profiles/default"
+        description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
 
-  <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
-       If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,
-       which is unnessesary and inefficient. -->
+    <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
+         If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,
+         which is unnessesary and inefficient. -->
 
-  <subscriber
-      for=".interfaces.IBook
-           zope.lifecycleevent.interfaces.IObjectMovedEvent"
-      handler=".eventhandler.add_navigation_portlet" />
+    <subscriber
+        for=".interfaces.IBook
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
+        handler=".eventhandler.add_navigation_portlet" />
 
-  <subscriber
-      for=".interfaces.IBook
-           Products.Archetypes.interfaces.IObjectInitializedEvent"
-      handler=".eventhandler.add_navigation_portlet" />
+    <subscriber
+        for=".interfaces.IBook
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".eventhandler.add_navigation_portlet" />
 
-  <adapter factory="ftw.book.layer.BookTraverse" />
+    <adapter factory="ftw.book.layer.BookTraverse" />
 
-  <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
-  <adapter
-      name="ftw.book.latexcodeinjection"
-      factory=".latexinjection.LaTeXCodeInjectionExtender"
-      provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+    <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
+    <adapter
+        name="ftw.book.latexcodeinjection"
+        factory=".latexinjection.LaTeXCodeInjectionExtender"
+        provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
 
-  <class class="Products.Archetypes.BaseObject.BaseObject">
-    <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
-  </class>
+    <class class="Products.Archetypes.BaseObject.BaseObject">
+        <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
+    </class>
 
 </configure>
