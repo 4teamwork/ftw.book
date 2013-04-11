@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.testing import EXAMPLE_CONTENT_INTEGRATION_TESTING
@@ -35,6 +36,10 @@ class TestPDFExport(TestCase):
         provide_request_layer(self.book.REQUEST, IWithinBookLayer)
         provide_request_layer(self.book.REQUEST,
                               IDefaultBookLayoutSelectionLayer)
+
+        # configure langueg to german, since the test book is german
+        tool = getToolByName(self.layer['portal'], "portal_languages")
+        tool.manage_setLanguageSettings('de', ['de'])
 
     def test_book_export(self):
         filenamebase = 'test_book_export'
