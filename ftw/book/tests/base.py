@@ -3,6 +3,7 @@ from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.tests import export
 from ftw.pdfgenerator.utils import provide_request_layer
+from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
 from unittest2 import TestCase
@@ -12,10 +13,25 @@ import os
 
 class PDFDiffTestCase(TestCase):
 
+    # The path to the book object relative to the plone site root.
     book_object_path = None
+
+    # The relative path to the expected PDF file.
+    # The path is relative to the subclassing TestCase class.
     expected_result = None
 
+    # List additional generic setup profiles, which will be applied
+    # while the layout layer already is on the request.
+    # This allows to directly set layout field values using ftw.inflator
+    # content creation.
+    profiles = []
+
+    # The book layout layer is set on the request and activates a specific
+    # book layout.
     book_layout_layer = IDefaultBookLayoutSelectionLayer
+
+    # The result_dir_name is the directory name in parts/test where the
+    # resulting PDF and the diff is saved.
     result_dir_name = 'test_book_export'
 
     def setUp(self):
@@ -36,6 +52,8 @@ class PDFDiffTestCase(TestCase):
         # configure language to german, since the test book is german
         tool = getToolByName(self.layer['portal'], "portal_languages")
         tool.manage_setLanguageSettings('de', ['de'])
+
+        self.install_profiles()
 
     def validate(self):
         name = type(self).__name__
@@ -62,6 +80,14 @@ class PDFDiffTestCase(TestCase):
         os.mkdir(self.result_dir_name)
         return os.path.abspath(self.result_dir_name)
 
+    def install_profiles(self):
+        """Installes additional generic setup profile.
+        """
+        portal = self.layer['portal']
+
+        for profile in self.profiles:
+            applyProfile(portal, profile)
+
     def get_absolute_path(self, path):
         """Makes a path relative to the test case (self) absolute.
         """
@@ -74,7 +100,13 @@ class PDFDiffTestCase(TestCase):
                     path)
 
     def get_book_object(self):
-        return self.layer['portal'].get(self.book_object_path)
+        obj = self.layer['portal'].get(self.book_object_path)
+        self.assertTrue(
+            obj,
+            'Could not find book object with path %s. IDs on portal %s' % (
+                self.book_object_path,
+                str(self.layer['portal'].objectIds())))
+        return obj
 
     def _is_base_test(self):
         """Detect that the class was not subclassed so we can skip the tests.
