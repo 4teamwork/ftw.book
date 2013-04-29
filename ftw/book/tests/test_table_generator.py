@@ -55,6 +55,7 @@ class Table(object):
     def getFooterIsBold(self):
         return self.footerIsBold
 
+
 class TestTableGenerator(MockTestCase):
 
     layer = LATEX_ZCML_LAYER
@@ -194,14 +195,14 @@ class TestTableGenerator(MockTestCase):
         testing every function itself.
         """
         table = Table(
-            data = self.datagrid_data,
-            column_properties = self.column_properties,
-            border_layout = 'grid',
-            show_title = True,
-            header_rows = 1,
-            footer_rows = 1,
-            title = "My Test Täble",
-            description = "Its ä Description"
+            data=self.datagrid_data,
+            column_properties=self.column_properties,
+            border_layout='grid',
+            show_title=True,
+            header_rows=1,
+            footer_rows=1,
+            title="My Test Täble",
+            description="Its ä Description",
             )
 
         generator = TableGenerator(table)
