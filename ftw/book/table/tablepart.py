@@ -192,10 +192,11 @@ class TablePartFooter(TablePart):
 
         self.footer_is_bold = footer_is_bold
 
-    def wrap_text_in_attr(self, text):
-        if self.footer_is_bold:
-            return '<strong>%s</strong>' % (text)
-        return text
+    def get_css(self, css, row_num, col_name):
+        classes = super(TablePartFooter, self).get_css(css, row_num, col_name)
+        if self.footer_is_bold and 'bold' not in classes:
+            classes.add('bold')
+        return classes
 
 
 class TablePartBody(TablePart):

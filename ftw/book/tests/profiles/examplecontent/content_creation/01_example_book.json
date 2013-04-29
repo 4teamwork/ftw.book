@@ -301,7 +301,236 @@
                "showTitle": true,
                "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Zirkumflex</td><td>&circ;</td></tr><tr><td>kleine Tilde</td><td>&tilde;</td></tr></tbody></table>"}
 
-          ]}
+          ]},
 
+
+
+
+
+
+
+
+         {"_id": "tables",
+          "_type": "Chapter",
+          "title": "Tables",
+          "showTitle": true,
+          "preferredColumnLayout": "onecolumn",
+          "latex_pre_clearpage": true,
+          "_children": [
+
+              {
+                "_id": "table-one",
+                "_type": "Table",
+                "title": "Table One",
+                "borderLayout": "fancy_listing",
+                "columnProperties": [
+                    {
+                      "active": "1",
+                      "alignment": "left",
+                      "bold": "",
+                      "columnId": "column_0",
+                      "columnTitle": "Spalte 1",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "1",
+                      "alignment": "right",
+                      "bold": "",
+                      "columnId": "column_1",
+                      "columnTitle": "Spalte 2",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "1",
+                      "alignment": "right",
+                      "bold": "",
+                      "columnId": "column_2",
+                      "columnTitle": "Spalte 3",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_3",
+                      "columnTitle": "Spalte 4",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_4",
+                      "columnTitle": "Spalte 5",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_5",
+                      "columnTitle": "Spalte 6",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_6",
+                      "columnTitle": "Spalte 7",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_7",
+                      "columnTitle": "Spalte 8",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_8",
+                      "columnTitle": "Spalte 9",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_9",
+                      "columnTitle": "Spalte 10",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_10",
+                      "columnTitle": "Spalte 11",
+                      "indent": "",
+                      "width": ""
+                    },
+
+                    {
+                      "active": "",
+                      "alignment": "",
+                      "bold": "",
+                      "columnId": "column_11",
+                      "columnTitle": "Spalte 12",
+                      "indent": "",
+                      "width": ""
+                    }
+                ],
+                "contributors": [],
+                "creation_date": "2009/02/11 09:41:03.969 GMT+1",
+                "data": [
+                    {
+                      "column_0": "",
+                      "column_1": "2011",
+                      "column_10": "",
+                      "column_11": "",
+                      "column_2": "2012",
+                      "column_3": "",
+                      "column_4": "",
+                      "column_5": "",
+                      "column_6": "",
+                      "column_7": "",
+                      "column_8": "",
+                      "column_9": "",
+                      "row_format": ""
+                    },
+
+                    {
+                      "column_0": "vom Vorjahr anh\u00e4ngig",
+                      "column_1": "14",
+                      "column_10": "",
+                      "column_11": "",
+                      "column_2": "23",
+                      "column_3": "",
+                      "column_4": "",
+                      "column_5": "",
+                      "column_6": "",
+                      "column_7": "",
+                      "column_8": "",
+                      "column_9": "",
+                      "row_format": ""
+                    },
+
+                    {
+                      "column_0": "Neueing\u00e4nge",
+                      "column_1": "121",
+                      "column_10": "",
+                      "column_11": "",
+                      "column_2": "101",
+                      "column_3": "",
+                      "column_4": "",
+                      "column_5": "",
+                      "column_6": "",
+                      "column_7": "",
+                      "column_8": "",
+                      "column_9": "",
+                      "row_format": ""
+                    },
+
+                    {
+                      "column_0": "Total",
+                      "column_1": "135",
+                      "column_10": "",
+                      "column_11": "",
+                      "column_2": "124",
+                      "column_3": "",
+                      "column_4": "",
+                      "column_5": "",
+                      "column_6": "",
+                      "column_7": "",
+                      "column_8": "",
+                      "column_9": "",
+                      "row_format": "bold"
+                    }
+                ],
+
+                "firstColumnIsHeader": false,
+                "footerIsBold": true,
+                "footerRows": "1",
+                "footnoteText": "",
+                "headerIsBold": true,
+                "headerRows": "1",
+                "language": "",
+                "latex_hyphenation": [],
+                "latex_landscape": false,
+                "latex_post_clearpage": false,
+                "latex_pre_clearpage": false,
+                "latex_pre_newpage": false,
+                "latex_preferred_layout": "",
+                "noLifting": false,
+                "non_toc_heading": false,
+                "showTitle": false
+              }
+
+
+          ]}
      ]}
 ]
