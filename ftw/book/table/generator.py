@@ -285,7 +285,17 @@ class TableGenerator(object):
             css.append(col['indent'])
 
         # Add available row css classes
-        css += self.context.getData()[row_num].get('row_format', '').split(' ')
+        row_classes = self.context.getData()[row_num].get(
+            'row_format', '').split(' ')
+
+        if self.active_column_names.index(col_name) != 0:
+            # indent10 and indet2 should only indent the first column.
+            if 'indent10' in row_classes:
+                row_classes.remove('indent10')
+            if 'indent2' in row_classes:
+                row_classes.remove('indent2')
+
+        css += row_classes
 
         return tablepart.get_css(css, row_num, col_name)
 
