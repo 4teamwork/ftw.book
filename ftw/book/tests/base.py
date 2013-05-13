@@ -2,6 +2,7 @@ from Products.CMFCore.utils import getToolByName
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.tests import export
+from ftw.pdfgenerator.config import DefaultConfig
 from ftw.pdfgenerator.utils import provide_request_layer
 from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
@@ -9,6 +10,19 @@ from plone.mocktestcase.dummy import Dummy
 from unittest2 import TestCase
 from zope.dottedname.resolve import resolve
 import os
+
+
+class PDFGeneratorTestConfig(DefaultConfig):
+
+    remove_build_directory = False
+
+    def __init__(self, path):
+        self.path = path
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+
+    def get_build_directory(self):
+        return self.path
 
 
 class PDFDiffTestCase(TestCase):
@@ -54,6 +68,18 @@ class PDFDiffTestCase(TestCase):
         tool.manage_setLanguageSettings('de', ['de'])
 
         self.install_profiles()
+
+        expectation = self.get_absolute_path(self.expected_result)
+        filenamebase, _ext = os.path.splitext(os.path.basename(expectation))
+        build_dir = os.path.join(self.resultdir, '%s_build' % filenamebase)
+        self.config = PDFGeneratorTestConfig(build_dir)
+        self.layer['portal'].getSiteManager().registerUtility(self.config)
+
+    def tearDown(self):
+        if self._is_base_test():
+            return
+
+        self.layer['portal'].getSiteManager().unregisterUtility(self.config)
 
     def validate(self):
         name = type(self).__name__
