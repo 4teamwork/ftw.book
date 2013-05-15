@@ -5,7 +5,10 @@ Changelog
 2.2.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Register HTMLBlock view only for IWithinBookLayer.
+  This allows us to reuse the block outside of a book with default simplelayout block view.
+  The advantage is that the title is not book-style-numbered (dynamic_title).
+  [jone]
 
 
 2.2.12 (2013-04-16)
