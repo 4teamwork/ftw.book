@@ -42,6 +42,7 @@
       template="paragraph.pt"
       class=".blockview.BookBlockView"
       permission="zope2.View"
+      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
