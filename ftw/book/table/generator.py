@@ -226,6 +226,9 @@ class TableGenerator(object):
         html = str(BeautifulSoup(html))
         html = html2xmlentities(html)
 
+        html = html.replace('&#60;', '<')
+        html = html.replace('&#62;', '>')
+
         try:
             doc = minidom.parseString('<data>%s</data>' % html)
         except UnicodeEncodeError:
