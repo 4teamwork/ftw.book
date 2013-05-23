@@ -5,6 +5,11 @@ Changelog
 2.2.13 (unreleased)
 -------------------
 
+- Allow HTML in table objects.
+  This makes it possible to do things such as marking only one word in a
+  cell as bold or using `<sup>`.
+  [jone]
+
 - Register HTMLBlock view only for IWithinBookLayer.
   This allows us to reuse the block outside of a book with default simplelayout block view.
   The advantage is that the title is not book-style-numbered (dynamic_title).
