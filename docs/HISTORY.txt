@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.13 (unreleased)
+2.2.13 (2013-05-24)
 -------------------
 
 - Allow HTML in table objects.
