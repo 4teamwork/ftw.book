@@ -5,6 +5,9 @@ Changelog
 2.2.15 (unreleased)
 -------------------
 
+- Table object: make table generation more robust by catching parsing errors.
+  [jone]
+
 - Table object: fix bad HTML standalone tags in table cells.
   [jone]
 

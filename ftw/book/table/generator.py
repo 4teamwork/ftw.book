@@ -236,7 +236,7 @@ class TableGenerator(object):
 
         try:
             doc = minidom.parseString('<data>%s</data>' % html)
-        except UnicodeEncodeError:
+        except (UnicodeEncodeError, ExpatError):
             doc = minidom.parseString('<data>FEHLER</data>')
         return doc
     _clean_and_parse_html = staticmethod(_clean_and_parse_html)
