@@ -3,10 +3,12 @@ from ftw.book.table.calculator import ColumnWidthsCalculator
 from ftw.book.table.tablepart import TablePartBody
 from ftw.book.table.tablepart import TablePartFooter
 from ftw.book.table.tablepart import TablePartHeader
+from ftw.book.table.utils import cleanup_standalone_html_tags
 from ftw.pdfgenerator.utils import encode_htmlentities
 from ftw.pdfgenerator.utils import html2xmlentities
 from ftw.pdfgenerator.utils import xml2htmlentities
 from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 import re
 
 
@@ -222,6 +224,9 @@ class TableGenerator(object):
     def _clean_and_parse_html(html):
         """ Cleanup the given html and parse it
         """
+
+        html = cleanup_standalone_html_tags(html)
+
         html = encode_htmlentities(html.decode('utf-8')).encode('utf-8')
         html = str(BeautifulSoup(html))
         html = html2xmlentities(html)
@@ -231,7 +236,7 @@ class TableGenerator(object):
 
         try:
             doc = minidom.parseString('<data>%s</data>' % html)
-        except UnicodeEncodeError:
+        except (UnicodeEncodeError, ExpatError):
             doc = minidom.parseString('<data>FEHLER</data>')
         return doc
     _clean_and_parse_html = staticmethod(_clean_and_parse_html)
