@@ -5,7 +5,9 @@ Changelog
 2.2.16 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Move "Modify LaTeX Injection" permission to lawgiver action group
+  "manage content settings", according to changes in ftw.lawgiver.
+  [jone]
 
 
 2.2.15 (2013-05-27)
