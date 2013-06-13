@@ -69,4 +69,9 @@
     <permission value="View" />
   </action>
 
+    <action title="Upload" action_id="upload" category="folder_factories"
+       condition_expr="object/@@display_upload/can_upload | nothing"
+       url_expr="string:${object_url}/flashupload" visible="True">
+     <permission value="Modify portal content"/>
+    </action>
 </object>
