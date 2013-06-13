@@ -5,6 +5,9 @@ Changelog
 2.2.16 (unreleased)
 -------------------
 
+- Add Upload action for ftw.book.
+  [tschanzt]
+
 - Move "Modify LaTeX Injection" permission to lawgiver action group
   "manage content settings", according to changes in ftw.lawgiver.
   [jone]
