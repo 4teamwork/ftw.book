@@ -101,8 +101,19 @@ class PDFDiffTestCase(TestCase):
             'Assumed the working directory is .../parts/test, ' \
             'but it is %s' % os.getcwd()
 
-        if not os.path.isdir(self.result_dir_name):
+        expectation = self.get_absolute_path(self.expected_result)
+        filenamebase, _ext = os.path.splitext(os.path.basename(expectation))
+
+        if self.result_dir_name not in os.listdir('.'):
             os.mkdir(self.result_dir_name)
+            return os.path.abspath(self.result_dir_name)
+
+        files_to_delete = filter(lambda name: name.startswith(filenamebase),
+                                 os.listdir(self.result_dir_name))
+
+        if files_to_delete:
+            os.system('rm -r %s/%s*' % (self.result_dir_name, filenamebase))
+
         return os.path.abspath(self.result_dir_name)
 
     def install_profiles(self):
