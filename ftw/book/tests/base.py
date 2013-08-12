@@ -101,9 +101,8 @@ class PDFDiffTestCase(TestCase):
             'Assumed the working directory is .../parts/test, ' \
             'but it is %s' % os.getcwd()
 
-        if self.result_dir_name in os.listdir('.'):
-            os.system('rm -r %s' % self.result_dir_name)
-        os.mkdir(self.result_dir_name)
+        if not os.path.isdir(self.result_dir_name):
+            os.mkdir(self.result_dir_name)
         return os.path.abspath(self.result_dir_name)
 
     def install_profiles(self):
