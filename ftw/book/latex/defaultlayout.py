@@ -115,6 +115,9 @@ class DefaultBookLayoutExtender(object):
         # Looks like this method is called before
         # BookTraverse.publishTraverse() marks the request with the interface.
 
+        if self.context.isTemporary():
+            return []
+
         layout_layer_name = getattr(self.context, 'latex_layout', None)
         if layout_layer_name:
             layout_layer = resolve(layout_layer_name)

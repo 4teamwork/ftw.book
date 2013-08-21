@@ -5,6 +5,10 @@ Changelog
 2.2.16 (unreleased)
 -------------------
 
+- Fix default layout schema extender to not extend in the factory.
+  The values are not set correctly when in the factory.
+  [jone]
+
 - Move "Modify LaTeX Injection" permission to lawgiver action group
   "manage content settings", according to changes in ftw.lawgiver.
   [jone]
