@@ -5,7 +5,9 @@ Changelog
 2.2.17 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix literal book titles for default sphinx layout.
+  The title is taken literally and does not need to be converted to LaTeX.
+  [jone]
 
 
 2.2.16 (2013-08-26)
