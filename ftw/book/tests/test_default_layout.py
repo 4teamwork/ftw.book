@@ -45,7 +45,7 @@ class TestDefaultBookLayout(MockTestCase):
             self.expect(book.Schema().getField(key).get(book)).result(value)
 
         return book
-        
+
     def _mock_portal_languages_tool(self):
         language_tool = self.mocker.mock()
         self.mock_tool(language_tool, 'portal_languages')
@@ -126,7 +126,7 @@ class TestDefaultBookLayout(MockTestCase):
              'babel': 'english',
              'logo': False,
              'logo_width': 0})
-             
+
     def test_get_render_arguments_babel(self):
         book = self._mock_book()
 
@@ -238,3 +238,15 @@ class TestDefaultBookLayout(MockTestCase):
             r'\def\sphinxlogo{\includegraphics{' + \
                 r'titlepage_logo.jpg}}',
             latex)
+
+    def test_title_is_inserted_literally(self):
+        # The spinx layout expects the title to not be LaTeX, but the string
+        # literal.
+
+        self._mock_portal_languages_tool()
+        book = self._mock_book({'Title': 'Foo-Bar'})
+        self.replay()
+
+        layout = DefaultBookLayout(book, object(), object())
+
+        self.assertEqual('Foo-Bar', layout.get_render_arguments()['title'])

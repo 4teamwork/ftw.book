@@ -158,7 +158,7 @@ class DefaultBookLayout(MakoLayoutBase):
 
         args = {
             'context_is_book': self.context == book,
-            'title': convert(book.Title()),
+            'title': book.Title(),
             'use_titlepage': book.getUse_titlepage(),
             'logo': logo_filename,
             'logo_width': logo_width,
