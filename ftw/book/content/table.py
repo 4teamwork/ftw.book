@@ -199,7 +199,7 @@ table_schema = (ATContentTypeSchema.copy() +
             atapi.StringField(
                 name='borderLayout',
                 schemata='Layout',
-                default='lines',
+                default='fancy_listing',
                 enforceVocabulary=True,
                 vocabulary=BORDER_LAYOUTS,
                 widget=atapi.SelectionWidget(

@@ -5,7 +5,8 @@ Changelog
 2.2.18 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Table object: fix default border layout to be included in the allowed border layouts.
+  [jone]
 
 
 2.2.17 (2013-09-11)
