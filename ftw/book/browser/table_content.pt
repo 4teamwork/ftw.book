@@ -7,6 +7,8 @@
         <table tal:condition="table"
                tal:replace="structure table" />
         <dl tal:condition="not:table" class="portalMessage warning">
+            <dt i18n:domain="plone"
+                i18n:translate="">Warning</dt>
             <dd i18n:translate="">
                 The table has no content yet.
                 Edit the table block for adding content.
