@@ -5,6 +5,9 @@ Changelog
 2.2.18 (unreleased)
 -------------------
 
+- Table object: add "Warning" to manually created warning portal messages.
+  [jone]
+
 - Table object: fix default border layout to be included in the allowed border layouts.
   [jone]
 
