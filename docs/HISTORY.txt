@@ -5,6 +5,10 @@ Changelog
 2.2.18 (unreleased)
 -------------------
 
+- Implement Products.DataGridField 1.9 compatibility.
+  (use label instead of title -> https://github.com/collective/Products.DataGridField/blob/1.9.0/Products/DataGridField/SelectColumn.py#L26)
+  [mathias.leimgruber]
+
 - Table object: add "Warning" to manually created warning portal messages.
   [jone]
 

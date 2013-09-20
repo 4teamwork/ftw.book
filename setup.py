@@ -96,7 +96,7 @@ setup(name='ftw.book',
         'simplelayout.base',
         'archetypes.schemaextender',
         'BeautifulSoup!=4.0b',
-        'Products.DataGridField',
+        'Products.DataGridField>=1.9',
         'ftw.upgrade',
         ],
 
