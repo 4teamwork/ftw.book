@@ -57,7 +57,7 @@ table_schema = (ATContentTypeSchema.copy() +
                         for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
                             'row_format',
                             DataGridField.SelectColumn(
-                                title='Format',
+                                label='Format',
                                 vocabulary='getRowFormatVocabulary',
                             ),
                         )]
