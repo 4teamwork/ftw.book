@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.2.9.1 (unreleased)
--------------------
+2.2.9.1 (2013-10-24)
+--------------------
 
 - Backport of following fix because we can't ugrade to next version: 
     - Index page: use navigation type configuration for excluding types, so that it
