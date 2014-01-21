@@ -5,6 +5,9 @@ Changelog
 2.2.19 (unreleased)
 -------------------
 
+- Add new export / import icon for tables.
+  [jone]
+
 - Table CSV import: fix line breaking issues.
   Some Excel version (at least OSX) represent line breaks with only \r instead of
   \r\n, which caused import errors.

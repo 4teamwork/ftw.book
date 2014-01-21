@@ -35,7 +35,7 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
   background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
   background: linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-8 */
-  
+
 }
 
 .BlockOverallWrapper.remark.blockHighlight {
@@ -45,7 +45,7 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 /* Table content-type */
 
 .simplelayout-content table {
-    width: 100%;    
+    width: 100%;
 }
 /*table.bibliothekTable th {
     font-weight: normal;
@@ -97,4 +97,8 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 }
 .footnotesize {
     font-size: 7pt;
+}
+
+.sl-export-import-action {
+  background: url(++resource++ftw.book-resources/icon_export_import.png) no-repeat !important;
 }
