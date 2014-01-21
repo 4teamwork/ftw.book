@@ -1,5 +1,8 @@
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
+from ftw.builder.testing import BUILDER_LAYER
+from ftw.builder.testing import functional_session_factory
+from ftw.builder.testing import set_builder_session_factory
 from ftw.pdfgenerator.utils import provide_request_layer
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import IntegrationTesting, FunctionalTesting
@@ -15,6 +18,7 @@ from plone.testing import z2
 from plone.testing import zca
 from plone.testing import zodb
 from zope.configuration import xmlconfig
+import ftw.book.tests.builders
 
 
 class LatexZCMLLayer(Layer):
@@ -54,7 +58,7 @@ ZCML_LAYER = ZCMLLayer()
 
 class FtwBookLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, )
+    defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
@@ -98,7 +102,9 @@ FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Integration")
 FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Functional")
+    bases=(FTW_BOOK_FIXTURE,
+           set_builder_session_factory(functional_session_factory)
+           ), name="FtwBook:Functional")
 
 
 

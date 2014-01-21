@@ -23,8 +23,10 @@ tests_require = [
     'plone.portlets',
     'Products.GenericSetup',
 
-    'ftw.testing',
+    'ftw.builder',
     'ftw.inflator',
+    'ftw.testbrowser',
+    'ftw.testing',
     'pyquery',
     ]
 
