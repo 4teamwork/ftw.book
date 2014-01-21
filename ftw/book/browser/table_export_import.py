@@ -95,16 +95,24 @@ class TableExportImport(BrowserView):
         if not stream or not column:
             return False
         context = aq_inner(self.context)
-        dialect = csv.Sniffer().sniff(stream.readline())
-        stream.seek(0)
-        reader = csv.DictReader(stream, fieldnames=self.active_columns,
+
+        data = stream.read()
+        # fix bad excel carriage returns
+        data = data.replace('\r\n', '\n').replace('\r', '\n')
+        dialect = csv.Sniffer().sniff(data)
+
+        first_row_plain, data = data.split('\n', 1)
+        first_row = first_row_plain.strip().split(dialect.delimiter)
+
+        reader = csv.DictReader(StringIO(data),
+                                fieldnames=self.active_columns,
                                 dialect=dialect)
         rows = list(reader)
+
         # check the first row (containing the url)
         if not enforce:
-            first_row = rows[0]
-            if first_row[
-                self.active_columns[0]].strip() != self.context.absolute_url():
+            url = first_row[0]
+            if url != self.context.absolute_url():
                 IStatusMessage(self.request).addStatusMessage(
                     _(u'The file does not seem to belong to this table.'),
                     type='error')
@@ -112,7 +120,7 @@ class TableExportImport(BrowserView):
 
         # import the data
         data = context.getData()
-        for i, row in enumerate(rows[1:]):
+        for i, row in enumerate(rows):
             # XXX This is very ugly! Perhaps we can also add new feature like
             # add new rows, just modify, or delete all rows and build it new
             if i < int(context.headerRows):
