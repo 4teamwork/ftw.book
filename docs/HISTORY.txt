@@ -5,7 +5,10 @@ Changelog
 2.2.19 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Table CSV import: fix line breaking issues.
+  Some Excel version (at least OSX) represent line breaks with only \r instead of
+  \r\n, which caused import errors.
+  [jone]
 
 
 2.2.18 (2013-09-20)
