@@ -144,6 +144,7 @@ table_schema = (ATContentTypeSchema.copy() +
                             'alignment': '',
                             'bold': False,
                             'indent': '',
+                            'width': '10',
                             },
                         ) for i in range(MAX_AMOUNT_OF_COLUMNS)],
                 ),
