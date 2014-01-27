@@ -16,3 +16,9 @@ msgstr ""
 
 msgid "Read Book"
 msgstr ""
+
+msgid "book_view"
+msgstr ""
+
+msgid "tabbed_view"
+msgstr ""
