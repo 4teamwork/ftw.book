@@ -134,8 +134,8 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
         if self.get_field_value('preLatexNewpage'):
             latex.append(r'\newpage')
 
-        latex.append(self._render_landscape())
         latex.append(self._render_preferred_layout())
+        latex.append(self._render_landscape())
         latex.append(self.get_rendered_latex_for('preLatexCode'))
 
         return '\n'.join(latex).strip()

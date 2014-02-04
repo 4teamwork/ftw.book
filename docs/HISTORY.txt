@@ -5,6 +5,10 @@ Changelog
 2.2.19 (unreleased)
 -------------------
 
+- Fix page width bug when using landscape with enforced onecolumn layout.
+  The layout needs to be applied before switching to landscape.
+  [jone]
+
 - Add new export / import icon for tables.
   [jone]
 
