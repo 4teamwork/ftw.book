@@ -1,10 +1,28 @@
 from ftw.builder import builder_registry
 from ftw.builder.archetypes import ArchetypesBuilder
+from ftw.pdfgenerator.utils import provide_request_layer
 
 
 class BookBuilder(ArchetypesBuilder):
 
     portal_type = 'Book'
+
+    def __init__(self, *args, **kwargs):
+        super(BookBuilder, self).__init__(*args, **kwargs)
+        self.apply_layer = None
+
+    def with_layout(self, layout_iface):
+        dotted_name = '.'.join((layout_iface.__module__,
+                                layout_iface.__name__))
+        self.having(latex_layout=dotted_name)
+        self.apply_layer = layout_iface
+        return self
+
+    def after_create(self, obj):
+        if self.apply_layer:
+            provide_request_layer(obj.REQUEST, self.apply_layer)
+        super(BookBuilder, self).after_create(obj)
+
 
 builder_registry.register('book', BookBuilder)
 
@@ -23,7 +41,6 @@ class TableBuilder(ArchetypesBuilder):
     def __init__(self, *args, **kwargs):
         super(TableBuilder, self).__init__(*args, **kwargs)
         self.table = None
-
 
     def with_table(self, table):
         """Fills the table with data represented as list of lists.
