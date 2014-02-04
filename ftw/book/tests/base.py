@@ -48,8 +48,11 @@ class PDFDiffTestCase(TestCase):
     # resulting PDF and the diff is saved.
     result_dir_name = 'test_book_export'
 
+    def condition(self):
+        return True
+
     def setUp(self):
-        if self._is_base_test():
+        if self._is_base_test() or not self.condition():
             return
 
         self.validate()
@@ -76,7 +79,7 @@ class PDFDiffTestCase(TestCase):
         self.layer['portal'].getSiteManager().registerUtility(self.config)
 
     def tearDown(self):
-        if self._is_base_test():
+        if self._is_base_test() or not self.condition():
             return
 
         self.layer['portal'].getSiteManager().unregisterUtility(self.config)
@@ -149,8 +152,9 @@ class PDFDiffTestCase(TestCase):
         """
         return type(self) == PDFDiffTestCase
 
+
     def test_book_export(self):
-        if self._is_base_test():
+        if self._is_base_test() or not self.condition():
             return
 
         expectation = self.get_absolute_path(self.expected_result)
