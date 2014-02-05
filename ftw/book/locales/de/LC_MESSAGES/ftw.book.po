@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-01-27 09:28+0000\n"
+"POT-Creation-Date: 2014-02-05 10:03+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -12,43 +12,43 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "X-Is-Fallback-For: de-de de-at de-ch\n"
 
-#: ./ftw/book/content/table.py:157
+#: ./ftw/book/content/table.py:158
 msgid "${num} rows"
 msgstr "${num} Zeilen"
 
-#: ./ftw/book/content/table.py:281
+#: ./ftw/book/content/table.py:282
 msgid "10mm"
 msgstr "10mm"
 
-#: ./ftw/book/content/table.py:293
+#: ./ftw/book/content/table.py:294
 msgid "10mm ind. + bold"
 msgstr "10mm einr. + fett"
 
-#: ./ftw/book/content/table.py:295
+#: ./ftw/book/content/table.py:296
 msgid "10mm ind. + grey font"
 msgstr "10mm einr. + grau"
 
-#: ./ftw/book/content/table.py:291
+#: ./ftw/book/content/table.py:292
 msgid "10mm indent"
 msgstr "10mm einrücken"
 
-#: ./ftw/book/content/table.py:280
+#: ./ftw/book/content/table.py:281
 msgid "2mm"
 msgstr "2mm"
 
-#: ./ftw/book/content/table.py:292
+#: ./ftw/book/content/table.py:293
 msgid "2mm ind. + bold"
 msgstr "2mm einr. + fett"
 
-#: ./ftw/book/content/table.py:294
+#: ./ftw/book/content/table.py:295
 msgid "2mm ind. + grey font"
 msgstr "2mm einr. + grau"
 
-#: ./ftw/book/content/table.py:290
+#: ./ftw/book/content/table.py:291
 msgid "2mm indent"
 msgstr "2mm einrücken"
 
-#: ./ftw/book/content/table.py:287
+#: ./ftw/book/content/table.py:288
 msgid "Bold"
 msgstr "Fett"
 
@@ -78,7 +78,7 @@ msgstr "Kommentare einbinden"
 msgid "Export"
 msgstr "Exportieren"
 
-#: ./ftw/book/content/table.py:288
+#: ./ftw/book/content/table.py:289
 msgid "Grey font"
 msgstr "Graue Schrift"
 
@@ -90,7 +90,7 @@ msgstr "HTML Block"
 msgid "Import"
 msgstr "Importieren"
 
-#: ./ftw/book/content/table.py:286
+#: ./ftw/book/content/table.py:287
 msgid "Normal"
 msgstr "Normal"
 
@@ -102,15 +102,15 @@ msgstr "PDF"
 msgid "Remark"
 msgstr "Kommentar"
 
-#: ./ftw/book/content/table.py:297
+#: ./ftw/book/content/table.py:298
 msgid "Row without line"
 msgstr "Zeile ohne Linie"
 
-#: ./ftw/book/content/table.py:298
+#: ./ftw/book/content/table.py:299
 msgid "Small font"
 msgstr "Kleine Schrift"
 
-#: ./ftw/book/content/table.py:299
+#: ./ftw/book/content/table.py:300
 msgid "Strech first line"
 msgstr "Zeilen Verbinden"
 
@@ -138,7 +138,7 @@ msgstr "Sie haben keine Spalte ausgewählt"
 msgid "You didn't choose a file."
 msgstr "Sie haben kein File ausgewählt"
 
-#: ./ftw/book/content/table.py:271
+#: ./ftw/book/content/table.py:272
 msgid "automatically"
 msgstr "Automatisch"
 
@@ -218,7 +218,7 @@ msgstr "Titelseite einbetten"
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
-#: ./ftw/book/content/table.py:274
+#: ./ftw/book/content/table.py:275
 msgid "center"
 msgstr "Zentriert"
 
@@ -250,7 +250,7 @@ msgid "datagrid_add_button"
 msgstr "Neue Zeile hinzufügen"
 
 #. Default: "When exporting the book as PDF the table will be pulled up if there is no content in the first cell. The aim is to place a preceding title at the same height as the first row of the table. For suppressing this behaviour enable this option."
-#: ./ftw/book/content/table.py:216
+#: ./ftw/book/content/table.py:217
 msgid "description_no_lifting"
 msgstr "Ist beim exportieren eines Buches als PDF die erste Zelle leer, wird die gesammte Tabelle um eine Zeile nach oben geschoben. Somit wird der Titel der Tabelle auf der gleichen Höhe wie die erste Zeile der Tabelle dargestellt. Um dieses Verhalten zu unterdrücken, aktivieren Sie diese Option."
 
@@ -320,7 +320,7 @@ msgid "injection_label_two_column_layout"
 msgstr "Zweispaltiges Layout"
 
 #. Default: "Border Layout"
-#: ./ftw/book/content/table.py:206
+#: ./ftw/book/content/table.py:207
 msgid "label_border_layout"
 msgstr "Rahmenlayout"
 
@@ -340,17 +340,17 @@ msgid "label_enforce_import"
 msgstr "Import erzwingen"
 
 #. Default: "First column is a header column"
-#: ./ftw/book/content/table.py:184
+#: ./ftw/book/content/table.py:185
 msgid "label_first_column_is_header"
 msgstr "Erste Spalte ist eine Kopfspalte"
 
 #. Default: "Footer rows are bold"
-#: ./ftw/book/content/table.py:194
+#: ./ftw/book/content/table.py:195
 msgid "label_footer_is_bold"
 msgstr "Fusszeilen fett darstellen"
 
 #. Default: "Amount of footer rows"
-#: ./ftw/book/content/table.py:174
+#: ./ftw/book/content/table.py:175
 msgid "label_footer_rows"
 msgstr "Anzahl Fusszeilen"
 
@@ -365,7 +365,7 @@ msgid "label_gotoparent"
 msgstr "Zurück zu ${book_name}"
 
 #. Default: "Amount of header rows"
-#: ./ftw/book/content/table.py:160
+#: ./ftw/book/content/table.py:161
 msgid "label_header_rows"
 msgstr "Anzahl Kopfzeilen"
 
@@ -375,7 +375,7 @@ msgid "label_modified_csv_file"
 msgstr "Bearbeitetes CSV-File"
 
 #. Default: "No lifting"
-#: ./ftw/book/content/table.py:215
+#: ./ftw/book/content/table.py:216
 msgid "label_no_lifting"
 msgstr "Kein Heben der Tabelle"
 
@@ -389,7 +389,7 @@ msgstr "Titel anzeigen"
 msgid "label_table_content"
 msgstr "Tabelleninhalt"
 
-#: ./ftw/book/content/table.py:272
+#: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr "Links"
 
@@ -403,7 +403,7 @@ msgstr "Tabelle exportieren"
 msgid "legend_import_table"
 msgstr "Tabelle importieren"
 
-#: ./ftw/book/content/table.py:279
+#: ./ftw/book/content/table.py:280
 msgid "no indent"
 msgstr "Nicht einrücken"
 
@@ -425,7 +425,7 @@ msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objek
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
 
-#: ./ftw/book/content/table.py:273
+#: ./ftw/book/content/table.py:274
 msgid "right"
 msgstr "Rechts"
 
