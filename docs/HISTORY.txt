@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.19 (unreleased)
+2.2.19 (2014-02-05)
 -------------------
 
 - Update French and English translations.
