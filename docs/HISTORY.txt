@@ -5,6 +5,9 @@ Changelog
 2.2.19 (unreleased)
 -------------------
 
+- Update French and English translations.
+  [jone]
+
 - Fix page width bug when using landscape with enforced onecolumn layout.
   The layout needs to be applied before switching to landscape.
   [jone]
