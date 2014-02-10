@@ -8,7 +8,7 @@ class BooksView(TabbedView):
     """Tabbed book overview"""
 
     def get_tabs(self):
-        return [{'id':'books', 'class':''}, ]
+        return [{'id': 'books', 'class': ''}, ]
 
 
 class Tab(CatalogListingView):

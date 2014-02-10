@@ -148,7 +148,8 @@ class ImageLaTeXGenerator(MakoTemplating):
             latex = self._generate_includegraphics_latex(image, r'\linewidth')
             latex = self._extend_latex_with_caption(latex, caption, floatable)
             latex = self._extend_latex_with_floating(latex, alignment, width)
-            latex = '\n'.join((self._make_sure_image_fits_page(width_ratio), latex))
+            latex = '\n'.join((
+                    self._make_sure_image_fits_page(width_ratio), latex))
 
         else:
             latex = self._generate_includegraphics_latex(image, width)

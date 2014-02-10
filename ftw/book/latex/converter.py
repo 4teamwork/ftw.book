@@ -42,7 +42,6 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
              interfaces.HTML2LATEX_REPEAT_MODIFIER),
             placeholder=BOTTOM)
 
-
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))
         converters.append(VisualHighlightSubconverter)

@@ -136,7 +136,7 @@ table_schema = (ATContentTypeSchema.copy() +
                     DataGridField.FixedRow(
                         keyColumn='columnId',
                         initialData={
-                            'columnId':'column_%i' % (i),
+                            'columnId': 'column_%i' % (i),
                             'columnTitle': _(
                                 u'Column ${num}',
                                 mapping=dict(num=(i + 1))),

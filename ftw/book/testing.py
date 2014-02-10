@@ -107,7 +107,6 @@ FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
            ), name="ftw.book:Functional")
 
 
-
 class ExampleContentLayer(Layer):
 
     defaultBases = (FTW_BOOK_FIXTURE, )
@@ -144,4 +143,5 @@ class ExampleContentLayer(Layer):
 
 EXAMPLE_CONTENT_FIXTURE = ExampleContentLayer()
 EXAMPLE_CONTENT_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(EXAMPLE_CONTENT_FIXTURE, ), name="ftw.book:examplecontent:integration")
+    bases=(EXAMPLE_CONTENT_FIXTURE, ),
+    name="ftw.book:examplecontent:integration")
