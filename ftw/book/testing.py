@@ -100,11 +100,11 @@ class FtwBookLayer(PloneSandboxLayer):
 
 FTW_BOOK_FIXTURE = FtwBookLayer()
 FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FTW_BOOK_FIXTURE, ), name="FtwBook:Integration")
+    bases=(FTW_BOOK_FIXTURE, ), name="ftw.book:Integration")
 FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_BOOK_FIXTURE,
            set_builder_session_factory(functional_session_factory)
-           ), name="FtwBook:Functional")
+           ), name="ftw.book:Functional")
 
 
 
