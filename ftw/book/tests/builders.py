@@ -34,6 +34,13 @@ class ChapterBuilder(ArchetypesBuilder):
 builder_registry.register('chapter', ChapterBuilder)
 
 
+class ParagraphBuilder(ArchetypesBuilder):
+
+    portal_type = 'Paragraph'
+
+builder_registry.register('paragraph', ParagraphBuilder)
+
+
 class TableBuilder(ArchetypesBuilder):
 
     portal_type = 'Table'

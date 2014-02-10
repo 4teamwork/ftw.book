@@ -5,7 +5,8 @@ Changelog
 2.2.20 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix invalid markup in TOC trees: move <ul>s into <li>s.
+  [jone]
 
 
 2.2.19 (2014-02-05)

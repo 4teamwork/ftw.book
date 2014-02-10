@@ -7,33 +7,32 @@ maintainer = 'Jonas Baumann'
 
 
 tests_require = [
-    'unittest2',
+    'Products.GenericSetup',
+    'ftw.builder',
+    'ftw.inflator',
+    'ftw.testbrowser',
+    'ftw.testing',
     'mocker',
-
+    'plone.app.testing',
+    'plone.browserlayer',
+    'plone.mocktestcase',
+    'plone.portlets',
+    'plone.testing',
+    'transaction',
+    'unittest2',
     'zope.app.component',
     'zope.browser',
     'zope.configuration',
     'zope.i18n',
     'zope.traversing',
     'zope.viewlet',
-
-    'plone.testing',
-    'plone.app.testing',
-    'plone.mocktestcase',
-    'plone.portlets',
-    'Products.GenericSetup',
-
-    'ftw.builder',
-    'ftw.inflator',
-    'ftw.testbrowser',
-    'ftw.testing',
-    'pyquery',
     ]
 
 extras_require = {
     'tests': tests_require,
     'tabbeview': [
-        'ftw.tabbedview'],
+        'ftw.tabbedview',
+        'ftw.table'],
     'linguaplone': [
         'Products.LinguaPlone']}
 
@@ -67,12 +66,27 @@ setup(name='ftw.book',
       zip_safe=False,
 
       install_requires=[
-        'setuptools',
-
-        # Zope
         'AccessControl',
         'Acquisition',
+        'BeautifulSoup!=4.0b',
+        'Products.ATContentTypes',
+        'Products.Archetypes',
+        'Products.CMFCore',
+        'Products.CMFPlone',
+        'Products.DataGridField>=1.9',
+        'Products.GenericSetup',
+        'Products.statusmessages',
         'Zope2',
+        'archetypes.schemaextender',
+        'ftw.pdfgenerator',
+        'ftw.upgrade',
+        'plone.app.contentmenu',
+        'plone.app.layout',
+        'plone.app.portlets',
+        'plone.portlets',
+        'setuptools',
+        'simplelayout.base',
+        'simplelayout.types.common',
         'zope.annotation',
         'zope.component',
         'zope.dottedname',
@@ -80,26 +94,6 @@ setup(name='ftw.book',
         'zope.interface',
         'zope.publisher',
         'zope.schema',
-
-        # Plone
-        'Products.CMFPlone',
-        'Products.CMFCore',
-        'Products.ATContentTypes',
-        'Products.Archetypes',
-        'Products.statusmessages',
-        'plone.app.contentmenu',
-        'plone.app.layout',
-        'plone.app.portlets',
-        'plone.portlets',
-
-        # Addons
-        'ftw.pdfgenerator',
-        'simplelayout.types.common',
-        'simplelayout.base',
-        'archetypes.schemaextender',
-        'BeautifulSoup!=4.0b',
-        'Products.DataGridField>=1.9',
-        'ftw.upgrade',
         ],
 
       tests_require=tests_require,
