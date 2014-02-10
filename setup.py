@@ -14,10 +14,11 @@ tests_require = [
     'ftw.testing',
     'mocker',
     'plone.app.testing',
+    'plone.browserlayer',
     'plone.mocktestcase',
     'plone.portlets',
     'plone.testing',
-    'pyquery',
+    'transaction',
     'unittest2',
     'zope.app.component',
     'zope.browser',
@@ -30,7 +31,8 @@ tests_require = [
 extras_require = {
     'tests': tests_require,
     'tabbeview': [
-        'ftw.tabbedview'],
+        'ftw.tabbedview',
+        'ftw.table'],
     'linguaplone': [
         'Products.LinguaPlone']}
 
@@ -72,6 +74,7 @@ setup(name='ftw.book',
         'Products.CMFCore',
         'Products.CMFPlone',
         'Products.DataGridField>=1.9',
+        'Products.GenericSetup',
         'Products.statusmessages',
         'Zope2',
         'archetypes.schemaextender',
