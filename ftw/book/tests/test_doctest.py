@@ -9,7 +9,5 @@ def test_suite():
     suite.addTests([
         layered(doctest.DocFileSuite('bookview.txt'),
                 layer=FTW_BOOK_INTEGRATION_TESTING),
-        layered(doctest.DocFileSuite('navigation.txt'),
-                layer=FTW_BOOK_INTEGRATION_TESTING),
     ])
     return suite
