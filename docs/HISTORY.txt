@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.2.21 (unreleased)
--------------------
+3.0.0 (unreleased)
+------------------
 
 - Nothing changed yet.
 
