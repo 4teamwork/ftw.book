@@ -80,9 +80,9 @@
       />
 
   <browser:viewlet
-      name="ftw.book.paragraph.validation"
+      name="ftw.book.textblock.validation"
       class=".viewlets.viewlets.TableValidationViewlet"
-      for="simplelayout.types.common.interfaces.IParagraph"
+      for="ftw.book.interfaces.IBookTextBlock"
       layer="ftw.book.interfaces.IWithinBookLayer"
       manager="simplelayout.base.interfaces.ISimpleViewletProvider"
       permission="cmf.ModifyPortalContent"
