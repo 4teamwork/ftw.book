@@ -34,6 +34,11 @@ class ITable(Interface):
     """
 
 
+class IBookTextBlock(Interface):
+    """Book text block marker interface.
+    """
+
+
 class IAddRemarkLayer(Interface):
     """ Request layer interface, provided if we select to show remarks in
     the pdf export wizard

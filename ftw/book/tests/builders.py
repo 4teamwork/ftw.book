@@ -36,12 +36,11 @@ class ChapterBuilder(ArchetypesBuilder):
 builder_registry.register('chapter', ChapterBuilder)
 
 
-class ParagraphBuilder(ArchetypesBuilder):
+class TextBlockBuilder(ArchetypesBuilder):
 
-    portal_type = 'Paragraph'
+    portal_type = 'BookTextBlock'
 
-builder_registry.register('paragraph', ParagraphBuilder)
-builder_registry.register('book textblock', ParagraphBuilder)
+builder_registry.register('book textblock', TextBlockBuilder)
 
 
 class TableBuilder(ArchetypesBuilder):

@@ -14,7 +14,8 @@
         action_group="edit"
         permissions="ftw.book: Add HTML Block,
                      ftw.book: Add Remark,
-                     ftw.book: Add Table"
+                     ftw.book: Add Table,
+                     ftw.book: Add Text Block"
         />
 
     <lawgiver:map_permissions

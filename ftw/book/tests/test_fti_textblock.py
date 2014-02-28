@@ -17,23 +17,23 @@ class TestTextBlock(TestCase):
     @browsing
     def test_creating_textblock(self, browser):
         browser.login().visit(self.chapter)
-        factoriesmenu.add('Paragraph')
+        factoriesmenu.add('Text Block')
         browser.fill({
-                'Title': 'The Paragraph',
+                'Title': 'The Text Block',
                 'Show Title': True,
-                'Body Text': '<b>Some body text</b>'}).submit()
-        self.assertEquals(self.chapter.absolute_url() + '/#the-paragraph',
+                'Text': '<b>Some body text</b>'}).submit()
+        self.assertEquals(self.chapter.absolute_url() + '/#the-text-block',
                           browser.url)
-        blocks = browser.css('.BlockOverallWrapper.paragraph')
+        blocks = browser.css('.BlockOverallWrapper.booktextblock')
         self.assertEquals(1, len(blocks),
                           'Expected chapter to have exactly one block')
 
         block, = blocks
-        self.assertEquals(['1.1 The Paragraph'], block.css('h3').text,
+        self.assertEquals(['1.1 The Text Block'], block.css('h3').text,
                           'Expected block title to be visible.')
 
     @browsing
-    def test_showing_paragraph_title(self, browser):
+    def test_showing_block_title(self, browser):
         create(Builder('book textblock')
                .titled('Visible')
                .having(showTitle=True)
@@ -45,7 +45,7 @@ class TestTextBlock(TestCase):
                .within(self.chapter))
 
         browser.login().visit(self.chapter)
-        visible, hidden = browser.css('.BlockOverallWrapper.paragraph')
+        visible, hidden = browser.css('.BlockOverallWrapper.booktextblock')
 
         self.assertEquals(
             ['1.1 Visible'], visible.css('h3').text,
@@ -73,13 +73,13 @@ class TestTextBlock(TestCase):
 
         self.assertEquals(
             ['1.1 Block in TOC', 'Block NOT in TOC'],
-            browser.css('.BlockOverallWrapper.paragraph h3').text,
+            browser.css('.BlockOverallWrapper.booktextblock h3').text,
             'Only the first block title should have a number prefix.')
 
     @browsing
     def test_latex_fields_available(self, browser):
         browser.login().open(self.chapter)
-        factoriesmenu.add('Paragraph')
+        factoriesmenu.add('Text Block')
 
         form = browser.find('Title').parent('form')
         labels = form.field_labels(form)

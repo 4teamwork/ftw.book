@@ -28,7 +28,7 @@
       />
 
   <browser:page
-      for="simplelayout.types.common.interfaces.IParagraph"
+      for="ftw.book.interfaces.IBookTextBlock"
       name="block_view"
       template="paragraph.pt"
       class=".blockview.BookBlockView"
