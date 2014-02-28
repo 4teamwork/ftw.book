@@ -1,4 +1,5 @@
 from ftw.book.interfaces import IBook
+from ftw.book.interfaces import IBookTextBlock
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
@@ -7,7 +8,6 @@ from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
 from mocker import ANY
 from simplelayout.base.interfaces import IBlockConfig
-from simplelayout.types.common.interfaces import IParagraph
 from zope.app.component.hooks import setSite
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
@@ -15,7 +15,7 @@ from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
 
 
-class TestParagraphLaTeXView(MockTestCase):
+class TestTextBlockLaTeXView(MockTestCase):
 
     layer = LATEX_ZCML_LAYER
 
@@ -30,7 +30,7 @@ class TestParagraphLaTeXView(MockTestCase):
         converter = getMultiAdapter((object(), request, layout_obj),
                                     IHTML2LaTeXConverter)
 
-        context = self.providing_stub([IParagraph, IBlockConfig])
+        context = self.providing_stub([IBookTextBlock, IBlockConfig])
 
         layout = self.providing_mock([ILaTeXLayout])
         self.expect(layout.get_converter()).result(converter).count(0, None)
@@ -71,7 +71,7 @@ class TestParagraphLaTeXView(MockTestCase):
         request = self.create_dummy()
         layout = self.create_dummy()
 
-        context = self.providing_stub([IParagraph])
+        context = self.providing_stub([IBookTextBlock])
         self.expect(context.getImage()).result(None)
 
         self.replay()
@@ -84,7 +84,7 @@ class TestParagraphLaTeXView(MockTestCase):
         request = self.create_dummy()
         layout = self.create_dummy()
 
-        context = self.providing_stub([IParagraph, IBlockConfig])
+        context = self.providing_stub([IBookTextBlock, IBlockConfig])
 
         self.expect(context.getImage()).result(self.create_dummy(
                 get_size=lambda: 1))
@@ -122,26 +122,26 @@ class TestParagraphLaTeXView(MockTestCase):
         self.assertEqual(latex, '')
 
     def test_full_latex_rendering(self):
-        paragraph, request, layout = self.create_image_mocks(
+        block, request, layout = self.create_image_mocks(
             'small', 'THE image', '123')
 
-        self.expect(paragraph.getShowTitle()).result(True)
-        self.expect(paragraph.pretty_title_or_id()).result(
+        self.expect(block.getShowTitle()).result(True)
+        self.expect(block.pretty_title_or_id()).result(
             'My <b>block</b> title')
-        self.expect(paragraph.getText()).result(
+        self.expect(block.getText()).result(
             'Thats <b>some</b> text.   ')
 
         book = self.providing_stub([IBook])
-        self.set_parent(paragraph, book)
+        self.set_parent(block, book)
 
         schema = self.stub()
-        self.expect(paragraph.Schema()).result(schema)
-        self.expect(schema.getField('hideFromTOC').get(paragraph)
+        self.expect(block.Schema()).result(schema)
+        self.expect(schema.getField('hideFromTOC').get(block)
                     ).result(False)
 
         self.replay()
 
-        view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
+        view = getMultiAdapter((block, request, layout), ILaTeXView)
         latex = view.render()
 
         self.assertIn(r'\chapter{My \textbf{block} title}', latex)
@@ -154,8 +154,8 @@ class TestParagraphLaTeXView(MockTestCase):
 
     def test_heading_converts_to_bold(self):
         # Within books the book structure (section, subsection, etc) is
-        # defined using chapters and paragraph titles. Therefore the
-        # text of the paragraph should not contain headings since it would
+        # defined using chapters and block titles. Therefore the
+        # text of the block should not contain headings since it would
         # result in inconsistent chapter numberings and other problems.
 
         context, request, layout = self.get_mocks()
@@ -177,19 +177,19 @@ class TestParagraphLaTeXView(MockTestCase):
         """Using "full" layout should not make a floatable image
         (wrapfigure), even there is also text in the block.
         """
-        paragraph, request, layout = self.create_image_mocks(
+        block, request, layout = self.create_image_mocks(
             'full', 'THE image', '123', floated=False)
 
-        self.expect(paragraph.getShowTitle()).result(False)
-        self.expect(paragraph.getText()).result(
+        self.expect(block.getShowTitle()).result(False)
+        self.expect(block.getText()).result(
             'Text')
 
         book = self.providing_stub([IBook])
-        self.set_parent(paragraph, book)
+        self.set_parent(block, book)
 
         self.replay()
 
-        view = getMultiAdapter((paragraph, request, layout), ILaTeXView)
+        view = getMultiAdapter((block, request, layout), ILaTeXView)
         latex = view.render()
 
         self.assertNotIn(r'\end{wrapfigure}', latex)

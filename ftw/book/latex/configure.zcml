@@ -34,7 +34,7 @@
         />
 
     <adapter
-        factory="ftw.book.latex.paragraph.ParagraphLaTeXView"
+        factory="ftw.book.latex.textblock.TextBlockLaTeXView"
         provides="ftw.pdfgenerator.interfaces.ILaTeXView"
         />
 
