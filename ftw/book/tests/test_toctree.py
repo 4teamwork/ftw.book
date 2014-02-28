@@ -7,11 +7,11 @@ class TestTocTree(MockTestCase):
     def test_get_toc_tree(self):
         book_brain = self.create_dummy(portal_type='Book')
         chapter_brain = self.create_dummy(portal_type='Chapter')
-        paragraph_brain = self.create_dummy(showTitle=False,
-                                            portal_type='Paragraph')
-        paragraph2_brain = self.create_dummy(showTitle=True,
+        textblock_brain = self.create_dummy(showTitle=False,
+                                            portal_type='BookTextBlock')
+        textblock2_brain = self.create_dummy(showTitle=True,
                                              hideFromTOC=True,
-                                             portal_type='Paragraph')
+                                             portal_type='BookTextBlock')
         subchapter_brain = self.create_dummy(portal_type='Chapter')
 
         tree = {
@@ -27,14 +27,14 @@ class TestTocTree(MockTestCase):
                  'currentItem': False,
                  'children': [
 
-                        {'item': paragraph_brain,
+                        {'item': textblock_brain,
                          'currentParent': False,
                          'depth': 2,
                          '_pruneSubtree': True,
                          'currentItem': False,
                          'children': []},
 
-                        {'item': paragraph2_brain,
+                        {'item': textblock2_brain,
                          'currentParent': False,
                          'depth': 2,
                          '_pruneSubtree': True,
@@ -83,7 +83,7 @@ class TestTocTree(MockTestCase):
             }
 
         self.assertEqual(toc_tree, expected_toc_tree)
-        # The original tree should not be modified, so the paragraph
+        # The original tree should not be modified, so the textblock
         # should be in the original tree dict.
         self.assertNotEqual(tree, toc_tree)
         self.assertEqual(len(tree.get('children')[0].get('children')), 3)
@@ -91,4 +91,4 @@ class TestTocTree(MockTestCase):
 
         self.assertEqual(
             tree.get('children')[0].get('children')[0].get('item'),
-        paragraph_brain)
+        textblock_brain)

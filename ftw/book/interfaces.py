@@ -53,7 +53,7 @@ class IWithinBookLayer(Interface):
 
 class ILaTeXCodeInjectionEnabled(Interface):
     """Enables LaTeX code injection for admins on
-    book-objects (chapters, SL-paragraphs).
+    book-objects (chapters, text blocks).
     """
 
 
