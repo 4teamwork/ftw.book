@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.20 (unreleased)
+2.2.20 (2014-02-28)
 -------------------
 
 - Fix invalid markup in TOC trees: move <ul>s into <li>s.
