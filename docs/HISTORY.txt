@@ -5,7 +5,8 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Replace Paragraph with BookTextBlock.
+  [jone]
 
 
 2.2.20 (2014-02-28)

@@ -78,4 +78,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 2301 -> 3000 -->
+    <genericsetup:upgradeStep
+        title="Migrate sl Paragraph type with BookTextBlock"
+        description=""
+        source="2301"
+        destination="3000"
+        handler="ftw.book.upgrades.to3000.MigrateParagraphs"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="3000"
+        title="ftw.book.upgrades.3000"
+        description=""
+        directory="profiles/3000"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
