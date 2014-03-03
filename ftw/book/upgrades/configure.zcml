@@ -1,7 +1,10 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.book">
+
+    <include package="ftw.upgrade" file="meta.zcml" />
 
     <!-- old style upgrades -->
     <include package=".v02" />
@@ -95,6 +98,15 @@
         directory="profiles/3000"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- 3000 => 3001 -->
+    <upgrade-step:importProfile
+        title="Install tinymce keyword plugin"
+        profile="ftw.book:default"
+        source="3000"
+        destination="3001"
+        directory="profiles/3001"
         />
 
 </configure>

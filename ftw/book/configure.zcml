@@ -20,6 +20,7 @@
     <include package=".content" />
     <include package=".portlets" />
     <include package=".upgrades" />
+    <include package=".keyword" />
 
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
