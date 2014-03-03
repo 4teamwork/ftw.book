@@ -109,4 +109,13 @@
         directory="profiles/3001"
         />
 
+    <!-- 3001 => 3002 -->
+    <upgrade-step:importProfile
+        title="Install book keyword index."
+        profile="ftw.book:default"
+        source="3001"
+        destination="3002"
+        directory="profiles/3002"
+        />
+
 </configure>

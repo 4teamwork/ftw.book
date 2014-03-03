@@ -18,4 +18,9 @@
         directory="keyword-plugin"
         />
 
+    <adapter
+        name="book_keywords"
+        factory=".indexer.book_keywords"
+        />
+
 </configure>
