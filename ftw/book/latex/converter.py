@@ -42,6 +42,17 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
              interfaces.HTML2LATEX_REPEAT_MODIFIER),
             placeholder=BOTTOM)
 
+        # Add \index for each span.keyword
+        self._insert_custom_pattern(
+            (interfaces.HTML2LATEX_MODE_REGEXP,
+             r'<span ([^>]*)class="[^"]*keyword[^"]*"([^>]*)>(.*?)</span>',
+             r'\g<3><keyword \g<1>\g<2>/>'))
+
+        self._insert_custom_pattern(
+            (interfaces.HTML2LATEX_MODE_REGEXP,
+             r'<keyword [^>]*title="([^"]*)"[^/]*/>',
+             r'\index{\g<1>}'))
+
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))
         converters.append(VisualHighlightSubconverter)

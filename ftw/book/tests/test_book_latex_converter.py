@@ -5,6 +5,7 @@ from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.testing import MockTestCase
 from mocker import ANY
+from unittest2 import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
 import tempfile
@@ -189,3 +190,24 @@ class TestBookConverterVisualHighlight(MockTestCase):
                 r'<span class="visualHighlight"> <br /></span></span>'
                 r'</span></p>'),
             '\\hl{foo bar.\\\\\nbaz. \\\\\n}')
+
+
+class TestBookConverterKeywords(TestCase):
+
+    layer = LATEX_ZCML_LAYER
+
+    def test_inserts_keywords(self):
+        convert = BookHTML2LatexConverter(None, None, None).convert
+
+        self.assertEqual(
+            r'Hello world\index{World}!',
+            convert('<p>Hello <span class="keyword"'
+                    ' title="World">world</span>!'))
+
+    def test_inserts_keywords_reversed_attributes(self):
+        convert = BookHTML2LatexConverter(None, None, None).convert
+
+        self.assertEqual(
+            r'Hello world\index{World}!',
+            convert('<p>Hello <span title="World"'
+                    ' class="keyword">world</span>!'))
