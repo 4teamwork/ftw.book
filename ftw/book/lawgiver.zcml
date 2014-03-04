@@ -15,7 +15,7 @@
         permissions="ftw.book: Add HTML Block,
                      ftw.book: Add Remark,
                      ftw.book: Add Table,
-                     ftw.book: Add Text Block"
+                     ftw.book: Add Book Text Block"
         />
 
     <lawgiver:map_permissions
