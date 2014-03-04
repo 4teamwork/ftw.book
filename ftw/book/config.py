@@ -12,6 +12,7 @@ ADD_PERMISSIONS = {
     'HTMLBlock': 'ftw.book: Add HTML Block',
     'Remark': 'ftw.book: Add Remark',
     'Table': 'ftw.book: Add Table',
+    'BookTextBlock': 'ftw.book: Add Book Text Block',
     }
 
 

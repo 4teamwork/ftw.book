@@ -37,4 +37,12 @@
         interface="..interfaces.IRemark"
         />
   </class>
+
+  <class class=".textblock.BookTextBlock">
+      <require
+          permission="zope2.View"
+          interface="..interfaces.IBookTextBlock"
+          />
+  </class>
+
 </configure>

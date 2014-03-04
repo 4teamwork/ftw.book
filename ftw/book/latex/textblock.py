@@ -1,14 +1,14 @@
+from ftw.book.interfaces import IBookTextBlock
 from ftw.book.latex import utils
 from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.pdfgenerator.view import MakoLaTeXView
 from simplelayout.base.interfaces import IBlockConfig
-from simplelayout.types.common.interfaces import IParagraph
 from zope.component import adapts
 from zope.interface import Interface
 
 
-class ParagraphLaTeXView(MakoLaTeXView):
-    adapts(IParagraph, Interface, Interface)
+class TextBlockLaTeXView(MakoLaTeXView):
+    adapts(IBookTextBlock, Interface, Interface)
 
     def render(self):
         latex = []

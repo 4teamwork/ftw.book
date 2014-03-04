@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '2.2.21.dev0'
+version = '3.0.0.dev0'
 maintainer = 'Jonas Baumann'
 
 
@@ -79,6 +79,7 @@ setup(name='ftw.book',
         'Zope2',
         'archetypes.schemaextender',
         'ftw.pdfgenerator',
+        'ftw.contentpage',
         'ftw.upgrade',
         'plone.app.contentmenu',
         'plone.app.layout',

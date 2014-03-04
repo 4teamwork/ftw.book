@@ -13,7 +13,8 @@
     <type portal_type="Book" />
     <type portal_type="Chapter" />
     <type portal_type="HTMLBlock" />
-	<type portal_type="Remark" />
-	<type portal_type="Table" />
+	  <type portal_type="Remark" />
+	  <type portal_type="Table" />
+    <type portal_type="BookTextBlock" />
   </factorytypes>
 </object>
