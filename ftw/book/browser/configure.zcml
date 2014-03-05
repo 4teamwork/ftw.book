@@ -10,6 +10,10 @@
       name='ftw.book-resources'
       directory="resources" />
 
+  <browser:resourceDirectory
+      name="ftw.book-select2"
+      directory="select2-3.4.5" />
+
   <browser:page
       for="*"
       name="export_pdf"
