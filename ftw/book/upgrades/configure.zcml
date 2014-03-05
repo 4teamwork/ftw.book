@@ -118,4 +118,13 @@
         directory="profiles/3002"
         />
 
+    <!-- 3002 => 3003 -->
+    <upgrade-step:importProfile
+        title="Register new keywords tab."
+        profile="ftw.book:default"
+        source="3002"
+        destination="3003"
+        directory="profiles/3003"
+        />
+
 </configure>

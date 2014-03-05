@@ -81,6 +81,9 @@ class FtwBookLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml', ftw.pdfgenerator,
                        context=configurationContext)
 
+        xmlconfig.file('configure.zcml', ftw.tabbedview,
+                       context=configurationContext)
+
         # installProduct() is *only* necessary for packages outside
         # the Products.* namespace which are also declared as Zope 2
         # products, using <five:registerPackage /> in ZCML.
@@ -91,8 +94,7 @@ class FtwBookLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'ftw.book:default')
-        applyProfile(portal, 'simplelayout.base:default')
-        applyProfile(portal, 'simplelayout.types.common:default')
+        applyProfile(portal, 'ftw.tabbedview:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)

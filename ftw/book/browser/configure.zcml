@@ -137,6 +137,12 @@
          class=".book_tabs.DocumentsTab"
          permission="zope2.View"
          />
+     <browser:page
+         for="ftw.book.interfaces.IBook"
+         name="tabbedview_view-keywords"
+         class=".keywords.KeywordsTab"
+         permission="zope2.View"
+         />
   </configure>
 
 
