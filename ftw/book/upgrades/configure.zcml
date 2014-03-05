@@ -111,7 +111,7 @@
 
     <!-- 3001 => 3002 -->
     <upgrade-step:importProfile
-        title="Install book keyword index."
+        title="Install book keyword index and metadata."
         profile="ftw.book:default"
         source="3001"
         destination="3002"

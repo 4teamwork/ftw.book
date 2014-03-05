@@ -94,3 +94,16 @@ class TestKeywordIndex(TestCase):
         self.assertDictContainsSubset(
             {'book_keywords': ['Foo']},
             index_data)
+
+    def test_keyword_metadata(self):
+        html = '<p><span class="keyword" title="Foo">Foo</span></p>'
+        book = create(Builder('book'))
+        chapter = create(Builder('chapter').within(book))
+        block = create(Builder('book textblock')
+                       .having(text=html)
+                       .within(chapter))
+
+        catalog = getToolByName(self.layer['portal'], 'portal_catalog')
+        brain = catalog({'path': '/'.join(block.getPhysicalPath())})[0]
+        self.assertEquals(['Foo'],
+                          brain.book_keywords)
