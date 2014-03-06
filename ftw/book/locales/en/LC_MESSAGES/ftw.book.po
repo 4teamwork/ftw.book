@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-03 14:34+0000\n"
+"POT-Creation-Date: 2014-03-06 12:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,6 +419,11 @@ msgstr ""
 msgid "no indent"
 msgstr ""
 
+#. Default: "Keyword"
+#: ./ftw/book/browser/keywords.pt:21
+msgid "placeholder_keyword"
+msgstr "Keyword"
+
 #: ./ftw/book/latexinjection.py:86
 msgid "post_latex_code_help"
 msgstr ""
@@ -505,4 +510,3 @@ msgstr ""
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr ""
-

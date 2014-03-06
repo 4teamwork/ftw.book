@@ -20,7 +20,7 @@ class TestKeywordsView(TestCase):
 
     @browsing
     def test_keywords_only_available_when_use_keywords_enabled(self, browser):
-        tab_label = 'keywords'  # needs to be translated to english
+        tab_label = 'Keywords'
         browser.login().visit(self.book, view='tabbed_view')
         self.assertNotIn(tab_label, browser.css('.tabbedview-tabs a').text)
 

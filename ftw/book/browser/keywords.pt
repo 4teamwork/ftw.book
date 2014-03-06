@@ -19,7 +19,8 @@
             <form class="keywords">
                 <metal:SLOT define-slot="keywords-select">
                     <select name="book_keywords" id="keyword"
-                            data-placeholder="Stichwort">
+                            i18n:attributes="data-placeholder placeholder_keyword"
+                            data-placeholder="Keyword">
                         <option></option>
                         <option tal:repeat="keyword view/keywords"
                                 tal:attributes="value keyword"

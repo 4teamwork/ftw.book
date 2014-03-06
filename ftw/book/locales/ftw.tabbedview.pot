@@ -11,14 +11,14 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-msgid "bookdocuments"
-msgstr "Dokumente"
-
 msgid "books"
-msgstr "Bücher"
+msgstr ""
 
 msgid "index"
-msgstr "Inhaltsverzeichnis"
+msgstr ""
+
+msgid "bookdocuments"
+msgstr ""
 
 msgid "keywords"
-msgstr "Stichwörter"
+msgstr ""
