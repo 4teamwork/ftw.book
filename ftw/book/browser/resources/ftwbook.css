@@ -125,7 +125,8 @@ body.mceContentBody span.keyword {
   margin-right: 0.5em;
 }
 
-#keywords_overview .result {
+#keywords_overview .result,
+#keywords_overview .no-results {
   clear: both;
   padding-top: 1em;
   margin-bottom: 1em;

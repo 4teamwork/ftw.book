@@ -5,8 +5,16 @@
       i18n:domain="ftw.book">
 
     <metal:main-macro define-macro="main">
-        <tal:RESULTS tal:define="search_keyword request/book_keywords">
-            <div class="result" tal:repeat="result options/results">
+        <tal:RESULTS tal:define="search_keyword request/book_keywords;
+                                 results options/results">
+
+            <div class="no-results"
+                 tal:condition="not:results"
+                 i18n:translate="no_results">
+                No results found.
+            </div>
+
+            <div class="result" tal:repeat="result results">
 
                 <metal:SLOT define-slot="before-title"/>
                 <metal:SLOT define-slot="title">

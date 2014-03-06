@@ -87,6 +87,15 @@ class TestKeywordsView(TestCase):
                           'Expected exactly one result')
 
     @browsing
+    def test_message_when_there_are_no_results(self, browser):
+        browser.login().open(self.book,
+                             {'book_keywords': 'Foo'},
+                             view='tabbedview_view-keywords/load')
+
+        self.assertEquals('No results found.',
+                          browser.css('.no-results').first.text)
+
+    @browsing
     def test_results_are_sorted_by_position_in_the_book(self, browser):
         one = create(Builder('chapter')
                      .titled('Chapter One')

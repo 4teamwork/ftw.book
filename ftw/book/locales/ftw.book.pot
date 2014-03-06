@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-06 12:50+0000\n"
+"POT-Creation-Date: 2014-03-06 15:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -420,6 +420,11 @@ msgstr ""
 
 #: ./ftw/book/content/table.py:280
 msgid "no indent"
+msgstr ""
+
+#. Default: "No results found."
+#: ./ftw/book/browser/keywords_results.pt:11
+msgid "no_results"
 msgstr ""
 
 #. Default: "Keyword"
