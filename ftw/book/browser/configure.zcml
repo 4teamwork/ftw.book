@@ -142,6 +142,7 @@
          name="tabbedview_view-keywords"
          class=".keywords.KeywordsTab"
          permission="zope2.View"
+         allowed_attributes="load macros"
          />
   </configure>
 

@@ -114,3 +114,19 @@ body.mceContentBody span.keyword {
   padding-left: 1px;
   padding-right: 1px;
 }
+
+/* Keywords tab */
+#keywords_overview {
+  padding-top: 1em;
+}
+
+#keywords_overview form .select2-container {
+  float: left;
+  margin-right: 0.5em;
+}
+
+#keywords_overview .result {
+  clear: both;
+  padding-top: 1em;
+  margin-bottom: 1em;
+}
