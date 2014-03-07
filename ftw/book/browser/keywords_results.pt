@@ -28,7 +28,7 @@
 
                 <metal:SLOT define-slot="keywords">
                     <div class="result-keywords">
-                        <span tal:repeat="keyword result/brain/book_keywords">
+                        <span tal:repeat="keyword result/keywords">
                             <b tal:content="keyword"
                                tal:omit-tag="python: keyword != search_keyword">
                                 </b><span tal:condition="not:repeat/keyword/end"

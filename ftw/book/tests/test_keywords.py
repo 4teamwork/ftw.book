@@ -201,11 +201,27 @@ class TestKeywordsView(TestCase):
                              {'book_keywords': 'Foo'},
                              view='tabbedview_view-keywords/load')
 
-        self.assertEquals(['Foo,', 'Bar,', 'Baz'],
+        self.assertEquals(['Bar,', 'Baz,', 'Foo'],
                           browser.css('.result-keywords span').text)
 
         self.assertEquals(['Foo'],
                           browser.css('.result-keywords b').text)
+
+    @browsing
+    def test_no_duplicate_keywords_in_result(self, browser):
+        chapter = create(Builder('chapter').within(self.book))
+        create(Builder('book textblock')
+               .within(chapter)
+               .titled('The Block')
+               .having(text=keywords_html('Foo', 'Bar', 'Foo'),
+                       showTitle=True))
+
+        browser.login().open(self.book,
+                             {'book_keywords': 'Foo'},
+                             view='tabbedview_view-keywords/load')
+
+        self.assertEquals(['Bar,', 'Foo'],
+                          browser.css('.result-keywords span').text)
 
     @browsing
     def test_result_location_is_shown(self, browser):

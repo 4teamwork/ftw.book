@@ -74,9 +74,13 @@ class KeywordsTab(BrowserView):
         return self._chapters
 
     def _prepare_item(self, brain):
+        keywords = sorted(set(brain.book_keywords),
+                          key=lambda item:item.lower())
+
         return {'brain': brain,
                 'title': self._title_of_brain(brain),
-                'location': self._location_for_brain(brain)}
+                'location': self._location_for_brain(brain),
+                'keywords': tuple(keywords)}
 
     def _location_for_brain(self, brain):
         book_path = '/'.join(self.context.getPhysicalPath())
