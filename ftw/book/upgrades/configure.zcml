@@ -110,12 +110,22 @@
         />
 
     <!-- 3001 => 3002 -->
-    <upgrade-step:importProfile
+    <genericsetup:upgradeStep
         title="Install book keyword index and metadata."
-        profile="ftw.book:default"
+        description=""
         source="3001"
         destination="3002"
+        handler="ftw.book.upgrades.to3002.AddBookKeyword"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="3002"
+        title="ftw.book.upgrades.3002"
+        description=""
         directory="profiles/3002"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
     <!-- 3002 => 3003 -->
