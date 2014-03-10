@@ -41,6 +41,7 @@
         handler="ftw.book.setuphandlers.import_various"
         />
 
+    <adapter factory=".bookadapter.find_book" />
 
     <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
          If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,
