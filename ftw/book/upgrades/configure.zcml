@@ -137,4 +137,13 @@
         directory="profiles/3003"
         />
 
+    <!-- 3003 => 3004 -->
+    <upgrade-step:importProfile
+        title="Register BookTextBlock as linkable in TinyMCE."
+        profile="ftw.book:default"
+        source="3003"
+        destination="3004"
+        directory="profiles/3004"
+        />
+
 </configure>
