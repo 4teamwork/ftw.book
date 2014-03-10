@@ -22,7 +22,7 @@
               {"_id": "paragraph-two",
                "_type": "BookTextBlock",
                "title": "Paragraph Two",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-small-left",
@@ -36,7 +36,7 @@
 
               {"_id": "paragraph-three",
                "_type": "BookTextBlock",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, <span class=\"keyword\" title=\"Brewhouse\">brewhouse</span>, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, <span class=\"keyword\" title=\"Brewhouse\">brewhouse</span>, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-middle-left",
@@ -50,7 +50,7 @@
 
               {"_id": "paragraph-four",
                "_type": "BookTextBlock",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-full-width",
@@ -64,7 +64,7 @@
 
               {"_id": "paragraph-five",
                "_type": "BookTextBlock",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-middle-right",
@@ -78,7 +78,7 @@
 
               {"_id": "paragraph-six",
                "_type": "BookTextBlock",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-small-right",
@@ -92,7 +92,7 @@
 
               {"_id": "paragraph-seven",
                "_type": "BookTextBlock",
-               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation <span class=\"keyword\" title=\"hydrometer\">hydrometer</span>, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+               "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation <span class=\"keyword\" title=\"hydrometer\">hydrometer</span>, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
 
@@ -116,7 +116,7 @@
                    {"_id": "paragraph-two",
                     "_type": "BookTextBlock",
                     "title": "Paragraph Two",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-small-left",
@@ -130,7 +130,7 @@
 
                    {"_id": "paragraph-three",
                     "_type": "BookTextBlock",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-middle-left",
@@ -144,7 +144,7 @@
 
                    {"_id": "paragraph-four",
                     "_type": "BookTextBlock",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-full-width",
@@ -158,7 +158,7 @@
 
                    {"_id": "paragraph-five",
                     "_type": "BookTextBlock",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-middle-right",
@@ -172,7 +172,7 @@
 
                    {"_id": "paragraph-six",
                     "_type": "BookTextBlock",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-small-right",
@@ -186,7 +186,7 @@
 
                    {"_id": "paragraph-seven",
                     "_type": "BookTextBlock",
-                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"}
+                    "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"}
 
 
                ]}
