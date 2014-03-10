@@ -408,6 +408,11 @@ msgstr "Titel anzeigen"
 msgid "label_table_content"
 msgstr "Tabelleninhalt"
 
+#. Default: "See page ${pageref}"
+#: ./ftw/book/latex/hyperlink_subconverter.py:32
+msgid "latex_page_reference"
+msgstr "Siehe Seite ${pageref}"
+
 #: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr "Links"
