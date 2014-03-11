@@ -1,3 +1,4 @@
+from ftw.book.interfaces import IWithinBookLayer
 from ftw.builder import builder_registry
 from ftw.builder.archetypes import ArchetypesBuilder
 from ftw.pdfgenerator.utils import provide_request_layer
@@ -19,6 +20,7 @@ class BookBuilder(ArchetypesBuilder):
         return self
 
     def after_create(self, obj):
+        provide_request_layer(obj.REQUEST, IWithinBookLayer)
         if self.apply_layer:
             provide_request_layer(obj.REQUEST, self.apply_layer)
         super(BookBuilder, self).after_create(obj)
@@ -34,11 +36,11 @@ class ChapterBuilder(ArchetypesBuilder):
 builder_registry.register('chapter', ChapterBuilder)
 
 
-class ParagraphBuilder(ArchetypesBuilder):
+class TextBlockBuilder(ArchetypesBuilder):
 
-    portal_type = 'Paragraph'
+    portal_type = 'BookTextBlock'
 
-builder_registry.register('paragraph', ParagraphBuilder)
+builder_registry.register('book textblock', TextBlockBuilder)
 
 
 class TableBuilder(ArchetypesBuilder):

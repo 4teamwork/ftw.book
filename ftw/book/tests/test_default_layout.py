@@ -21,6 +21,7 @@ class TestDefaultBookLayout(MockTestCase):
             'getUse_toc': True,
             'getUse_lot': True,
             'getUse_loi': True,
+            'getUse_index': False,
             'author_address': 'Bern\nSwitzerland',
             'release': '2.5',
             'author': '4teamwork',
@@ -47,7 +48,7 @@ class TestDefaultBookLayout(MockTestCase):
         return book
 
     def _mock_portal_languages_tool(self):
-        language_tool = self.mocker.mock()
+        language_tool = self.stub()
         self.mock_tool(language_tool, 'portal_languages')
         self.expect(language_tool.getPreferredLanguage()).result('en')
 
@@ -120,6 +121,8 @@ class TestDefaultBookLayout(MockTestCase):
              'use_toc': True,
              'use_lot': True,
              'use_loi': True,
+             'use_index': False,
+             'index_title': u'Index',
              'authoraddress': r'Bern\\Switzerland',
              'author': '4teamwork',
              'release': '2.5',
@@ -130,7 +133,7 @@ class TestDefaultBookLayout(MockTestCase):
     def test_get_render_arguments_babel(self):
         book = self._mock_book()
 
-        language_tool = self.mocker.mock()
+        language_tool = self.stub()
         self.mock_tool(language_tool, 'portal_languages')
         self.expect(language_tool.getPreferredLanguage()).result('de')
 
@@ -250,3 +253,21 @@ class TestDefaultBookLayout(MockTestCase):
         layout = DefaultBookLayout(book, object(), object())
 
         self.assertEqual('Foo-Bar', layout.get_render_arguments()['title'])
+
+    def test_using_index(self):
+        self._mock_portal_languages_tool()
+        book_without_index = self._mock_book({'getUse_index': False})
+        book_with_index = self._mock_book({'getUse_index': True})
+        builder = self.stub()
+        self.expect(builder.add_file(ANY, data=ANY))
+        self.replay()
+
+        without_index_latex = DefaultBookLayout(
+            book_without_index, object(), builder).render_latex('')
+        self.assertNotIn(r'\makeindex', without_index_latex)
+        self.assertNotIn(r'\printindex', without_index_latex)
+
+        with_index_latex = DefaultBookLayout(
+            book_with_index, object(), builder).render_latex('')
+        self.assertIn(r'\makeindex', with_index_latex)
+        self.assertIn(r'\printindex', with_index_latex)

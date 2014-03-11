@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-02-05 10:03+0000\n"
+"POT-Creation-Date: 2014-03-10 13:10+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -57,6 +57,11 @@ msgstr "Fett"
 msgid "Book"
 msgstr "Buch"
 
+#: ./ftw/book/profiles/default/types/BookTextBlock.xml
+#: ./ftw/book/upgrades/profiles/3000/types/BookTextBlock.xml
+msgid "BookTextBlock"
+msgstr "Text Block"
+
 #. Default: "Chapter"
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
@@ -66,7 +71,7 @@ msgstr "Kapitel"
 msgid "Column ${num}"
 msgstr "Spalte ${num}"
 
-#: ./ftw/book/latex/defaultlayout.py:39
+#: ./ftw/book/latex/defaultlayout.py:41
 msgid "Default layout"
 msgstr "Standardlayout"
 
@@ -143,14 +148,19 @@ msgid "automatically"
 msgstr "Automatisch"
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:87
+#: ./ftw/book/latex/defaultlayout.py:89
 msgid "book_help_titlepage_logo"
 msgstr "Laden Sie ein Bild oder PDF hoch, welches auf der Titelseite im PDF eingebettet wird."
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:100
+#: ./ftw/book/latex/defaultlayout.py:102
 msgid "book_help_titlepage_logo_width"
 msgstr "Wenn Sie ein Logo für die Titelseite benutze, definieren Sie hier die gewünschte Breite in Prozent der Inhaltsbreite."
+
+#. Default: "When enabled, a keyword index will be included in the PDF."
+#: ./ftw/book/content/book.py:79
+msgid "book_help_use_index"
+msgstr "Wenn diese Option angewählt ist, wird im PDF am Ende des Buches ein Stichwortverzeichnis generiert."
 
 #: ./ftw/book/content/book.py:69
 msgid "book_help_use_loi"
@@ -169,12 +179,12 @@ msgid "book_help_use_toc"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:64
+#: ./ftw/book/latex/defaultlayout.py:66
 msgid "book_label_author"
 msgstr "Autor"
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:76
+#: ./ftw/book/latex/defaultlayout.py:78
 msgid "book_label_author_address"
 msgstr "Adresse des Autors"
 
@@ -184,19 +194,24 @@ msgid "book_label_layout"
 msgstr "Layout"
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:56
+#: ./ftw/book/latex/defaultlayout.py:58
 msgid "book_label_release"
 msgstr "Version"
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:85
+#: ./ftw/book/latex/defaultlayout.py:87
 msgid "book_label_titlepage_logo"
 msgstr "Logo Titelseite"
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:98
+#: ./ftw/book/latex/defaultlayout.py:100
 msgid "book_label_titlepage_logo_width"
 msgstr "Breite Logo Titelseite (%)"
+
+#. Default: "Embedd subject index"
+#: ./ftw/book/content/book.py:77
+msgid "book_label_use_index"
+msgstr "Stichwortverzeichnis einbetten"
 
 #. Default: "Embedd list of illustrations"
 #: ./ftw/book/content/book.py:67
@@ -389,6 +404,11 @@ msgstr "Titel anzeigen"
 msgid "label_table_content"
 msgstr "Tabelleninhalt"
 
+#. Default: "See page ${pageref}"
+#: ./ftw/book/latex/hyperlink_subconverter.py:32
+msgid "latex_page_reference"
+msgstr "Siehe Seite ${pageref}"
+
 #: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr "Links"
@@ -406,6 +426,16 @@ msgstr "Tabelle importieren"
 #: ./ftw/book/content/table.py:280
 msgid "no indent"
 msgstr "Nicht einrücken"
+
+#. Default: "No results found."
+#: ./ftw/book/browser/keywords_results.pt:11
+msgid "no_results"
+msgstr "Es wurde nichts gefunden."
+
+#. Default: "Keyword"
+#: ./ftw/book/browser/keywords.pt:21
+msgid "placeholder_keyword"
+msgstr "Stichwort"
 
 #: ./ftw/book/latexinjection.py:86
 msgid "post_latex_code_help"
@@ -489,3 +519,7 @@ msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses B
 msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
 
+#. Default: "Index"
+#: ./ftw/book/latex/defaultlayout.py:215
+msgid "title_index"
+msgstr "Stichwortverzeichnis"

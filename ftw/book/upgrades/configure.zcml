@@ -1,7 +1,10 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.book">
+
+    <include package="ftw.upgrade" file="meta.zcml" />
 
     <!-- old style upgrades -->
     <include package=".v02" />
@@ -76,6 +79,71 @@
         directory="profiles/2301"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- 2301 -> 3000 -->
+    <genericsetup:upgradeStep
+        title="Migrate sl Paragraph type with BookTextBlock"
+        description=""
+        source="2301"
+        destination="3000"
+        handler="ftw.book.upgrades.to3000.MigrateParagraphs"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="3000"
+        title="ftw.book.upgrades.3000"
+        description=""
+        directory="profiles/3000"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- 3000 => 3001 -->
+    <upgrade-step:importProfile
+        title="Install tinymce keyword plugin"
+        profile="ftw.book:default"
+        source="3000"
+        destination="3001"
+        directory="profiles/3001"
+        />
+
+    <!-- 3001 => 3002 -->
+    <genericsetup:upgradeStep
+        title="Install book keyword index and metadata."
+        description=""
+        source="3001"
+        destination="3002"
+        handler="ftw.book.upgrades.to3002.AddBookKeyword"
+        profile="ftw.book:default"
+        />
+
+    <genericsetup:registerProfile
+        name="3002"
+        title="ftw.book.upgrades.3002"
+        description=""
+        directory="profiles/3002"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- 3002 => 3003 -->
+    <upgrade-step:importProfile
+        title="Register new keywords tab."
+        profile="ftw.book:default"
+        source="3002"
+        destination="3003"
+        directory="profiles/3003"
+        />
+
+    <!-- 3003 => 3004 -->
+    <upgrade-step:importProfile
+        title="Register BookTextBlock as linkable in TinyMCE."
+        profile="ftw.book:default"
+        source="3003"
+        destination="3004"
+        directory="profiles/3004"
         />
 
 </configure>

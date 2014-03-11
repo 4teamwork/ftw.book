@@ -1,6 +1,7 @@
 from Acquisition import aq_inner, aq_parent
 from Products.Archetypes import atapi
 from Products.Archetypes import public
+from Products.CMFCore.utils import getToolByName
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 from ftw.book import _
@@ -12,6 +13,7 @@ from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from zope.component import adapts
 from zope.dottedname.resolve import resolve
+from zope.i18n import translate
 from zope.interface import implements, Interface
 
 
@@ -75,7 +77,7 @@ class DefaultBookLayoutExtender(object):
             widget=atapi.TextAreaWidget(
                 label=_(u'book_label_author_address',
                         default=u'Author Address'),
-                        )),
+                )),
 
         FileField(
             name='titlepage_logo',
@@ -96,7 +98,7 @@ class DefaultBookLayoutExtender(object):
 
             widget=atapi.IntegerWidget(
                 label=_(u'book_label_titlepage_logo_width',
-                       default=u'Titlepage logo width (%)'),
+                        default=u'Titlepage logo width (%)'),
                 description=_(u'book_help_titlepage_logo_width',
                               default=u'Width of the titlepage logo in '
                               u'percent of the content width.'),
@@ -165,10 +167,12 @@ class DefaultBookLayout(MakoLayoutBase):
             'use_toc': book.getUse_toc(),
             'use_lot': book.getUse_lot(),
             'use_loi': book.getUse_loi(),
+            'use_index': book.getUse_index(),
             'release': convert(book.Schema().getField('release').get(book)),
             'author': convert(book.Schema().getField('author').get(book)),
             'authoraddress': address,
             'babel': get_preferred_babel_option_for_context(self.context),
+            'index_title': self.get_index_title(),
             }
         return args
 
@@ -198,3 +202,15 @@ class DefaultBookLayout(MakoLayoutBase):
         # would clash.
         self.remove_package('graphicx')
         self.remove_package('hyperref')
+
+    def get_index_title(self):
+        context_language_method = getattr(self.context, 'getLanguage', None)
+        if context_language_method:
+            language_code = context_language_method()
+
+        else:
+            ltool = getToolByName(self.context, 'portal_languages')
+            language_code = ltool.getPreferredLanguage()
+
+        return translate(_(u'title_index', default=u'Index'),
+                         target_language=language_code)

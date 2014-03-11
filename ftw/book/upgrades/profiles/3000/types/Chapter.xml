@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="Chapter">
+
+    <property name="allowed_content_types" purge="False">
+        <element value="Paragraph" remove="True" />
+        <element value="BookTextBlock"/>
+    </property>
+
+</object>

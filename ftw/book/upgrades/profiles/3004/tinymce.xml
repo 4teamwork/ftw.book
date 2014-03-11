@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes>
+
+        <containsobjects purge="False">
+            <element value="Chapter"/>
+        </containsobjects>
+
+        <linkable purge="False">
+            <element value="Chapter"/>
+            <element value="BookTextBlock"/>
+            <element value="HTMLBlock"/>
+            <element value="Table"/>
+        </linkable>
+
+        <containsanchors purge="False">
+            <element value="BookTextBlock"/>
+            <element value="HTMLBlock"/>
+        </containsanchors>
+
+    </resourcetypes>
+</object>

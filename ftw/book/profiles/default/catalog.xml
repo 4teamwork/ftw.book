@@ -3,5 +3,6 @@
 
   <column value="showTitle" />
   <column value="hideFromTOC" />
+  <column value="book_keywords" />
 
 </object>

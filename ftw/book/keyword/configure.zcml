@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.book">
+
+    <!-- Override plone-tinymces's jsonConfiguration.
+         So it's possible to add custom buttons per contenttype -->
+    <browser:pages
+        for="ftw.book.interfaces.IBookTextBlock"
+        class=".config.BookTextBlockTinyMCEBrowserView"
+        permission="zope2.View">
+        <browser:page attribute="jsonConfiguration"
+                      name="tinymce-jsonconfiguration" />
+    </browser:pages>
+
+    <browser:resourceDirectory
+        name="ftw.book.tinymce.keyword"
+        directory="keyword-plugin"
+        />
+
+    <adapter
+        name="book_keywords"
+        factory=".indexer.book_keywords"
+        />
+
+</configure>

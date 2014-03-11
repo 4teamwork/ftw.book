@@ -24,9 +24,9 @@ class TestBookView(TestCase):
                          .within(book))
         subchapter = create(Builder('chapter').titled('The SubChapter')
                             .within(chapter))
-        create(Builder('paragraph').titled('Hidden Title Block')
+        create(Builder('book textblock').titled('Hidden Title Block')
                .having(showTitle=False).within(subchapter))
-        create(Builder('paragraph').titled('Visible Title Block')
+        create(Builder('book textblock').titled('Visible Title Block')
                .having(showTitle=True).within(subchapter))
         create(Builder('chapter').titled('Second Chapter').within(book))
 

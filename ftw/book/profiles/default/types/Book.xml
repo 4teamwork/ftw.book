@@ -65,4 +65,12 @@
          condition_expr="">
      <permission value="View"/>
   </action>
+  <action action_id="keywords"
+         visible="True"
+         url_expr="string:${object_url}#keywords"
+         title="BookKeywords"
+         category="tabbedview-tabs"
+         condition_expr="here/getUse_index">
+     <permission value="View"/>
+  </action>
 </object>

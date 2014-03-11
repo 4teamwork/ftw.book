@@ -50,6 +50,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         for fieldname, value in data.items():
             self.expect(schema.getField(fieldname).get(mock)).result(value)
 
+        self.expect(mock.getPhysicalPath()).result(['', 'path', 'to', 'obj'])
         return schema
 
     def test_not_injected_without_interface(self):
@@ -69,9 +70,6 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.mock_extender_values(obj, preLatexCode=latex_pre_code,
                                   postLatexCode=latex_post_code)
 
-        self.expect(obj.getPhysicalPath()).result(
-            ['', 'myobj']).count(3)  # 3 = pre + post + assertion below
-
         self.replay()
         latex = self.layout.render_latex_for(obj)
 
@@ -90,7 +88,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.replay()
         latex = self.layout.render_latex_for(obj)
 
-        self.assertEqual(latex.strip(), '')
+        self.assertEqual(latex.strip(), r'\label{path:/path/to/obj}')
 
     def test_column_layout_injected(self):
         obj1 = self.providing_stub(ILaTeXCodeInjectionEnabled)
@@ -214,13 +212,15 @@ class TestInjectionAwareConvertObject(MockTestCase):
         self.replay()
 
         self.assertEqual(
-            self.layout.render_latex_for(foo),
-
             '\n'.join((
+                    r'\label{path:/path/to/obj}',
+                    r'',
                     r'\begin{landscape}',
-                    r'Bar: ',
-                    r'Baz: ',
-                    r'\end{landscape}')))
+                    r'Bar: \label{path:/path/to/obj}',
+                    r'Baz: \label{path:/path/to/obj}',
+                    r'\end{landscape}')),
+
+            self.layout.render_latex_for(foo))
 
 
 class TestLaTeXInjectionController(MockTestCase):

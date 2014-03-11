@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<object name="BookTextBlock"
+        meta_type="Factory-based Type Information with dynamic views"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.book">
+
+    <property name="title" i18n:translate="">BookTextBlock</property>
+    <property name="description"></property>
+    <property name="content_icon">++resource++ftw.book-resources/icon_bookblock.gif</property>
+    <property name="content_meta_type">BookTextBlock</property>
+    <property name="product">ftw.book</property>
+    <property name="factory">addBookTextBlock</property>
+    <property name="immediate_view">paragraph_view</property>
+    <property name="global_allow">False</property>
+    <property name="allow_discussion">False</property>
+    <property name="default_view">paragraph_view</property>
+    <property name="view_methods">
+        <element value="paragraph_view"/>
+    </property>
+    <property name="default_view_fallback">False</property>
+
+    <alias from="(Default)" to="(dynamic view)"/>
+    <alias from="edit" to="atct_edit"/>
+    <alias from="sharing" to="@@sharing"/>
+    <alias from="view" to="(selected layout)"/>
+
+    <action title="View" action_id="view" category="object" condition_expr=""
+            url_expr="string:${object_url}/view" visible="True">
+        <permission value="View"/>
+    </action>
+    <action title="Edit" action_id="edit" category="object" condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user|python:True"
+            url_expr="string:${object_url}/edit" visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+
+    <action title="Edit" action_id="sl-edit" category="sl-actions" icon_expr=""
+            condition_expr="" url_expr="string:${object_url}/edit" visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Delete" action_id="sl-delete" category="sl-actions"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/delete_confirmation" visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Squarish" action_id="sl-small" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Half" action_id="sl-middle" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Full" action_id="sl-full" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="No Image" action_id="sl-no-image" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Half-Right" action_id="sl-middle-right" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+    <action title="Squarish-Right" action_id="sl-small-right" category="sl-layouts"
+            condition_expr="" icon_expr=""
+            url_expr="string:${here/absolute_url}/block_control"
+            visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+</object>

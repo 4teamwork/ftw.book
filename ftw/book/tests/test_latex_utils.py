@@ -44,30 +44,30 @@ class TestLatexHeading(MockTestCase):
                           '\\chapter{My Chapter}\n')
 
     def test_hide_from_toc_setting_from_latex_injection(self):
-        paragraph = self.stub()
-        self.set_parent(paragraph, self.stub_interface(IBook))
-        self.expect(paragraph.pretty_title_or_id()).result('My Paragraph')
+        textblock = self.stub()
+        self.set_parent(textblock, self.stub_interface(IBook))
+        self.expect(textblock.pretty_title_or_id()).result('My Textblock')
 
         layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('My Paragraph')).result(
-            'My Paragraph')
+        self.expect(layout.get_converter().convert('My Textblock')).result(
+            'My Textblock')
 
         with self.mocker.order():
-            self.mock_inject_settings(paragraph, hideFromTOC=True)
-            self.mock_inject_settings(paragraph, hideFromTOC=True)
-            self.mock_inject_settings(paragraph, hideFromTOC=False)
+            self.mock_inject_settings(textblock, hideFromTOC=True)
+            self.mock_inject_settings(textblock, hideFromTOC=True)
+            self.mock_inject_settings(textblock, hideFromTOC=False)
 
         self.replay()
 
-        self.assertEquals(get_latex_heading(paragraph, layout),
-                          '\\chapter*{My Paragraph}\n')
+        self.assertEquals(get_latex_heading(textblock, layout),
+                          '\\chapter*{My Textblock}\n')
 
         # Passed "toc" argument should take precedence
-        self.assertEquals(get_latex_heading(paragraph, layout, toc=True),
-                          '\\chapter{My Paragraph}\n')
+        self.assertEquals(get_latex_heading(textblock, layout, toc=True),
+                          '\\chapter{My Textblock}\n')
 
-        self.assertEquals(get_latex_heading(paragraph, layout, toc=False),
-                          '\\chapter*{My Paragraph}\n')
+        self.assertEquals(get_latex_heading(textblock, layout, toc=False),
+                          '\\chapter*{My Textblock}\n')
 
     def test_latex_heading_of_primary_chapter_without_toc(self):
         chapter = self.mocker.mock()

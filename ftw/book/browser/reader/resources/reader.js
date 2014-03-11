@@ -318,6 +318,11 @@
     }
   };
 
+  /* stay in reader when clicking on book internal links */
+  $('a.book-internal').live('click', function(e) {
+    e.preventDefault();
+    goto_block($(this).data('uid'), $(this).attr('href'));
+  });
 
   $(document).ready(function(){
     init_reader_view();
