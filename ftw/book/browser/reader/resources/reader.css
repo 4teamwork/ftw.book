@@ -10,6 +10,6 @@
   height: 50px;
 }
 
-#content .book-reader-navigation #close-book-reader {
+#content #close-book-reader {
   display: none;
 }
