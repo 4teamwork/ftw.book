@@ -20,18 +20,25 @@
     <include package=".content" />
     <include package=".portlets" />
     <include package=".upgrades" />
+    <include package=".keyword" />
 
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
     <include file="skins.zcml" />
 
-    <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
         name="default"
         title="ftw.book"
         directory="profiles/default"
         description=""
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:importStep
+        name="ftw.book"
+        title="ftw.book special import handlers"
+        description=""
+        handler="ftw.book.setuphandlers.import_various"
         />
 
 

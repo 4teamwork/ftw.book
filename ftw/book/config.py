@@ -19,3 +19,7 @@ ADD_PERMISSIONS = {
 # Book LaTeX layout registry. Do not change manually, use
 # ftw.book.latex.utils.register_book_layout
 BOOK_LAYOUT_REGISTRY = {}
+
+
+INDEXES = (('book_keywords', 'KeywordIndex'),
+           )

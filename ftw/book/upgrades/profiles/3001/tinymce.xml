@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object>
+
+    <resourcetypes purge="False">
+
+        <customplugins purge="False">
+            <element value="tinymce_keyword|/++resource++ftw.book.tinymce.keyword/editor_plugin.js"/>
+        </customplugins>
+
+    </resourcetypes>
+
+</object>

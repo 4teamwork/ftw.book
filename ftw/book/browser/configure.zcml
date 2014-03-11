@@ -10,6 +10,10 @@
       name='ftw.book-resources'
       directory="resources" />
 
+  <browser:resourceDirectory
+      name="ftw.book-select2"
+      directory="select2-3.4.5" />
+
   <browser:page
       for="*"
       name="export_pdf"
@@ -132,6 +136,13 @@
          name="tabbedview_view-bookdocuments"
          class=".book_tabs.DocumentsTab"
          permission="zope2.View"
+         />
+     <browser:page
+         for="ftw.book.interfaces.IBook"
+         name="tabbedview_view-keywords"
+         class=".keywords.KeywordsTab"
+         permission="zope2.View"
+         allowed_attributes="load macros"
          />
   </configure>
 
