@@ -14,11 +14,12 @@
 
     <div metal:fill-slot="main" >
       <div class="book-reader">
-        <div class="book-reader-navigation">
-          <a id="close-book-reader"
-             tal:attributes="href context/absolute_url"
-             i18n:translate="">Close reader</a>
-          <div tal:replace="structure view/render_navigation" />
+
+        <a id="close-book-reader"
+           tal:attributes="href context/absolute_url"
+           i18n:translate="">Close reader</a>
+        <div class="book-reader-navigation"
+             tal:content="structure view/render_navigation">
         </div>
         <div class="book-reader-content">
           <div class="book-reader-top-marker"></div>
