@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-06 15:35+0000\n"
+"POT-Creation-Date: 2014-03-11 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,6 +65,10 @@ msgstr ""
 
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
+msgstr ""
+
+#: ./ftw/book/browser/reader/templates/reader.pt:18
+msgid "Close reader"
 msgstr ""
 
 #: ./ftw/book/content/table.py:54

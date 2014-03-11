@@ -17,6 +17,9 @@ Changelog
 - Replace Paragraph with BookTextBlock.
   [jone]
 
+- Added hidden link to leave the reader view.
+  [Julian Infanger]
+
 
 2.2.20 (2014-02-28)
 -------------------
