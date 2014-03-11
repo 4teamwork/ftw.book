@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Make ftw.contentpage's ListingBlock available in Chapters.
+  [jone]
+
 - Improve support for book-internal links.
   TinyMCE is now configured properly so that book contents
   can be linked in rich text fields.
