@@ -21,6 +21,7 @@
     <element value="HTMLBlock"/>
     <element value="Remark"/>
     <element value="Table"/>
+    <element value="ListingBlock" />
   </property>
   <property name="allow_discussion">False</property>
 
