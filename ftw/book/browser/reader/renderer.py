@@ -46,10 +46,11 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
             if 'href' not in node.attrib:
                 continue
 
-            if node.attrib['href'] == context_url:
+            url = self.resolve_uid(node.attrib['href'])
+            if url == context_url:
                 continue
 
-            path = node.attrib['href'].replace(book_url, book_path)
+            path = url.replace(book_url, book_path)
             uid = self.get_uid_by_path(path)
             if uid is None:
                 continue
@@ -71,6 +72,22 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
 
         metadata = catalog.getMetadataForRID(rid)
         return metadata.get('UID', None)
+
+    def resolve_uid(self, url):
+        if '/' not in url:
+            return url
+
+        parts = url.split('/')
+        if parts[-2] == 'resolveuid' or parts[-2] == 'resolveUid':
+            reference_catalog = getToolByName(self.context,
+                                              'reference_catalog')
+
+            uid = parts[-1]
+            obj = reference_catalog.lookupObject(uid)
+
+            if obj is not None:
+                url = obj.absolute_url()
+        return url
 
 
 class BookRenderer(BaseBookReaderRenderer):
