@@ -146,4 +146,13 @@
         directory="profiles/3004"
         />
 
+    <!-- 3004 => 3005 -->
+    <upgrade-step:importProfile
+        title="Install ftw.contentpage and make ListingBlock available in books"
+        profile="ftw.book:default"
+        source="3004"
+        destination="3005"
+        directory="profiles/3005"
+        />
+
 </configure>
