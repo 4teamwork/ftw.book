@@ -64,6 +64,11 @@
         />
 
     <adapter
+        factory="ftw.book.latex.listingblock.ListingBlockLaTeXView"
+        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+        />
+
+    <adapter
         factory="ftw.book.latex.latexinjection.LaTeXInjectionController"
         provides="ftw.book.interfaces.ILaTeXInjectionController"
         />
