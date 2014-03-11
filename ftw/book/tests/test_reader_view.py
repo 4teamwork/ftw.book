@@ -100,7 +100,7 @@ class TestReaderView(MockTestCase):
         self.expect(book_brain.getObject()).result(book)
         self.expect(book_brain.UID).result('1book')
 
-        chapter = self.stub()
+        chapter = self.set_parent(self.stub(), book)
         chapter_brain = self.stub()
         self.expect(chapter.UID()).result('2chapter')
         self.expect(chapter_brain.UID).result('2chapter')
@@ -436,7 +436,7 @@ class TestReaderView(MockTestCase):
 
     def test_render_block_does_not_fail_when_renderer_missing(self):
         brain = self.stub()
-        obj = self.stub()
+        obj = self.set_parent(self.stub(), None)
         self.expect(brain.getObject()).result(obj)
 
         context = self.stub()

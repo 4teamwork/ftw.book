@@ -6,6 +6,7 @@ from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.browser.toc_tree import BookTocTree
 from ftw.book.interfaces import IBook
+from ftw.contentpage.interfaces import IListingBlock
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
 from zope.component import queryMultiAdapter
@@ -79,9 +80,10 @@ class ReaderView(BrowserView):
                 break
 
             block_html = self.render_block(brain)
-            if block_html:
-                data.append([brain.UID, block_html])
+            if not block_html:
+                continue
 
+            data.append([brain.UID, block_html])
             block_render_threshold -= 1
             if block_render_threshold == 0:
                 break
@@ -130,9 +132,10 @@ class ReaderView(BrowserView):
                 break
 
             block_html = self.render_block(brain)
-            if block_html:
-                data.insert(0, [brain.UID, block_html])
+            if not block_html:
+                continue
 
+            data.insert(0, [brain.UID, block_html])
             block_render_threshold -= 1
 
         response_data = {'insert_before': insert_before,
@@ -144,6 +147,8 @@ class ReaderView(BrowserView):
 
     def render_block(self, brain):
         obj = brain.getObject()
+        if IListingBlock.providedBy(aq_parent(aq_inner(obj))):
+            return ''
 
         renderer = queryMultiAdapter((obj, self.request, self),
                                      IBookReaderRenderer)
