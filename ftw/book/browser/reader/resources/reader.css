@@ -9,3 +9,7 @@
   width: 30em;
   height: 50px;
 }
+
+#content .book-reader-navigation #close-book-reader {
+  display: none;
+}

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-02-05 10:03+0000\n"
+"POT-Creation-Date: 2014-03-11 13:49+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -61,6 +61,10 @@ msgstr "Buch"
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr "Kapitel"
+
+#: ./ftw/book/browser/reader/templates/reader.pt:18
+msgid "Close reader"
+msgstr "Leseansicht verlassen"
 
 #: ./ftw/book/content/table.py:54
 msgid "Column ${num}"
@@ -488,4 +492,3 @@ msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses B
 #: ./ftw/book/browser/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
-
