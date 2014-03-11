@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-02-05 10:03+0000\n"
+"POT-Creation-Date: 2014-03-11 13:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,6 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 
 #: ./ftw/book/content/table.py:158
 msgid "${num} rows"
@@ -58,6 +59,10 @@ msgstr "Livre"
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr "Chapitre"
+
+#: ./ftw/book/browser/reader/templates/reader.pt:18
+msgid "Close reader"
+msgstr "Quitté la mode de lecture"
 
 #: ./ftw/book/content/table.py:54
 msgid "Column ${num}"
@@ -485,4 +490,3 @@ msgstr "Préciser la largeur de la table des colonnes / des cellules"
 #: ./ftw/book/browser/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr "Importer/exporter les données du tableau"
-

@@ -5,7 +5,8 @@ Changelog
 2.2.21 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Added hidden link to leave the reader view.
+  [Julian Infanger]
 
 
 2.2.20 (2014-02-28)
