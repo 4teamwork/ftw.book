@@ -128,6 +128,10 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     def render(self):
         latex = []
 
+        self.layout.use_package('hyperref')
+        path = '/'.join(self.context.getPhysicalPath())
+        latex.append(r'\label{path:%s}' % path)
+
         if self.get_field_value('preLatexClearpage'):
             latex.append(r'\clearpage')
 

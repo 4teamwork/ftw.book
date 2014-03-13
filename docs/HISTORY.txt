@@ -5,6 +5,17 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Improve support for book-internal links.
+  TinyMCE is now configured properly so that book contents
+  can be linked in rich text fields.
+  The reader view now supports book internal links like anchors,
+  allowing to jump between content while keep beeing on the
+  reader view.
+  In the PDF book internal links are now rendered with the page
+  number of the link target if the target is included in the same
+  PDF.
+  [jone]
+
 - Add keywords with a keyword index and a TinyMCE plugin for
   adding keywords in the book text block rich text field.
   The keyword index may be enabled on the book and will be

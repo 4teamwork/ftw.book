@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-06 15:35+0000\n"
+"POT-Creation-Date: 2014-03-10 13:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -401,6 +401,11 @@ msgstr ""
 msgid "label_table_content"
 msgstr ""
 
+#. Default: "See page ${pageref}"
+#: ./ftw/book/latex/hyperlink_subconverter.py:32
+msgid "latex_page_reference"
+msgstr ""
+
 #: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr ""
@@ -515,3 +520,5 @@ msgstr ""
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr ""
+
+

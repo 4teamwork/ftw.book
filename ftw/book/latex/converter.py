@@ -1,7 +1,9 @@
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.highlight_subconverter import VisualHighlightSubconverter
+from ftw.book.latex.hyperlink_subconverter import BookHyperlinkConverter
 from ftw.pdfgenerator import interfaces
 from ftw.pdfgenerator.html2latex.converter import HTML2LatexConverter
+from ftw.pdfgenerator.html2latex.subconverters import hyperlink
 from zope.component import adapts
 from zope.interface import implements, Interface
 
@@ -56,4 +58,7 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))
         converters.append(VisualHighlightSubconverter)
+
+        converters[converters.index(hyperlink.HyperlinkConverter)] = \
+            BookHyperlinkConverter
         return converters
