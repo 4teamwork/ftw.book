@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-19 09:11+0000\n"
+"POT-Creation-Date: 2014-03-19 09:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,11 +79,11 @@ msgstr ""
 msgid "Default layout"
 msgstr ""
 
-#: ./ftw/book/browser/export_pdf.pt:22
+#: ./ftw/book/browser/templates/export_pdf.pt:22
 msgid "Embed remarks"
 msgstr ""
 
-#: ./ftw/book/browser/table_export_import.pt:28
+#: ./ftw/book/browser/templates/table_export_import.pt:28
 msgid "Export"
 msgstr ""
 
@@ -95,7 +95,7 @@ msgstr ""
 msgid "HTML Block"
 msgstr ""
 
-#: ./ftw/book/browser/table_export_import.pt:72
+#: ./ftw/book/browser/templates/table_export_import.pt:72
 msgid "Import"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "The file does not seem to belong to this table."
 msgstr ""
 
-#: ./ftw/book/browser/table_content.pt:12
+#: ./ftw/book/browser/templates/table_content.pt:12
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr ""
 
@@ -279,7 +279,7 @@ msgid "info_actvate_columns_first"
 msgstr ""
 
 #. Default: "You can export the tabledata as CSV. Do not manipulate the first row of the exported table to grant the import."
-#: ./ftw/book/browser/table_export_import.pt:21
+#: ./ftw/book/browser/templates/table_export_import.pt:21
 msgid "info_table_export"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgid "label_border_layout"
 msgstr ""
 
 #. Default: "Columns to import"
-#: ./ftw/book/browser/table_export_import.pt:52
+#: ./ftw/book/browser/templates/table_export_import.pt:52
 msgid "label_cols_to_import"
 msgstr ""
 
@@ -354,7 +354,7 @@ msgid "label_column_properties"
 msgstr ""
 
 #. Default: "Enforce import"
-#: ./ftw/book/browser/table_export_import.pt:69
+#: ./ftw/book/browser/templates/table_export_import.pt:69
 msgid "label_enforce_import"
 msgstr ""
 
@@ -389,7 +389,7 @@ msgid "label_header_rows"
 msgstr ""
 
 #. Default: "Modified CSV-file:"
-#: ./ftw/book/browser/table_export_import.pt:45
+#: ./ftw/book/browser/templates/table_export_import.pt:45
 msgid "label_modified_csv_file"
 msgstr ""
 
@@ -418,12 +418,12 @@ msgid "left"
 msgstr ""
 
 #. Default: "Export table"
-#: ./ftw/book/browser/table_export_import.pt:20
+#: ./ftw/book/browser/templates/table_export_import.pt:20
 msgid "legend_export_table"
 msgstr ""
 
 #. Default: "Import table"
-#: ./ftw/book/browser/table_export_import.pt:35
+#: ./ftw/book/browser/templates/table_export_import.pt:35
 msgid "legend_import_table"
 msgstr ""
 
@@ -432,12 +432,12 @@ msgid "no indent"
 msgstr ""
 
 #. Default: "No results found."
-#: ./ftw/book/browser/keywords_results.pt:11
+#: ./ftw/book/browser/templates/keywords_results.pt:11
 msgid "no_results"
 msgstr ""
 
 #. Default: "Keyword"
-#: ./ftw/book/browser/keywords.pt:21
+#: ./ftw/book/browser/templates/keywords.pt:21
 msgid "placeholder_keyword"
 msgstr ""
 
@@ -464,7 +464,7 @@ msgid "right"
 msgstr ""
 
 #. Default: "Select the exported, modified CSV-file to reimport it. The headerrows will be ignored."
-#: ./ftw/book/browser/table_export_import.pt:36
+#: ./ftw/book/browser/templates/table_export_import.pt:36
 msgid "select_file_to_import"
 msgstr ""
 
@@ -519,7 +519,7 @@ msgid "table_width_validation_warning"
 msgstr ""
 
 #. Default: "Import / export tabledata"
-#: ./ftw/book/browser/table_export_import.pt:14
+#: ./ftw/book/browser/templates/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-03-19 09:11+0000\n"
+"POT-Creation-Date: 2014-03-19 09:14+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -79,11 +79,11 @@ msgstr "Spalte ${num}"
 msgid "Default layout"
 msgstr "Standardlayout"
 
-#: ./ftw/book/browser/export_pdf.pt:22
+#: ./ftw/book/browser/templates/export_pdf.pt:22
 msgid "Embed remarks"
 msgstr "Kommentare einbinden"
 
-#: ./ftw/book/browser/table_export_import.pt:28
+#: ./ftw/book/browser/templates/table_export_import.pt:28
 msgid "Export"
 msgstr "Exportieren"
 
@@ -95,7 +95,7 @@ msgstr "Graue Schrift"
 msgid "HTML Block"
 msgstr "HTML Block"
 
-#: ./ftw/book/browser/table_export_import.pt:72
+#: ./ftw/book/browser/templates/table_export_import.pt:72
 msgid "Import"
 msgstr "Importieren"
 
@@ -131,7 +131,7 @@ msgstr "Tabelle"
 msgid "The file does not seem to belong to this table."
 msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
 
-#: ./ftw/book/browser/table_content.pt:12
+#: ./ftw/book/browser/templates/table_content.pt:12
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr "Die Tabelle hat noch keinen Inhalt. Definieren Sie den Inhalt, indem Sie die Tabelle bearbeiten."
 
@@ -279,7 +279,7 @@ msgid "info_actvate_columns_first"
 msgstr "Bitte aktivieren Sie die gewünschte Anzahl Spalten unter 'Layout' und Speichern Sie anschliessend das Objekt."
 
 #. Default: "You can export the tabledata as CSV. Do not manipulate the first row of the exported table to grant the import."
-#: ./ftw/book/browser/table_export_import.pt:21
+#: ./ftw/book/browser/templates/table_export_import.pt:21
 msgid "info_table_export"
 msgstr "Die Tabellendaten können als CSV-Datei exportiert werden. Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder verändert wird, ansonsten kann der Import nicht mehr funktionieren."
 
@@ -344,7 +344,7 @@ msgid "label_border_layout"
 msgstr "Rahmenlayout"
 
 #. Default: "Columns to import"
-#: ./ftw/book/browser/table_export_import.pt:52
+#: ./ftw/book/browser/templates/table_export_import.pt:52
 msgid "label_cols_to_import"
 msgstr "Zu importierende Spalten"
 
@@ -354,7 +354,7 @@ msgid "label_column_properties"
 msgstr "Spalteneigenschaften"
 
 #. Default: "Enforce import"
-#: ./ftw/book/browser/table_export_import.pt:69
+#: ./ftw/book/browser/templates/table_export_import.pt:69
 msgid "label_enforce_import"
 msgstr "Import erzwingen"
 
@@ -389,7 +389,7 @@ msgid "label_header_rows"
 msgstr "Anzahl Kopfzeilen"
 
 #. Default: "Modified CSV-file:"
-#: ./ftw/book/browser/table_export_import.pt:45
+#: ./ftw/book/browser/templates/table_export_import.pt:45
 msgid "label_modified_csv_file"
 msgstr "Bearbeitetes CSV-File"
 
@@ -418,12 +418,12 @@ msgid "left"
 msgstr "Links"
 
 #. Default: "Export table"
-#: ./ftw/book/browser/table_export_import.pt:20
+#: ./ftw/book/browser/templates/table_export_import.pt:20
 msgid "legend_export_table"
 msgstr "Tabelle exportieren"
 
 #. Default: "Import table"
-#: ./ftw/book/browser/table_export_import.pt:35
+#: ./ftw/book/browser/templates/table_export_import.pt:35
 msgid "legend_import_table"
 msgstr "Tabelle importieren"
 
@@ -432,12 +432,12 @@ msgid "no indent"
 msgstr "Nicht einrücken"
 
 #. Default: "No results found."
-#: ./ftw/book/browser/keywords_results.pt:11
+#: ./ftw/book/browser/templates/keywords_results.pt:11
 msgid "no_results"
 msgstr "Es wurde nichts gefunden."
 
 #. Default: "Keyword"
-#: ./ftw/book/browser/keywords.pt:21
+#: ./ftw/book/browser/templates/keywords.pt:21
 msgid "placeholder_keyword"
 msgstr "Stichwort"
 
@@ -464,7 +464,7 @@ msgid "right"
 msgstr "Rechts"
 
 #. Default: "Select the exported, modified CSV-file to reimport it. The headerrows will be ignored."
-#: ./ftw/book/browser/table_export_import.pt:36
+#: ./ftw/book/browser/templates/table_export_import.pt:36
 msgid "select_file_to_import"
 msgstr "Laden Sie die hier exportierte und modifizierte CSV-Datei wieder hoch. Beachten Sie, dass es bei veränderter ersten Zeile zu Problemen kommen kann.<br />Die Kopfzeilen werden nicht importiert!"
 
@@ -519,7 +519,7 @@ msgid "table_width_validation_warning"
 msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses Blockes."
 
 #. Default: "Import / export tabledata"
-#: ./ftw/book/browser/table_export_import.pt:14
+#: ./ftw/book/browser/templates/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
 

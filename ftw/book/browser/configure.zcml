@@ -25,7 +25,7 @@
   <browser:page
       for="ftw.book.interfaces.IChapter"
       name="block_view"
-      template="chapter.pt"
+      template="templates/chapter.pt"
       class=".blockview.BookChapterView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
@@ -34,7 +34,7 @@
   <browser:page
       for="ftw.book.interfaces.IBookTextBlock"
       name="block_view"
-      template="paragraph.pt"
+      template="templates/paragraph.pt"
       class=".blockview.BookBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
@@ -43,7 +43,7 @@
   <browser:page
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
-      template="paragraph.pt"
+      template="templates/paragraph.pt"
       class=".blockview.BookBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
@@ -52,7 +52,7 @@
   <browser:page
       for="ftw.book.interfaces.IRemark"
       name="block_view"
-      template="remark.pt"
+      template="templates/remark.pt"
       class="simplelayout.types.common.browser.views.BlockView"
       permission="zope2.View"
       />
@@ -60,7 +60,7 @@
   <browser:page
       for="ftw.book.interfaces.ITable"
       name="block_view"
-      template="table_content.pt"
+      template="templates/table_content.pt"
       class="simplelayout.types.common.browser.views.BlockView"
       permission="zope2.View"
       />
@@ -70,7 +70,7 @@
       name="table_export_import"
       class=".table_export_import.TableExportImport"
       permission="zope.Public"
-      template="table_export_import.pt"
+      template="templates/table_export_import.pt"
       />
 
   <!-- override simplelayoutlisting for special display -->
@@ -96,7 +96,7 @@
       for="..interfaces.IBook"
       name="book_view"
       class=".book_view.BookView"
-      template="book_view.pt"
+      template="templates/book_view.pt"
       permission="zope2.View"
       />
 
