@@ -288,3 +288,35 @@ class TestKeywordsView(TestCase):
              'title': '1.1 First SubChapter',
              'position': 2},
             view.chapters['/plone/the-book/first-chapter/first-subchapter'])
+
+    @browsing
+    def test_only_search_for_results_in_this_book(self, browser):
+        # Regression: when having the same keyword in multiple books
+        # the keyword tab was broken because of unspecific query (no path).
+
+        first_book = create(Builder('book').titled('First Book'))
+        first_chapter = create(Builder('chapter').titled('First chapter')
+                               .within(first_book))
+        create(Builder('book textblock').titled('First Block')
+               .within(first_chapter)
+               .having(text=keywords_html('Foo', 'Bar')))
+
+        second_book = create(Builder('book').titled('Second Book'))
+        second_chapter = create(Builder('chapter').titled('Second chapter')
+                               .within(second_book))
+        create(Builder('book textblock').titled('Second Block')
+               .within(second_chapter)
+               .having(text=keywords_html('Bar', 'Baz')))
+
+        browser.login().visit(first_book, view='tabbedview_view-keywords')
+        self.assertItemsEqual(
+            ['Foo', 'Bar', ''],
+            browser.css('select[name=book_keywords] option').text,
+            'Only keywords from the current book should be selectable.')
+
+        browser.login().open(first_book,
+                             {'book_keywords': 'Bar'},
+                             view='tabbedview_view-keywords/load')
+        self.assertEquals(1, len(browser.css('.result')),
+                          'Only results from the current book should be'
+                          ' found.')
