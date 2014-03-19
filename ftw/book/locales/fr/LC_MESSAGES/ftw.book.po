@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-11 13:49+0000\n"
+"POT-Creation-Date: 2014-03-19 09:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -405,6 +405,11 @@ msgstr "Montrer le titre"
 msgid "label_table_content"
 msgstr "Contenu du tableau"
 
+#. Default: "See page ${pageref}"
+#: ./ftw/book/latex/hyperlink_subconverter.py:32
+msgid "latex_page_reference"
+msgstr ""
+
 #: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr "Gauche"
@@ -422,6 +427,16 @@ msgstr "Importer le tableau"
 #: ./ftw/book/content/table.py:280
 msgid "no indent"
 msgstr "Pas de recul"
+
+#. Default: "No results found."
+#: ./ftw/book/browser/keywords_results.pt:11
+msgid "no_results"
+msgstr ""
+
+#. Default: "Keyword"
+#: ./ftw/book/browser/keywords.pt:21
+msgid "placeholder_keyword"
+msgstr ""
 
 #: ./ftw/book/latexinjection.py:86
 msgid "post_latex_code_help"
@@ -509,3 +524,5 @@ msgstr "Importer/exporter les données du tableau"
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr ""
+
+

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-03-11 13:49+0000\n"
+"POT-Creation-Date: 2014-03-19 09:11+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -527,3 +527,5 @@ msgstr "Tabellendaten importieren / exportieren"
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr "Stichwortverzeichnis"
+
+
