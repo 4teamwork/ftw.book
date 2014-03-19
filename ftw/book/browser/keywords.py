@@ -102,7 +102,8 @@ class KeywordsTab(BrowserView):
             return self.chapters[os.path.dirname(path)]['title']
 
     def _get_load_query(self):
-        return {'book_keywords': self.request.form.get('book_keywords'),
+        return {'path': '/'.join(self.context.getPhysicalPath()),
+                'book_keywords': self.request.form.get('book_keywords'),
                 'sort_on': 'getObjPositionInParent'}
 
     def _sort_brains(self, brains):
