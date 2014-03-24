@@ -78,6 +78,10 @@ class TableBuilder(ArchetypesBuilder):
         self.table = table
         return self
 
+    def with_dummy_table(self):
+        return self.with_table(zip(map(str, range(0, 10, 2)),
+                                   map(str, range(1, 10, 2))))
+
     def after_create(self, obj):
         self._update_table_data(obj, self.table)
         super(TableBuilder, self).after_create(obj)
