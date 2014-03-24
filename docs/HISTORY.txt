@@ -5,6 +5,10 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- New separate "ftw.book: Add Chapter" add permission.
+  This used to be "simplelayout.types.common: Add Page".
+  [jone]
+
 - Refactor Table: hide irrelevant fields.
   [jone]
 

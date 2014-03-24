@@ -8,7 +8,7 @@ PROJECTNAME = 'ftw.book'
 ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
     'Book': 'ftw.book: Add Book',
-    'Chapter': 'simplelayout.types.common: Add Page',
+    'Chapter': 'ftw.book: Add Chapter',
     'HTMLBlock': 'ftw.book: Add HTML Block',
     'Remark': 'ftw.book: Add Remark',
     'Table': 'ftw.book: Add Table',

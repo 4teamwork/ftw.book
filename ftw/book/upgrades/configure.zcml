@@ -175,4 +175,13 @@
         profile="ftw.book:default"
         />
 
+    <!-- 3007 => 3008 -->
+    <upgrade-step:importProfile
+        title="Register new 'Add Chapter' permission."
+        profile="ftw.book:default"
+        source="3007"
+        destination="3008"
+        directory="profiles/3008"
+        />
+
 </configure>
