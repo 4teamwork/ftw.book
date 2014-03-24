@@ -60,7 +60,6 @@
       for="ftw.book.interfaces.ITable"
       name="block_view"
       template="templates/table_content.pt"
-      class="simplelayout.types.common.browser.views.BlockView"
       permission="zope2.View"
       />
 

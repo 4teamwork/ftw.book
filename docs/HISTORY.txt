@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Refactor Table: hide irrelevant fields.
+  [jone]
+
 - Refactor Remark to use ftw.contentpage's TextBlock as basis.
   [jone]
 

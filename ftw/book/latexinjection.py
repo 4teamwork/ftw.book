@@ -7,6 +7,7 @@ from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from ftw.book import _
 from ftw.book.interfaces import IChapter
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
+from ftw.book.interfaces import ITable
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import ModifyLaTeXInjection
 from ftw.book.interfaces import NO_PREFERRED_LAYOUT
@@ -54,17 +55,19 @@ def add_field(field, condition=None, interfaces=None, insert_after=None):
                            'insert_after': insert_after})
 
 
-def field_visible_condition(fieldname, view='edit'):
-    """Generates a condition, checking whether a field is visible.
-    """
+def hide_from_toc_condition(context):
+    field = context.schema.get('showTitle')
+    if not field:
+        return False
 
-    def visibility_condition(context):
-        field = context.schema.get(fieldname)
-        if not field:
-            return False
-        visibility = field.widget.isVisible(context, view)
-        return visibility == 'visible'
-    return visibility_condition
+    visibility = field.widget.isVisible(context, 'edit')
+    if visibility != 'visible':
+        return False
+
+    if ITable.providedBy(context):
+        return False
+
+    return True
 
 
 class LaTeXCodeInjectionExtender(object):
@@ -179,7 +182,7 @@ class LaTeXCodeInjectionExtender(object):
 
     add_field(
         # hideFromTOC is only useful when we have a showTitle checkbox too
-        condition=field_visible_condition('showTitle'),
+        condition=hide_from_toc_condition,
         insert_after='showTitle',
         field=ExtensionBooleanField(
             name='hideFromTOC',

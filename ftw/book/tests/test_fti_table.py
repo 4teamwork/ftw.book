@@ -83,6 +83,23 @@ class TestTable(TestCase):
             'Expected block title of the "Hidden" block to be hidden.')
 
     @browsing
+    def test_hidden_fields(self, browser):
+        browser.login().open(self.chapter)
+        factoriesmenu.add('Table')
+
+        self.assertFalse(
+            browser.find('Description'),
+            '"Description" field should not be visible.')
+
+        self.assertFalse(
+            browser.find('Hide from table of contents'),
+            '"Hide from table of contents" field should not be visible.')
+
+        self.assertFalse(
+            browser.find('Exclude from navigation'),
+            '"Exclude from navigation" field should not be visible.')
+
+    @browsing
     def test_latex_fields_available(self, browser):
         browser.login().open(self.chapter)
         factoriesmenu.add('Table')
