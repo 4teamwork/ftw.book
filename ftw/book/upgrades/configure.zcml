@@ -165,4 +165,14 @@
         profile="ftw.book:default"
         />
 
+    <!-- 3006 -> 3007 -->
+    <genericsetup:upgradeStep
+        title="Migrate Remark class."
+        description=""
+        source="3006"
+        destination="3007"
+        handler="ftw.book.upgrades.to3007.MigrateRemark"
+        profile="ftw.book:default"
+        />
+
 </configure>

@@ -54,6 +54,19 @@ def add_field(field, condition=None, interfaces=None, insert_after=None):
                            'insert_after': insert_after})
 
 
+def field_visible_condition(fieldname, view='edit'):
+    """Generates a condition, checking whether a field is visible.
+    """
+
+    def visibility_condition(context):
+        field = context.schema.get(fieldname)
+        if not field:
+            return False
+        visibility = field.widget.isVisible(context, view)
+        return visibility == 'visible'
+    return visibility_condition
+
+
 class LaTeXCodeInjectionExtender(object):
     adapts(ILaTeXCodeInjectionEnabled)
     implements(IOrderableSchemaExtender)
@@ -166,7 +179,7 @@ class LaTeXCodeInjectionExtender(object):
 
     add_field(
         # hideFromTOC is only useful when we have a showTitle checkbox too
-        condition=lambda context: context.schema.get('showTitle'),
+        condition=field_visible_condition('showTitle'),
         insert_after='showTitle',
         field=ExtensionBooleanField(
             name='hideFromTOC',

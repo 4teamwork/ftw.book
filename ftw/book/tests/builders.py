@@ -50,6 +50,13 @@ class HTMLBlockBuilder(ArchetypesBuilder):
 builder_registry.register('htmlblock', HTMLBlockBuilder)
 
 
+class RemarkBuilder(ArchetypesBuilder):
+
+    portal_type = 'Remark'
+
+builder_registry.register('remark', RemarkBuilder)
+
+
 class ListingBlockBuilder(ArchetypesBuilder):
 
     portal_type = 'ListingBlock'
