@@ -2,7 +2,6 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
-from simplelayout.types.common.interfaces import IPage
 from zope.interface import Interface
 
 
@@ -14,7 +13,7 @@ class IBook(Interface):
     """
 
 
-class IChapter(IPage):
+class IChapter(Interface):
     """Chapter marker interface.
     """
 
