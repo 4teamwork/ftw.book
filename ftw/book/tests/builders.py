@@ -43,6 +43,13 @@ class TextBlockBuilder(ArchetypesBuilder):
 builder_registry.register('book textblock', TextBlockBuilder)
 
 
+class HTMLBlockBuilder(ArchetypesBuilder):
+
+    portal_type = 'HTMLBlock'
+
+builder_registry.register('htmlblock', HTMLBlockBuilder)
+
+
 class ListingBlockBuilder(ArchetypesBuilder):
 
     portal_type = 'ListingBlock'

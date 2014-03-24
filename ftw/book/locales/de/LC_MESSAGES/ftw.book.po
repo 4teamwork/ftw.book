@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2014-03-19 09:14+0000\n"
+"POT-Creation-Date: 2014-03-24 14:49+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -388,6 +388,11 @@ msgstr "Zurück zu ${book_name}"
 msgid "label_header_rows"
 msgstr "Anzahl Kopfzeilen"
 
+#. Default: "HTML"
+#: ./ftw/book/content/htmlblock.py:28
+msgid "label_html"
+msgstr "HTML"
+
 #. Default: "Modified CSV-file:"
 #: ./ftw/book/browser/templates/table_export_import.pt:45
 msgid "label_modified_csv_file"
@@ -527,5 +532,3 @@ msgstr "Tabellendaten importieren / exportieren"
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr "Stichwortverzeichnis"
-
-

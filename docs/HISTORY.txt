@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Refactor HTMLBlock to use ftw.contentpage's TextBlock as basis.
+  [jone]
+
 - Make ftw.contentpage's ListingBlock available in Chapters.
   [jone]
 

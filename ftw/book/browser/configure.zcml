@@ -43,8 +43,8 @@
   <browser:page
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
-      template="templates/paragraph.pt"
-      class=".blockview.BookBlockView"
+      template="templates/htmlblock_view.pt"
+      class=".blockview.HTMLBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />

@@ -155,4 +155,14 @@
         directory="profiles/3005"
         />
 
+    <!-- 3005 -> 3006 -->
+    <genericsetup:upgradeStep
+        title="Migrate HTML Block class."
+        description=""
+        source="3005"
+        destination="3006"
+        handler="ftw.book.upgrades.to3006.MigrateHTMLBlock"
+        profile="ftw.book:default"
+        />
+
 </configure>

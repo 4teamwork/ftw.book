@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-19 09:14+0000\n"
+"POT-Creation-Date: 2014-03-24 14:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -385,6 +385,11 @@ msgstr "Retour à ${book_name}"
 msgid "label_header_rows"
 msgstr "Le nombre d'en-tête"
 
+#. Default: "HTML"
+#: ./ftw/book/content/htmlblock.py:28
+msgid "label_html"
+msgstr "HTML"
+
 #. Default: "Modified CSV-file:"
 #: ./ftw/book/browser/templates/table_export_import.pt:45
 msgid "label_modified_csv_file"
@@ -524,5 +529,3 @@ msgstr "Importer/exporter les données du tableau"
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr ""
-
-

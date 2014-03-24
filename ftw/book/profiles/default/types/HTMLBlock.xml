@@ -7,7 +7,7 @@
     <property name="title" i18n:translate="">HTML Block</property>
     <property name="description" i18n:translate=""></property>
     <property name="content_meta_type">HTMLBlock</property>
-    <property name="content_icon">++resource++simplelayout.types.common-resources/paragraph_icon.gif</property>
+    <property name="content_icon">++resource++ftw.book-resources/icon_bookblock.gif</property>
     <property name="product">ftw.book</property>
     <property name="factory">addHTMLBlock</property>
 

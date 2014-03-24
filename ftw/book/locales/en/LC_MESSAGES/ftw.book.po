@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-19 09:14+0000\n"
+"POT-Creation-Date: 2014-03-24 14:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -383,6 +383,11 @@ msgstr ""
 #. Default: "Amount of header rows"
 #: ./ftw/book/content/table.py:161
 msgid "label_header_rows"
+msgstr ""
+
+#. Default: "HTML"
+#: ./ftw/book/content/htmlblock.py:28
+msgid "label_html"
 msgstr ""
 
 #. Default: "Modified CSV-file:"
