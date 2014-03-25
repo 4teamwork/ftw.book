@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Drop Plone 4.1 support.
+  [jone]
+
 - New separate "ftw.book: Add Chapter" add permission.
   This used to be "simplelayout.types.common: Add Page".
   [jone]
