@@ -8,8 +8,8 @@ import os.path
 
 class KeywordsTab(BrowserView):
 
-    template = ViewPageTemplateFile('keywords.pt')
-    results = ViewPageTemplateFile('keywords_results.pt')
+    template = ViewPageTemplateFile('templates/keywords.pt')
+    results = ViewPageTemplateFile('templates/keywords_results.pt')
 
     def __call__(self):
         return self.template()

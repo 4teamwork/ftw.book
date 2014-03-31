@@ -7,7 +7,7 @@ from zope.publisher.browser import BrowserView
 
 class IndexView(BrowserView):
 
-    template = ViewPageTemplateFile('index_view.pt')
+    template = ViewPageTemplateFile('templates/index_view.pt')
 
     def __init__(self, *args, **kwargs):
         super(IndexView, self).__init__(*args, **kwargs)

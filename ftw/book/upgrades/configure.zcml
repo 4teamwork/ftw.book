@@ -155,4 +155,42 @@
         directory="profiles/3005"
         />
 
+    <!-- 3005 -> 3006 -->
+    <genericsetup:upgradeStep
+        title="Migrate HTML Block class."
+        description=""
+        source="3005"
+        destination="3006"
+        handler="ftw.book.upgrades.to3006.MigrateHTMLBlock"
+        profile="ftw.book:default"
+        />
+
+    <!-- 3006 -> 3007 -->
+    <genericsetup:upgradeStep
+        title="Migrate Remark class."
+        description=""
+        source="3006"
+        destination="3007"
+        handler="ftw.book.upgrades.to3007.MigrateRemark"
+        profile="ftw.book:default"
+        />
+
+    <!-- 3007 => 3008 -->
+    <upgrade-step:importProfile
+        title="Register new 'Add Chapter' permission."
+        profile="ftw.book:default"
+        source="3007"
+        destination="3008"
+        directory="profiles/3008"
+        />
+
+    <!-- 3008 => 3009 -->
+    <upgrade-step:importProfile
+        title="Change HTMLBlock icon."
+        profile="ftw.book:default"
+        source="3008"
+        destination="3009"
+        directory="profiles/3009"
+        />
+
 </configure>

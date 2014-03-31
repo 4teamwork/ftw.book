@@ -43,6 +43,20 @@ class TextBlockBuilder(ArchetypesBuilder):
 builder_registry.register('book textblock', TextBlockBuilder)
 
 
+class HTMLBlockBuilder(ArchetypesBuilder):
+
+    portal_type = 'HTMLBlock'
+
+builder_registry.register('htmlblock', HTMLBlockBuilder)
+
+
+class RemarkBuilder(ArchetypesBuilder):
+
+    portal_type = 'Remark'
+
+builder_registry.register('remark', RemarkBuilder)
+
+
 class ListingBlockBuilder(ArchetypesBuilder):
 
     portal_type = 'ListingBlock'
@@ -63,6 +77,10 @@ class TableBuilder(ArchetypesBuilder):
         """
         self.table = table
         return self
+
+    def with_dummy_table(self):
+        return self.with_table(zip(map(str, range(0, 10, 2)),
+                                   map(str, range(1, 10, 2))))
 
     def after_create(self, obj):
         self._update_table_data(obj, self.table)

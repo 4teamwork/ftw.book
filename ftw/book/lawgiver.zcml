@@ -11,6 +11,11 @@
         />
 
     <lawgiver:map_permissions
+        action_group="add"
+        permissions="ftw.book: Add Chapter"
+        />
+
+    <lawgiver:map_permissions
         action_group="edit"
         permissions="ftw.book: Add HTML Block,
                      ftw.book: Add Remark,
