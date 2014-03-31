@@ -184,4 +184,13 @@
         directory="profiles/3008"
         />
 
+    <!-- 3008 => 3009 -->
+    <upgrade-step:importProfile
+        title="Change HTMLBlock icon."
+        profile="ftw.book:default"
+        source="3008"
+        destination="3009"
+        directory="profiles/3009"
+        />
+
 </configure>
