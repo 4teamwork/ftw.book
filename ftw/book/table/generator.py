@@ -64,7 +64,6 @@ class TableGenerator(object):
             css_classes.append('no-lifting')
 
         attrs = {
-                'summary': self.context.Description(),
                 'class': ' '.join(css_classes),
         }
         return self._create_node('table', self.doc, **attrs)
