@@ -5,6 +5,11 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Tables: no longer use description as caption.
+  The description field is no longer visible for tables,
+  therefore it should not be used as caption.
+  [jone]
+
 - Drop Plone 4.1 support.
   [jone]
 
