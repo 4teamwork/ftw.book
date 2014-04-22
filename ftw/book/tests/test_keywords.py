@@ -1,6 +1,8 @@
+from Products.CMFCore.utils import getToolByName
 from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from unittest2 import TestCase
 import transaction
@@ -10,6 +12,12 @@ def keywords_html(*keywords):
     return '\n'.join(
         map(lambda word: '<span class="keyword" title="%s">%s</span>' % (
                 word, word), keywords))
+
+
+def select2_javascripts():
+    sources = [node.attrib.get('src') for node in browser.css('script')
+               if node.attrib.get('src')]
+    return filter(lambda src: 'select2' in src, sources)
 
 
 class TestKeywordsView(TestCase):
@@ -320,3 +328,28 @@ class TestKeywordsView(TestCase):
         self.assertEquals(1, len(browser.css('.result')),
                           'Only results from the current book should be'
                           ' found.')
+
+    @browsing
+    def test_select2_translations_are_loaded(self, browser):
+        languages = getToolByName(self.layer['portal'], "portal_languages")
+
+        browser.login().visit(self.book, view='tabbedview_view-keywords')
+        self.assertEquals(
+            ['++resource++ftw.book-select2/select2.js'],
+            select2_javascripts(),
+            'Expected no translation to be loaded for english.')
+
+        languages.manage_setLanguageSettings('de', ['de'])
+        transaction.commit()
+        browser.login().visit(self.book, view='tabbedview_view-keywords')
+        self.assertIn(
+            '++resource++ftw.book-select2/select2_locale_de.js',
+            select2_javascripts())
+
+        languages.manage_setLanguageSettings('de-ch', ['de-ch'],
+                                             setUseCombinedLanguageCodes=True)
+        transaction.commit()
+        browser.login().visit(self.book, view='tabbedview_view-keywords')
+        self.assertIn(
+            '++resource++ftw.book-select2/select2_locale_de.js',
+            select2_javascripts())
