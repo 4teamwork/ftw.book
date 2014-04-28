@@ -34,6 +34,14 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="Uninstall ftw.book"
+        directory="profiles/uninstall"
+        description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 
     <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
          If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,

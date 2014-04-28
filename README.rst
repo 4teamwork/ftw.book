@@ -53,6 +53,14 @@ For running the full PDF generation tests `ImageMagick`_ is required for diffing
 the PDFs.
 
 
+Uninstall
+---------
+
+This package provides an uninstall Generic Setup profile, however, it will
+not uninstall the package dependencies.
+Make sure to uninstall the dependencies if you no longer use them.
+
+
 Links
 -----
 

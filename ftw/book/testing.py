@@ -1,3 +1,4 @@
+from collective.transmogrifier import transmogrifier
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.builder.testing import BUILDER_LAYER
@@ -19,6 +20,11 @@ from plone.testing import zca
 from plone.testing import zodb
 from zope.configuration import xmlconfig
 import ftw.book.tests.builders
+
+
+def clear_transmogrifier_registry():
+    transmogrifier.configuration_registry._config_info = {}
+    transmogrifier.configuration_registry._config_ids = []
 
 
 class LatexZCMLLayer(Layer):
@@ -96,6 +102,10 @@ class FtwBookLayer(PloneSandboxLayer):
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
+
+    def tearDown(self):
+        super(FtwBookLayer, self).tearDown()
+        clear_transmogrifier_registry()
 
 
 FTW_BOOK_FIXTURE = FtwBookLayer()
