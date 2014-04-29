@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_factory" meta_type="Plone Factory Tool">
+
+    <factorytypes>
+        <type remove="True" portal_type="Book" />
+        <type remove="True" portal_type="Chapter" />
+        <type remove="True" portal_type="HTMLBlock" />
+        <type remove="True" portal_type="Remark" />
+        <type remove="True" portal_type="Table" />
+    </factorytypes>
+
+</object>
