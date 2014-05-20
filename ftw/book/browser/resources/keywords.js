@@ -8,6 +8,6 @@ jQuery().ready(function($) {
     $(".keyword-results").load(url);
   });
 
-  $("#keyword").select2({width: "300px"});
+  $("#keyword").select2({width: "300px", allowClear: true});
 
 });
