@@ -109,7 +109,7 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
 	background: url("++resource++ftw.book.tinymce.keyword/img/keyword.png") no-repeat center center;
 }
 
-span.keyword {
+span.keyword, body.mceContentBody span.keyword {
   border: 1px dashed green;
   padding-left: 1px;
   padding-right: 1px;
