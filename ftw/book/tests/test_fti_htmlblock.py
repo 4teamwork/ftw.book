@@ -89,7 +89,7 @@ class TestHTMLBlock(TestCase):
         factoriesmenu.add('HTML Block')
 
         form = browser.find('Title').parent('form')
-        labels = form.field_labels(form)
+        labels = form.field_labels
 
         self.assertIn('LaTeX code above content', labels)
         self.assertIn('LaTeX code beneath content', labels)
