@@ -6,5 +6,6 @@
     <object name="HTMLBlock" remove="True" />
     <object name="Remark" remove="True" />
     <object name="Table" remove="True" />
+    <object name="BookTextBlock" remove="True" />
 
 </object>

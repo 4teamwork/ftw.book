@@ -3,6 +3,7 @@
     <permissions>
 
         <permission name="ftw.book: Add Book" acquire="True" />
+        <permission name="ftw.book: Add Chapter" acquire="True" />
         <permission name="ftw.book: Add HTML Block" acquire="True" />
         <permission name="ftw.book: Add Remark" acquire="True" />
         <permission name="ftw.book: Add Table" acquire="True" />

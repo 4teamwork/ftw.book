@@ -44,12 +44,27 @@ def add_catalog_indexes(context, logger=None):
         catalog.manage_reindexIndex(ids=indexables)
 
 
+def remove_catalog_indexes(context):
+    catalog = getToolByName(context, 'portal_catalog')
+    indexes = catalog.indexes()
+
+    for name, meta_type in INDEXES:
+        if name in indexes:
+            catalog.delIndex(name)
+
+
 def import_various(context):
     """Import step for configuration that is not handled in xml files.
     """
-    # Only run step if a flag file is present
-    if context.readDataFile('ftw.book.setuphandlers.txt') is None:
+
+    action = context.readDataFile('ftw.book.setuphandlers.txt')
+    action = action.strip() if action else None
+    if action is None:
         return
+
     logger = context.getLogger('ftw.book')
     site = context.getSite()
-    add_catalog_indexes(site, logger)
+    if action == 'install':
+        add_catalog_indexes(site, logger)
+    elif action == 'uninstall':
+        remove_catalog_indexes(site)
