@@ -6,7 +6,6 @@ from unittest2 import TestCase
 @apply_generic_setup_layer
 class TestGenericSetupUninstall(TestCase, GenericSetupUninstallMixin):
     package = 'ftw.book'
-    is_product = True
     additional_products = (
         'simplelayout.base',
         'simplelayout.ui.base',
