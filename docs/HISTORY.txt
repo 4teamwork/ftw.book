@@ -55,6 +55,9 @@ Changelog
 - Replace Paragraph with BookTextBlock.
   [jone]
 
+- Implement uninstall profile.
+  [jone]
+
 - Added hidden link to leave the reader view.
   [Julian Infanger]
 
