@@ -1,0 +1,56 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: True"
+      i18n:domain="ftw.book">
+
+    <metal:main-macro define-macro="main">
+        <tal:RESULTS tal:define="search_keyword request/book_keywords;
+                                 results options/results">
+
+            <div class="no-results"
+                 tal:condition="not:results"
+                 i18n:translate="no_results">
+                No results found.
+            </div>
+
+            <div class="result" tal:repeat="result results">
+
+                <metal:SLOT define-slot="before-title"/>
+                <metal:SLOT define-slot="title">
+                    <div class="title">
+                        <a tal:attributes="href string:${result/brain/getURL}/@@book_reader_view">
+                            <b tal:content="result/title" />
+                        </a>
+                    </div>
+                </metal:SLOT>
+                <metal:SLOT define-slot="after-title"/>
+
+                <metal:SLOT define-slot="keywords">
+                    <div class="result-keywords">
+                        <span tal:repeat="keyword result/keywords">
+                            <b tal:content="keyword"
+                               tal:omit-tag="python: keyword != search_keyword">
+                                </b><span tal:condition="not:repeat/keyword/end"
+                                tal:omit-tag="python: True">,</span>
+                        </span>
+                    </div>
+                </metal:SLOT>
+                <metal:SLOT define-slot="after-keywords"/>
+
+                <metal:SLOT define-slot="location">
+                    <div class="result-location discreet">
+                        <tal:item tal:repeat="item result/location">
+                            <a  tal:content="item/title"
+                                tal:attributes="href item/reader_url" />
+                            <span tal:condition="not:repeat/item/end">&raquo;</span>
+                        </tal:item>
+                    </div>
+                </metal:SLOT>
+                <metal:SLOT define-slot="after-location"/>
+
+            </div>
+        </tal:RESULTS>
+    </metal:main-macro>
+
+</html>

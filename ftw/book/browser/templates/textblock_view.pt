@@ -1,0 +1,35 @@
+<div class="#" id="#" i18n:domain="simplelayout"
+     tal:define="slclass view/get_css_klass;
+                 text here/getBlockText|here/getText|nothing;
+                 title here/Title | here/pretty_title_or_id;
+                 fullblock python: text and ' sl-fullblock' or ''"
+     tal:attributes="class string:simplelayout-block-wrapper TextBlock ${slclass}${fullblock};
+                     style string:${view/get_block_height}">
+    <a tal:attributes="name here/id" ></a>
+
+    <TAL:CUSTOMIZATIONS>
+        <TAL:REMOVED replace="nothing">
+            <h2 tal:content="here/Title"
+                tal:condition="here/getShowTitle|python:True" />
+        </TAL:REMOVED>
+        <TAL:NEW replace="structure view/get_dynamic_title"
+                 condition="here/getShowTitle|python:True" />
+    </TAL:CUSTOMIZATIONS>
+
+    <div class="sl-img-wrapper" tal:condition="view/has_image"
+         tal:attributes="style view/image_wrapper_style"
+         tal:define="image_desc context/getImageCaption | context/Description">
+        <a  tal:attributes="
+                            title image_desc;
+                            href string:${context/absolute_url}/image
+                            "
+            tal:omit-tag="not: here/getImageClickable|nothing"
+            >
+            <img tal:replace="structure view/get_image_tag" />
+        </a>
+        <p tal:condition="image_desc"
+           tal:content="context/getImageCaption">Caption</p>
+    </div>
+    <div tal:condition="text" class="sl-text-wrapper" tal:content="structure text"></div>
+</div>
+<div class="visualClear"><!-- --></div>

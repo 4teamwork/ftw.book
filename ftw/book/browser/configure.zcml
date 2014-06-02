@@ -10,6 +10,10 @@
       name='ftw.book-resources'
       directory="resources" />
 
+  <browser:resourceDirectory
+      name="ftw.book-select2"
+      directory="select2-3.4.5" />
+
   <browser:page
       for="*"
       name="export_pdf"
@@ -21,17 +25,17 @@
   <browser:page
       for="ftw.book.interfaces.IChapter"
       name="block_view"
-      template="chapter.pt"
+      template="templates/chapter.pt"
       class=".blockview.BookChapterView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
-      for="simplelayout.types.common.interfaces.IParagraph"
+      for="ftw.book.interfaces.IBookTextBlock"
       name="block_view"
-      template="paragraph.pt"
-      class=".blockview.BookBlockView"
+      template="templates/textblock_view.pt"
+      class=".blockview.BookTextBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
@@ -39,8 +43,8 @@
   <browser:page
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
-      template="paragraph.pt"
-      class=".blockview.BookBlockView"
+      template="templates/htmlblock_view.pt"
+      class=".blockview.HTMLBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
       />
@@ -48,16 +52,14 @@
   <browser:page
       for="ftw.book.interfaces.IRemark"
       name="block_view"
-      template="remark.pt"
-      class="simplelayout.types.common.browser.views.BlockView"
+      template="templates/remark.pt"
       permission="zope2.View"
       />
 
   <browser:page
       for="ftw.book.interfaces.ITable"
       name="block_view"
-      template="table_content.pt"
-      class="simplelayout.types.common.browser.views.BlockView"
+      template="templates/table_content.pt"
       permission="zope2.View"
       />
 
@@ -66,7 +68,7 @@
       name="table_export_import"
       class=".table_export_import.TableExportImport"
       permission="zope.Public"
-      template="table_export_import.pt"
+      template="templates/table_export_import.pt"
       />
 
   <!-- override simplelayoutlisting for special display -->
@@ -80,9 +82,9 @@
       />
 
   <browser:viewlet
-      name="ftw.book.paragraph.validation"
+      name="ftw.book.textblock.validation"
       class=".viewlets.viewlets.TableValidationViewlet"
-      for="simplelayout.types.common.interfaces.IParagraph"
+      for="ftw.book.interfaces.IBookTextBlock"
       layer="ftw.book.interfaces.IWithinBookLayer"
       manager="simplelayout.base.interfaces.ISimpleViewletProvider"
       permission="cmf.ModifyPortalContent"
@@ -92,7 +94,7 @@
       for="..interfaces.IBook"
       name="book_view"
       class=".book_view.BookView"
-      template="book_view.pt"
+      template="templates/book_view.pt"
       permission="zope2.View"
       />
 
@@ -132,6 +134,13 @@
          name="tabbedview_view-bookdocuments"
          class=".book_tabs.DocumentsTab"
          permission="zope2.View"
+         />
+     <browser:page
+         for="ftw.book.interfaces.IBook"
+         name="tabbedview_view-keywords"
+         class=".keywords.KeywordsTab"
+         permission="zope2.View"
+         allowed_attributes="load macros"
          />
   </configure>
 

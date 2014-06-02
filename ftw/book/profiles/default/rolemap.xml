@@ -7,6 +7,11 @@
             <role name="Contributor" />
         </permission>
 
+        <permission name="ftw.book: Add Chapter" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
         <permission name="ftw.book: Add HTML Block" acquire="False">
             <role name="Manager" />
             <role name="Contributor" />

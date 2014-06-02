@@ -39,6 +39,12 @@
   % if authoraddress:
     \authoraddress{${authoraddress}}
   % endif
+
+  % if context_is_book:
+    % if use_index:
+      \makeindex
+    % endif
+  % endif
 </%block>
 
 \begin{document}
@@ -68,6 +74,11 @@
 
     % if use_lot:
       \listoftables
+    % endif
+
+    % if use_index:
+      \renewcommand{\indexname}{${index_title}}
+      \printindex
     % endif
   % endif
 </%block>

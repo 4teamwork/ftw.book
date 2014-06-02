@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '2.2.21.dev0'
+version = '3.0.0.dev0'
 maintainer = 'Jonas Baumann'
 
 
@@ -10,6 +10,7 @@ tests_require = [
     'Products.GenericSetup',
     'ftw.builder',
     'ftw.inflator',
+    'ftw.tabbedview',
     'ftw.testbrowser',
     'ftw.testing',
     'mocker',
@@ -46,7 +47,6 @@ setup(name='ftw.book',
 
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Plone :: 4.1',
         'Framework :: Plone :: 4.2',
         'Framework :: Plone :: 4.3',
         'Intended Audience :: Developers',
@@ -75,14 +75,18 @@ setup(name='ftw.book',
         'Products.CMFPlone',
         'Products.DataGridField>=1.9',
         'Products.GenericSetup',
+        'Products.TinyMCE',
         'Products.statusmessages',
         'Zope2',
         'archetypes.schemaextender',
-        'ftw.pdfgenerator',
+        'ftw.contentpage',
+        'ftw.pdfgenerator>=1.3.0',
         'ftw.upgrade',
+        'lxml',
         'plone.app.contentmenu',
         'plone.app.layout',
         'plone.app.portlets',
+        'plone.indexer',
         'plone.portlets',
         'setuptools',
         'simplelayout.base',
@@ -90,6 +94,7 @@ setup(name='ftw.book',
         'zope.annotation',
         'zope.component',
         'zope.dottedname',
+        'zope.i18n',
         'zope.i18nmessageid',
         'zope.interface',
         'zope.publisher',

@@ -26,9 +26,9 @@ class TestUnitBookHelper(MockTestCase):
             |  |
             |  ---image
             |  |
-            |  ---paragraph1
+            |  ---textblock1
             |  |
-            |  ---paragraph2
+            |  ---textblock2
             |
             ---chapter4
         """
@@ -105,22 +105,22 @@ class TestUnitBookHelper(MockTestCase):
         self.expect(self.image.portal_type).result('Image')
         self.mock_inject_settings(self.image)
 
-        self.paragraph1 = self.mocker.mock(count=False)
-        self.expect(self.paragraph1.__parent__).result(self.chapter3)
-        self.expect(self.paragraph1.showTitle).result(True)
-        self.expect(self.paragraph1.Title()).result('Paragraph1')
-        self.expect(self.paragraph1.title_or_id()).result('Paragraph1')
-        self.expect(self.paragraph1.portal_type).result('Paragraph')
-        self.mock_inject_settings(self.paragraph1, hideFromTOC=False)
+        self.textblock1 = self.mocker.mock(count=False)
+        self.expect(self.textblock1.__parent__).result(self.chapter3)
+        self.expect(self.textblock1.showTitle).result(True)
+        self.expect(self.textblock1.Title()).result('Textblock1')
+        self.expect(self.textblock1.title_or_id()).result('Textblock1')
+        self.expect(self.textblock1.portal_type).result('Textblock')
+        self.mock_inject_settings(self.textblock1, hideFromTOC=False)
 
-        self.paragraph2 = self.mocker.mock(count=False)
-        self.expect(self.paragraph2.__parent__).result(self.chapter3)
-        self.expect(self.paragraph2.__inner__).result(self.paragraph2)
-        self.expect(self.paragraph2.showTitle).result(True)
-        self.expect(self.paragraph2.Title()).result('Paragraph2')
-        self.expect(self.paragraph2.title_or_id()).result('Paragraph2')
-        self.expect(self.paragraph2.portal_type).result('Paragraph')
-        self.mock_inject_settings(self.paragraph2, hideFromTOC=False)
+        self.textblock2 = self.mocker.mock(count=False)
+        self.expect(self.textblock2.__parent__).result(self.chapter3)
+        self.expect(self.textblock2.__inner__).result(self.textblock2)
+        self.expect(self.textblock2.showTitle).result(True)
+        self.expect(self.textblock2.Title()).result('Textblock2')
+        self.expect(self.textblock2.title_or_id()).result('Textblock2')
+        self.expect(self.textblock2.portal_type).result('Textblock')
+        self.mock_inject_settings(self.textblock2, hideFromTOC=False)
 
         # Folderish content
         self.expect(self.book.contentValues()).result(
@@ -129,7 +129,7 @@ class TestUnitBookHelper(MockTestCase):
         self.expect(self.chapter2.contentValues()).result(
             [self.chapter3, self.chapter4])
         self.expect(self.chapter3.contentValues()).result(
-            [self.chapter5, self.image, self.paragraph1, self.paragraph2])
+            [self.chapter5, self.image, self.textblock1, self.textblock2])
         self.expect(self.chapter4.contentValues()).result([])
         self.expect(self.chapter5.contentValues()).result([])
 
@@ -155,41 +155,41 @@ class TestUnitBookHelper(MockTestCase):
         """
         self.replay()
 
-        self.assertEqual(self.helper(self.paragraph1),
-                         '<h4>2.1.2 Paragraph1</h4>')
-        self.assertEqual(self.helper(self.paragraph2),
-                         '<h4>2.1.3 Paragraph2</h4>')
+        self.assertEqual(self.helper(self.textblock1),
+                         '<h4>2.1.2 Textblock1</h4>')
+        self.assertEqual(self.helper(self.textblock2),
+                         '<h4>2.1.3 Textblock2</h4>')
 
     def test_generate_title_respects_hideFromTOC(self):
         """ Test generate title
         """
-        self.mock_inject_settings(self.paragraph1, hideFromTOC=True)
+        self.mock_inject_settings(self.textblock1, hideFromTOC=True)
         self.replay()
 
         # hideFromTOC is True
-        self.assertEqual(self.helper(self.paragraph1),
-                         '<h4>Paragraph1</h4>')
-        self.assertEqual(self.helper(self.paragraph2),
-                         '<h4>2.1.2 Paragraph2</h4>')
+        self.assertEqual(self.helper(self.textblock1),
+                         '<h4>Textblock1</h4>')
+        self.assertEqual(self.helper(self.textblock2),
+                         '<h4>2.1.2 Textblock2</h4>')
 
     def test_generated_title_result_is_consistent(self):
-        self.mock_inject_settings(self.paragraph1, hideFromTOC=True)
+        self.mock_inject_settings(self.textblock1, hideFromTOC=True)
         self.replay()
 
-        self.assertTrue(self.paragraph1.Schema().getField(
-                'hideFromTOC').get(self.paragraph1))
+        self.assertTrue(self.textblock1.Schema().getField(
+                'hideFromTOC').get(self.textblock1))
 
-        self.assertTrue(self.paragraph1.Schema().getField(
-                'hideFromTOC').get(self.paragraph1))
+        self.assertTrue(self.textblock1.Schema().getField(
+                'hideFromTOC').get(self.textblock1))
 
-        self.assertTrue(self.paragraph1.Schema().getField(
-                'hideFromTOC').get(self.paragraph1))
+        self.assertTrue(self.textblock1.Schema().getField(
+                'hideFromTOC').get(self.textblock1))
 
-        self.assertEqual(BookHelper()(self.paragraph1),
-                         '<h4>Paragraph1</h4>')
+        self.assertEqual(BookHelper()(self.textblock1),
+                         '<h4>Textblock1</h4>')
 
-        self.assertEqual(BookHelper()(self.paragraph1),
-                         '<h4>Paragraph1</h4>')
+        self.assertEqual(BookHelper()(self.textblock1),
+                         '<h4>Textblock1</h4>')
 
 
     def test_generate_valid_hierarchy_h_tags(self):
@@ -206,12 +206,12 @@ class TestUnitBookHelper(MockTestCase):
         """ Test get folder position
         """
         self.replay()
-        position = self.helper.get_folder_position(self.paragraph2)
+        position = self.helper.get_folder_position(self.textblock2)
         self.assertTrue(position == 3)
 
     def test_get_hierarchy_position(self):
         """ Test hierarchy position
         """
         self.replay()
-        position = self.helper.get_hierarchy_position(self.paragraph2)
+        position = self.helper.get_hierarchy_position(self.textblock2)
         self.assertTrue(position == 4)

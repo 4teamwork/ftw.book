@@ -2,7 +2,7 @@ from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import ZCML_LAYER
 from ftw.testing import MockTestCase
 from simplelayout.base.interfaces import ISimpleViewletProvider
-from simplelayout.types.common.interfaces import IParagraph
+from ftw.book.interfaces import IBookTextBlock
 from zope.browser.interfaces import IBrowserView
 from zope.component import getMultiAdapter
 from zope.i18n.interfaces import IUserPreferredLanguages
@@ -14,7 +14,7 @@ class TestTableValidationViewlet(MockTestCase):
     layer = ZCML_LAYER
 
     def create_stubs(self, text):
-        context = self.providing_stub([IParagraph])
+        context = self.providing_stub([IBookTextBlock])
         self.expect(context.getText()).result(text)
 
         request = self.stub_request([IWithinBookLayer,
@@ -30,7 +30,7 @@ class TestTableValidationViewlet(MockTestCase):
         self.replay()
 
         viewlet = getMultiAdapter(stubs, IViewlet,
-            name='ftw.book.paragraph.validation')
+            name='ftw.book.textblock.validation')
 
         viewlet.update()
         self.assertEqual(viewlet.render().strip(), '')
@@ -47,7 +47,7 @@ class TestTableValidationViewlet(MockTestCase):
         self.replay()
 
         viewlet = getMultiAdapter(stubs, IViewlet,
-            name='ftw.book.paragraph.validation')
+            name='ftw.book.textblock.validation')
 
         viewlet.update()
         viewlet_html = viewlet.render().strip()
@@ -70,7 +70,7 @@ class TestTableValidationViewlet(MockTestCase):
         self.replay()
 
         viewlet = getMultiAdapter(stubs, IViewlet,
-            name='ftw.book.paragraph.validation')
+            name='ftw.book.textblock.validation')
 
         viewlet.update()
         viewlet_html = viewlet.render().strip()

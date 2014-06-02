@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-11 13:49+0000\n"
+"POT-Creation-Date: 2014-03-24 14:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,10 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: ftw.book\n"
 
 #: ./ftw/book/content/table.py:158
 msgid "${num} rows"
@@ -61,6 +58,11 @@ msgstr ""
 msgid "Book"
 msgstr ""
 
+#: ./ftw/book/profiles/default/types/BookTextBlock.xml
+#: ./ftw/book/upgrades/profiles/3000/types/BookTextBlock.xml
+msgid "BookTextBlock"
+msgstr ""
+
 #: ./ftw/book/profiles/default/types/Chapter.xml
 msgid "Chapter"
 msgstr ""
@@ -73,15 +75,15 @@ msgstr ""
 msgid "Column ${num}"
 msgstr ""
 
-#: ./ftw/book/latex/defaultlayout.py:39
+#: ./ftw/book/latex/defaultlayout.py:41
 msgid "Default layout"
 msgstr ""
 
-#: ./ftw/book/browser/export_pdf.pt:22
+#: ./ftw/book/browser/templates/export_pdf.pt:22
 msgid "Embed remarks"
 msgstr ""
 
-#: ./ftw/book/browser/table_export_import.pt:28
+#: ./ftw/book/browser/templates/table_export_import.pt:28
 msgid "Export"
 msgstr ""
 
@@ -93,7 +95,7 @@ msgstr ""
 msgid "HTML Block"
 msgstr ""
 
-#: ./ftw/book/browser/table_export_import.pt:72
+#: ./ftw/book/browser/templates/table_export_import.pt:72
 msgid "Import"
 msgstr ""
 
@@ -129,11 +131,11 @@ msgstr ""
 msgid "The file does not seem to belong to this table."
 msgstr ""
 
-#: ./ftw/book/browser/table_content.pt:12
+#: ./ftw/book/browser/templates/table_content.pt:12
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr ""
 
-#: ./ftw/book/latexinjection.py:164
+#: ./ftw/book/latexinjection.py:177
 msgid "This option inserts a column break when two column layout is active."
 msgstr ""
 
@@ -150,13 +152,18 @@ msgid "automatically"
 msgstr ""
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:87
+#: ./ftw/book/latex/defaultlayout.py:89
 msgid "book_help_titlepage_logo"
 msgstr ""
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:100
+#: ./ftw/book/latex/defaultlayout.py:102
 msgid "book_help_titlepage_logo_width"
+msgstr ""
+
+#. Default: "When enabled, a keyword index will be included in the PDF."
+#: ./ftw/book/content/book.py:79
+msgid "book_help_use_index"
 msgstr ""
 
 #: ./ftw/book/content/book.py:69
@@ -176,12 +183,12 @@ msgid "book_help_use_toc"
 msgstr ""
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:64
+#: ./ftw/book/latex/defaultlayout.py:66
 msgid "book_label_author"
 msgstr ""
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:76
+#: ./ftw/book/latex/defaultlayout.py:78
 msgid "book_label_author_address"
 msgstr ""
 
@@ -191,18 +198,23 @@ msgid "book_label_layout"
 msgstr ""
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:56
+#: ./ftw/book/latex/defaultlayout.py:58
 msgid "book_label_release"
 msgstr ""
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:85
+#: ./ftw/book/latex/defaultlayout.py:87
 msgid "book_label_titlepage_logo"
 msgstr ""
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:98
+#: ./ftw/book/latex/defaultlayout.py:100
 msgid "book_label_titlepage_logo_width"
+msgstr ""
+
+#. Default: "Embedd subject index"
+#: ./ftw/book/content/book.py:77
+msgid "book_label_use_index"
 msgstr ""
 
 #. Default: "Embedd list of illustrations"
@@ -267,62 +279,62 @@ msgid "info_actvate_columns_first"
 msgstr ""
 
 #. Default: "You can export the tabledata as CSV. Do not manipulate the first row of the exported table to grant the import."
-#: ./ftw/book/browser/table_export_import.pt:21
+#: ./ftw/book/browser/templates/table_export_import.pt:21
 msgid "info_table_export"
 msgstr ""
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/latexinjection.py:179
+#: ./ftw/book/latexinjection.py:192
 msgid "injection_help_hide_from_toc"
 msgstr ""
 
 #. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
-#: ./ftw/book/latexinjection.py:109
+#: ./ftw/book/latexinjection.py:122
 msgid "injection_help_preferred_column_layout"
 msgstr ""
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/latexinjection.py:177
+#: ./ftw/book/latexinjection.py:190
 msgid "injection_label_hide_from_toc"
 msgstr ""
 
 #. Default: "Insert page break after this content"
-#: ./ftw/book/latexinjection.py:150
+#: ./ftw/book/latexinjection.py:163
 msgid "injection_label_insert_clearpage_after_content"
 msgstr ""
 
 #. Default: "Insert page break before this content"
-#: ./ftw/book/latexinjection.py:138
+#: ./ftw/book/latexinjection.py:151
 msgid "injection_label_insert_clearpage_before_content"
 msgstr ""
 
 #. Default: "Insert column break before this content"
-#: ./ftw/book/latexinjection.py:162
+#: ./ftw/book/latexinjection.py:175
 msgid "injection_label_insert_newpage_before_content"
 msgstr ""
 
 #. Default: "Use landscape"
-#: ./ftw/book/latexinjection.py:126
+#: ./ftw/book/latexinjection.py:139
 msgid "injection_label_landscape"
 msgstr ""
 
 #. Default: "No preferred column layout"
-#: ./ftw/book/latexinjection.py:95
+#: ./ftw/book/latexinjection.py:108
 msgid "injection_label_no_preferred_column_layout"
 msgstr ""
 
 #. Default: "One column layout"
-#: ./ftw/book/latexinjection.py:99
+#: ./ftw/book/latexinjection.py:112
 msgid "injection_label_one_column_layout"
 msgstr ""
 
 #. Default: "Preferred layout"
-#: ./ftw/book/latexinjection.py:107
+#: ./ftw/book/latexinjection.py:120
 msgid "injection_label_preferred_column_layout"
 msgstr ""
 
 #. Default: "Two column layout"
-#: ./ftw/book/latexinjection.py:103
+#: ./ftw/book/latexinjection.py:116
 msgid "injection_label_two_column_layout"
 msgstr ""
 
@@ -332,7 +344,7 @@ msgid "label_border_layout"
 msgstr ""
 
 #. Default: "Columns to import"
-#: ./ftw/book/browser/table_export_import.pt:52
+#: ./ftw/book/browser/templates/table_export_import.pt:52
 msgid "label_cols_to_import"
 msgstr ""
 
@@ -342,7 +354,7 @@ msgid "label_column_properties"
 msgstr ""
 
 #. Default: "Enforce import"
-#: ./ftw/book/browser/table_export_import.pt:69
+#: ./ftw/book/browser/templates/table_export_import.pt:69
 msgid "label_enforce_import"
 msgstr ""
 
@@ -376,8 +388,13 @@ msgstr ""
 msgid "label_header_rows"
 msgstr ""
 
+#. Default: "HTML"
+#: ./ftw/book/content/htmlblock.py:28
+msgid "label_html"
+msgstr ""
+
 #. Default: "Modified CSV-file:"
-#: ./ftw/book/browser/table_export_import.pt:45
+#: ./ftw/book/browser/templates/table_export_import.pt:45
 msgid "label_modified_csv_file"
 msgstr ""
 
@@ -396,17 +413,22 @@ msgstr ""
 msgid "label_table_content"
 msgstr ""
 
+#. Default: "See page ${pageref}"
+#: ./ftw/book/latex/hyperlink_subconverter.py:32
+msgid "latex_page_reference"
+msgstr ""
+
 #: ./ftw/book/content/table.py:273
 msgid "left"
 msgstr ""
 
 #. Default: "Export table"
-#: ./ftw/book/browser/table_export_import.pt:20
+#: ./ftw/book/browser/templates/table_export_import.pt:20
 msgid "legend_export_table"
 msgstr ""
 
 #. Default: "Import table"
-#: ./ftw/book/browser/table_export_import.pt:35
+#: ./ftw/book/browser/templates/table_export_import.pt:35
 msgid "legend_import_table"
 msgstr ""
 
@@ -414,21 +436,31 @@ msgstr ""
 msgid "no indent"
 msgstr ""
 
-#: ./ftw/book/latexinjection.py:86
+#. Default: "No results found."
+#: ./ftw/book/browser/templates/keywords_results.pt:11
+msgid "no_results"
+msgstr ""
+
+#. Default: "Keyword"
+#: ./ftw/book/browser/templates/keywords.pt:21
+msgid "placeholder_keyword"
+msgstr ""
+
+#: ./ftw/book/latexinjection.py:99
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
-#: ./ftw/book/latexinjection.py:84
+#: ./ftw/book/latexinjection.py:97
 msgid "post_latex_code_label"
 msgstr ""
 
-#: ./ftw/book/latexinjection.py:73
+#: ./ftw/book/latexinjection.py:86
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
-#: ./ftw/book/latexinjection.py:71
+#: ./ftw/book/latexinjection.py:84
 msgid "pre_latex_code_label"
 msgstr ""
 
@@ -437,7 +469,7 @@ msgid "right"
 msgstr ""
 
 #. Default: "Select the exported, modified CSV-file to reimport it. The headerrows will be ignored."
-#: ./ftw/book/browser/table_export_import.pt:36
+#: ./ftw/book/browser/templates/table_export_import.pt:36
 msgid "select_file_to_import"
 msgstr ""
 
@@ -492,7 +524,13 @@ msgid "table_width_validation_warning"
 msgstr ""
 
 #. Default: "Import / export tabledata"
-#: ./ftw/book/browser/table_export_import.pt:14
+#: ./ftw/book/browser/templates/table_export_import.pt:14
 msgid "title_import_export_tabledata"
 msgstr ""
+
+#. Default: "Index"
+#: ./ftw/book/latex/defaultlayout.py:215
+msgid "title_index"
+msgstr ""
+
 

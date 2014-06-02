@@ -28,8 +28,8 @@ class TestLatexInjectionExtender(MockTestCase):
         self.chapter = self.book.get(self.book.invokeFactory(
                 'Chapter', 'chapter-one', title='Chapter One'))
 
-        self.paragraph = self.chapter.get(self.chapter.invokeFactory(
-                'Paragraph', 'paragraph-one', title='Paragraph One'))
+        self.textblock = self.chapter.get(self.chapter.invokeFactory(
+                'BookTextBlock', 'textblock-one', title='TextBlock One'))
 
     def tearDown(self):
         portal = self.layer['portal']
@@ -95,13 +95,13 @@ class TestLatexInjectionExtender(MockTestCase):
             # cleanup
             noLongerProvides(self.chapter.REQUEST, IWithinBookLayer)
 
-    def test_paragraph_has_injected_fields(self):
+    def test_textblock_has_injected_fields(self):
         # Usualy this happend during traversal - check layer.py
         # In this case a browser test could be the better way
-        alsoProvides(self.paragraph.REQUEST, IWithinBookLayer)
+        alsoProvides(self.textblock.REQUEST, IWithinBookLayer)
 
         try:
-            schema = self.paragraph.Schema()
+            schema = self.textblock.Schema()
 
             # general book fields
             self.assertTrue(schema.getField('preLatexCode'))
@@ -115,13 +115,13 @@ class TestLatexInjectionExtender(MockTestCase):
 
         finally:
             # cleanup
-            noLongerProvides(self.paragraph.REQUEST, IWithinBookLayer)
+            noLongerProvides(self.textblock.REQUEST, IWithinBookLayer)
 
-    def test_paragraph_reordering(self):
-        alsoProvides(self.paragraph.REQUEST, IWithinBookLayer)
+    def test_textblock_reordering(self):
+        alsoProvides(self.textblock.REQUEST, IWithinBookLayer)
 
         try:
-            schema = self.paragraph.Schema()
+            schema = self.textblock.Schema()
             fieldnames = schema.keys()
 
             # hideFromTOC should be right after showTitle
@@ -130,4 +130,4 @@ class TestLatexInjectionExtender(MockTestCase):
 
         finally:
             # cleanup
-            noLongerProvides(self.paragraph.REQUEST, IWithinBookLayer)
+            noLongerProvides(self.textblock.REQUEST, IWithinBookLayer)

@@ -100,7 +100,7 @@ class TestReaderView(MockTestCase):
         self.expect(book_brain.getObject()).result(book)
         self.expect(book_brain.UID).result('1book')
 
-        chapter = self.stub()
+        chapter = self.set_parent(self.stub(), book)
         chapter_brain = self.stub()
         self.expect(chapter.UID()).result('2chapter')
         self.expect(chapter_brain.UID).result('2chapter')
@@ -145,22 +145,22 @@ class TestReaderView(MockTestCase):
         self.expect(chapter_brain.getObject()).result(chapter)
         self.set_parent(chapter, book)
 
-        paragraph = self.stub()
-        paragraph_brain = self.stub()
-        self.expect(paragraph_brain.UID).result('3paragraph3')
-        self.set_parent(paragraph, chapter)
+        textblock = self.stub()
+        textblock_brain = self.stub()
+        self.expect(textblock_brain.UID).result('3textblock3')
+        self.set_parent(textblock, chapter)
 
         tree = self.create_tree_from_brains([
-                book_brain, chapter_brain, paragraph_brain])
+                book_brain, chapter_brain, textblock_brain])
 
         view = self.mocker.patch(ReaderView(chapter, request))
         self.expect(view._tree).result(tree).count(1, None)
 
-        paragraph_renderer = self.mocker.mock()
-        self.expect(paragraph_renderer(ANY, ANY, ANY)).result(
-            paragraph_renderer)
-        self.expect(paragraph_renderer.render()).result('CHAPTER REPR')
-        self.mock_adapter(paragraph_renderer, IBookReaderRenderer,
+        textblock_renderer = self.mocker.mock()
+        self.expect(textblock_renderer(ANY, ANY, ANY)).result(
+            textblock_renderer)
+        self.expect(textblock_renderer.render()).result('CHAPTER REPR')
+        self.mock_adapter(textblock_renderer, IBookReaderRenderer,
                           (Interface, Interface, Interface))
 
         self.replay()
@@ -436,7 +436,7 @@ class TestReaderView(MockTestCase):
 
     def test_render_block_does_not_fail_when_renderer_missing(self):
         brain = self.stub()
-        obj = self.stub()
+        obj = self.set_parent(self.stub(), None)
         self.expect(brain.getObject()).result(obj)
 
         context = self.stub()
@@ -451,7 +451,7 @@ class TestReaderView(MockTestCase):
         catalog = self.mocker.mock()
         self.mock_tool(catalog, 'portal_catalog')
         self.expect(catalog.uniqueValuesFor('portal_type')).result(
-            ('Book', 'Chapter', 'Page', 'Discussion Item', 'Paragraph'))
+            ('Book', 'Chapter', 'Page', 'Discussion Item', 'BookTextBlock'))
 
         book = self.stub()
         self.expect(book.getPhysicalPath()).result(['', 'site', 'book'])
@@ -461,7 +461,8 @@ class TestReaderView(MockTestCase):
         self.expect(builder(book, obj=book, query={
                     'path': '/site/book',
                     # portal_type should not contain "Discussion Item"
-                    'portal_type': ['Book', 'Chapter', 'Page', 'Paragraph']
+                    'portal_type': ['Book', 'Chapter', 'Page',
+                                    'BookTextBlock']
                     })).result({'tree': 1})
 
         self.replay()

@@ -2,8 +2,58 @@ Changelog
 =========
 
 
-2.2.21 (unreleased)
--------------------
+3.0.0 (unreleased)
+------------------
+
+- Keywords: load select2 javascript translations.
+  [jone]
+
+- Tables: no longer use description as caption.
+  The description field is no longer visible for tables,
+  therefore it should not be used as caption.
+  [jone]
+
+- Drop Plone 4.1 support.
+  [jone]
+
+- New separate "ftw.book: Add Chapter" add permission.
+  This used to be "simplelayout.types.common: Add Page".
+  [jone]
+
+- Refactor Table: hide irrelevant fields.
+  [jone]
+
+- Refactor Remark to use ftw.contentpage's TextBlock as basis.
+  [jone]
+
+- Refactor HTMLBlock to use ftw.contentpage's TextBlock as basis.
+  [jone]
+
+- Make ftw.contentpage's ListingBlock available in Chapters.
+  [jone]
+
+- Improve support for book-internal links.
+  TinyMCE is now configured properly so that book contents
+  can be linked in rich text fields.
+  The reader view now supports book internal links like anchors,
+  allowing to jump between content while keep beeing on the
+  reader view.
+  In the PDF book internal links are now rendered with the page
+  number of the link target if the target is included in the same
+  PDF.
+  [jone]
+
+- Add keywords with a keyword index and a TinyMCE plugin for
+  adding keywords in the book text block rich text field.
+  The keyword index may be enabled on the book and will be
+  included in the PDF.
+  When the index is enabled and ftw.tabbedview is installed
+  and used for the book view, a new keywords tab is available
+  which allows for fast finding keywords within the book.
+  [jone]
+
+- Replace Paragraph with BookTextBlock.
+  [jone]
 
 - Implement uninstall profile.
   [jone]

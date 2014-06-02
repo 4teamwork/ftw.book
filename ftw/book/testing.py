@@ -67,38 +67,23 @@ class FtwBookLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
-        # Load ZCML
-        import ftw.book
-        import ftw.book.portlets
-        import simplelayout.base
-        import simplelayout.types.common
-        import ftw.pdfgenerator
+        xmlconfig.string(
+            '<configure xmlns="http://namespaces.zope.org/zope">'
+            '  <include package="z3c.autoinclude" file="meta.zcml" />'
+            '  <includePlugins package="plone" />'
+            '  <includePluginsOverrides package="plone" />'
+            '</configure>',
+            context=configurationContext)
 
-        xmlconfig.file('configure.zcml', ftw.book,
-                       context=configurationContext)
-        xmlconfig.file('configure.zcml', ftw.book.portlets,
-                       context=configurationContext)
-
-        xmlconfig.file('configure.zcml', simplelayout.base,
-                       context=configurationContext)
-        xmlconfig.file('configure.zcml', simplelayout.types.common,
-                       context=configurationContext)
-
-        xmlconfig.file('configure.zcml', ftw.pdfgenerator,
-                       context=configurationContext)
-
-        # installProduct() is *only* necessary for packages outside
-        # the Products.* namespace which are also declared as Zope 2
-        # products, using <five:registerPackage /> in ZCML.
         z2.installProduct(app, 'ftw.book')
         z2.installProduct(app, 'simplelayout.base')
         z2.installProduct(app, 'simplelayout.types.common')
+        z2.installProduct(app, 'ftw.contentpage')
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'ftw.book:default')
-        applyProfile(portal, 'simplelayout.base:default')
-        applyProfile(portal, 'simplelayout.types.common:default')
+        applyProfile(portal, 'ftw.tabbedview:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)

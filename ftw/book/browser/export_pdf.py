@@ -9,7 +9,7 @@ class ExportBookPDFView(ExportPDFView):
     the exported pdf
     """
 
-    index = ViewPageTemplateFile('export_pdf.pt')
+    index = ViewPageTemplateFile('templates/export_pdf.pt')
 
     def __call__(self):
 

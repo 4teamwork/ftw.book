@@ -208,7 +208,6 @@ class TestTableGenerator(MockTestCase):
         generator = TableGenerator(table)
         html_table = generator.render()
 
-        summary = 'summary="Its ä Description">'
         title = [
             '<caption>',
                 'My Test Täble',
@@ -275,7 +274,6 @@ class TestTableGenerator(MockTestCase):
             '</tfoot>',
         ]
 
-        self.assertIn(summary, html_table)
         self.assertIn(''.join(title), html_table)
         self.assertIn(''.join(colgroup), html_table)
         self.assertIn(''.join(thead), html_table)

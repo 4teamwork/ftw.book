@@ -1,0 +1,50 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: True"
+      i18n:domain="ftw.book">
+
+    <metal:main-macro define-macro="main">
+
+        <metal:SLOT define-slot="resources">
+            <link href="++resource++ftw.book-select2/select2.css" rel="stylesheet"/>
+            <script src="++resource++ftw.book-select2/select2.js"
+                    type="text/javascript" language="javascript"></script>
+            <script
+                tal:define="lang context/portal_languages/getPreferredLanguage;
+                            lang python: lang.split('-')[0]"
+                tal:condition="python: lang != 'en'"
+                tal:attributes="src string:++resource++ftw.book-select2/select2_locale_${lang}.js"
+                type="text/javascript" language="javascript"></script>
+
+            <script src="++resource++ftw.book-resources/keywords.js"
+                    type="text/javascript" language="javascript"></script>
+        </metal:SLOT>
+
+        <metal:SLOT define-slot="above-form" />
+        <metal:SLOT define-slot="form">
+            <form class="keywords">
+                <metal:SLOT define-slot="keywords-select">
+                    <select name="book_keywords" id="keyword"
+                            i18n:attributes="data-placeholder placeholder_keyword"
+                            data-placeholder="Keyword">
+                        <option></option>
+                        <option tal:repeat="keyword view/keywords"
+                                tal:attributes="value keyword"
+                                tal:content="keyword" />
+                    </select>
+                </metal:SLOT>
+
+                <metal:SLOT define-slot="additional-fields" />
+            </form>
+        </metal:SLOT>
+        <metal:SLOT define-slot="below-form" />
+
+        <metal:SLOT define-slot="results-container">
+            <div class="keyword-results">
+            </div>
+        </metal:SLOT>
+
+    </metal:main-macro>
+
+</html>

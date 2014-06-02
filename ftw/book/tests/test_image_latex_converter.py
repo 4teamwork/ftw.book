@@ -170,12 +170,12 @@ class TestImageLaTeXView(MockTestCase):
         # Having a [image=] will make pdflatex hang and this will block the
         # zope thread.
 
-        paragraph, request, layout, converter = self.create_mocks(
+        textblock, request, layout, converter = self.create_mocks(
             'a really bad unkown layout', 'desc', '123')
 
         self.replay()
 
-        view = getMultiAdapter((paragraph, request, layout))
+        view = getMultiAdapter((textblock, request, layout))
         latex = view.render()
 
         self.assertNotIn('[width=]', latex)

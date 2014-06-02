@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html id="region-content" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{#keyword.title}</title>
+        <script type="text/javascript" src="../tiny_mce_popup.js"></script>
+        <script type="text/javascript" src="../utils/mctabs.js"></script>
+        <script type="text/javascript" src="../utils/form_utils.js"></script>
+        <script type="text/javascript" src="js/keyword.js"></script>
+
+    </head>
+    <body id="keyword">
+
+        <form onsubmit="KeywordDialog.update();return false;" action="#">
+
+            <table border="0" cellpadding="4" cellspacing="0"
+                   role="presentation"
+                   style="margin-right:auto;margin-left:auto">
+                <tr>
+                    <td class="nowrap">
+                        <label for="keywordName">{#keyword.title}:</label>
+                    </td>
+
+                    <td>
+                        <input name="keywordName" type="text"
+                               class="mceFocus" id="keywordName"
+                               value="" style="width: 200px"
+                               aria-required="true" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="mceActionPanel">
+                <input type="submit" id="insert" name="insert" value="{#update}" />
+                <input type="button" id="cancel" name="cancel" value="{#cancel}"
+                       onclick="tinyMCEPopup.close();" />
+            </div>
+        </form>
+
+    </body>
+</html>

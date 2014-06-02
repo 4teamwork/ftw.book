@@ -1,19 +1,22 @@
 from Products import DataGridField
+from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
-from Products.ATContentTypes.content.document import ATDocumentBase
-try:
-    from Products.LinguaPlone import public as atapi
-except ImportError:
-    # No multilingual support
-    from Products.Archetypes import atapi
+from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
 from Products.Archetypes.public import DisplayList
 from ftw.book import _
 from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import ITable
 from ftw.book.table import generator
-from zope.interface import implements
+from ftw.contentpage.content.schema import finalize
 from simplelayout.base.interfaces import ISimpleLayoutBlock
-from simplelayout.types.common.content import simplelayout_schemas
+from zope.interface import implements
+
+
+try:
+    from Products.LinguaPlone import public as atapi
+except ImportError:
+    # No multilingual support
+    from Products.Archetypes import atapi
 
 
 MAX_AMOUNT_OF_COLUMNS = 12
@@ -225,15 +228,14 @@ table_schema = (ATContentTypeSchema.copy() +
 
             )))
 
-# We need a text-field if we inherit from ATDocumentBase
-table_schema += simplelayout_schemas.textSchema.copy()
-table_schema['text'].widget.visible = {'edit': 0, 'view': 0}
-
-simplelayout_schemas.finalize_simplelayout_schema(table_schema)
 
 
-class Table(ATDocumentBase):
-    """A Table for ftw.book"""
+finalize(table_schema, hide=['description'])
+
+
+class Table(ATCTContent, HistoryAwareMixin):
+    """A Table for ftw.book
+    """
     implements(ITable, ISimpleLayoutBlock)
 
     portal_type = "Table"

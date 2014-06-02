@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<object>
+
+    <resourcetypes purge="False">
+
+        <customplugins purge="False">
+            <element remove="True" value="tinymce_keyword|/++resource++ftw.book.tinymce.keyword/editor_plugin.js" />
+        </customplugins>
+
+        <containsobjects purge="False">
+            <element remove="True" value="Chapter"/>
+        </containsobjects>
+
+        <linkable purge="False">
+            <element remove="True" value="Chapter"/>
+            <element remove="True" value="BookTextBlock"/>
+            <element remove="True" value="HTMLBlock"/>
+            <element remove="True" value="Table"/>
+        </linkable>
+
+        <containsanchors purge="False">
+            <element remove="True" value="BookTextBlock"/>
+            <element remove="True" value="HTMLBlock"/>
+        </containsanchors>
+
+    </resourcetypes>
+
+</object>
