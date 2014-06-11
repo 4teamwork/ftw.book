@@ -1,6 +1,5 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.book import _
-from ftw.book.interfaces import IBook
 from ftw.pdfgenerator.html2latex.subconverters import hyperlink
 from zope.i18n import translate
 

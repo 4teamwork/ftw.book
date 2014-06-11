@@ -4,7 +4,6 @@ from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
 from unittest2 import TestCase
-from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 
 
