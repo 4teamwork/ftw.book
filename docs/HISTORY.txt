@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Remove dependency to simplelayout.types.common.
+  [jone]
+
 - Keywords: load select2 javascript translations.
   [jone]
 

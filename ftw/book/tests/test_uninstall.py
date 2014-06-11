@@ -11,7 +11,6 @@ class TestGenericSetupUninstall(TestCase, GenericSetupUninstallMixin):
         'simplelayout.base',
         'simplelayout.ui.base',
         'simplelayout.ui.dragndrop',
-        'simplelayout.types.common',
         'ftw.contentpage',
         )
 

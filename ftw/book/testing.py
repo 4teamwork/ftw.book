@@ -77,7 +77,6 @@ class FtwBookLayer(PloneSandboxLayer):
 
         z2.installProduct(app, 'ftw.book')
         z2.installProduct(app, 'simplelayout.base')
-        z2.installProduct(app, 'simplelayout.types.common')
         z2.installProduct(app, 'ftw.contentpage')
 
     def setUpPloneSite(self, portal):
