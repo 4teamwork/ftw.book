@@ -20,6 +20,7 @@ from plone.testing import zca
 from plone.testing import zodb
 from zope.configuration import xmlconfig
 import ftw.book.tests.builders
+import ftw.contentpage.tests.builders
 
 
 def clear_transmogrifier_registry():
