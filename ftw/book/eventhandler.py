@@ -68,7 +68,7 @@ def left_slot_portlets(object_):
     if 'navigation' in mapping.keys():
         del mapping['navigation']
 
-    if not 'go-to-parent-portlet' in mapping.keys():
+    if 'go-to-parent-portlet' not in mapping.keys():
         mapping['go-to-parent-portlet'] = gotoparent.Assignment()
 
     portal_url = getToolByName(object_, 'portal_url')

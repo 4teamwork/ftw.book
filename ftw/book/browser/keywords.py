@@ -30,7 +30,7 @@ class KeywordsTab(BrowserView):
             for keyword in brain.book_keywords:
                 keywords.add(keyword)
 
-        return sorted(keywords, key=lambda item:item.lower())
+        return sorted(keywords, key=lambda item: item.lower())
 
     def load(self):
         """Load data as json.
@@ -75,7 +75,7 @@ class KeywordsTab(BrowserView):
 
     def _prepare_item(self, brain):
         keywords = sorted(set(brain.book_keywords),
-                          key=lambda item:item.lower())
+                          key=lambda item: item.lower())
 
         return {'brain': brain,
                 'title': self._title_of_brain(brain),

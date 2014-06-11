@@ -229,7 +229,6 @@ table_schema = (ATContentTypeSchema.copy() +
             )))
 
 
-
 finalize(table_schema, hide=['description'])
 
 

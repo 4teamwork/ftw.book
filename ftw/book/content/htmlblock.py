@@ -33,7 +33,6 @@ htmlblock_schema['text'].widget = atapi.TextAreaWidget(
 finalize(htmlblock_schema)
 
 
-
 class HTMLBlock(textblock.TextBlock):
     """HTML block for books.
     """
