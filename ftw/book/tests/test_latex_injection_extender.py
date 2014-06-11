@@ -1,41 +1,38 @@
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
-from plone.mocktestcase import MockTestCase
+from ftw.builder import Builder
+from ftw.builder import create
+from unittest2 import TestCase
 from zope.interface import alsoProvides
 from zope.interface import noLongerProvides
 
 
-class TestLatexInjectionExtender(MockTestCase):
+class TestLatexInjectionExtender(TestCase):
 
     layer = FTW_BOOK_INTEGRATION_TESTING
 
     def setUp(self):
-        portal = self.layer['portal']
+        self.folder = create(Builder('folder'))
+        self.page = create(Builder('page')
+                           .titled('First page')
+                           .within(self.folder))
 
-        self.folder = portal.get(portal.invokeFactory(
-                'Folder',
-                'latex-injection-test'))
+    def add_book(self):
+        self.book = create(Builder('book')
+                           .titled('My Book')
+                           .within(self.folder))
 
-        self.page = self.folder.get(
-            self.folder.invokeFactory('Page', 'latex-test-page',
-                                      title='First page'))
+        self.chapter = create(Builder('chapter')
+                              .titled('Chapter One')
+                              .within(self.book))
 
-        self.book = self.folder.get(
-            self.folder.invokeFactory('Book', 'latex-injection-book',
-                                      title='My Book'))
-
-        self.chapter = self.book.get(self.book.invokeFactory(
-                'Chapter', 'chapter-one', title='Chapter One'))
-
-        self.textblock = self.chapter.get(self.chapter.invokeFactory(
-                'BookTextBlock', 'textblock-one', title='TextBlock One'))
-
-    def tearDown(self):
-        portal = self.layer['portal']
-        portal.manage_delObjects(['latex-injection-test'])
+        self.textblock = create(Builder('book textblock')
+                                .titled('TextBlock One')
+                                .within(self.chapter))
 
     def test_page_is_enabled_on_all_objects(self):
+        self.add_book()
         self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.folder))
         self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.page))
         self.assertTrue(ILaTeXCodeInjectionEnabled.providedBy(self.book))
@@ -52,10 +49,7 @@ class TestLatexInjectionExtender(MockTestCase):
             self.folder.Schema().getField('postLatexCode'), None)
 
     def test_book_has_injected_fields(self):
-        # Usualy this happend during traversal - check layer.py
-        # In this case a browser test could be the better way
-        alsoProvides(self.book.REQUEST, IWithinBookLayer)
-
+        self.add_book()
         try:
             schema = self.book.Schema()
 
@@ -74,10 +68,7 @@ class TestLatexInjectionExtender(MockTestCase):
             noLongerProvides(self.book.REQUEST, IWithinBookLayer)
 
     def test_chapter_has_injected_fields(self):
-        # Usualy this happend during traversal - check layer.py
-        # In this case a browser test could be the better way
-        alsoProvides(self.chapter.REQUEST, IWithinBookLayer)
-
+        self.add_book()
         try:
             schema = self.chapter.Schema()
 
@@ -96,10 +87,7 @@ class TestLatexInjectionExtender(MockTestCase):
             noLongerProvides(self.chapter.REQUEST, IWithinBookLayer)
 
     def test_textblock_has_injected_fields(self):
-        # Usualy this happend during traversal - check layer.py
-        # In this case a browser test could be the better way
-        alsoProvides(self.textblock.REQUEST, IWithinBookLayer)
-
+        self.add_book()
         try:
             schema = self.textblock.Schema()
 
@@ -118,8 +106,7 @@ class TestLatexInjectionExtender(MockTestCase):
             noLongerProvides(self.textblock.REQUEST, IWithinBookLayer)
 
     def test_textblock_reordering(self):
-        alsoProvides(self.textblock.REQUEST, IWithinBookLayer)
-
+        self.add_book()
         try:
             schema = self.textblock.Schema()
             fieldnames = schema.keys()
