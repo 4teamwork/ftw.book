@@ -5,6 +5,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
+- Show images in documents tab.
+  [tschanzt]
+
 - Remove dependency to simplelayout.types.common.
   [jone]
 
