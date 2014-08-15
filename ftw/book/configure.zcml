@@ -3,11 +3,13 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:profilehook="http://namespaces.zope.org/profilehook"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
     <include package="Products.CMFCore" file="permissions.zcml" />
     <include package="Products.DataGridField" />
+    <include package="ftw.profilehook" />
 
     <five:registerPackage package="." initialize=".initialize" />
 
@@ -34,6 +36,11 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <profilehook:hook
+        profile="ftw.book:default"
+        handler=".hooks.installed"
+        />
+
     <genericsetup:registerProfile
         name="uninstall"
         title="Uninstall ftw.book"
@@ -43,11 +50,9 @@
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         />
 
-    <genericsetup:importStep
-        name="ftw.book"
-        title="ftw.book special import handlers"
-        description=""
-        handler="ftw.book.setuphandlers.import_various"
+    <profilehook:hook
+        profile="ftw.book:uninstall"
+        handler=".hooks.uninstalled"
         />
 
     <adapter factory=".bookadapter.find_book" />
