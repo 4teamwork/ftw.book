@@ -6,6 +6,14 @@ import logging
 PROFILE_ID = 'profile-ftw.book:default'
 
 
+def installed(site):
+    add_catalog_indexes(site)
+
+
+def uninstalled(site):
+    remove_catalog_indexes(site)
+
+
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.
 
@@ -51,20 +59,3 @@ def remove_catalog_indexes(context):
     for name, meta_type in INDEXES:
         if name in indexes:
             catalog.delIndex(name)
-
-
-def import_various(context):
-    """Import step for configuration that is not handled in xml files.
-    """
-
-    action = context.readDataFile('ftw.book.setuphandlers.txt')
-    action = action.strip() if action else None
-    if action is None:
-        return
-
-    logger = context.getLogger('ftw.book')
-    site = context.getSite()
-    if action == 'install':
-        add_catalog_indexes(site, logger)
-    elif action == 'uninstall':
-        remove_catalog_indexes(site)
