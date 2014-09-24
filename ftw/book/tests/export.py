@@ -72,7 +72,8 @@ def diff_pdfs(result_path, expectation_path, difference_path):
             eimg = empty_page
 
         _out, err = run(('compare -metric PSNR %(rimg)s '
-                         '%(eimg)s %(diffimages)s/%(name)s') % locals())
+                         '%(eimg)s %(diffimages)s/%(name)s') % locals(),
+                        ignore_exit_code=True)
 
         if err.strip() != 'inf':
             page = re.match('page-([\d]*).png', name).groups()[0]
@@ -93,7 +94,7 @@ def test_image_magick_commands():
                  'See http://cactuslab.com/imagemagick/') % cmd)
 
 
-def run(cmd):
+def run(cmd, ignore_exit_code=False):
     __traceback_info__ = 'Running command: %s' % cmd
     proc = subprocess.Popen(shlex.split(cmd),
                             stderr=subprocess.PIPE,
@@ -102,5 +103,6 @@ def run(cmd):
     output, errors = proc.communicate()
     exitcode = proc.poll()
 
-    assert exitcode == 0, 'COMMAND FAILED: %s\n\n%s\n%s' % (cmd, output, errors)
+    if not ignore_exit_code:
+        assert exitcode == 0, 'COMMAND FAILED: %s\n\n%s\n%s' % (cmd, output, errors)
     return output, errors
