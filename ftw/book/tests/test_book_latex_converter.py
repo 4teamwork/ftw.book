@@ -211,3 +211,20 @@ class TestBookConverterKeywords(TestCase):
             r'Hello world\index{World}!',
             convert('<p>Hello <span title="World"'
                     ' class="keyword">world</span>!'))
+
+    def test_converts_umlauts_properly(self):
+        # See https://github.com/4teamwork/ftw.pdfgenerator/pull/36
+        convert = BookHTML2LatexConverter(None, None, None).convert
+
+        self.assertEqual(
+            'Seid H\xc3\xb6flicher\\index{H"oflich}!',
+            convert(
+                '<p>Seid <span title="H\xc3\xb6flich"'
+                ' class="keyword">H\xc3\xb6flicher</span>!</p>'))
+
+        self.assertEqual(
+            'Seid H\xc3\xb6flicher\\index{H"oflich}!',
+            convert(
+                '<p>Seid H\xc3\xb6flicher'
+                '<keyword title="H\xc3\xb6flich"/>!'
+                '</p>'))

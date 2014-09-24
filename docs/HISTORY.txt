@@ -5,6 +5,9 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
+- Index: umlaut sorting support by quoting umlauts.
+  [jone]
+
 - Fix scroll position when invoking reader on a block.
   [jone]
 
