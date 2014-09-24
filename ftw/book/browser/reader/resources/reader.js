@@ -97,12 +97,12 @@
     var data = {};
 
     if (direction == 'down') {
-      url = 'book_reader_view/render_next';
+      url = get_baseurl() + 'book_reader_view/render_next';
       data = {after_uid: last_bottom_uid,
               loaded_blocks: get_loaded_uids()};
 
     } else if (direction == 'up') {
-      url = 'book_reader_view/render_previous';
+      url = get_baseurl() + 'book_reader_view/render_previous';
       data = {before_uid: last_top_uid,
               loaded_blocks: get_loaded_uids()};
     }
@@ -317,6 +317,14 @@
       }
     }
   };
+
+  function get_baseurl() {
+    var baseurl = $('head base').attr('href');
+    if(baseurl.substr(baseurl.length-1, 1) != '/') {
+      baseurl += '/';
+    }
+    return baseurl;
+  }
 
   /* stay in reader when clicking on book internal links */
   $('a.book-internal').live('click', function(e) {

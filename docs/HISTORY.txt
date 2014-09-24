@@ -5,6 +5,9 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
+- Fix scroll position when invoking reader on a block.
+  [jone]
+
 - Use ftw.profilehook instead of custom import steps (setuphandlers).
   [jone]
 
