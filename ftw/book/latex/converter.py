@@ -1,6 +1,7 @@
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.highlight_subconverter import VisualHighlightSubconverter
 from ftw.book.latex.hyperlink_subconverter import BookHyperlinkConverter
+from ftw.book.latex.index_subconverter import IndexSubconverter
 from ftw.pdfgenerator import interfaces
 from ftw.pdfgenerator.html2latex.converter import HTML2LatexConverter
 from ftw.pdfgenerator.html2latex.subconverters import hyperlink
@@ -44,20 +45,20 @@ class BookHTML2LatexConverter(HTML2LatexConverter):
              interfaces.HTML2LATEX_REPEAT_MODIFIER),
             placeholder=BOTTOM)
 
-        # Add \index for each span.keyword
+        # Convert <span class="keyword"> tags into
+        # <keyword> tags with the same meaning.
+        # The <keyword> tags are converted later by the
+        # IndexSubconverter.
         self._insert_custom_pattern(
             (interfaces.HTML2LATEX_MODE_REGEXP,
              r'<span ([^>]*)class="[^"]*keyword[^"]*"([^>]*)>(.*?)</span>',
-             r'\g<3><keyword \g<1>\g<2>/>'))
-
-        self._insert_custom_pattern(
-            (interfaces.HTML2LATEX_MODE_REGEXP,
-             r'<keyword [^>]*title="([^"]*)"[^/]*/>',
-             r'\index{\g<1>}'))
+             r'\g<3><keyword \g<1>\g<2>/>'),
+            placeholder=interfaces.HTML2LATEX_CUSTOM_PATTERN_PLACEHOLDER_TOP)
 
     def get_default_subconverters(self):
         converters = list(HTML2LatexConverter.get_default_subconverters(self))
         converters.append(VisualHighlightSubconverter)
+        converters.append(IndexSubconverter)
 
         converters[converters.index(hyperlink.HyperlinkConverter)] = \
             BookHyperlinkConverter
