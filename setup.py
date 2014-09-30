@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '3.0.1'
+version = '3.0.2.dev0'
 maintainer = 'Jonas Baumann'
 
 
