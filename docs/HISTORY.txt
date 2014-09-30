@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.1 (unreleased)
+3.0.1 (2014-09-30)
 ------------------
 
 - Index: umlaut sorting support by quoting umlauts.
