@@ -5,7 +5,9 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Temporarly pin Products.DataGridField to 1.9.0, since 1.9.1 seems to break
+  ftw.book.
+  [mathias.leimgruber]
 
 
 3.0.1 (2014-09-30)
