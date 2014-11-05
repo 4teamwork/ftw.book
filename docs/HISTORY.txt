@@ -5,6 +5,10 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
+- Make LaTeX view adapter's layout descriminator more specific
+  in order to avoid clash with similar adapters such as `++add++`.
+  [cillianderoiste]
+
 - Temporarly pin Products.DataGridField to 1.9.0, since 1.9.1 seems to break
   ftw.book.
   [mathias.leimgruber]
