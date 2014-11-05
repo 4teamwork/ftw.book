@@ -1,13 +1,14 @@
 from ftw.book.helpers import BookHelper
 from ftw.book.interfaces import IChapter
 from ftw.book.latex import utils
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.view import RecursiveLaTeXView
 from zope.component import adapts
 from zope.interface import Interface
 
 
 class ChapterLaTeXView(RecursiveLaTeXView):
-    adapts(IChapter, Interface, Interface)
+    adapts(IChapter, Interface, ILaTeXLayout)
 
     def render(self):
         latex = self.get_heading_counters_latex()
