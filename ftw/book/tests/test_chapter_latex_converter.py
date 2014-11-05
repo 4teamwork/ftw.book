@@ -2,10 +2,12 @@ from Acquisition import aq_inner, aq_parent
 from ftw.book.interfaces import IBook
 from ftw.book.interfaces import IChapter
 from ftw.book.testing import LATEX_ZCML_LAYER
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
 from mocker import ANY
 from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 
 class TestChapterLaTeXView(MockTestCase):
@@ -24,7 +26,7 @@ class TestChapterLaTeXView(MockTestCase):
         self.expect(chapter.Schema()).result(schema)
         self.expect(schema.getField(ANY)).result(None)
 
-        layout = self.mocker.mock()
+        layout = self.providing_mock([ILaTeXLayout])
         self.expect(layout.context).result(book).count(2)
         self.expect(layout.get_converter().convert('chapter title')).result(
             'converted chapter title')
@@ -43,7 +45,7 @@ class TestChapterLaTeXView(MockTestCase):
         chapter = self.providing_stub([IChapter])
         self.set_parent(chapter, book)
 
-        layout = self.stub()
+        layout = self.providing_stub([ILaTeXLayout])
         self.expect(layout.context).result(book)
 
         self.replay()
@@ -87,6 +89,7 @@ class TestChapterLaTeXView(MockTestCase):
         # chapter heading and we need to reset the heading counters.
 
         layout2a = self.create_dummy(context=chapter2a)
+        alsoProvides(layout2a, ILaTeXLayout)
         view2a = getMultiAdapter((chapter2a, request, layout2a), ILaTeXView)
         self.assertEqual(view2a.get_heading_counters_latex(), '\n'.join((
                     r'\setcounter{chapter}{2}',
@@ -94,6 +97,7 @@ class TestChapterLaTeXView(MockTestCase):
                     )))
 
         layout2b = self.create_dummy(context=chapter2b)
+        alsoProvides(layout2b, ILaTeXLayout)
         view2b = getMultiAdapter((chapter2b, request, layout2b), ILaTeXView)
         self.assertEqual(view2b.get_heading_counters_latex(), '\n'.join((
                     r'\setcounter{chapter}{2}',

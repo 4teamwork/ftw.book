@@ -1,6 +1,7 @@
 from ftw.book.interfaces import IBook
 from ftw.book.latex.book import BookLaTeXView
 from ftw.book.testing import LATEX_ZCML_LAYER
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
 from zope.component import getMultiAdapter
@@ -13,7 +14,7 @@ class TestBookLaTeXView(MockTestCase):
     def test_returns_rendered_children_latex(self):
         context = self.providing_mock([IBook])
         request = self.mocker.mock()
-        layout = self.mocker.mock()
+        layout = self.providing_mock([ILaTeXLayout])
 
         self.expect(layout.context).result(context)
         self.expect(request.get('paths', None)).result(None)
