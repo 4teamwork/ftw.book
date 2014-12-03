@@ -11,7 +11,7 @@ import transaction
 def keywords_html(*keywords):
     return '\n'.join(
         map(lambda word: '<span class="keyword" title="%s">%s</span>' % (
-                word, word), keywords))
+            word, word), keywords))
 
 
 def select2_javascripts():
@@ -67,15 +67,26 @@ class TestKeywordsView(TestCase):
             browser.css('select[name=book_keywords] option').text)
 
     @browsing
-    def test_keywords_are_ordered_case_insensitive(self, browser):
+    def test_keywords_are_ordered_normalized_case_insensitive(self, browser):
         chapter = create(Builder('chapter').within(self.book))
         create(Builder('book textblock')
                .within(chapter)
-               .having(text=keywords_html('foo', 'bar', 'Baz')))
+               .having(text=keywords_html('foo',
+                                          'bar',
+                                          'Baz',
+                                          '\xc3\x84hnliches',
+                                          '\xc3\xb6rtliches',
+                                          '\xc3\x9cbliches')))
 
         browser.login().visit(self.book, view='tabbedview_view-keywords')
         self.assertEquals(
-            ['', 'bar', 'Baz', 'foo'],
+            ['',
+             u'\xc4hnliches',
+             'bar',
+             'Baz',
+             'foo',
+             u'\xf6rtliches',
+             u'\xdcbliches'],
             browser.css('select[name=book_keywords] option').text)
 
     @browsing
@@ -192,8 +203,8 @@ class TestKeywordsView(TestCase):
                              view='tabbedview_view-keywords/load')
 
         self.assertEquals(
-            'http://nohost/plone/the-book/the-chapter/' + \
-                'the-block/@@book_reader_view',
+            'http://nohost/plone/the-book/the-chapter/' +
+            'the-block/@@book_reader_view',
             browser.find('1.1 The Block').attrib['href'])
 
     @browsing
@@ -278,8 +289,8 @@ class TestKeywordsView(TestCase):
             ['/plone/the-book',
              '/plone/the-book/first-chapter',
              '/plone/the-book/first-chapter/first-subchapter',
-             '/plone/the-book/first-chapter/first-subchapter/' + \
-                 'first-subsubchapter',
+             '/plone/the-book/first-chapter/first-subchapter/' +
+             'first-subsubchapter',
              '/plone/the-book/second-chapter'],
             view.chapters.keys())
 
@@ -291,8 +302,8 @@ class TestKeywordsView(TestCase):
         self.assertIn('brain', view.chapters['/plone/the-book'])
 
         self.assertDictContainsSubset(
-            {'reader_url': 'http://nohost/plone/the-book/first-chapter/' + \
-                 'first-subchapter/@@book_reader_view',
+            {'reader_url': 'http://nohost/plone/the-book/first-chapter/' +
+             'first-subchapter/@@book_reader_view',
              'title': '1.1 First SubChapter',
              'position': 2},
             view.chapters['/plone/the-book/first-chapter/first-subchapter'])
@@ -311,7 +322,7 @@ class TestKeywordsView(TestCase):
 
         second_book = create(Builder('book').titled('Second Book'))
         second_chapter = create(Builder('chapter').titled('Second chapter')
-                               .within(second_book))
+                                .within(second_book))
         create(Builder('book textblock').titled('Second Block')
                .within(second_chapter)
                .having(text=keywords_html('Bar', 'Baz')))

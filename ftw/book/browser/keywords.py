@@ -1,9 +1,10 @@
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book.browser.toc_tree import BookTocTree
 from plone.app.layout.navigation.navtree import buildFolderTree
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.publisher.browser import BrowserView
 import os.path
+import unicodedata
 
 
 class KeywordsTab(BrowserView):
@@ -30,7 +31,13 @@ class KeywordsTab(BrowserView):
             for keyword in brain.book_keywords:
                 keywords.add(keyword)
 
-        return sorted(keywords, key=lambda item: item.lower())
+        return sorted(keywords, key=self.normalize_lower_keyword)
+
+    def normalize_lower_keyword(self, keyword):
+        unicoded = keyword.decode('utf-8')
+        normalized = unicodedata.normalize('NFKD', unicoded).encode('ascii',
+                                                                    'ignore')
+        return normalized.lower()
 
     def load(self):
         """Load data as json.
@@ -48,7 +55,7 @@ class KeywordsTab(BrowserView):
     def chapters(self):
         if getattr(self, '_chapters', None) is None:
             tree = buildFolderTree(self.context, query={
-                    'path': '/'.join(self.context.getPhysicalPath())})
+                'path': '/'.join(self.context.getPhysicalPath())})
             tree = BookTocTree()(tree)
 
             def flatten(node):

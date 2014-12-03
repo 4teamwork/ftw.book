@@ -5,6 +5,9 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
+- Sort keywords normalized for a more intuitive order.
+  [lknoepfel]
+
 - Make LaTeX view adapter's layout descriminator more specific
   in order to avoid clash with similar adapters such as `++add++`.
   [cillianderoiste]
