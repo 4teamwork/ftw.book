@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.2 (unreleased)
+3.0.2 (2015-01-21)
 ------------------
 
 - Listingblock PDF: remove caption added in ftw.contentpage 1.9.0.
