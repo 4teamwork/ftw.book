@@ -5,6 +5,9 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
+- Listingblock PDF: remove caption added in ftw.contentpage 1.9.0.
+  [jone]
+
 - Sort keywords normalized for a more intuitive order.
   [lknoepfel]
 

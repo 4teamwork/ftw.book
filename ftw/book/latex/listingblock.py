@@ -38,6 +38,11 @@ def remove_table_summary(doc):
 
 
 @parsed_html
+def remove_table_caption(doc):
+    lxml.etree.strip_tags(doc, 'caption')
+
+
+@parsed_html
 def add_table_column_widths(doc):
     for table in doc.xpath('//table'):
         no_width = []
@@ -74,5 +79,6 @@ class ListingBlockLaTeXView(MakoLaTeXView):
         table_html = view.render_table()
         table_html = remove_html_links(table_html)
         table_html = remove_table_summary(table_html)
+        table_html = remove_table_caption(table_html)
         table_html = add_table_column_widths(table_html)
         return self.convert(table_html)
