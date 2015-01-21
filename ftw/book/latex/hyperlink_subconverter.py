@@ -1,6 +1,6 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.book import _
 from ftw.pdfgenerator.html2latex.subconverters import hyperlink
+from Products.CMFCore.utils import getToolByName
 from zope.i18n import translate
 
 
@@ -19,6 +19,7 @@ class BookHyperlinkConverter(hyperlink.HyperlinkConverter):
                            '/'.join((context.getPhysicalPath())))
         path = path.split('\#', 1)[0]
         path = path.split('?', 1)[0]
+        path = path.replace(r'\%20', ' ')
         path = path.rstrip('/')
 
         return (r'\hyperref[path:%(path)s]{%(label)s'
