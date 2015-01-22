@@ -5,7 +5,8 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Interal Links in PDF: fix links to paths containing spaces.
+  [jone]
 
 
 3.0.2 (2015-01-21)
