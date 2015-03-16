@@ -5,7 +5,9 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- ftw.book is incompatible with ftw.contentpage 1.11.0 and 1.11.1.
+  The HTMLBlock fails when rendered in content pages.
+  [jone]
 
 
 3.0.3 (2015-01-22)
