@@ -25,6 +25,7 @@
     <include package=".keyword" />
 
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
+    <include zcml:condition="installed ftw.publisher.core" package=".publisher" />
 
     <include file="skins.zcml" />
 

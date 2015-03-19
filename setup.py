@@ -10,6 +10,7 @@ tests_require = [
     'Products.GenericSetup',
     'ftw.builder',
     'ftw.inflator',
+    'ftw.publisher.core',
     'ftw.tabbedview',
     'ftw.testbrowser',
     'ftw.testing',

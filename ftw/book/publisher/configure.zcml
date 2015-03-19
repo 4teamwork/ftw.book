@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+    <!-- The name prefix 010 is important so that this collector
+         is always run before running the FieldData collector -->
+    <adapter
+        for="*"
+        provides="ftw.publisher.core.interfaces.IDataCollector"
+        factory=".layout.BookLayoutRequestLayerCollector"
+        name="010-book-layout-request-layers" />
+
+</configure>
