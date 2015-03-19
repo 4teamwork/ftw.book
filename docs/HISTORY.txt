@@ -5,6 +5,9 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
+- ftw.publisher support: make sure the layout adapters are respected.
+  [jone]
+
 - ftw.book is incompatible with ftw.contentpage 1.11.0 and 1.11.1.
   The HTMLBlock fails when rendered in content pages.
   [jone]
