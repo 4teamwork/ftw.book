@@ -79,11 +79,13 @@ class FtwBookLayer(PloneSandboxLayer):
         z2.installProduct(app, 'ftw.book')
         z2.installProduct(app, 'simplelayout.base')
         z2.installProduct(app, 'ftw.contentpage')
+        z2.installProduct(app, 'ftw.zipexport')
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'ftw.book:default')
         applyProfile(portal, 'ftw.tabbedview:default')
+        applyProfile(portal, 'ftw.zipexport:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)

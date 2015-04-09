@@ -14,6 +14,7 @@ tests_require = [
     'ftw.tabbedview',
     'ftw.testbrowser',
     'ftw.testing',
+    'ftw.zipexport',
     'mocker',
     'plone.app.testing',
     'plone.browserlayer',

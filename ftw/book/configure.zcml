@@ -84,4 +84,7 @@
         <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
     </class>
 
+    <configure zcml:condition="installed ftw.zipexport">
+        <adapter factory=".zipexport.BookZipRepresentation" />
+    </configure>
 </configure>
