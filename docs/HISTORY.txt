@@ -5,6 +5,9 @@ Changelog
 3.1.1 (unreleased)
 ------------------
 
+- Include files from listing blocks in zip export.
+  [mbaechtold]
+
 - Added ftw.zipexport integration.
   [lknoepfel]
 

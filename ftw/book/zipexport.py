@@ -1,7 +1,7 @@
+from ftw.zipexport.representations.archetypes import FolderZipRepresentation
 from ftw.book.interfaces import IBook
 from ftw.pdfgenerator.interfaces import IPDFAssembler
 from ftw.zipexport.interfaces import IZipRepresentation
-from ftw.zipexport.representations.general import NullZipRepresentation
 from StringIO import StringIO
 from zope.component import adapts
 from zope.component import getMultiAdapter
@@ -9,7 +9,7 @@ from zope.interface import implements
 from zope.interface import Interface
 
 
-class BookZipRepresentation(NullZipRepresentation):
+class BookZipRepresentation(FolderZipRepresentation):
     implements(IZipRepresentation)
     adapts(IBook, Interface)
 
@@ -21,3 +21,9 @@ class BookZipRepresentation(NullZipRepresentation):
 
         yield (u'{0}/{1}'.format(path_prefix, filename),
                StringIO(assembler.build_pdf()))
+
+        folder_contents = super(BookZipRepresentation, self).get_files(
+            path_prefix, recursive, toplevel)
+
+        for item in folder_contents:
+            yield item
