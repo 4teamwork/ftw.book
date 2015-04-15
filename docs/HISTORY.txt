@@ -5,6 +5,9 @@ Changelog
 3.1.1 (unreleased)
 ------------------
 
+- Added book context manager.
+  [lknoepfel]
+
 - Include files from listing blocks in zip export.
   [mbaechtold]
 
