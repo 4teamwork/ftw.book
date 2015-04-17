@@ -1,8 +1,8 @@
-from ftw.zipexport.representations.archetypes import FolderZipRepresentation
 from ftw.book.interfaces import IBook
-from ftw.book.layer import BookContext
+from ftw.book.layer import providing_book_layers
 from ftw.pdfgenerator.interfaces import IPDFAssembler
 from ftw.zipexport.interfaces import IZipRepresentation
+from ftw.zipexport.representations.archetypes import FolderZipRepresentation
 from StringIO import StringIO
 from zope.component import adapts
 from zope.component import getMultiAdapter
@@ -17,7 +17,7 @@ class BookZipRepresentation(FolderZipRepresentation):
     def get_files(self, path_prefix=u"", recursive=True, toplevel=True):
         filename = u'{0}.pdf'.format(self.context.getId())
 
-        with BookContext(self.context, self.request):
+        with providing_book_layers(self.context, self.request):
             assembler = getMultiAdapter((self.context, self.request),
                                         IPDFAssembler)
 
