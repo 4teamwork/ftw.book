@@ -12,7 +12,10 @@ class TestBookZipexport(TestCase):
     layer = FTW_BOOK_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.book = create(Builder('book').titled('The Book'))
+        self.folder = create(Builder('folder'))
+
+        self.book = create(Builder('book').titled('The Book')
+                           .within(self.folder))
         chapter1 = create(Builder('chapter').titled('First Chapter')
                           .within(self.book))
 
@@ -40,13 +43,14 @@ class TestBookZipexport(TestCase):
 
     @browsing
     def test_zipexport_integration(self, browser):
-        browser.login().visit(self.book, view='zip_export')
+        browser.login().visit(self.folder, view='zip_export')
 
         self.assertEquals('application/zip', browser.headers['Content-Type'])
 
         zipfile = ZipFile(StringIO(browser.contents))
         self.assertEquals(
-            ['the-book.pdf', 'First Chapter/image.gif',
-             'First Chapter/The SubChapter/image.gif',
-             'Second Chapter/image.gif'],
+            ['the-book.pdf',
+             'The Book/First Chapter/image.gif',
+             'The Book/First Chapter/The SubChapter/image.gif',
+             'The Book/Second Chapter/image.gif'],
             zipfile.namelist())
