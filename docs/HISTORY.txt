@@ -5,6 +5,9 @@ Changelog
 3.1.1 (unreleased)
 ------------------
 
+- Move book specific styles from plonetheme.onegov to this package.
+  [lknoepfel]
+
 - Added book context manager.
   [lknoepfel]
 
