@@ -3,6 +3,7 @@ from ftw.book.layer import providing_book_layers
 from ftw.pdfgenerator.interfaces import IPDFAssembler
 from ftw.zipexport.interfaces import IZipRepresentation
 from ftw.zipexport.representations.archetypes import FolderZipRepresentation
+from Products.CMFPlone.utils import safe_unicode
 from StringIO import StringIO
 from zope.component import adapts
 from zope.component import getMultiAdapter
@@ -15,13 +16,14 @@ class BookZipRepresentation(FolderZipRepresentation):
     adapts(IBook, Interface)
 
     def get_files(self, path_prefix=u"", recursive=True, toplevel=True):
-        filename = u'{0}.pdf'.format(self.context.getId())
+        filename = '{0}.pdf'.format(self.context.getId())
 
         with providing_book_layers(self.context, self.request):
             assembler = getMultiAdapter((self.context, self.request),
                                         IPDFAssembler)
 
-            yield (u'{0}/{1}'.format(path_prefix, filename),
+            yield (u'{0}/{1}'.format(safe_unicode(path_prefix),
+                                     safe_unicode(filename)),
                    StringIO(assembler.build_pdf()))
 
             folder_contents = super(BookZipRepresentation, self).get_files(
