@@ -79,7 +79,3 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 .. _ftw.pdfgenerator: https://github.com/4teamwork/ftw.pdfgenerator
 .. _ImageMagick: http://cactuslab.com/imagemagick/
-
-.. image:: https://cruel-carlota.pagodabox.com/7b44b1a6f894bf7555c54e95144cc43d
-   :alt: githalytics.com
-   :target: http://githalytics.com/4teamwork/ftw.book
