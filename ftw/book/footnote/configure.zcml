@@ -4,13 +4,8 @@
     i18n_domain="ftw.book">
 
     <browser:resourceDirectory
-        name="ftw.book.tinymce.keyword"
-        directory="keyword-plugin"
-        />
-
-    <adapter
-        name="book_keywords"
-        factory=".indexer.book_keywords"
+        name="ftw.book.tinymce.footnote"
+        directory="footnote-plugin"
         />
 
 </configure>

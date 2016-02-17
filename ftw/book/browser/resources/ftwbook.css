@@ -115,6 +115,21 @@ span.keyword, body.mceContentBody span.keyword {
   padding-right: 1px;
 }
 
+/** TINYMCE footnote plugin **/
+.ploneSkin span.mce_tinymce_footnote {
+  background: url("++resource++ftw.book.tinymce.footnote/img/footnote.png") no-repeat center center;
+}
+
+span.footnote-info, body.mceContentBody span.footnote-info {
+  display: inline-block;
+  background-image: url(++resource++ftw.book.tinymce.footnote/img/info.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 2px;
+  width: 1em;
+  height: 1em;
+}
+
 /* Keywords tab */
 #keywords_overview {
   padding-top: 1em;

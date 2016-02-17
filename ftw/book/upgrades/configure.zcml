@@ -193,4 +193,13 @@
         directory="profiles/3009"
         />
 
+    <!-- 3009 => 3010 -->
+    <upgrade-step:importProfile
+        title="Add footnote plugin."
+        profile="ftw.book:default"
+        source="3009"
+        destination="3010"
+        directory="profiles/3010"
+        />
+
 </configure>
