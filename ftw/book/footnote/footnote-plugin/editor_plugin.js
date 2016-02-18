@@ -22,9 +22,9 @@
 
         ed.windowManager.open({
           file : url + '/footnote.htm',
-          width : 400 + parseInt(
+          width : 600 + parseInt(
               ed.getLang('advanced.anchor_delta_width', 0), 10),
-          height : 90 + parseInt(
+          height : 190 + parseInt(
               ed.getLang('advanced.anchor_delta_height', 0), 10),
           inline : 1
         }, {
