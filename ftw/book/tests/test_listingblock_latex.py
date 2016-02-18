@@ -49,8 +49,9 @@ class TestAddTableColumnWidths(TestCase):
                 '<col width="63%">',
                 '</colgroup></table>'))
 
-        self.assertEquals(expected, add_table_column_widths(input))
-
+        self.assertEquals(
+            expected,
+            add_table_column_widths(input).replace('\n', ''))
 
 
 class TestListingBlockLaTeXView(TestCase):
