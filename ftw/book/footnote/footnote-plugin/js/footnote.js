@@ -8,7 +8,7 @@ var FootnoteDialog = {
 
     ed = this.editor;
     var elm = ed.dom.getParent(ed.selection.getNode(), 'span.footnote');
-    var footnoteText = ed.dom.getAttrib(elm, 'title');
+    var footnoteText = ed.dom.getAttrib(elm, 'data-footnote');
 
     if (footnoteText) {
       this.action = 'update';
@@ -41,13 +41,13 @@ var FootnoteDialog = {
     }
 
     if (elm) {
-      /* update the footnote title */
-      elm.title = footnoteText;
+      /* update the footnote data */
+      elm.setAttribute('data-footnote', footnoteText);
     } else {
       /* create a new span tag around the selected text and insert footnote*/
       ed.execCommand('mceInsertContent', 0,
                      ' ' + ed.dom.createHTML(
-                         'span', {'title': footnoteText,
+                         'span', {'data-footnote': footnoteText,
                                   'class': 'footnote'},
                          ed.selection.getContent({format: 'text'})+
                          '<span class="footnote-info" />'));
