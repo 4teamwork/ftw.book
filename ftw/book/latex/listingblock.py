@@ -21,7 +21,7 @@ def parsed_html(func):
         doc = lxml.html.parse(StringIO(html))
         func(doc)
         html = lxml.html.tostring(doc.xpath('//body/div')[0])
-        return re.sub('^<div>(.*)</div>$', '\g<1>', html)
+        return re.sub(r'^<div>(.*)</div>$', '\g<1>', html, flags=re.DOTALL)
     return parser
 
 
