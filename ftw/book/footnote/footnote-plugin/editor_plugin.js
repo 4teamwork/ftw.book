@@ -39,11 +39,10 @@
         img : ''
       });
 
-      ed.onNodeChange.add(function(ed, cm, n, co) {
-        cm.setDisabled('tinymce_footnote', co && n.nodeName != 'span');
-        cm.setActive('tinymce_footnote', n.nodeName == 'span' && !n.title);
+      ed.onNodeChange.add(function(ed, cm, n, cursor_only) {
+        cm.setDisabled('tinymce_footnote', cursor_only);
+        cm.setActive('tinymce_footnote', false);
 
-        var selecting = !co;
         var span = ed.dom.getParent(ed.selection.getNode(), 'span.footnote');
         if (span) {
           cm.setActive('tinymce_footnote', true);
