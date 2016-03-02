@@ -23,6 +23,8 @@
     <include package=".portlets" />
     <include package=".upgrades" />
     <include package=".keyword" />
+    <include package=".footnote" />
+    <include package=".tinymce" />
 
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
     <include zcml:condition="installed ftw.publisher.core" package=".publisher" />

@@ -47,17 +47,17 @@
       });
 
       ed.onNodeChange.add(function(ed, cm, n, co) {
-        cm.setDisabled('tinymce_keyword', co && n.nodeName != 'span');
-        cm.setActive('tinymce_keyword', n.nodeName == 'span' && !n.title);
+        cm.setDisabled('tinymce_keyword', co);
+        cm.setActive('tinymce_keyword', false);
 
-        var selecting = !co;
         var span = ed.dom.getParent(ed.selection.getNode(), 'span');
         if (span) {
           var enabled = (span.getAttribute('class') &&
                          span.getAttribute('class').indexOf('keyword') > -1);
+          if (!enabled) return;
 
-          cm.setActive('tinymce_keyword', enabled);
-          cm.setDisabled('tinymce_keyword', !enabled && !selecting);
+          cm.setActive('tinymce_keyword', true);
+          cm.setDisabled('tinymce_keyword', false);
         }
       });
     },
