@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-3.2.1 (unreleased)
-------------------
+3.3 (2016-03-09)
+----------------
 
 - Added footnote TinyMCE plugin.
   [lknoepfel]
