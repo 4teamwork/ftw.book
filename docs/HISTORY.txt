@@ -5,7 +5,7 @@ Changelog
 3.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix mimetype bug in LaTeX injection, making it impossible to enter values. [jone]
 
 
 3.3 (2016-03-09)
