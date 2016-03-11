@@ -79,8 +79,8 @@ class LaTeXCodeInjectionExtender(object):
     add_field(LaTeXCodeField(
             name='preLatexCode',
             schemata='LaTeX',
-            default_content_type='application/x-latex',
-            allowable_content_types='application/x-latex',
+            default_content_type='text/plain',
+            allowable_content_types='text/plain',
             write_permission=ModifyLaTeXInjection,
 
             widget=atapi.TextAreaWidget(
@@ -92,8 +92,8 @@ class LaTeXCodeInjectionExtender(object):
     add_field(LaTeXCodeField(
             name='postLatexCode',
             schemata='LaTeX',
-            default_content_type='application/x-latex',
-            allowable_content_types='application/x-latex',
+            default_content_type='text/plain',
+            allowable_content_types='text/plain',
             write_permission=ModifyLaTeXInjection,
 
             widget=atapi.TextAreaWidget(
