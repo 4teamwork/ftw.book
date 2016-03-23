@@ -5,6 +5,8 @@ Changelog
 3.4 (unreleased)
 ----------------
 
+- Change footnote representation to avoid PDF rendering bugs. [jone]
+
 - Fix mimetype bug in LaTeX injection, making it impossible to enter values. [jone]
 
 

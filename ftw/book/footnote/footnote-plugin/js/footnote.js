@@ -49,8 +49,7 @@ var FootnoteDialog = {
                      ' ' + ed.dom.createHTML(
                          'span', {'data-footnote': footnoteText,
                                   'class': 'footnote'},
-                         ed.selection.getContent({format: 'text'})+
-                         '<span class="footnote-info" />'));
+                         ed.selection.getContent({format: 'text'})));
     }
 
     tinyMCEPopup.close();
