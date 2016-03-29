@@ -228,3 +228,16 @@ class TestBookConverterKeywords(TestCase):
                 '<p>Seid H\xc3\xb6flicher'
                 '<keyword title="H\xc3\xb6flich"/>!'
                 '</p>'))
+
+    def test_converter_works_in_lists(self):
+        # Regression test
+        convert = BookHTML2LatexConverter(None, None, None).convert
+
+        self.assertEqual(
+            '\\begin{itemize}\n'
+            '\\item Ein wichtiger\\index{wichtig} Punkt\n'
+            '\\end{itemize}',
+
+            convert(
+                '<ul><li>Ein <span class="keyword" title="wichtig">wichtiger</span>'
+                ' Punkt</li></ul>').strip())
