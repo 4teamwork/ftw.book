@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-3.4 (unreleased)
-----------------
+3.4.1 (2016-03-30)
+------------------
 
 - Change footnote representation to avoid PDF rendering bugs. [jone]
 
