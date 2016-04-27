@@ -18,6 +18,15 @@ BookSchema = (folder.ATFolderSchema.copy() +
               NextPreviousAwareSchema.copy() +
               atapi.Schema((
 
+            atapi.IntegerField(
+                name='web_toc_depth',
+                default=0,
+                searchable=False,
+                widget=atapi.IntegerWidget(
+                    label=_(u'label_web_toc_depth',
+                            default=u'Table of contents depth'),
+                    description=_(u'help_web_toc_depth', default=u''))),
+
             atapi.StringField(
                 name='latex_layout',
                 required=True,

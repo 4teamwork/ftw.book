@@ -1,7 +1,10 @@
+from ftw.book.browser.toc_tree import BookTocTree
+from plone.app.layout.navigation.interfaces import INavtreeStrategy
+from plone.app.layout.navigation.navtree import buildFolderTree
+from plone.app.layout.navigation.navtree import NavtreeStrategyBase
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ftw.book.browser.toc_tree import BookTocTree
-from plone.app.layout.navigation.navtree import buildFolderTree
+from zope.component import getMultiAdapter
 from zope.publisher.browser import BrowserView
 
 
@@ -18,7 +21,9 @@ class IndexView(BrowserView):
 
         query = self._build_query()
 
-        raw_tree = buildFolderTree(context, obj=context, query=query)
+        strategy = DepthNavTreeStrategy(self.context.getWeb_toc_depth())
+        raw_tree = buildFolderTree(
+            context, obj=context, query=query, strategy=strategy)
         toc_tree = BookTocTree()
         tree = toc_tree(raw_tree)
         self.tree = tree
@@ -37,3 +42,15 @@ class IndexView(BrowserView):
         query['portal_type'] = [t for t in all_types if t not in blacklist]
 
         return query
+
+
+class DepthNavTreeStrategy(NavtreeStrategyBase):
+
+    def __init__(self, bottomLevel):
+        self.bottomLevel = bottomLevel
+
+    def subtreeFilter(self, node):
+        depth = node.get('depth', 0)
+        if depth > 0 and self.bottomLevel > 0 and depth >= self.bottomLevel:
+            return False
+        return True

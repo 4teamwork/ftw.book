@@ -5,7 +5,8 @@ Changelog
 3.4.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Made table of contents depth configurable for web.
+  [lknoepfel]
 
 
 3.4.1 (2016-03-30)
