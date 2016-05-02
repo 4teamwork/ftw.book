@@ -20,4 +20,3 @@ msgstr "Table of contents"
 msgid "tabbed_view"
 msgstr "Tabbed view"
 
-
