@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.4.2 (unreleased)
+3.5.0 (2016-05-04)
 ------------------
 
 - Made table of contents depth configurable for web.
