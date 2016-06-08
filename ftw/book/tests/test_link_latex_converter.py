@@ -1,9 +1,10 @@
-from Products.ATContentTypes.interfaces.link import IATLink
+from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
+from Products.ATContentTypes.interfaces.link import IATLink
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
@@ -17,14 +18,17 @@ class TestLinkLaTeXView(MockTestCase):
 
         layout_obj = self.create_dummy()
         alsoProvides(layout_obj, ILaTeXLayout)
-        self.converter = getMultiAdapter((object(), object(), layout_obj),
+        request = self.create_dummy()
+        alsoProvides(request, IWithinBookLayer)
+        self.converter = getMultiAdapter((object(), request, layout_obj),
                                          IHTML2LaTeXConverter)
 
     def test_converter(self):
         request = self.create_dummy()
+        alsoProvides(request, IWithinBookLayer)
         context = self.providing_stub([IATLink])
 
-        url = 'http://www.google.ch/'
+        url = 'http://www.google.ch'
         description = 'a link to google'
 
         self.expect(context.Title()).result('My link')
