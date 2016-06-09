@@ -5,7 +5,8 @@ Changelog
 3.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add missing quotes in img url (css).
+  [mathias.leimgruber]
 
 
 3.5.0 (2016-05-04)

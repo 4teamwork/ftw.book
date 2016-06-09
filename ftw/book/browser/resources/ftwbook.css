@@ -123,7 +123,7 @@ span.keyword, body.mceContentBody span.keyword {
 span.footnote:after {
   display: inline-block;
   content: ' ';
-  background-image: url(++resource++ftw.book.tinymce.footnote/img/info.png);
+  background-image: url("++resource++ftw.book.tinymce.footnote/img/info.png");
   background-size: contain;
   background-repeat: no-repeat;
   margin: 0 2px;
