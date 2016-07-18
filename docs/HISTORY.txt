@@ -34,6 +34,9 @@ Changelog
 3.2.0 (2015-05-26)
 ------------------
 
+- Move book specific styles from plonetheme.onegov to this package.
+  [lknoepfel]
+
 - Added book context manager.
   [lknoepfel]
 
