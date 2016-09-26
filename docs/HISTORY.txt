@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.5.1 (unreleased)
+3.5.1 (2016-09-26)
 ------------------
 
 - Add missing quotes in img url (css).
