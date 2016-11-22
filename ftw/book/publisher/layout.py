@@ -68,8 +68,8 @@ class BookLayoutRequestLayerCollector(object):
             return
 
         self.logger.info(
-            'BookLayoutRequestLayerCollector: provide request layers {0}'.format(
-                layers_dottednames))
+            'BookLayoutRequestLayerCollector: provide request layers {0}'
+            .format(layers_dottednames))
 
         layers = map(resolve, layers_dottednames)
         self.provide_request_layers(layers)

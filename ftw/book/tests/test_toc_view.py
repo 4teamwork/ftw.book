@@ -1,7 +1,6 @@
 from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from unittest2 import TestCase
 
