@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '3.5.2.dev0'
+version = '4.0.0.dev0'
 maintainer = 'Jonas Baumann'
 
 
@@ -49,7 +49,6 @@ setup(name='ftw.book',
 
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Plone :: 4.2',
         'Framework :: Plone :: 4.3',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
