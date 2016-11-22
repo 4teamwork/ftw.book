@@ -2,8 +2,7 @@
 <metadata>
   <version>3010</version>
     <dependencies>
-      <dependency>profile-simplelayout.base:default</dependency>
       <dependency>profile-Products.DataGridField:default</dependency>
-      <dependency>profile-ftw.contentpage:default</dependency>
+      <dependency>profile-ftw.simplelayout:lib</dependency>
     </dependencies>
 </metadata>
