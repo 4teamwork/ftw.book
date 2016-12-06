@@ -8,7 +8,10 @@ class BookTocTree(object):
 
         def filterer(item):
             brain = item.get('item')
-            if brain.portal_type in ('Book', 'Chapter'):
+            # XXX Remove old types
+            if brain.portal_type in ('Book',
+                                     'Chapter',
+                                     'ftw.book.Book'):
                 return True
 
             elif not getattr(brain, 'showTitle', None):

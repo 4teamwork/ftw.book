@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:theme="http://namespaces.zope.org/ftw.theming"
+    i18n_domain="ftw.book">
+
+    <include package="ftw.theming" file="meta.zcml"/>
+
+    <theme:resources profile="ftw.book:default" slot="addon">
+        <theme:scss file="browser/resources/theming.scss" />
+    </theme:resources>
+
+</configure>
