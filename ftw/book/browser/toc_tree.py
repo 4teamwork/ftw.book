@@ -11,7 +11,8 @@ class BookTocTree(object):
             # XXX Remove old types
             if brain.portal_type in ('Book',
                                      'Chapter',
-                                     'ftw.book.Book'):
+                                     'ftw.book.Book',
+                                     'ftw.book.Chapter'):
                 return True
 
             elif not getattr(brain, 'showTitle', None):

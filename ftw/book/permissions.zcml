@@ -12,4 +12,9 @@
         title="ftw.book: Add Book"
         />
 
+    <permission
+        id="ftw.book.AddChapter"
+        title="ftw.book: Add Chapter"
+        />
+
 </configure>

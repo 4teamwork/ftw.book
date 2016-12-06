@@ -1,35 +1,34 @@
 <?xml version="1.0"?>
-<object name="ftw.book.Book"
+<object name="ftw.book.Chapter"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.book">
 
-    <property name="title" i18n:translate="">Book</property>
+    <property name="title" i18n:translate="">Chapter</property>
     <property name="description"></property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
-    <property name="global_allow">True</property>
+    <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
         <element value="ftw.book.Chapter"/>
     </property>
 
-    <property name="schema">ftw.book.contents2.book.IBookSchema</property>
-    <property name="klass">ftw.book.contents2.book.Book</property>
-    <property name="add_permission">ftw.book.AddBook</property>
+    <property name="schema">ftw.book.contents2.chapter.IChapterSchema</property>
+    <property name="klass">ftw.book.contents2.chapter.Chapter</property>
+    <property name="add_permission">ftw.book.AddChapter</property>
 
     <property name="behaviors">
+        <element value="ftw.simplelayout.interfaces.ISimplelayout" />
         <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
-        <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
-    <property name="default_view">book_view</property>
+    <property name="default_view">simplelayout-view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="book_view"/>
-        <element value="tabbed_view" />
+        <element value="simplelayout-view"/>
     </property>
 
     <alias from="(Default)" to="(dynamic view)"/>
@@ -75,36 +74,6 @@
         url_expr="string:${object_url}/@@book_reader_view"
         visible="True">
         <permission value="View" />
-    </action>
-
-    <action
-        action_id="index"
-        title="Index"
-        category="tabbedview-tabs"
-        condition_expr=""
-        url_expr="string:${object_url}#index"
-        visible="True">
-        <permission value="View"/>
-    </action>
-
-    <action
-        action_id="bookdocuments"
-        title="BookDocuments"
-        category="tabbedview-tabs"
-        condition_expr=""
-        url_expr="string:${object_url}#bookdocuments"
-        visible="True">
-        <permission value="View"/>
-    </action>
-
-    <action
-        action_id="keywords"
-        title="BookKeywords"
-        category="tabbedview-tabs"
-        condition_expr="here/getUse_index"
-        url_expr="string:${object_url}#keywords"
-        visible="True">
-        <permission value="View"/>
     </action>
 
 </object>

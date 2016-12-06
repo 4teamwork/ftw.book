@@ -11,6 +11,7 @@
         <containsobjects purge="False">
             <element value="Chapter"/>
             <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
         </containsobjects>
 
         <linkable purge="False">
@@ -19,6 +20,7 @@
             <element value="HTMLBlock"/>
             <element value="Table"/>
             <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
         </linkable>
 
         <containsanchors purge="False">
