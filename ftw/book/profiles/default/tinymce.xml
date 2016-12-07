@@ -21,11 +21,13 @@
             <element value="Table"/>
             <element value="ftw.book.Book"/>
             <element value="ftw.book.Chapter"/>
+            <element value="ftw.book.TextBlock"/>
         </linkable>
 
         <containsanchors purge="False">
             <element value="BookTextBlock"/>
             <element value="HTMLBlock"/>
+            <element value="ftw.book.TextBlock"/>
         </containsanchors>
 
     </resourcetypes>

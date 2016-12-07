@@ -1,35 +1,31 @@
 <?xml version="1.0"?>
-<object name="ftw.book.Chapter"
+<object name="ftw.book.TextBlock"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.book">
 
-    <property name="title" i18n:translate="">Chapter</property>
+    <property name="title" i18n:translate="">TextBlock</property>
     <property name="description"></property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
-    <property name="allowed_content_types">
-        <element value="ftw.book.Chapter"/>
-        <element value="ftw.book.TextBlock"/>
-    </property>
+    <property name="allowed_content_types" />
 
-    <property name="schema">ftw.book.contents2.chapter.IChapterSchema</property>
-    <property name="klass">ftw.book.contents2.chapter.Chapter</property>
-    <property name="add_permission">ftw.book.AddChapter</property>
+    <property name="schema">ftw.book.contents2.textblock.IBookTextBlockSchema</property>
+    <property name="klass">ftw.book.contents2.textblock.BookTextBlock</property>
+    <property name="add_permission">ftw.book.AddTextBlock</property>
 
     <property name="behaviors">
-        <element value="ftw.simplelayout.interfaces.ISimplelayout" />
-        <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
-    <property name="default_view">simplelayout-view</property>
+    <property name="default_view">redirect_to_parent</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="simplelayout-view"/>
+        <element value="redirect_to_parent"/>
     </property>
 
     <alias from="(Default)" to="(dynamic view)"/>
@@ -55,26 +51,6 @@
         url_expr="string:${object_url}/edit"
         visible="True">
         <permission value="Modify portal content"/>
-    </action>
-
-    <action
-        action_id="pdf"
-        title="PDF"
-        category="object"
-        condition_expr=""
-        url_expr="string:${object_url}/export_pdf"
-        visible="True">
-        <permission value="View" />
-    </action>
-
-    <action
-        action_id="reader"
-        title="Read Book"
-        category="object"
-        condition_expr=""
-        url_expr="string:${object_url}/@@book_reader_view"
-        visible="True">
-        <permission value="View" />
     </action>
 
 </object>

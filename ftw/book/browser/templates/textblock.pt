@@ -1,0 +1,29 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      tal:define="image view/get_image_data"
+      i18n:domain="ftw.simplelayout">
+
+    <tal:heading define="title view/block_title"
+                 condition="title"
+                 replace="structure title" />
+
+    <tal:image tal:condition="image">
+        <div tal:attributes="class image/wrapper_css_classes">
+            <div class="imageContainer">
+                <a tal:omit-tag="not: image/link_url"
+                   tal:attributes="href image/link_url;
+                                   title image/link_title;
+                                   class image/link_css_classes">
+                    <img tal:replace="structure image/image_tag" />
+                </a>
+            </div>
+            <div class="hiddenStructure" i18n:translate="hidden_label_image_caption">Image caption:</div>
+            <div class="image-caption" tal:content="context/image_caption" />
+        </div>
+    </tal:image>
+    <div tal:replace="structure here/text/output | nothing" />
+    <p tal:condition="python: view.can_add and not (here.image or here.text or here.title)"
+       i18n:translate="">This block is empty.</p>
+
+</html>

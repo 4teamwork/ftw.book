@@ -87,6 +87,14 @@
         <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
     </class>
 
+
+    <!-- https://github.com/4teamwork/ftw.simplelayout/issues/406 -->
+    <adapter
+        factory="ftw.simplelayout.contenttypes.contents.textblock.TextBlockActions"
+        name="ftw-book-textblock-actions"
+        for="* *"
+        />
+
     <configure zcml:condition="installed ftw.zipexport">
         <adapter factory=".zipexport.BookZipRepresentation" />
     </configure>

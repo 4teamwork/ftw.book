@@ -3,6 +3,7 @@
 
     <object name="ftw.book.Book" meta_type="Dexterity FTI" />
     <object name="ftw.book.Chapter" meta_type="Dexterity FTI" />
+    <object name="ftw.book.TextBlock" meta_type="Dexterity FTI" />
 
   <object name="Book"
     meta_type="Factory-based Type Information with dynamic views" />
