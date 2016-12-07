@@ -113,8 +113,6 @@
 
   <include package="plone.app.contentmenu" />
 
-  <adapter factory=".nextprevious.BookNextPrevious" />
-
   <configure zcml:condition="installed ftw.tabbedview">
      <browser:page
          for="Products.CMFCore.interfaces._content.IFolderish"
