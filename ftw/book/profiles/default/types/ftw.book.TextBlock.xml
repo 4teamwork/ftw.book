@@ -20,6 +20,11 @@
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+        <element value="ftw.book.behaviors.hidetitle.IHideTitleFromTOC" />
+        <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
+        <element value="ftw.book.behaviors.columnlayout.IChangeColumnLayout" />
+        <element value="ftw.book.behaviors.landscape.ILandscape" />
+        <element value="ftw.book.behaviors.clearpage.IClearpage" />
     </property>
 
     <property name="default_view">redirect_to_parent</property>
