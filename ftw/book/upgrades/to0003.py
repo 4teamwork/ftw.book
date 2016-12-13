@@ -4,6 +4,12 @@ from simplelayout.base.interfaces import ISimpleLayoutBlock
 from zope.interface import alsoProvides
 
 
+def run_upgrades(setup):
+    migrate_chapter_classes(setup)
+    remove_old_chapter_actions(setup)
+    set_book_layout(setup)
+
+
 def remove_fti_action(setup, portal_type, action_id):
     """Remove the action identified by ``action_id`` from
     the FTI identified by ``portal_type``.

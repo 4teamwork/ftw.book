@@ -22,7 +22,6 @@
     <include package=".browser" />
     <include package=".content" />
     <include package=".portlets" />
-    <include package=".upgrades" />
     <include package=".keyword" />
     <include package=".footnote" />
     <include package=".tinymce" />
@@ -59,6 +58,8 @@
         profile="ftw.book:uninstall"
         handler=".hooks.uninstalled"
         />
+
+    <include package=".upgrades" />
 
     <adapter factory=".bookadapter.find_book" />
 
