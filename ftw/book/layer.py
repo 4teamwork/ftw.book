@@ -1,7 +1,9 @@
 from contextlib import contextmanager
 from ftw.book.interfaces import IBook
-from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.interfaces import IWithinBookLayerNEW
+from ftw.book.interfaces import IWithinBookLayerOLD
 from ftw.pdfgenerator.utils import provide_request_layer
+from plone.dexterity.interfaces import IDexterityContainer
 from zope.component import adapts
 from zope.dottedname.resolve import resolve
 from zope.interface import directlyProvidedBy, directlyProvides
@@ -22,7 +24,11 @@ def provide_book_layers(book, request):
     if layout_layer_name:
         layout_layer = resolve(layout_layer_name)
         provide_request_layer(request, layout_layer)
-    provide_request_layer(request, IWithinBookLayer)
+
+    if IDexterityContainer.providedBy(book):
+        provide_request_layer(request, IWithinBookLayerNEW)
+    else:
+        provide_request_layer(request, IWithinBookLayerOLD)
 
 
 @contextmanager
