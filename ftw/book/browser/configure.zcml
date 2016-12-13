@@ -58,9 +58,18 @@
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
       template="templates/htmlblock_view.pt"
+      class=".blockview.HTMLBlockViewOLD"
+      permission="zope2.View"
+      layer="..interfaces.IWithinBookLayerOLD"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.IHTMLBlock"
+      name="block_view"
+      template="templates/htmlblock.pt"
       class=".blockview.HTMLBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
+      layer="..interfaces.IWithinBookLayerNEW"
       />
 
   <browser:page

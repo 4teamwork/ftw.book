@@ -8,6 +8,7 @@
             <element value="HTMLBlock"/>
             <element value="Remark"/>
             <element value="ftw.book.TextBlock" />
+            <element value="ftw.book.HtmlBlock"/>
         </property>
 
     </object>

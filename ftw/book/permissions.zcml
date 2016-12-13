@@ -18,6 +18,11 @@
         />
 
     <permission
+        id="ftw.book.AddHtmlBlock"
+        title="ftw.book: Add HTML Block"
+        />
+
+    <permission
         id="ftw.book.AddTextBlock"
         title="ftw.book: Add Book Text Block"
         />

@@ -3,5 +3,6 @@
     <dependencies>
       <dependency>profile-Products.DataGridField:default</dependency>
       <dependency>profile-ftw.simplelayout:lib</dependency>
+      <dependency>profile-ftw.htmlblock:default</dependency>
     </dependencies>
 </metadata>

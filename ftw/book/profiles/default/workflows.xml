@@ -2,5 +2,6 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
     <bindings>
         <type type_id="ftw.book.TextBlock"/>
+        <type type_id="ftw.book.HtmlBlock"/>
     </bindings>
 </object>

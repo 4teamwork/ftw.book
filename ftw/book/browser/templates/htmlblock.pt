@@ -1,0 +1,16 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.htmlblock">
+
+    <tal:heading define="title view/block_title"
+                 condition="title"
+                 replace="structure title" />
+
+    <tal:content tal:condition=" context/content"
+                 tal:replace="structure  context/content"/>
+
+    <div tal:condition="python: view.can_add() and not context.content"
+         i18n:translate="empty_htmlblock_label">This HTML block is empty. Please add some content or remove the block.</div>
+
+</html>
