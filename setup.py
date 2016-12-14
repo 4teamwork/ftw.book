@@ -9,6 +9,7 @@ maintainer = 'Jonas Baumann'
 tests_require = [
     'Products.GenericSetup',
     'ftw.builder',
+    'ftw.contentpage [tests]',
     'ftw.inflator',
     'ftw.publisher.core',
     'ftw.tabbedview',
