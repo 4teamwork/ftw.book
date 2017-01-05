@@ -3,6 +3,7 @@
 
     <object name="ftw.book.Book" meta_type="Dexterity FTI" />
     <object name="ftw.book.Chapter" meta_type="Dexterity FTI" />
+    <object name="ftw.book.FileListingBlock" meta_type="Dexterity FTI" />
     <object name="ftw.book.HtmlBlock" meta_type="Dexterity FTI" />
     <object name="ftw.book.Table" meta_type="Dexterity FTI" />
     <object name="ftw.book.TextBlock" meta_type="Dexterity FTI" />

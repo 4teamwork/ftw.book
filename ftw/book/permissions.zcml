@@ -18,6 +18,11 @@
         />
 
     <permission
+        id="ftw.book.AddFileListingBlock"
+        title="ftw.book: Add Book File Listing Block"
+        />
+
+    <permission
         id="ftw.book.AddHtmlBlock"
         title="ftw.book: Add HTML Block"
         />

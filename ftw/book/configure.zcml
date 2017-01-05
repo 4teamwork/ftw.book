@@ -91,11 +91,19 @@
 
 
     <!-- https://github.com/4teamwork/ftw.simplelayout/issues/406 -->
-    <adapter
-        factory="ftw.simplelayout.contenttypes.contents.textblock.TextBlockActions"
-        name="ftw-book-textblock-actions"
-        for="* *"
-        />
+    <configure package="ftw.simplelayout.contenttypes.contents">
+        <adapter
+            factory=".textblock.TextBlockActions"
+            name="ftw-book-textblock-actions"
+            for="* *"
+            />
+
+        <adapter
+            factory=".filelistingblock.ListingBlockActions"
+            name="ftw-book-filelistingblock-actions"
+            for="* *"
+            />
+    </configure>
 
     <configure zcml:condition="installed ftw.zipexport">
         <adapter factory=".zipexport.BookZipRepresentation" />
