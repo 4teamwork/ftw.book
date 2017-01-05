@@ -2,6 +2,7 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
+from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from zope.interface import Interface
 
 
@@ -33,7 +34,7 @@ class ITable(Interface):
     """
 
 
-class IBookTextBlock(Interface):
+class IBookTextBlock(ITextBlock):
     """Book text block marker interface.
     """
 
