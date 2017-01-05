@@ -29,7 +29,7 @@ class IRemark(Interface):
 
 
 class ITable(Interface):
-    """Remark marker interface.
+    """Table marker interface.
     """
 
 

@@ -84,6 +84,15 @@
       name="block_view"
       template="templates/table_content.pt"
       permission="zope2.View"
+      layer="..interfaces.IWithinBookLayerOLD"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.ITable"
+      name="block_view"
+      template="templates/table.pt"
+      permission="zope2.View"
+      layer="..interfaces.IWithinBookLayerNEW"
       />
 
   <browser:page

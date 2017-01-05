@@ -23,6 +23,11 @@
         />
 
     <permission
+        id="ftw.book.AddTable"
+        title="ftw.book: Add Table"
+        />
+
+    <permission
         id="ftw.book.AddTextBlock"
         title="ftw.book: Add Book Text Block"
         />
