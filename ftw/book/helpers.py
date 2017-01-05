@@ -17,7 +17,7 @@ class BookHelper(object):
         else:
             chapter_string = ''
 
-        title = obj.title_or_id()
+        title = obj.Title()
 
         html = ' '.join((chapter_string, title)).strip()
         if linked:
