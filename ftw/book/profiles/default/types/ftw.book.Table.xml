@@ -12,8 +12,8 @@
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types" />
 
-    <property name="schema">ftw.book.contents2.table.ITableSchema</property>
-    <property name="klass">ftw.book.contents2.table.Table</property>
+    <property name="schema">ftw.book.contents.table.ITableSchema</property>
+    <property name="klass">ftw.book.contents.table.Table</property>
     <property name="add_permission">ftw.book.AddTable</property>
 
     <property name="behaviors">

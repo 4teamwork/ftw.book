@@ -17,8 +17,8 @@
         <element value="ftw.book.Table" />
     </property>
 
-    <property name="schema">ftw.book.contents2.chapter.IChapterSchema</property>
-    <property name="klass">ftw.book.contents2.chapter.Chapter</property>
+    <property name="schema">ftw.book.contents.chapter.IChapterSchema</property>
+    <property name="klass">ftw.book.contents.chapter.Chapter</property>
     <property name="add_permission">ftw.book.AddChapter</property>
 
     <property name="behaviors">

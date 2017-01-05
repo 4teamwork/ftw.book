@@ -1,5 +1,5 @@
-from ftw.book.contents2.htmlblock import IBookHtmlBlockSchema
-from ftw.book.contents2.textblock import IBookTextBlockSchema
+from ftw.book.contents.htmlblock import IBookHtmlBlockSchema
+from ftw.book.contents.textblock import IBookTextBlockSchema
 from ftw.book.helpers import BookHelper
 from ftw.contentpage.browser import textblock_view
 from ftw.htmlblock.browser.htmlblock import HtmlBlockView

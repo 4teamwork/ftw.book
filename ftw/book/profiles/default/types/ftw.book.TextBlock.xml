@@ -12,8 +12,8 @@
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types" />
 
-    <property name="schema">ftw.book.contents2.textblock.IBookTextBlockSchema</property>
-    <property name="klass">ftw.book.contents2.textblock.BookTextBlock</property>
+    <property name="schema">ftw.book.contents.textblock.IBookTextBlockSchema</property>
+    <property name="klass">ftw.book.contents.textblock.BookTextBlock</property>
     <property name="add_permission">ftw.book.AddTextBlock</property>
 
     <property name="behaviors">
