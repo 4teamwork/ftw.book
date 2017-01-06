@@ -3,6 +3,7 @@
 # E0213: Method should have "self" as first argument
 
 from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
 from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from zope.interface import Interface
 
@@ -42,6 +43,11 @@ class IBookTextBlock(ITextBlock):
 
 class IBookFileListingBlock(IFileListingBlock):
     """File listing block for books.
+    """
+
+
+class IBookGalleryBlock(IGalleryBlock):
+    """Gallery block for books.
     """
 
 

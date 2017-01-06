@@ -103,6 +103,12 @@
             name="ftw-book-filelistingblock-actions"
             for="* *"
             />
+
+        <adapter
+            factory=".galleryblock.GalleryBlockActions"
+            name="ftw-book-galleryblock-actions"
+            for="* *"
+            />
     </configure>
 
     <configure zcml:condition="installed ftw.zipexport">

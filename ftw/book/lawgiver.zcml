@@ -19,6 +19,7 @@
         action_group="edit"
         permissions="ftw.book: Add Book Text Block,
                      ftw.book: Add Book File Listing Block,
+                     ftw.book: Add Book Gallery Block,
                      ftw.book: Add HTML Block,
                      ftw.book: Add Remark,
                      ftw.book: Add Table"
