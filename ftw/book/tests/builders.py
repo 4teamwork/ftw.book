@@ -3,6 +3,13 @@ from ftw.builder import builder_registry
 from ftw.builder.dexterity import DexterityBuilder
 from ftw.pdfgenerator.utils import provide_request_layer
 from ftw.simplelayout.tests import builders as simplelayout_builders
+from path import Path
+from plone.app.textfield.value import RichTextValue
+from plone.namedfile.file import NamedBlobImage
+
+
+def asset(filename):
+    return Path(__file__).parent.joinpath('assets', filename).abspath()
 
 
 class BookBuilder(DexterityBuilder):
@@ -34,6 +41,20 @@ builder_registry.register('chapter', ChapterBuilder)
 
 class TextBlockBuilder(simplelayout_builders.TextBlockBuilder):
     portal_type = 'ftw.book.TextBlock'
+
+    def with_image(self, path):
+        self.having(image=NamedBlobImage(
+            data=Path(path).bytes(),
+            filename=u'test.gif'))
+
+    def with_textfile(self, path):
+        return self.having(text=RichTextValue(
+            Path(path).bytes().decode('utf-8')))
+
+    def with_default_content(self):
+        self.with_image(asset('image.jpg'))
+        return self.with_textfile(asset('lorem.html'))
+
 
 builder_registry.register('book textblock', TextBlockBuilder)
 

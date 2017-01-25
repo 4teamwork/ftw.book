@@ -1,6 +1,4 @@
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 
@@ -16,27 +14,11 @@ class TestBookView(FunctionalTestCase):
 
     @browsing
     def test_lists_table_of_contents(self, browser):
-        self.grant('Manager')
+        browser.login().visit(self.example_book)
 
-        book = create(Builder('book').titled(u'The Book'))
-        chapter = create(Builder('chapter').titled(u'First Chapter')
-                         .within(book))
-        subchapter = create(Builder('chapter').titled(u'The SubChapter')
-                            .within(chapter))
-        create(Builder('book textblock').titled(u'Hidden (do not show title)')
-               .having(show_title=False).within(subchapter))
-        create(Builder('book textblock').titled(u'Hidden (hide from toc)')
-               .having(hide_from_toc=True, show_title=True).within(subchapter))
-        create(Builder('book textblock').titled(u'Visible Title Block')
-               .having(show_title=True).within(subchapter))
-        create(Builder('chapter').titled(u'Second Chapter').within(book))
-
-        browser.login().visit(book)
-
-        toc = ('The Book', [
-                ('1 First Chapter', [
-                        ('1.1 The SubChapter', [
-                                ('1.1.1 Visible Title Block', [])])]),
-                ('2 Second Chapter', [])])
+        toc = ('The Example Book',
+               [('1 Introduction',[('1.1 Management Summary', [])]),
+                ('2 Historical Background',
+                 [('2.1 China', [('2.1.1 First things first', [])])])])
 
         self.assertTupleEqual(toc, toc_tree())

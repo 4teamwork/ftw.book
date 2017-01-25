@@ -1,6 +1,9 @@
 from collective.transmogrifier import transmogrifier
 from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
+from ftw.builder import Builder
+from ftw.builder import create
+from ftw.builder import session
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
@@ -26,6 +29,73 @@ import ftw.contentpage.tests.builders
 def clear_transmogrifier_registry():
     transmogrifier.configuration_registry._config_info = {}
     transmogrifier.configuration_registry._config_ids = []
+
+
+class BookLayer(PloneSandboxLayer):
+    """The new dexterity book testing layer, providing a default
+    book for testing against.
+    """
+
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUp(self):
+        session.current_session = functional_session_factory()
+        super(BookLayer, self).setUp()
+
+    def tearDown(self):
+        session.current_session = None
+        super(BookLayer, self).tearDown()
+        clear_transmogrifier_registry()
+
+    def setUpZope(self, app, configurationContext):
+        xmlconfig.string(
+            '<configure xmlns="http://namespaces.zope.org/zope">'
+            '  <include package="z3c.autoinclude" file="meta.zcml" />'
+            '  <includePlugins package="plone" />'
+            '  <includePluginsOverrides package="plone" />'
+            '</configure>',
+            context=configurationContext)
+
+        z2.installProduct(app, 'ftw.book')
+
+    def setUpPloneSite(self, portal):
+        applyProfile(portal, 'ftw.book:default')
+        self['example_book_path'] = '/'.join(
+            self.create_example_book().getPhysicalPath())
+
+    def create_example_book(self):
+        book = create(Builder('book').titled(u'The Example Book'))
+
+        introduction = create(Builder('chapter').within(book)
+                              .titled(u'Introduction'))
+
+        create(Builder('book textblock').within(introduction)
+               .titled(u'Invisible Title').with_default_content()
+               .having(show_title=False))
+
+        create(Builder('book textblock').within(introduction)
+               .titled(u'Versioning')
+               .having(show_title=True,
+                       hide_from_toc=True))
+
+        create(Builder('book textblock').within(introduction)
+               .titled(u'Management Summary')
+               .having(show_title=True))
+
+        history = create(Builder('chapter').within(book)
+                         .titled(u'Historical Background'))
+        china = create(Builder('chapter').within(history)
+                       .titled(u'China'))
+        create(Builder('book textblock').within(china)
+               .titled(u'First things first'))
+
+        return book
+
+
+BOOK_FIXTURE = BookLayer()
+BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(BOOK_FIXTURE,),
+    name="ftw.book:functional")
 
 
 class LatexZCMLLayer(Layer):
@@ -97,7 +167,7 @@ FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
 FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_BOOK_FIXTURE,
            set_builder_session_factory(functional_session_factory)
-    ), name="ftw.book:Functional")
+    ), name="ftw.book:Functional (OLD)")
 
 
 class ExampleContentLayer(Layer):
