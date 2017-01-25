@@ -30,7 +30,7 @@ class IBookSchema(Schema):
     latex_layout = Choice(
         title=_(u'book_label_layout', default=u'Layout'),
         vocabulary=u'ftw.book.layoutsVocabulary',
-        default=get_default_LaTeX_layout,
+        defaultFactory=get_default_LaTeX_layout,
         required=True)
 
     use_titlepage = Bool(
