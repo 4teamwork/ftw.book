@@ -6,5 +6,6 @@
         <dependency>profile-ftw.htmlblock:default</dependency>
         <dependency>profile-collective.z3cform.datagridfield:default</dependency>
         <dependency>profile-collective.quickupload:default</dependency>
+        <dependency>profile-ftw.colorbox:default</dependency>
     </dependencies>
 </metadata>
