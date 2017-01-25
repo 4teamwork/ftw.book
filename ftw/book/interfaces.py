@@ -11,42 +11,47 @@ from zope.interface import Interface
 ModifyLaTeXInjection = "ftw.book: Modify LaTeX Injection"
 
 
-class IBook(Interface):
+class IBookContentType(Interface):
+    """All ftw.book content types provide this interface.
+    """
+
+
+class IBook(IBookContentType):
     """Book marker interface.
     """
 
 
-class IChapter(Interface):
+class IChapter(IBookContentType):
     """Chapter marker interface.
     """
 
 
-class IHTMLBlock(Interface):
+class IHTMLBlock(IBookContentType):
     """HTMLBlock marker interface.
     """
 
 
-class IRemark(Interface):
+class IRemark(IBookContentType):
     """Remark marker interface.
     """
 
 
-class ITable(Interface):
+class ITable(IBookContentType):
     """Table marker interface.
     """
 
 
-class IBookTextBlock(ITextBlock):
+class IBookTextBlock(ITextBlock, IBookContentType):
     """Book text block marker interface.
     """
 
 
-class IBookFileListingBlock(IFileListingBlock):
+class IBookFileListingBlock(IFileListingBlock, IBookContentType):
     """File listing block for books.
     """
 
 
-class IBookGalleryBlock(IGalleryBlock):
+class IBookGalleryBlock(IGalleryBlock, IBookContentType):
     """Gallery block for books.
     """
 
