@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-25 08:56+0000\n"
+"POT-Creation-Date: 2017-01-25 12:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,7 +354,7 @@ msgid "info_table_export"
 msgstr ""
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/behaviors/hidetitle.py:19
+#: ./ftw/book/behaviors/toc.py:19
 #: ./ftw/book/latexinjection.py:195
 msgid "injection_help_hide_from_toc"
 msgstr ""
@@ -366,7 +366,7 @@ msgid "injection_help_preferred_column_layout"
 msgstr ""
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/behaviors/hidetitle.py:17
+#: ./ftw/book/behaviors/toc.py:17
 #: ./ftw/book/latexinjection.py:193
 msgid "injection_label_hide_from_toc"
 msgstr ""
@@ -649,3 +649,4 @@ msgstr ""
 #: ./ftw/book/latex/defaultlayout.py:215
 msgid "title_index"
 msgstr ""
+

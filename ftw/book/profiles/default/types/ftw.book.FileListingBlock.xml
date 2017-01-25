@@ -23,7 +23,7 @@
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"/>
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
-        <element value="ftw.book.behaviors.hidetitle.IHideTitleFromTOC" />
+        <element value="ftw.book.behaviors.toc.IHideTitleFromTOC" />
         <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
         <element value="ftw.book.behaviors.columnlayout.IChangeColumnLayout" />
         <element value="ftw.book.behaviors.landscape.ILandscape" />

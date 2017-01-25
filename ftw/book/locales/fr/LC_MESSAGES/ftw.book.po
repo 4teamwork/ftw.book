@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-25 08:56+0000\n"
+"POT-Creation-Date: 2017-01-25 12:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,7 +354,7 @@ msgid "info_table_export"
 msgstr "Les données du tableau peuvent être exportées dans un fichier CSV. Il faut veiller à ce que la première ligne du tableau ne sera pas supprimé ou modifié, sinon l'importation ne fonctionnera pas."
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/behaviors/hidetitle.py:19
+#: ./ftw/book/behaviors/toc.py:19
 #: ./ftw/book/latexinjection.py:195
 msgid "injection_help_hide_from_toc"
 msgstr "Si cette option est activée, l'en-tête n'apparaît pas dans la table des matières et non numérotées. L'option n'est pertinente que si \"Afficher le titre\" est activée."
@@ -366,7 +366,7 @@ msgid "injection_help_preferred_column_layout"
 msgstr "Cette option change la mise en page d’une colonne à deux. Le changement de la mise en page est valable pour cela et tout le contenu ultérieur. Si l'option par défaut \"Adopter la mise en page\" est sélectionné, aucun changement de mise en page est faite."
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/behaviors/hidetitle.py:17
+#: ./ftw/book/behaviors/toc.py:17
 #: ./ftw/book/latexinjection.py:193
 msgid "injection_label_hide_from_toc"
 msgstr "Exclure de la table du contenu"

@@ -27,7 +27,7 @@
 
     <plone:behavior
         title="LaTeX: Option for hiding title from table of contents"
-        provides="ftw.book.behaviors.hidetitle.IHideTitleFromTOC"
+        provides="ftw.book.behaviors.toc.IHideTitleFromTOC"
         />
 
 </configure>
