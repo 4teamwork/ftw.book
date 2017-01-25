@@ -19,7 +19,7 @@ class TestContextManager(TestCase):
                     directlyProvidedBy(self.portal.REQUEST)) if it not in thelist]
 
             self.assertEquals(
-                ['<InterfaceClass ftw.book.interfaces.IWithinBookLayer>'],
+                ['<InterfaceClass ftw.book.interfaces.IWithinBookLayerOLD>'],
                 [str(item) for item in diff])
 
         self.assertEquals(thelist,
