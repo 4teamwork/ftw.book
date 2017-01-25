@@ -4,6 +4,7 @@ from plone.autoform.directives import order_after
 from plone.autoform.directives import write_permission
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel.model import Schema
+from zope.interface import Interface
 from zope.interface import provider
 from zope.schema import Bool
 
@@ -22,3 +23,8 @@ class IHideTitleFromTOC(Schema):
         required=False,
         default=False,
     )
+
+
+class IShowInToc(Interface):
+    """Show in table of contents.
+    """

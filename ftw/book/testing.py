@@ -6,12 +6,12 @@ from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
 from ftw.pdfgenerator.utils import provide_request_layer
 from ftw.testing.layer import ComponentRegistryLayer
-from plone.app.testing import IntegrationTesting, FunctionalTesting
+from plone.app.testing import applyProfile
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.testing import ploneSite
-from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
 from plone.testing import Layer
@@ -86,9 +86,6 @@ class FtwBookLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.zipexport:default')
 
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        login(portal, TEST_USER_NAME)
-
     def tearDown(self):
         super(FtwBookLayer, self).tearDown()
         clear_transmogrifier_registry()
@@ -100,7 +97,7 @@ FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
 FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_BOOK_FIXTURE,
            set_builder_session_factory(functional_session_factory)
-           ), name="ftw.book:Functional")
+    ), name="ftw.book:Functional")
 
 
 class ExampleContentLayer(Layer):

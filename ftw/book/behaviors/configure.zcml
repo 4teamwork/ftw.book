@@ -30,4 +30,9 @@
         provides="ftw.book.behaviors.toc.IHideTitleFromTOC"
         />
 
+    <plone:behavior
+        title="Show in table of contents."
+        provides="ftw.book.behaviors.toc.IShowInToc"
+        />
+
 </configure>

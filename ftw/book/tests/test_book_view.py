@@ -1,9 +1,8 @@
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
+from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
-from unittest2 import TestCase
 
 
 def toc_tree(item=None):
@@ -13,22 +12,24 @@ def toc_tree(item=None):
             map(toc_tree, item.css('>ul>li')))
 
 
-class TestBookView(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
+class TestBookView(FunctionalTestCase):
 
     @browsing
     def test_lists_table_of_contents(self, browser):
-        book = create(Builder('book').titled('The Book'))
-        chapter = create(Builder('chapter').titled('First Chapter')
+        self.grant('Manager')
+
+        book = create(Builder('book').titled(u'The Book'))
+        chapter = create(Builder('chapter').titled(u'First Chapter')
                          .within(book))
-        subchapter = create(Builder('chapter').titled('The SubChapter')
+        subchapter = create(Builder('chapter').titled(u'The SubChapter')
                             .within(chapter))
-        create(Builder('book textblock').titled('Hidden Title Block')
-               .having(showTitle=False).within(subchapter))
-        create(Builder('book textblock').titled('Visible Title Block')
-               .having(showTitle=True).within(subchapter))
-        create(Builder('chapter').titled('Second Chapter').within(book))
+        create(Builder('book textblock').titled(u'Hidden (do not show title)')
+               .having(show_title=False).within(subchapter))
+        create(Builder('book textblock').titled(u'Hidden (hide from toc)')
+               .having(hide_from_toc=True, show_title=True).within(subchapter))
+        create(Builder('book textblock').titled(u'Visible Title Block')
+               .having(show_title=True).within(subchapter))
+        create(Builder('chapter').titled(u'Second Chapter').within(book))
 
         browser.login().visit(book)
 

@@ -24,6 +24,7 @@
         <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
         <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
+        <element value="ftw.book.behaviors.toc.IShowInToc" />
     </property>
 
     <property name="default_view">book_view</property>

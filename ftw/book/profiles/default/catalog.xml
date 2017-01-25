@@ -2,7 +2,7 @@
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
 
   <column value="showTitle" />
-  <column value="hideFromTOC" />
+  <column value="show_in_toc" />
   <column value="book_keywords" />
 
 </object>
