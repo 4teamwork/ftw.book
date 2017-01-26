@@ -63,19 +63,15 @@
 
     <adapter factory=".bookadapter.find_book" />
 
-    <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
-         If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,
-         which is unnessesary and inefficient. -->
-
     <subscriber
         for=".interfaces.IBook
              zope.lifecycleevent.interfaces.IObjectMovedEvent"
-        handler=".eventhandler.add_navigation_portlet" />
+        handler=".subscribers.add_navigation_portlet" />
 
     <subscriber
         for=".interfaces.IBook
-             Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".eventhandler.add_navigation_portlet" />
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".subscribers.add_navigation_portlet" />
 
     <adapter factory="ftw.book.layer.BookTraverse" />
 

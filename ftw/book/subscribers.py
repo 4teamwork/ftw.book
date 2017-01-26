@@ -15,12 +15,8 @@ LOG = logging.getLogger('ftw.book')
 def add_navigation_portlet(object_, event):
     """Adds a custom navigation Portlet for Buch
     """
-    if 'portal_factory' in object_.getPhysicalPath():
-        # do not run in portal_factory
-        pass
-    else:
-        right_slot_portlets(object_)
-        left_slot_portlets(object_)
+    right_slot_portlets(object_)
+    left_slot_portlets(object_)
 
 
 def right_slot_portlets(object_):
