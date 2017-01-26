@@ -1,4 +1,7 @@
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from ftw.book.behaviors.toc import IHideTitleFromTOC
+from ftw.book.behaviors.toc import IShowInToc
 from ftw.book.interfaces import IBook
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
@@ -12,7 +15,7 @@ class BookHelper(object):
         """ Generates a title embedded in a h-tag
         """
 
-        if self._heading_is_numbered(obj):
+        if self.is_numbered(obj):
             chapter_string = self.get_chapter_level_string(obj)
         else:
             chapter_string = ''
@@ -38,11 +41,6 @@ class BookHelper(object):
         for i, title in enumerate(titles):
             html += '<h%s>%s</h%s>' % (i + 1, title, i + 1)
         return html
-
-    def get_folder_position(self, obj):
-        """ Get the position of the object in the folder
-        """
-        return self._get_filtered_folder_position(obj)
 
     def get_hierarchy_position(self, obj):
         """ Get the position in the hierarchy of the book
@@ -72,6 +70,18 @@ class BookHelper(object):
                 parent = aq_parent(aq_inner(parent))
 
         return chapter_level
+
+    def is_numbered(self, obj):
+        if not IShowInToc.providedBy(obj):
+            return False
+
+        if getattr(obj, 'show_title', None) == False:
+            return False
+
+        if IHideTitleFromTOC.providedBy(obj):
+            return not IHideTitleFromTOC(obj).hide_from_toc
+        else:
+            return True
 
     def _get_hierarchy_titles(self, obj):
         """ Get all titles in the hierarchy in a list: ['first', 'second']
@@ -104,25 +114,10 @@ class BookHelper(object):
         folder_content = parent.contentValues()
 
         for item in folder_content:
-            if self._heading_is_numbered(item):
+            if self.is_numbered(item):
                 counter += 1
 
             if obj == item:
                 break
 
         return counter
-
-    def _heading_is_numbered(self, item):
-        consider_types = ['Chapter']
-
-        if item.portal_type in consider_types:
-            return True
-
-        if not hasattr(item, 'showTitle') or not item.showTitle:
-            return False
-
-        field = item.Schema().getField('hideFromTOC')
-        if field and field.get(item):
-            return False
-
-        return True

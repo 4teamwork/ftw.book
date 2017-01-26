@@ -22,7 +22,7 @@ class IHideTitleFromTOC(Schema):
                       u'contents and does not number the heading.'),
         required=False,
         default=False,
-    )
+        missing_value=False)
 
 
 class IShowInToc(Interface):
