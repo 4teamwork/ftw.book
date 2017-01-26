@@ -25,6 +25,7 @@
 
     <property name="behaviors">
         <element value="ftw.simplelayout.interfaces.ISimplelayout" />
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
