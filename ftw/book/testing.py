@@ -57,6 +57,7 @@ class BookLayer(PloneSandboxLayer):
             context=configurationContext)
 
         z2.installProduct(app, 'ftw.book')
+        z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.book:default')
