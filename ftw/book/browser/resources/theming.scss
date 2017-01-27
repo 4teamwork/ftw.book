@@ -17,3 +17,10 @@ https://github.com/4teamwork/ftw.htmlblock/blob/master/ftw/htmlblock/browser/res
 @include ie-only(".sl-can-edit .ftw-book-htmlblock iframe") {
   pointer-events: none;
 }
+
+
+/* let chapter be addable although its a sl block
+https://github.com/4teamwork/ftw.simplelayout/blob/master/ftw/simplelayout/browser/dynamic_scss_resources.py */
+body #plone-contentmenu-factories .contenttype-ftw-book-chapter {
+  display: block !important;
+}
