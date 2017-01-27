@@ -20,6 +20,8 @@
       <theme:add_scss path="book.scss" />
   </configure>
 
+  <adapter factory=".simplelayout.ChapterConfigAdapter" />
+
   <browser:page
       for="*"
       name="export_pdf"
