@@ -59,6 +59,13 @@ class TextBlockBuilder(simplelayout_builders.TextBlockBuilder):
 builder_registry.register('book textblock', TextBlockBuilder)
 
 
+class HTMLBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.book.HtmlBlock'
+
+
+builder_registry.register('book htmlblock', HTMLBlockBuilder)
+
+
 # class BookBuilder(ArchetypesBuilder):
 
 #     portal_type = 'Book'

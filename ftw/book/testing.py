@@ -90,6 +90,10 @@ class BookLayer(PloneSandboxLayer):
         create(Builder('book textblock').within(china)
                .titled(u'First things first'))
 
+        create(Builder('chapter').within(book)
+               .titled(u'Empty')
+               .having(description=u'This chapter should be empty.'))
+
         return book
 
 

@@ -19,6 +19,7 @@ class TestBookView(FunctionalTestCase):
         toc = ('The Example Book',
                [('1 Introduction',[('1.1 Management Summary', [])]),
                 ('2 Historical Background',
-                 [('2.1 China', [('2.1.1 First things first', [])])])])
+                 [('2.1 China', [('2.1.1 First things first', [])])]),
+                ('3 Empty', [])])
 
         self.assertTupleEqual(toc, toc_tree())
