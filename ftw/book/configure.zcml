@@ -61,8 +61,6 @@
 
     <include package=".upgrades" />
 
-    <adapter factory=".bookadapter.find_book" />
-
     <subscriber
         for=".interfaces.IBook
              zope.lifecycleevent.interfaces.IObjectMovedEvent"

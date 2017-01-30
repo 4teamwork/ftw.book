@@ -1,3 +1,4 @@
+from Acquisition import aq_chain
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.interfaces import IBook
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
@@ -36,7 +37,10 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
         return html
 
     def mark_book_internal_links(self, html):
-        book = IBook(self.context)
+        books = filter(IBook.providedBy, aq_chain(self.context))
+        if not books:
+            raise ValueError('Not within book.')
+        book = books[0]
         book_url = book.absolute_url()
         book_path = '/'.join(book.getPhysicalPath())
         context_url = self.context.absolute_url()
