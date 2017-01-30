@@ -1,11 +1,8 @@
-from datetime import datetime
 from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from ftw.testing import freeze
-from unittest2 import skip
 
 
 class TestHTMLBlock(FunctionalTestCase):
