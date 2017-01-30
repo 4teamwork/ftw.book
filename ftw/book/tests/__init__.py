@@ -2,6 +2,8 @@ from ftw.book.testing import BOOK_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest2 import TestCase
+from zope.event import notify
+from zope.traversing.interfaces import BeforeTraverseEvent
 import transaction
 
 
@@ -10,6 +12,8 @@ class FunctionalTestCase(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        notify(BeforeTraverseEvent(self.portal, self.request))
         self.example_book = self.portal.restrictedTraverse(
             self.layer['example_book_path'])
 

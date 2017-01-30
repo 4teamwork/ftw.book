@@ -1,9 +1,9 @@
+from ftw.book.browser.reader.interfaces import IBookReaderRenderer
+from ftw.book.interfaces import IBook
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from StringIO import StringIO
-from ftw.book.browser.reader.interfaces import IBookReaderRenderer
-from ftw.book.interfaces import IBook
-from simplelayout.base.interfaces import ISimpleLayoutBlock
 from zope.component import adapts
 from zope.interface import implements, Interface
 from zope.publisher.interfaces.browser import IBrowserView
@@ -27,7 +27,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
     It renders the simplealyout default "block_view".
     """
 
-    adapts(ISimpleLayoutBlock, Interface, IBrowserView)
+    adapts(ISimplelayoutBlock, Interface, IBrowserView)
 
     def render(self):
         view = self.context.restrictedTraverse('block_view')
