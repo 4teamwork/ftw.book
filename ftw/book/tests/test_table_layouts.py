@@ -1,11 +1,9 @@
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
+from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
-from Products.CMFCore.utils import getToolByName
-from unittest2 import skip
-from unittest2 import TestCase
+
 
 TOP = set(['border-top'])
 BOTTOM = set(['border-bottom'])
@@ -22,22 +20,15 @@ def table_borders():
     return map(row, table.rows)
 
 
-@skip('XXX UPDATE ME')
-class TestTableLayouts(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
-
-    def setUp(self):
-        portal_types = getToolByName(self.layer['portal'], 'portal_types')
-        table_fti = portal_types['Table']
-        table_fti.global_allow = True
+class TestTableLayouts(FunctionalTestCase):
 
     @browsing
     def test_grid_layout(self, browser):
         table = create(Builder('table')
                        .with_table((('Foo', 'Bar'),
                                     ('1', '2')))
-                       .having(borderLayout='grid'))
+                       .having(border_layout='grid')
+                       .within(self.example_book.empty))
 
         browser.login().visit(table, view='block_view')
 
@@ -53,7 +44,8 @@ class TestTableLayouts(TestCase):
         table = create(Builder('table')
                        .with_table((('Foo', 'Bar'),
                                     ('1', '2')))
-                       .having(borderLayout='invisible'))
+                       .having(border_layout='invisible')
+                       .within(self.example_book.empty))
 
         browser.login().visit(table, view='block_view')
 
@@ -69,7 +61,8 @@ class TestTableLayouts(TestCase):
         table = create(Builder('table')
                        .with_table((('Foo', 'Bar'),
                                     ('1', '2')))
-                       .having(borderLayout='fancy_listing'))
+                       .having(border_layout='fancy_listing')
+                       .within(self.example_book.empty))
 
         browser.login().visit(table, view='block_view')
 
