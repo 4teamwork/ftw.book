@@ -23,7 +23,7 @@ class KeywordsTab(BrowserView):
     def keywords(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         query = {'path': '/'.join(self.context.getPhysicalPath()),
-                 'portal_type': 'BookTextBlock'}
+                 'object_provides': 'ftw.book.interfaces.IBookTextBlock'}
 
         keywords = set()
 
