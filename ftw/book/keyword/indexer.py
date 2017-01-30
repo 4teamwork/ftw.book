@@ -7,7 +7,7 @@ import lxml.html
 
 @indexer(IBookTextBlock)
 def book_keywords(obj):
-    html = obj.getText()
+    html = getattr(obj, 'text', None) and obj.text.output
     if not html:
         return []
 

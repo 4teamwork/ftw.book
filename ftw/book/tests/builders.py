@@ -48,8 +48,12 @@ class TextBlockBuilder(simplelayout_builders.TextBlockBuilder):
             filename=u'test.gif'))
 
     def with_textfile(self, path):
-        return self.having(text=RichTextValue(
-            Path(path).bytes().decode('utf-8')))
+        return self.with_text(Path(path).bytes())
+
+    def with_text(self, text):
+        if not isinstance(text, unicode):
+            text = text.decode('utf-8')
+        return self.having(text=RichTextValue(text))
 
     def with_default_content(self):
         self.with_image(asset('image.jpg'))
