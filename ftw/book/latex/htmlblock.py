@@ -11,12 +11,12 @@ class HTMLBlockLaTeXView(MakoLaTeXView):
     def render(self):
         latex = []
 
-        if self.context.getShowTitle():
+        if self.context.show_title:
             latex.append(utils.get_latex_heading(self.context, self.layout))
 
-        text = self.context.getText().strip()
-        if len(text) > 0:
-            latex.append(self.convert(text))
+        content = (self.context.content or u'').strip()
+        if content:
+            latex.append(self.convert(content))
 
         latex.append('')
         return '\n'.join(latex)
