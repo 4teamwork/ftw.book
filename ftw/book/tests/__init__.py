@@ -1,4 +1,5 @@
 from ftw.book.testing import BOOK_FUNCTIONAL_TESTING
+from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.pdfgenerator.interfaces import IPDFAssembler
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -23,9 +24,15 @@ class FunctionalTestCase(TestCase):
         setRoles(self.portal, TEST_USER_ID, list(roles))
         transaction.commit()
 
-    def get_assembler(self):
-        return getMultiAdapter((self.example_book, self.request),
-                               IPDFAssembler)
+    def get_assembler(self, export_context=None):
+        return getMultiAdapter(
+            (export_context or self.example_book, self.request),
+            IPDFAssembler)
 
-    def get_latex_layout(self):
-        return self.get_assembler().get_layout()
+    def get_latex_layout(self, export_context=None):
+        return self.get_assembler(export_context).get_layout()
+
+    def get_latex_view_for(self, context, export_context=None):
+        return getMultiAdapter(
+            (context, self.request, self.get_latex_layout(export_context)),
+            ILaTeXView)

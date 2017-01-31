@@ -17,7 +17,7 @@ class ChapterLaTeXView(RecursiveLaTeXView):
         return latex
 
     def get_heading_counters_latex(self):
-        if self.context != self.layout.context:
+        if self.context != getattr(self.layout, 'export_context', None):
             # Only set the heading counters when exporting this chapter
             # directly. Otherwise it is not the first content.
             return ''
@@ -35,10 +35,7 @@ class ChapterLaTeXView(RecursiveLaTeXView):
         heading_numbers = helper.get_chapter_level(self.context)
         latex = []
 
-        if heading_numbers[-1] == 1:
-            del heading_numbers[-1]
-        else:
-            heading_numbers[-1] -= 1
+        heading_numbers[-1] -= 1
 
         for level, num in enumerate(heading_numbers):
             latex.append(r'\setcounter{%s}{%s}' % (

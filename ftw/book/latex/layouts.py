@@ -1,12 +1,19 @@
+from Acquisition import aq_chain
 from ftw.book.interfaces import IBook
+from ftw.book.interfaces import IBookContentType
 from ftw.book.interfaces import IBookLayoutBehavior
+from ftw.pdfgenerator.interfaces import IBuilder
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from plone.behavior.interfaces import IBehavior
 from plone.dexterity.behavior import DexterityBehaviorAssignable
 from zope.component import adapter
+from zope.component import getMultiAdapter
 from zope.component import getUtilitiesFor
-from zope.component import getUtility
 from zope.interface import alsoProvides
+from zope.interface import implementer
 from zope.interface import implements
+from zope.interface import Interface
+from zope.interface import noLongerProvides
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 import logging
@@ -79,3 +86,20 @@ class BookBehaviorAssignable(DexterityBehaviorAssignable):
             yield get_layout_behavior_registration(self.book)
         except ValueError, exc:
             LOG.exception(exc)
+
+
+@adapter(IBookContentType, Interface, IBuilder)
+@implementer(ILaTeXLayout)
+def inherit_book_layout(context, request, builder):
+    books = filter(IBook.providedBy, aq_chain(context))
+    if not books:
+        return None
+
+    layout = getMultiAdapter((books[0], request, builder), ILaTeXLayout)
+    # Since the layout has the book as context, we've lost track of on which
+    # context the export was started (export_context).
+    # This is only relevant for fixing chapter counters book internally.
+    # We just set the export_context here in order to be able to fix
+    # the chapter counters later.
+    setattr(layout, 'export_context', context)
+    return layout

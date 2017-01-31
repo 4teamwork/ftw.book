@@ -11,6 +11,7 @@
         name="ftw.book.layoutsVocabulary" />
 
     <adapter factory=".layouts.BookBehaviorAssignable" />
+    <adapter factory=".layouts.inherit_book_layout" />
 
     <plone:behavior
         title="Default layout"

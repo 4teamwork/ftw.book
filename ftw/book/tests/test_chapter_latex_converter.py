@@ -1,108 +1,59 @@
-from Acquisition import aq_inner, aq_parent
-from ftw.book.interfaces import IBook
-from ftw.book.interfaces import IChapter
-from ftw.book.testing import LATEX_ZCML_LAYER
-from ftw.pdfgenerator.interfaces import ILaTeXLayout
-from ftw.pdfgenerator.interfaces import ILaTeXView
-from ftw.testing import MockTestCase
-from mocker import ANY
-from unittest2 import skip
-from zope.component import getMultiAdapter
-from zope.interface import alsoProvides
+from ftw.book.tests import FunctionalTestCase
+from ftw.builder import Builder
+from ftw.builder import create
 
 
-@skip('XXX UPDATE ME')
-class TestChapterLaTeXView(MockTestCase):
-
-    layer = LATEX_ZCML_LAYER
+class TestChapterLaTeXView(FunctionalTestCase):
 
     def test_converter(self):
-        request = self.create_dummy()
-        book = self.providing_stub([IBook])
+        self.assertEquals(
+            '\\chapter{Empty}\n',
+            self.get_latex_view_for(self.example_book.empty).render())
 
-        chapter = self.providing_mock([IChapter])
-        self.expect(aq_parent(aq_inner(chapter))).result(book)
-        self.expect(chapter.pretty_title_or_id()).result('chapter title')
-        self.expect(chapter.listFolderContents()).result([])
-        schema = self.stub()
-        self.expect(chapter.Schema()).result(schema)
-        self.expect(schema.getField(ANY)).result(None)
+    def test_heading_counters_are_reset_when_export_context_is_book(self):
+        """When only exporting a single chapter (or subchapter, ..),
+        we need to increase the chapter counters on order to have the same
+        number as if the whole book was exported.
+        """
 
-        layout = self.providing_mock([ILaTeXLayout])
-        self.expect(layout.context).result(book).count(2)
-        self.expect(layout.get_converter().convert('chapter title')).result(
-            'converted chapter title')
+        book = self.example_book
+        chapter = self.example_book.empty
 
-        self.replay()
+        # The full book is exported => no need to change counters.
+        self.assertEquals(
+            '\\chapter{Empty}\n',
+            self.get_latex_view_for(chapter, export_context=book).render())
 
-        view = getMultiAdapter((chapter, request, layout),
-                               ILaTeXView)
-        latex = view.render()
+        # Only the chapter is exported, so we need to set the chapter
+        # counter to 2 in order to have number 3 for our chapter.
+        self.assertEquals(
+            '\\setcounter{chapter}{2}\n'
+            '\\chapter{Empty}\n',
+            self.get_latex_view_for(chapter, export_context=chapter).render())
 
-        self.assertEqual(latex, '\\chapter{converted chapter title}\n')
+        subchapter = create(Builder('chapter')
+                            .titled(u'Subchapter').within(chapter))
 
-    def test_get_heading_counters_latex_with_book(self):
-        request = self.create_dummy()
-        book = self.providing_stub([IBook])
-        chapter = self.providing_stub([IChapter])
-        self.set_parent(chapter, book)
+        # The full book is exported => no need to change counters.
+        self.assertEquals(
+            '\\section{Subchapter}\n',
+            self.get_latex_view_for(subchapter, export_context=book).render())
 
-        layout = self.providing_stub([ILaTeXLayout])
-        self.expect(layout.context).result(book)
+        # The parent chapter is exported, which includes our subchapter.
+        # Because the parent context (=chapte) is exported, we should not change
+        # any counters from the perspective of the subchapter, the parent chapter
+        # renderer will take care of counters.
+        self.assertEquals(
+            '\\section{Subchapter}\n',
+            self.get_latex_view_for(subchapter, export_context=chapter).render())
 
-        self.replay()
-
-        view = getMultiAdapter((chapter, request, layout), ILaTeXView)
-
-        # Since we are exporting the book and not the chapter directly
-        # there is no need to reset the heading counters.
-        self.assertEqual(view.get_heading_counters_latex(), '')
-
-    def test_get_heading_counters_latex_with_chapter(self):
-        request = self.create_dummy()
-
-        book = self.providing_stub([IBook])
-        chapter1 = self.providing_stub([IChapter])
-        chapter2 = self.providing_stub([IChapter])
-        chapter2a = self.providing_stub([IChapter])
-        chapter2b = self.providing_stub([IChapter])
-
-        self.expect(chapter1.portal_type).result('Chapter')
-        self.expect(chapter2.portal_type).result('Chapter')
-        self.expect(chapter2a.portal_type).result('Chapter')
-        self.expect(chapter2b.portal_type).result('Chapter')
-
-        self.expect(book.contentValues()).result([chapter1, chapter2])
-        self.set_parent(chapter1, book)
-        self.set_parent(chapter2, book)
-
-        self.expect(chapter2.contentValues()).result(
-            [chapter2a, chapter2b])
-        self.set_parent(chapter2a, chapter2)
-        self.set_parent(chapter2b, chapter2)
-
-        self.expect(chapter1.contentValues()).result([])
-        self.expect(chapter2a.contentValues()).result([])
-        self.expect(chapter2b.contentValues()).result([])
-
-        self.replay()
-
-        # We are exporting the chapter directly, so there is no book / parent
-        # chapter heading and we need to reset the heading counters.
-
-        layout2a = self.create_dummy(context=chapter2a)
-        alsoProvides(layout2a, ILaTeXLayout)
-        view2a = getMultiAdapter((chapter2a, request, layout2a), ILaTeXView)
-        self.assertEqual(view2a.get_heading_counters_latex(), '\n'.join((
-                    r'\setcounter{chapter}{2}',
-                    r''
-                    )))
-
-        layout2b = self.create_dummy(context=chapter2b)
-        alsoProvides(layout2b, ILaTeXLayout)
-        view2b = getMultiAdapter((chapter2b, request, layout2b), ILaTeXView)
-        self.assertEqual(view2b.get_heading_counters_latex(), '\n'.join((
-                    r'\setcounter{chapter}{2}',
-                    r'\setcounter{section}{1}',
-                    r''
-                    )))
+        # Only the subchapter is exported.
+        # Since the subchapter number should be 3.1 we need to set the chapter
+        # counter to 3 (because no parent chapter is rendered at all),
+        # and the section counter to 0 so that we will end up with a 1 for the
+        # next section.
+        self.assertEquals(
+            '\\setcounter{chapter}{3}\n'
+            '\\setcounter{section}{0}\n'
+            '\\section{Subchapter}\n',
+            self.get_latex_view_for(subchapter, export_context=subchapter).render())
