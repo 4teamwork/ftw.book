@@ -1,21 +1,25 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="ftw.book">
+
+    <include package="plone.behavior" file="meta.zcml" />
 
     <utility
         factory="ftw.book.latex.layouts.LayoutsVocabulary"
         name="ftw.book.layoutsVocabulary" />
 
-    <adapter
-        factory="ftw.book.latex.defaultlayout.DefaultBookLayout"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
+    <adapter factory=".layouts.BookBehaviorAssignable" />
+
+    <plone:behavior
+        title="Default layout"
+        provides=".defaultlayout.IDefaultBookLayout"
         />
 
     <adapter
-        name="ftw.book.latex.DefaultLayoutExtender"
-        factory="ftw.book.latex.defaultlayout.DefaultBookLayoutExtender"
-        provides="archetypes.schemaextender.interfaces.ISchemaExtender"
+        factory=".defaultlayout.DefaultBookLayout"
+        provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
         />
 
     <adapter

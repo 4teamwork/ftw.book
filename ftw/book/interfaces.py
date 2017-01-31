@@ -68,6 +68,12 @@ class IWithinBookLayer(Interface):
     """
 
 
+class IBookLayoutBehavior(Interface):
+    """Mark a behavior as a book layout behavior so that it appears in
+    the layout selection vocabulary and acts as instance behavior.
+    """
+
+
 class ILaTeXCodeInjectionEnabled(Interface):
     """Enables LaTeX code injection for admins on
     book-objects (chapters, text blocks).

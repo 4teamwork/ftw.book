@@ -1,12 +1,11 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.book.interfaces import IWithinBookLayer
-from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.tests import export
 from ftw.pdfgenerator.config import DefaultConfig
 from ftw.pdfgenerator.utils import provide_request_layer
 from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.dottedname.resolve import resolve
 import os
@@ -40,10 +39,6 @@ class PDFDiffTestCase(TestCase):
     # content creation.
     profiles = []
 
-    # The book layout layer is set on the request and activates a specific
-    # book layout.
-    book_layout_layer = IDefaultBookLayoutSelectionLayer
-
     # The result_dir_name is the directory name in parts/test where the
     # resulting PDF and the diff is saved.
     result_dir_name = 'test_book_export'
@@ -64,7 +59,6 @@ class PDFDiffTestCase(TestCase):
         request = self.layer['portal'].REQUEST
         mark_layer(None, Dummy(request=request))
         provide_request_layer(request, IWithinBookLayer)
-        provide_request_layer(request, self.book_layout_layer)
 
         # configure language to german, since the test book is german
         tool = getToolByName(self.layer['portal'], "portal_languages")

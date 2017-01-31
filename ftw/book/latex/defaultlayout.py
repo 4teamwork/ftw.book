@@ -1,138 +1,65 @@
-from Acquisition import aq_inner, aq_parent
-from Products.Archetypes import atapi
-from Products.Archetypes import public
-from Products.CMFCore.utils import getToolByName
-from archetypes.schemaextender.field import ExtensionField
-from archetypes.schemaextender.interfaces import ISchemaExtender
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ftw.book import _
 from ftw.book.interfaces import IBook
-from ftw.book.latex.layouts import register_book_layout
+from ftw.book.interfaces import IBookLayoutBehavior
 from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.babel import get_preferred_babel_option_for_context
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
-from zope.component import adapts
-from zope.dottedname.resolve import resolve
+from plone.autoform.interfaces import IFormFieldProvider
+from plone.namedfile.field import NamedBlobImage
+from plone.supermodel.model import Schema
+from Products.CMFCore.utils import getToolByName
+from zope.component import adapter
 from zope.i18n import translate
-from zope.interface import implements, Interface
+from zope.interface import Interface
+from zope.interface import provider
+from zope.schema import Int
+from zope.schema import Text
+from zope.schema import TextLine
 
 
-class StringField(ExtensionField, public.StringField):
-    pass
-
-
-class TextField(ExtensionField, public.TextField):
-    pass
-
-
-class FileField(ExtensionField, public.FileField):
-    pass
-
-
-class IntegerField(ExtensionField, public.IntegerField):
-    pass
-
-
-class IDefaultBookLayoutSelectionLayer(Interface):
-    """Request layer interface for selecting the default book layout.
+@provider(IFormFieldProvider, IBookLayoutBehavior)
+class IDefaultBookLayout(Schema):
+    """Book instance behavior for a standard book layout.
     """
 
-register_book_layout(IDefaultBookLayoutSelectionLayer,
-                     _(u'Default layout'))
+    release = TextLine(
+        title=_(u'book_label_release', default=u'Release'),
+        required=False,
+        default=u'')
+
+    book_author = TextLine(
+        title=_(u'book_label_author', default=u'Author'),
+        required=False,
+        default=u'')
+
+    author_address = Text(
+        title=_(u'book_label_author_address', default=u'Author Address'),
+        required=False,
+        default=u'')
+
+    titlepage_logo = NamedBlobImage(
+        title=_(u'book_label_titlepage_logo', default=u'Titlepage logo'),
+        description=_(u'book_help_titlepage_logo',
+                      default=u'Upload an image or a PDF, which '
+                      u'will be displayed on the titlepage'),
+        required=False)
+
+    titlepage_logo_width = Int(
+        title=_(u'book_label_titlepage_logo_width',
+                default=u'Titlepage logo width (%)'),
+        description=_(u'book_help_titlepage_logo_width',
+                      default=u'Width of the titlepage logo in '
+                      u'percent of the content width.'),
+        max=3,
+        required=False,
+        default=0)
 
 
-class DefaultBookLayoutExtender(object):
-    """Schema extender, adding the layout-specific fields "release", "author"
-    and "author_address" to the book when the default layout is selected.
-    """
-
-    adapts(IBook)
-    implements(ISchemaExtender)
-
-    fields = [
-        StringField(
-            name='release',
-            default='',
-            required=False,
-            widget=atapi.StringWidget(
-                label=_(u'book_label_release', default=u'Release'),
-                )),
-
-        StringField(
-            name='author',
-            default='',
-            required=False,
-            widget=atapi.StringWidget(
-                label=_(u'book_label_author', default=u'Author'),
-                )),
-
-        TextField(
-            name='author_address',
-            default='',
-            required=False,
-            default_content_type='text/plain',
-            allowable_content_types=('text/plain',),
-            default_output_type='text/plain',
-
-            widget=atapi.TextAreaWidget(
-                label=_(u'book_label_author_address',
-                        default=u'Author Address'),
-                )),
-
-        FileField(
-            name='titlepage_logo',
-            required=False,
-
-            widget=atapi.FileWidget(
-                label=_(u'book_label_titlepage_logo',
-                        default=u'Titlepage logo'),
-                description=_(u'book_help_titlepage_logo',
-                              default=u'Upload an image or a PDF, which '
-                              u'will be displayed on the titlepage'))),
-
-        IntegerField(
-            name='titlepage_logo_width',
-            default=0,
-            required=False,
-            size=3,
-
-            widget=atapi.IntegerWidget(
-                label=_(u'book_label_titlepage_logo_width',
-                        default=u'Titlepage logo width (%)'),
-                description=_(u'book_help_titlepage_logo_width',
-                              default=u'Width of the titlepage logo in '
-                              u'percent of the content width.'),
-                size=3,
-                maxlength=3)),
-
-        ]
-
-    def __init__(self, context):
-        self.context = context
-
-    def getFields(self):
-        # Checking whether the request provides the
-        # IDefaultBookLayoutSelectionLayer interface does not work when
-        # LinguaPlone is installed.
-        # Looks like this method is called before
-        # BookTraverse.publishTraverse() marks the request with the interface.
-
-        if self.context.isTemporary():
-            return []
-
-        layout_layer_name = getattr(self.context, 'latex_layout', None)
-        if layout_layer_name:
-            layout_layer = resolve(layout_layer_name)
-            if layout_layer == IDefaultBookLayoutSelectionLayer:
-                return self.fields
-        return []
-
-
+@adapter(IDefaultBookLayout, Interface, IBuilder)
 class DefaultBookLayout(MakoLayoutBase):
-    """A default book layout based on sphinx layout.
-    """
-
-    adapts(Interface, IDefaultBookLayoutSelectionLayer, IBuilder)
 
     template_directories = ['default_layout_templates']
     template_name = 'main.tex'

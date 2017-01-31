@@ -1,4 +1,3 @@
-from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.latex.listingblock import add_table_column_widths
 from ftw.book.latex.listingblock import remove_html_links
 from ftw.book.latex.listingblock import remove_table_summary

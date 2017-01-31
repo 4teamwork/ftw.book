@@ -1,149 +1,88 @@
-from StringIO import StringIO
 from ftw.book.interfaces import IBook
-from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.book.latex.utils import get_latex_heading
 from ftw.book.latex.utils import get_raw_image_data
+from ftw.book.latex.utils import ImageLaTeXGenerator
+from ftw.book.tests import FunctionalTestCase
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
+from ftw.pdfgenerator.interfaces import IPDFAssembler
 from ftw.testing import MockTestCase
 from mocker import ANY
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from StringIO import StringIO
 from unittest2 import skip
 from zope.app.component.hooks import setSite
 from zope.component import getGlobalSiteManager
+from zope.component import getMultiAdapter
 from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
 
 
-class TestLatexHeading(MockTestCase):
+class TestLatexHeading(FunctionalTestCase):
 
-    def mock_inject_settings(self, mock, **settings):
-        schema = self.stub()
-        self.expect(mock.Schema()).result(schema).count(0, None)
+    def test_first_level_chapter(self):
+        chapter = self.example_book.get('historical-background')
+        self.assertEquals(
+            get_latex_heading(chapter, self.get_latex_layout()),
+            '\\chapter{Historical Background}\n')
+        self.assertEquals(
+            get_latex_heading(chapter, self.get_latex_layout(), toc=False),
+            '\\chapter*{Historical Background}\n')
 
-        for fieldname, value in settings.items():
-            self.expect(schema.getField(fieldname).get(mock)).result(value)
+    def test_second_level_chapter(self):
+        chapter = self.example_book.get('historical-background').china
+        self.assertEquals(
+            get_latex_heading(chapter, self.get_latex_layout()),
+            '\\section{China}\n')
 
-        self.expect(schema.getField(ANY)).result(None)
+    def test_blocks_hide_from_toc_options(self):
+        chapter = self.example_book.get('historical-background').china
+        block = chapter.get('first-things-first')
+        self.assertEquals(
+            get_latex_heading(block, self.get_latex_layout()),
+            '\\subsection{First things first}\n')
 
-        return schema
+        block.hide_from_toc = True
+        self.assertEquals(
+            get_latex_heading(block, self.get_latex_layout()),
+            '\\subsection*{First things first}\n')
 
-    def test_latex_heading_of_primary_chapter(self):
-        chapter = self.mocker.mock()
-        self.set_parent(chapter, self.stub_interface(IBook))
-        self.expect(chapter.pretty_title_or_id()).result('My Chapter')
-        self.mock_inject_settings(chapter)
+        self.assertEquals(
+            get_latex_heading(block, self.get_latex_layout(), toc=True),
+            '\\subsection{First things first}\n')
 
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(
-            layout.get_converter().convert('My Chapter')).result(
-            'My Chapter')
+        block.hide_from_toc = False
+        self.assertEquals(
+            get_latex_heading(block, self.get_latex_layout(), toc=True),
+            '\\subsection{First things first}\n')
 
-        self.replay()
-
-        self.assertEquals(get_latex_heading(chapter, layout),
-                          '\\chapter{My Chapter}\n')
-
-    def test_hide_from_toc_setting_from_latex_injection(self):
-        textblock = self.stub()
-        self.set_parent(textblock, self.stub_interface(IBook))
-        self.expect(textblock.pretty_title_or_id()).result('My Textblock')
-
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('My Textblock')).result(
-            'My Textblock')
-
-        with self.mocker.order():
-            self.mock_inject_settings(textblock, hideFromTOC=True)
-            self.mock_inject_settings(textblock, hideFromTOC=True)
-            self.mock_inject_settings(textblock, hideFromTOC=False)
-
-        self.replay()
-
-        self.assertEquals(get_latex_heading(textblock, layout),
-                          '\\chapter*{My Textblock}\n')
-
-        # Passed "toc" argument should take precedence
-        self.assertEquals(get_latex_heading(textblock, layout, toc=True),
-                          '\\chapter{My Textblock}\n')
-
-        self.assertEquals(get_latex_heading(textblock, layout, toc=False),
-                          '\\chapter*{My Textblock}\n')
-
-    def test_latex_heading_of_primary_chapter_without_toc(self):
-        chapter = self.mocker.mock()
-        self.set_parent(chapter, self.stub_interface(IBook))
-        self.expect(chapter.pretty_title_or_id()).result('My Chapter')
-        self.mock_inject_settings(chapter)
-
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('My Chapter')
-                    ).result('My Chapter')
-
-        self.replay()
-
-        self.assertEquals(get_latex_heading(chapter, layout, toc=False),
-                          '\\chapter*{My Chapter}\n')
-
-    def test_latex_heading_of_third_level_chapter(self):
-        chapter1 = self.mocker.mock()
-        self.set_parent(chapter1, self.stub_interface(IBook))
-
-        chapter2 = self.mocker.mock()
-        self.set_parent(chapter2, chapter1)
-
-        chapter3 = self.mocker.mock()
-        self.set_parent(chapter3, chapter2)
-        self.expect(chapter3.pretty_title_or_id()).result('Sub chapter')
-        self.mock_inject_settings(chapter3)
-
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('Sub chapter')
-                    ).result('Sub chapter')
-
-        self.replay()
-
-        self.assertEquals(get_latex_heading(chapter3, layout),
-                          '\\subsection{Sub chapter}\n')
+        self.assertEquals(
+            get_latex_heading(block, self.get_latex_layout(), toc=False),
+            '\\subsection*{First things first}\n')
 
     def test_latex_heading_with_max_level_exceeded(self):
-        book = self.providing_stub([IBook])
+        one = create(Builder('chapter').titled(u'One').within(self.example_book))
+        two = create(Builder('chapter').titled(u'Two').within(one))
+        three = create(Builder('chapter').titled(u'Three').within(two))
+        four = create(Builder('chapter').titled(u'Four').within(three))
+        five = create(Builder('chapter').titled(u'Five').within(four))
+        six = create(Builder('chapter').titled(u'Six').within(five))
+        seven = create(Builder('chapter').titled(u'Seven').within(six))
+        eight = create(Builder('chapter').titled(u'Eight').within(seven))
 
-        # create 10 objects and use the last one
-        obj = None
-        previous = book
-        for i in range(10):
-            obj = self.mocker.mock()
-            self.set_parent(obj, previous)
-            previous = obj
-
-        self.expect(obj.pretty_title_or_id()).result('the title')
-        self.mock_inject_settings(obj)
-
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('the title')
-                    ).result('the title')
-
-        self.replay()
-
-        # subparagraph is the "smallest" heading..
-        self.assertEquals(get_latex_heading(obj, layout),
-                          '\\subparagraph{the title}\n')
-
-    def test_not_within_book(self):
-        chapter = self.mocker.mock()
-        self.set_parent(chapter, self.stub_interface(INavigationRoot))
-        self.expect(chapter.pretty_title_or_id()).result('Any chapter')
-        self.mock_inject_settings(chapter)
-
-        layout = self.stub_interface(ILaTeXLayout)
-        self.expect(layout.get_converter().convert('Any chapter')
-                    ).result('Any chapter')
-
-        self.replay()
-
-        self.assertEquals(get_latex_heading(chapter, layout),
-                          '\\section{Any chapter}\n')
+        self.assertEquals(
+            ['\\chapter{One}\n',
+             '\\section{Two}\n',
+             '\\subsection{Three}\n',
+             '\\subsubsection{Four}\n',
+             '\\paragraph{Five}\n',
+             '\\subparagraph{Six}\n',
+             '\\subparagraph{Seven}\n',
+             '\\subparagraph{Eight}\n'],
+            map(lambda obj: get_latex_heading(obj, self.get_latex_layout()),
+                (one, two, three, four, five, six, seven, eight)))
 
 
 @skip('XXX UPDATE ME')

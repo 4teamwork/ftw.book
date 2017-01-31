@@ -1,6 +1,5 @@
 from ftw.book.interfaces import IBook
 from ftw.book.latex.defaultlayout import DefaultBookLayout
-from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.interfaces import ILaTeXLayout

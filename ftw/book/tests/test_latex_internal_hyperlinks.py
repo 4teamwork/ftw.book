@@ -1,4 +1,3 @@
-from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
 from ftw.book.testing import FTW_BOOK_INTEGRATION_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
