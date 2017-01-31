@@ -42,27 +42,9 @@
   <browser:page
       for="ftw.book.interfaces.IBookTextBlock"
       name="block_view"
-      template="templates/textblock_view.pt"
-      class=".blockview.BookTextBlockViewOLD"
-      permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerOLD"
-      />
-
-  <browser:page
-      for="ftw.book.interfaces.IBookTextBlock"
-      name="block_view"
       class=".blockview.BookTextBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerNEW"
-      />
-
-  <browser:page
-      for="ftw.book.interfaces.IHTMLBlock"
-      name="block_view"
-      template="templates/htmlblock_view.pt"
-      class=".blockview.HTMLBlockViewOLD"
-      permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerOLD"
+      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -71,7 +53,7 @@
       template="templates/htmlblock.pt"
       class=".blockview.HTMLBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerNEW"
+      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -84,17 +66,9 @@
   <browser:page
       for="ftw.book.interfaces.ITable"
       name="block_view"
-      template="templates/table_content.pt"
-      permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerOLD"
-      />
-
-  <browser:page
-      for="ftw.book.interfaces.ITable"
-      name="block_view"
       template="templates/table.pt"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayerNEW"
+      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page

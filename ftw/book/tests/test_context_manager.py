@@ -1,15 +1,9 @@
 from ftw.book.layer import providing_book_layers
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
-from unittest2 import TestCase
+from ftw.book.tests import FunctionalTestCase
 from zope.interface import directlyProvidedBy
 
 
-class TestContextManager(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
-
-    def setUp(self):
-        self.portal = self.layer['portal']
+class TestContextManager(FunctionalTestCase):
 
     def test_context_manager_adds_book_layers(self):
         thelist = list(directlyProvidedBy(self.portal.REQUEST))
@@ -19,7 +13,7 @@ class TestContextManager(TestCase):
                     directlyProvidedBy(self.portal.REQUEST)) if it not in thelist]
 
             self.assertEquals(
-                ['<InterfaceClass ftw.book.interfaces.IWithinBookLayerOLD>'],
+                ['<InterfaceClass ftw.book.interfaces.IWithinBookLayer>'],
                 [str(item) for item in diff])
 
         self.assertEquals(thelist,

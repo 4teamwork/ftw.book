@@ -68,16 +68,6 @@ class IWithinBookLayer(Interface):
     """
 
 
-class IWithinBookLayerOLD(IWithinBookLayer):
-    """Within an old AT book.
-    """
-
-
-class IWithinBookLayerNEW(IWithinBookLayer):
-    """Within an new DX book.
-    """
-
-
 class ILaTeXCodeInjectionEnabled(Interface):
     """Enables LaTeX code injection for admins on
     book-objects (chapters, text blocks).

@@ -1,7 +1,6 @@
 from ftw.book.contents.htmlblock import IBookHtmlBlockSchema
 from ftw.book.contents.textblock import IBookTextBlockSchema
 from ftw.book.helpers import BookHelper
-from ftw.contentpage.browser import textblock_view
 from ftw.htmlblock.browser.htmlblock import HtmlBlockView
 from ftw.simplelayout.contenttypes.browser.textblock import TextBlockView
 from Products.Five.browser import BrowserView
@@ -25,18 +24,6 @@ class HTMLBlockView(HtmlBlockView):
     def block_title(self):
         if not IBookHtmlBlockSchema(self.context).show_title:
             return ''
-        return BookHelper()(self.context)
-
-
-class BookTextBlockViewOLD(textblock_view.TextBlockView):
-
-    def get_dynamic_title(self):
-        return BookHelper()(self.context)
-
-
-class HTMLBlockViewOLD(BrowserView):
-
-    def get_dynamic_title(self):
         return BookHelper()(self.context)
 
 
