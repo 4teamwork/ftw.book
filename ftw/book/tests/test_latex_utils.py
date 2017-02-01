@@ -11,13 +11,16 @@ from ftw.pdfgenerator.interfaces import IPDFAssembler
 from ftw.testing import MockTestCase
 from mocker import ANY
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from plone.uuid.interfaces import IUUID
 from StringIO import StringIO
+from textwrap import dedent
 from unittest2 import skip
 from zope.app.component.hooks import setSite
 from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
+import os
 
 
 class TestLatexHeading(FunctionalTestCase):
@@ -85,143 +88,116 @@ class TestLatexHeading(FunctionalTestCase):
                 (one, two, three, four, five, six, seven, eight)))
 
 
-@skip('XXX UPDATE ME')
-class TestImageLaTeXGenerator(MockTestCase):
-
-    def setUp(self):
-        super(TestImageLaTeXGenerator, self).setUp()
-
-        self.image = self.create_dummy(
-            get_size=lambda: 11, data='hello world')
-
-        self.context = self.create_dummy(
-            UID=lambda: 'XUID')
-
-        setSite(self._create_site_with_request())
-
-    def tearDown(self):
-        setSite(None)
-
-    def _create_site_with_request(self):
-        request = self.create_dummy(getPreferredLanguages=lambda: [])
-        alsoProvides(request, IUserPreferredLanguages)
-
-        site = self.create_dummy(
-            REQUEST=request,
-            getSiteManager=getGlobalSiteManager)
-
-        return site
-
-    def test_no_image_layout(self):
-        self.replay()
-
-        generator = ImageLaTeXGenerator(None, None)
-        self.assertEqual(generator(None, 'no-image'), '')
+class TestImageLaTeXGenerator(FunctionalTestCase):
 
     def test_small_left_nonfloating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'small')
-
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        latex = ImageLaTeXGenerator(block, layout)(block.image, 'small')
         self.assertEqual(
-            latex,
-            r'\includegraphics[width=0.25\linewidth]{XUID_image}')
+            r'\includegraphics[width=0.25\linewidth]{XUIDX_image}',
+            latex.replace(IUUID(block), 'XUIDX'))
+        self.assertEquals('\\usepackage{graphicx}\n', layout.get_packages_latex())
+        self.assertItemsEqual(
+            ['{}_image.jpg'.format(IUUID(block))],
+            os.listdir(layout.get_builder().build_directory))
 
     def test_small_left_nonfloating_caption(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('The Caption')).result(
-            'THE CAPTION')
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'small', caption='The Caption')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=0.25\linewidth]{XUID_image}',
-                    generate_manual_caption('THE CAPTION', 'figure'),
-                    )))
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'small', caption='The Caption')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\includegraphics[width=0.25\linewidth]{XUIDX_image}
+\begin{center}
+\addtocounter{figure}{1}
+\addcontentsline{lof}{figure}{\protect\numberline {\thechapter.\arabic{figure}}{\ignorespaces The Caption}}
+Figure \thechapter.\arabic{figure}: The Caption
+\end{center}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals('\\usepackage{graphicx}\n', layout.get_packages_latex())
 
     def test_small_left_floating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.use_package('checkheight'))
-        builder = self.stub()
-        self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.build_directory).result('/tmp')
-        self.expect(builder.add_file('checkheight.sty', ANY))
-        self.replay()
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'small', floatable=True)
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\checkheight{\includegraphics[width=0.35\linewidth]{XUIDX_image}}
+\begin{wrapfigure}{l}{0.25\linewidth}
+\includegraphics[width=\linewidth]{XUIDX_image}
+\end{wrapfigure}
+\hspace{0em}%%
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n'
+            '\\usepackage{wrapfig}\n'
+            '\\usepackage{checkheight}\n',
+            layout.get_packages_latex())
 
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'small', floatable=True)
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\checkheight{\includegraphics[width=0.35\linewidth]{XUID_image}}',
-                    r'\begin{wrapfigure}{l}{0.25\linewidth}',
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    r'\end{wrapfigure}',
-                    r'\hspace{0em}%%'
-                    )))
+        self.assertItemsEqual(
+            ['{}_image.jpg'.format(IUUID(block)),
+             'checkheight.sty'],
+            os.listdir(layout.get_builder().build_directory))
 
     def test_small_left_floating_caption(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('The Caption')).result(
-            'THE CAPTION')
-        self.expect(layout.use_package('checkheight'))
-        builder = self.stub()
-        self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.build_directory).result('/tmp')
-        self.expect(builder.add_file('checkheight.sty', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'small', floatable=True,
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'small', floatable=True,
                           caption='The Caption')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\checkheight{\includegraphics[width=0.35\linewidth]{XUID_image}}',
-                    r'\begin{wrapfigure}{l}{0.25\linewidth}',
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    r'\caption{THE CAPTION}',
-                    r'\end{wrapfigure}',
-                    r'\hspace{0em}%%'
-                    )))
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\checkheight{\includegraphics[width=0.35\linewidth]{XUIDX_image}}
+\begin{wrapfigure}{l}{0.25\linewidth}
+\includegraphics[width=\linewidth]{XUIDX_image}
+\caption{The Caption}
+\end{wrapfigure}
+\hspace{0em}%%
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n'
+            '\\usepackage{wrapfig}\n'
+            '\\usepackage{checkheight}\n',
+            layout.get_packages_latex())
 
     def test_middle_left_nonfloating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'middle')
-
-        self.assertEqual(
-            latex,
-            r'\includegraphics[width=0.5\linewidth]{XUID_image}')
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'middle')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+            \includegraphics[width=0.5\linewidth]{XUIDX_image}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_full(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'full')
-
-        self.assertEqual(
-            latex,
-            r'\includegraphics[width=\linewidth]{XUID_image}')
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'full')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+            \includegraphics[width=\linewidth]{XUIDX_image}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_fullwidth_does_not_float(self):
         """Using a floating area (wrapfigure) with a 100% width causes the
@@ -231,96 +207,106 @@ class TestImageLaTeXGenerator(MockTestCase):
         ``floatable=True``.
         """
 
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('My Image')).result(
-            'MY IMAGE')
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'full', floatable=True,
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'full', floatable=True,
                           caption='My Image')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    generate_manual_caption('MY IMAGE', 'figure'))))
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\includegraphics[width=\linewidth]{XUIDX_image}
+\begin{center}
+\addtocounter{figure}{1}
+\addcontentsline{lof}{figure}{\protect\numberline {\thechapter.\arabic{figure}}{\ignorespaces My Image}}
+Figure \thechapter.\arabic{figure}: My Image
+\end{center}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_middle_right_nonfloating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'middle-right')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\begin{flushright}',
-                    r'\includegraphics[width=0.5\linewidth]{XUID_image}',
-                    r'\end{flushright}',
-                    )))
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'middle-right')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\begin{flushright}
+\includegraphics[width=0.5\linewidth]{XUIDX_image}
+\end{flushright}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_middle_right_nonfloating_caption(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('The Caption')).result(
-            'THE CAPTION')
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'middle-right',
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'middle-right', floatable=False,
                           caption='The Caption')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\begin{flushright}
+\includegraphics[width=0.5\linewidth]{XUIDX_image}
+\begin{center}
+\addtocounter{figure}{1}
+\addcontentsline{lof}{figure}{\protect\numberline {\thechapter.\arabic{figure}}{\ignorespaces The Caption}}
+Figure \thechapter.\arabic{figure}: The Caption
+\end{center}
 
-        self.assertEqual(latex, '\n'.join((
-                    r'\begin{flushright}',
-                    r'\includegraphics[width=0.5\linewidth]{XUID_image}',
-                    generate_manual_caption('THE CAPTION', 'figure'),
-                    r'\end{flushright}',
-                    )))
+\end{flushright}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_middle_right_floating_caption(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('The Caption')).result(
-            'THE CAPTION')
-        self.expect(layout.use_package('checkheight'))
-        builder = self.stub()
-        self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.build_directory).result('/tmp')
-        self.expect(builder.add_file('checkheight.sty', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'middle-right', floatable=True,
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'middle-right', floatable=True,
                           caption='The Caption')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\checkheight{\includegraphics[width=0.6\linewidth]{XUID_image}}',
-                    r'\begin{wrapfigure}{r}{0.5\linewidth}',
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    r'\caption{THE CAPTION}',
-                    r'\end{wrapfigure}',
-                    r'\hspace{0em}%%'
-                    )))
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\checkheight{\includegraphics[width=0.6\linewidth]{XUIDX_image}}
+\begin{wrapfigure}{r}{0.5\linewidth}
+\includegraphics[width=\linewidth]{XUIDX_image}
+\caption{The Caption}
+\end{wrapfigure}
+\hspace{0em}%%
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n'
+            '\\usepackage{wrapfig}\n'
+            '\\usepackage{checkheight}\n',
+            layout.get_packages_latex())
 
     def test_small_right_nonfloating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'small-right')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\begin{flushright}',
-                    r'\includegraphics[width=0.25\linewidth]{XUID_image}',
-                    r'\end{flushright}',
-                    )))
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator(block.image, 'middle-right')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\begin{flushright}
+\includegraphics[width=0.5\linewidth]{XUIDX_image}
+\end{flushright}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
     def test_unkown_layout(self):
         # The includegraphics options should never have an empty width
@@ -329,60 +315,52 @@ class TestImageLaTeXGenerator(MockTestCase):
         # Having a [image=] will make pdflatex hang and this will block the
         # zope thread.
 
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator(self.image, 'fancy-unkown')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    )))
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        latex = ImageLaTeXGenerator(block, layout)(block.image, 'fritz')
+        self.assertEqual(
+            r'\includegraphics[width=\linewidth]{XUIDX_image}',
+            latex.replace(IUUID(block), 'XUIDX'))
 
     def test_render_floating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.use_package('wrapfig'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.expect(layout.get_converter().convert('The Caption')).result(
-            'THE CAPTION')
-        self.expect(layout.use_package('checkheight'))
-        builder = self.stub()
-        self.expect(layout.get_builder()).result(builder)
-        self.expect(builder.build_directory).result('/tmp')
-        self.expect(builder.add_file('checkheight.sty', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator.render(self.image, '0.56', 'c',
-                                 floatable=True,
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator.render(block.image, '0.24', 'c', floatable=True,
                                  caption='The Caption')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\checkheight{\includegraphics[width=0.66\linewidth]{XUID_image}}',
-                    r'\begin{wrapfigure}{c}{0.56\linewidth}',
-                    r'\includegraphics[width=\linewidth]{XUID_image}',
-                    r'\caption{THE CAPTION}',
-                    r'\end{wrapfigure}',
-                    r'\hspace{0em}%%'
-                    )))
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\checkheight{\includegraphics[width=0.34\linewidth]{XUIDX_image}}
+\begin{wrapfigure}{c}{0.24\linewidth}
+\includegraphics[width=\linewidth]{XUIDX_image}
+\caption{The Caption}
+\end{wrapfigure}
+\hspace{0em}%%
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n'
+            '\\usepackage{wrapfig}\n'
+            '\\usepackage{checkheight}\n',
+            layout.get_packages_latex())
 
     def test_render_nofloating(self):
-        layout = self.mock_interface(ILaTeXLayout)
-        self.expect(layout.use_package('graphicx'))
-        self.expect(layout.get_builder().add_file('XUID_image.jpg', ANY))
-        self.replay()
-
-        generator = ImageLaTeXGenerator(self.context, layout)
-        latex = generator.render(self.image, '0.56', 'c')
-
-        self.assertEqual(latex, '\n'.join((
-                    r'\begin{center}',
-                    r'\includegraphics[width=0.56\linewidth]{XUID_image}',
-                    r'\end{center}',
-                    )))
+        block = self.example_book.introduction.get('management-summary')
+        layout = self.get_latex_layout()
+        generator = ImageLaTeXGenerator(block, layout)
+        latex = generator.render(block.image, '0.47', 'c')
+        self.maxDiff = None
+        self.assertMultiLineEqual(
+            r'''
+\begin{center}
+\includegraphics[width=0.47\linewidth]{XUIDX_image}
+\end{center}
+            '''.strip(),
+            latex.replace(IUUID(block), 'XUIDX').strip())
+        self.assertEquals(
+            '\\usepackage{graphicx}\n',
+            layout.get_packages_latex())
 
 
 @skip('XXX UPDATE ME')

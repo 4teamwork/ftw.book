@@ -65,7 +65,7 @@ class BookLayer(PloneSandboxLayer):
                               .titled(u'Introduction'))
 
         create(Builder('book textblock').within(introduction)
-               .titled(u'Invisible Title').with_default_content()
+               .titled(u'Invisible Title')
                .having(show_title=False))
 
         create(Builder('book textblock').within(introduction)
@@ -74,6 +74,7 @@ class BookLayer(PloneSandboxLayer):
                        hide_from_toc=True))
 
         create(Builder('book textblock').within(introduction)
+               .with_default_content()
                .titled(u'Management Summary')
                .having(show_title=True))
 
