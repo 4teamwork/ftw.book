@@ -19,6 +19,8 @@ class FunctionalTestCase(TestCase):
         notify(BeforeTraverseEvent(self.portal, self.request))
         self.example_book = self.portal.restrictedTraverse(
             self.layer['example_book_path'])
+        self.default_layout_book = self.portal.restrictedTraverse(
+            self.layer['default_layout_book_path'])
 
     def grant(self, *roles):
         setRoles(self.portal, TEST_USER_ID, list(roles))

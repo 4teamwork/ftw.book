@@ -1,9 +1,7 @@
-from Acquisition import aq_inner
-from Acquisition import aq_parent
+from Acquisition import aq_chain
 from ftw.book import _
 from ftw.book.interfaces import IBook
 from ftw.book.interfaces import IBookLayoutBehavior
-from ftw.book.latex.utils import get_raw_image_data
 from ftw.pdfgenerator.babel import get_preferred_babel_option_for_context
 from ftw.pdfgenerator.interfaces import IBuilder
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
@@ -66,48 +64,46 @@ class DefaultBookLayout(MakoLayoutBase):
 
     def get_render_arguments(self):
         book = self.get_book()
-
         convert = self.get_converter().convert
 
-        address = book.Schema().getField('author_address').get(book)
-        address = convert(address.replace('\n', '<br />')).replace('\n', '')
+        address = IDefaultBookLayout(book).author_address or u''
+        if address:
+            transforms = getToolByName(self.context, 'portal_transforms')
+            address = transforms('text_to_html',
+                                 address.encode('utf-8')).decode('utf-8')
 
-        logo = book.Schema().getField('titlepage_logo').get(book)
-        if logo and logo.data:
+        logo = IDefaultBookLayout(book).titlepage_logo
+        if logo and logo.size:
             logo_filename = 'titlepage_logo.jpg'
-            self.get_builder().add_file(
-                logo_filename,
-                data=get_raw_image_data(logo.data))
-
-            logo_width = book.Schema().getField(
-                'titlepage_logo_width').get(book)
+            with logo.open() as logofio:
+                self.get_builder().add_file(
+                    logo_filename, logofio)
+            logo_width = IDefaultBookLayout(book).titlepage_logo_width
         else:
             logo_filename = False
             logo_width = 0
 
+        export_context = getattr(self, 'export_context', self.context)
         args = {
-            'context_is_book': self.context == book,
+            'context_is_book': export_context == book,
             'title': book.Title(),
-            'use_titlepage': book.getUse_titlepage(),
+            'use_titlepage': book.use_titlepage,
             'logo': logo_filename,
             'logo_width': logo_width,
-            'use_toc': book.getUse_toc(),
-            'use_lot': book.getUse_lot(),
-            'use_loi': book.getUse_loi(),
-            'use_index': book.getUse_index(),
-            'release': convert(book.Schema().getField('release').get(book)),
-            'author': convert(book.Schema().getField('author').get(book)),
-            'authoraddress': address,
+            'use_toc': book.use_toc,
+            'use_lot': book.use_lot,
+            'use_loi': book.use_loi,
+            'use_index': book.use_index,
+            'release': convert(IDefaultBookLayout(book).release or u''),
+            'author': convert(IDefaultBookLayout(book).book_author or u''),
+            'authoraddress': convert(address),
             'babel': get_preferred_babel_option_for_context(self.context),
             'index_title': self.get_index_title(),
-            }
+        }
         return args
 
     def get_book(self):
-        obj = self.context
-        while obj and not IBook.providedBy(obj):
-            obj = aq_parent(aq_inner(obj))
-        return obj
+        return filter(IBook.providedBy, aq_chain(self.context))[0]
 
     def before_render_hook(self):
         self.use_package('inputenc', options='utf8', append_options=False)

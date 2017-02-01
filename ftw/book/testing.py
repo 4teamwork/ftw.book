@@ -11,11 +11,12 @@ from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.namedfile.file import NamedBlobImage
 from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
 from zope.configuration import xmlconfig
-import ftw.book.tests.builders
+from ftw.book.tests.builders import asset
 import ftw.contentpage.tests.builders
 
 
@@ -57,6 +58,8 @@ class BookLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.book:default')
         self['example_book_path'] = '/'.join(
             self.create_example_book().getPhysicalPath())
+        self['default_layout_book_path'] = '/'.join(
+            self.create_default_layout_book().getPhysicalPath())
 
     def create_example_book(self):
         book = create(Builder('book').titled(u'The Example Book'))
@@ -90,6 +93,28 @@ class BookLayer(PloneSandboxLayer):
                .having(description=u'This chapter should be empty.'))
 
         return book
+
+    def create_default_layout_book(self):
+        return create(
+            Builder('book')
+            .titled(u'The Default Layout Book')
+            .having(
+                web_toc_depth=3,
+                latex_layout='ftw.book.latex.defaultlayout.IDefaultBookLayout',
+                use_titlepage=True,
+                use_toc=True,
+                use_lot=True,
+                use_loi=True,
+                use_index=True,
+                release=u'1.7.2',
+                book_author=u'Mr. Smith',
+                author_address=u'Smith Consulting\nSwordstreet 1'
+                u'\n1234 Anvil City',
+                titlepage_logo=NamedBlobImage(
+                    filename=u'smith.jpg',
+                    data=asset('smith.jpg').bytes()),
+                titlepage_logo_width=25,
+            ))
 
 
 BOOK_FIXTURE = BookLayer()
