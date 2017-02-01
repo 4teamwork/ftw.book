@@ -36,3 +36,12 @@ class FunctionalTestCase(TestCase):
         return getMultiAdapter(
             (context, self.request, self.get_latex_layout(export_context)),
             ILaTeXView)
+
+    def create_dummy(self, **kw):
+        return Dummy(**kw)
+
+
+class Dummy(object):
+
+    def __init__(self, **kw):
+        self.__dict__.update(kw)

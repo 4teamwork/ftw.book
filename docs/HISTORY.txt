@@ -5,6 +5,8 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
+- Deprecate get_raw_image_data utils function. [jone]
+
 - Drop next / previous support. [jone]
 
 - Drop Plone 4.2 support. [jone]

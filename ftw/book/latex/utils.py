@@ -6,6 +6,7 @@ from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
 from ftw.pdfgenerator.templating import MakoTemplating
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from Products.ATContentTypes.lib.imagetransform import ATCTImageTransform
+from zope.deprecation import deprecate
 import os.path
 
 
@@ -82,8 +83,8 @@ def get_latex_heading(context, layout, toc=None):
     return latex
 
 
+@deprecate('Do not load the image data, but use a fio with builder.add_file.')
 def get_raw_image_data(image):
-    # XXX use scaling?
     transformer = ATCTImageTransform()
     img = transformer.getImageAsFile(img=image)
 
@@ -182,7 +183,7 @@ class ImageLaTeXGenerator(MakoTemplating):
 
         self.layout.use_package('graphicx')
         self.layout.get_builder().add_file(
-            '%s.jpg' % name, get_raw_image_data(image))
+            '%s.jpg' % name, image.open())
 
         return r'\includegraphics[width=%s]{%s}' % (width, name)
 

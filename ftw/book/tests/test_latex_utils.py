@@ -20,6 +20,7 @@ from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.i18n.interfaces import IUserPreferredLanguages
 from zope.interface import alsoProvides
+import hashlib
 import os
 
 
@@ -101,6 +102,16 @@ class TestImageLaTeXGenerator(FunctionalTestCase):
         self.assertItemsEqual(
             ['{}_image.jpg'.format(IUUID(block))],
             os.listdir(layout.get_builder().build_directory))
+
+        image_hash = hashlib.md5()
+        image_path = os.path.join(layout.get_builder().build_directory,
+                                  '{}_image.jpg'.format(IUUID(block)))
+        with open(image_path) as image_fio:
+            map(image_hash.update, image_fio)
+
+        self.assertEquals(
+            '68fe15240f2065ccd2c645f3554aa649',
+            image_hash.hexdigest())
 
     def test_small_left_nonfloating_caption(self):
         block = self.example_book.introduction.get('management-summary')
@@ -363,8 +374,7 @@ Figure \thechapter.\arabic{figure}: The Caption
             layout.get_packages_latex())
 
 
-@skip('XXX UPDATE ME')
-class TestGetRawImageData(MockTestCase):
+class TestGetRawImageData(FunctionalTestCase):
 
     def test_get_raw_image_data(self):
         already_raw = 'Image data'
