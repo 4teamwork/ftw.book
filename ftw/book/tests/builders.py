@@ -43,7 +43,7 @@ class TextBlockBuilder(simplelayout_builders.TextBlockBuilder):
     portal_type = 'ftw.book.TextBlock'
 
     def with_image(self, path):
-        self.having(image=NamedBlobImage(
+        return self.having(image=NamedBlobImage(
             data=Path(path).bytes(),
             filename=u'test.gif'))
 

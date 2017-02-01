@@ -86,7 +86,9 @@ class BookLayer(PloneSandboxLayer):
         china = create(Builder('chapter').within(history)
                        .titled(u'China'))
         create(Builder('book textblock').within(china)
-               .titled(u'First things first'))
+               .titled(u'First things first')
+               .with_text(u'<p>This is <i>some</i> text.</p>')
+               .with_image(asset('image.jpg')))
 
         create(Builder('chapter').within(book)
                .titled(u'Empty')

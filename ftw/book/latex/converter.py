@@ -1,4 +1,4 @@
-from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.interfaces import IBookContentType
 from ftw.book.latex.highlight_subconverter import VisualHighlightSubconverter
 from ftw.book.latex.hyperlink_subconverter import BookHyperlinkConverter
 from ftw.book.latex.index_subconverter import IndexSubconverter
@@ -14,7 +14,7 @@ BOTTOM = interfaces.HTML2LATEX_CUSTOM_PATTERN_PLACEHOLDER_BOTTOM
 
 class BookHTML2LatexConverter(HTML2LatexConverter):
     implements(interfaces.IHTML2LaTeXConverter)
-    adapts(Interface, IWithinBookLayer, interfaces.ILaTeXLayout)
+    adapts(IBookContentType, Interface, interfaces.ILaTeXLayout)
 
     def __init__(self, context, request, layout):
         HTML2LatexConverter.__init__(self, context, request, layout)

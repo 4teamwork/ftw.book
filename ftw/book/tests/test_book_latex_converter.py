@@ -1,4 +1,4 @@
-from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.interfaces import IBookContentType
 from ftw.book.latex.converter import BookHTML2LatexConverter
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
@@ -16,8 +16,8 @@ class TestBookHTML2LatexConverter(MockTestCase):
     layer = LATEX_ZCML_LAYER
 
     def test_component_is_registered(self):
-        context = object()
-        request = self.providing_stub([IWithinBookLayer])
+        context = self.providing_stub([IBookContentType])
+        request = None
         layout = self.providing_stub([ILaTeXLayout])
 
         self.expect(layout.use_package('soulutf8'))
