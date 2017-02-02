@@ -1,4 +1,5 @@
 from collective.transmogrifier import transmogrifier
+from ftw.book.tests.builders import asset
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.builder import session
@@ -11,12 +12,12 @@ from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
 from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
 from zope.configuration import xmlconfig
-from ftw.book.tests.builders import asset
 import ftw.contentpage.tests.builders
 
 
@@ -89,6 +90,17 @@ class BookLayer(PloneSandboxLayer):
                .titled(u'First things first')
                .with_text(u'<p>This is <i>some</i> text.</p>')
                .with_image(asset('image.jpg')))
+
+        create(Builder('table')
+               .titled(u'Population')
+               .with_table((('Ranking', 'City', 'Population'),
+                            ('1', 'Guangzhou', '44 mil <sup>1</sup>'),
+                            ('2', 'Shanghai', '35 mil'),
+                            ('3', 'Chongqing', '30 mil')))
+               .having(border_layout='grid',
+                       footnote_text=RichTextValue(
+                           u'<p><sup>1</sup> thats quite big</p>'))
+               .within(china))
 
         create(Builder('chapter').within(book)
                .titled(u'Empty')
