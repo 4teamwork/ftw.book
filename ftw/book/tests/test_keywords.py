@@ -258,6 +258,8 @@ class TestKeywordsView(FunctionalTestCase):
                 ('/plone/the-example-book/historical-background/china/'
                  'first-things-first'),
                 '/plone/the-example-book/historical-background/china/population',
+                ('/plone/the-example-book/historical-background/china/'
+                 'important-documents'),
                 '/plone/the-example-book/introduction',
                 '/plone/the-example-book/introduction/management-summary',
             ],

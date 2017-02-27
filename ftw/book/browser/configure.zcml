@@ -72,6 +72,13 @@
       />
 
   <browser:page
+      for="ftw.book.interfaces.IBookFileListingBlock"
+      name="block_view"
+      permission="zope2.View"
+      class=".listingblock.BookFileListingBlockView"
+      />
+
+  <browser:page
       for="ftw.book.interfaces.ITable"
       name="table_export_import"
       class=".table_export_import.TableExportImport"

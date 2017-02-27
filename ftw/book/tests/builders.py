@@ -101,3 +101,9 @@ class TableBuilder(DexterityBuilder):
                     for row in table]
 
 builder_registry.register('table', TableBuilder)
+
+
+class ListingBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.book.FileListingBlock'
+
+builder_registry.register('book listingblock', ListingBlockBuilder)

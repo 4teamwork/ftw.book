@@ -22,6 +22,9 @@ class FunctionalTestCase(TestCase):
         self.default_layout_book = self.portal.restrictedTraverse(
             self.layer['default_layout_book_path'])
 
+        self.listingblock = self.example_book.restrictedTraverse(
+            'historical-background/china/important-documents')
+
     def grant(self, *roles):
         setRoles(self.portal, TEST_USER_ID, list(roles))
         transaction.commit()

@@ -102,6 +102,19 @@ class BookLayer(PloneSandboxLayer):
                            u'<p><sup>1</sup> thats quite big</p>'))
                .within(china))
 
+        listingblock = create(
+            Builder('book listingblock')
+            .titled(u'Important Documents')
+            .within(china))
+
+        create(Builder('file')
+               .within(listingblock)
+               .attach_file_containing(asset('image.jpg').bytes(), 'image.jpg'))
+
+        create(Builder('file')
+               .within(listingblock)
+               .attach_file_containing(asset('lorem.html').bytes(), 'lorem.html'))
+
         create(Builder('chapter').within(book)
                .titled(u'Empty')
                .having(description=u'This chapter should be empty.'))
