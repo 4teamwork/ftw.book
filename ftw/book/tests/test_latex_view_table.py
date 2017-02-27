@@ -1,18 +1,12 @@
 from ftw.book.tests import FunctionalTestCase
-from plone.uuid.interfaces import IUUID
 
 
 class TestTableLaTeXView(FunctionalTestCase):
 
-    def setUp(self):
-        super(TestTableLaTeXView, self).setUp()
-        self.table = self.example_book.unrestrictedTraverse(
-            'historical-background/china/population')
-        self.maxDiff = None
-
     def test_grid_layout_table(self):
         self.table.border_layout = 'grid'
-        self.assert_table_latex(
+        self.assert_latex_code(
+            self.table,
             r'''
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
@@ -41,7 +35,8 @@ Population
 
     def test_invisible_layout_table(self):
         self.table.border_layout = 'invisible'
-        self.assert_table_latex(
+        self.assert_latex_code(
+            self.table,
             r'''
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
@@ -65,7 +60,8 @@ Population
 
     def test_fancy_listing_layout_table(self):
         self.table.border_layout = 'fancy_listing'
-        self.assert_table_latex(
+        self.assert_latex_code(
+            self.table,
             r'''
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
@@ -90,9 +86,3 @@ Population
 \vspace{0pt}
 {\footnotesize \textsuperscript{1} thats quite big}
             ''')
-
-    def assert_table_latex(self, expected_latex):
-        expected_latex = expected_latex.strip()
-        got_latex = self.get_latex_view_for(self.table).render().strip()
-        got_latex = got_latex.replace(IUUID(self.table), 'XBlockUUIDX')
-        self.assertMultiLineEqual(expected_latex, got_latex)

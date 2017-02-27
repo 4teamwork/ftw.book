@@ -1,6 +1,4 @@
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 import transaction
@@ -28,41 +26,25 @@ class TestTable(FunctionalTestCase):
             browser.css('.ftw-book-table .portalMessage dd').first.text)
 
     @browsing
-    def test_table_is_rendered_rendering(self, browser):
-        create(Builder('table')
-               .titled('The Table')
-               .having(showTitle=True)
-               .with_table([['Foo', 'Bar'],
-                            ['1', '2'],
-                            ['3', '4']])
-               .within(self.example_book.empty))
-
-        browser.login().visit(self.example_book.empty)
-
+    def test_table_is_rendered(self, browser):
+        browser.login().visit(self.table)
         self.assertEquals(
-            [{'Foo': '1',
-              'Bar': '2'},
-             {'Foo': '3',
-              'Bar': '4'}],
+            [{'City': 'Guangzhou', 'Population': '44 mil 1', 'Ranking': '1'},
+             {'City': 'Shanghai', 'Population': '35 mil', 'Ranking': '2'},
+             {'City': 'Chongqing', 'Population': '30 mil', 'Ranking': '3'}],
             browser.css('.ftw-book-table table').first.dicts())
 
     @browsing
     def test_hiding_block_title(self, browser):
         self.grant('Manager')
-        table = create(Builder('table')
-                       .titled('Visible')
-                       .with_dummy_table()
-                       .having(show_title=True)
-                       .within(self.example_book.empty))
 
-        browser.login().visit(self.example_book.empty)
-        self.assertEquals(
-            ['Visible'],
-            browser.css('.sl-block table caption').text)
+        title = 'Population'
+        self.table.show_title = False
+        transaction.commit()
+        browser.login().visit(self.table)
+        self.assertNotIn(title, browser.css('.sl-block table caption').text)
 
-        table.show_title = False
+        self.table.show_title = True
         transaction.commit()
         browser.reload()
-        self.assertEquals(
-            [],
-            browser.css('.sl-block table caption').text)
+        self.assertIn(title, browser.css('.sl-block table caption').text)
