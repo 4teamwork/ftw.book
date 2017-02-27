@@ -82,6 +82,11 @@ class BookLayer(PloneSandboxLayer):
                .titled(u'Management Summary')
                .having(show_title=True))
 
+        create(Builder('book htmlblock').within(introduction)
+               .titled('An HTML Block')
+               .having(show_title=False,
+                       content='<p>Some <b>bold</b> and <i>italic</i> text.'))
+
         history = create(Builder('chapter').within(book)
                          .titled(u'Historical Background'))
         china = create(Builder('chapter').within(history)

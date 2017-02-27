@@ -54,7 +54,12 @@ class TestBookHelper(FunctionalTestCase):
              {'id': 'management-summary',
               'hide_from_toc': False,
               'show_title': True,
-              'title': '<h3>1.1 Management Summary</h3>'}],
+              'title': '<h3>1.1 Management Summary</h3>'},
+
+             {'id': 'an-html-block',
+              'hide_from_toc': False,
+              'show_title': False,
+              'title': '<h3>An HTML Block</h3>'}],
 
             map(lambda obj: {
                 'id': obj.getId(),

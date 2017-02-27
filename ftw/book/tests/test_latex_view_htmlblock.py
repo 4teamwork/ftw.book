@@ -1,35 +1,39 @@
-from ftw.book.behaviors.toc import IHideTitleFromTOC
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 
 
 class TestHTMLBlockLaTeXView(FunctionalTestCase):
 
-    def test(self):
-        block = create(Builder('book htmlblock')
-                       .having(show_title=False,
-                               content=u'foo <b>bar</b> baz').
-                       within(self.example_book.empty))
+    def test_default_latex(self):
+        self.assert_latex_code(
+            self.htmlblock,
+            r'Some \textbf{bold} and \textit{italic} text.')
 
-        self.assertEquals(
-            'foo \\textbf{bar} baz\n',
-            self.get_latex_view_for(block).render())
+    def test_hide_title(self):
+        self.htmlblock.show_title = True
+        with self.assert_latex_diff(
+                self.htmlblock,
+                r'''
+--- before.tex
++++ after.tex
+@@ -1,3 +1 @@
+-\section{An HTML Block}
+-
+ Some \textbf{bold} and \textit{italic} text.
+                '''):
+            self.htmlblock.show_title = False
 
-        block.title = u'A Fancy HTML Block'
-        block.show_title = True
-        self.assertEquals(
-            '\\section{A Fancy HTML Block}\n\n'
-            'foo \\textbf{bar} baz\n',
-            self.get_latex_view_for(block).render())
+    def test_hide_title_from_toc(self):
+        self.htmlblock.show_title = True
+        self.htmlblock.hide_from_toc = False
+        with self.assert_latex_diff(
+                self.htmlblock,
+                r'''
+--- before.tex
++++ after.tex
+@@ -1,3 +1,3 @@
+-\section{An HTML Block}
++\section*{An HTML Block}
 
-        IHideTitleFromTOC(block).hide_from_toc = True
-        self.assertEquals(
-            '\\section*{A Fancy HTML Block}\n\n'
-            'foo \\textbf{bar} baz\n',
-            self.get_latex_view_for(block).render())
-
-        block.content = None
-        self.assertEquals(
-            '\\section*{A Fancy HTML Block}\n\n',
-            self.get_latex_view_for(block).render())
+ Some \textbf{bold} and \textit{italic} text.
+                '''):
+            self.htmlblock.hide_from_toc = True

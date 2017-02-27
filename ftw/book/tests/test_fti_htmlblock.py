@@ -3,6 +3,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+import transaction
 
 
 class TestHTMLBlock(FunctionalTestCase):
@@ -36,35 +37,29 @@ class TestHTMLBlock(FunctionalTestCase):
     @browsing
     def test_hiding_block_title(self, browser):
         self.grant('Manager')
-        create(Builder('book htmlblock')
-               .titled('Visible')
-               .having(show_title=True)
-               .within(self.example_book.empty))
 
-        create(Builder('book htmlblock')
-               .titled('Hidden')
-               .having(show_title=False)
-               .within(self.example_book.empty))
+        title = '1.2 An HTML Block'
+        self.htmlblock.show_title = False
+        transaction.commit()
+        browser.login().visit(self.htmlblock)
+        self.assertNotIn(title, browser.css('.sl-block h3').text)
 
-        browser.login().visit(self.example_book.empty)
-        self.assertEquals(
-            ['3.1 Visible'],
-            browser.css('.sl-block h3').text)
+        self.htmlblock.show_title = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(title, browser.css('.sl-block h3').text)
 
     @browsing
     def test_no_prefix_when_hiding_title_from_table_of_contents(self, browser):
         self.grant('Manager')
-        create(Builder('book htmlblock')
-               .titled('Block in TOC')
-               .having(show_title=True, hide_from_toc=False)
-               .within(self.example_book.empty))
+        self.htmlblock.show_title = True
 
-        create(Builder('book htmlblock')
-               .titled('Block NOT in TOC')
-               .having(show_title=True, hide_from_toc=True)
-               .within(self.example_book.empty))
+        self.htmlblock.hide_from_toc = False
+        transaction.commit()
+        browser.login().visit(self.htmlblock)
+        self.assertIn('1.2 An HTML Block', browser.css('.sl-block h3').text)
 
-        browser.login().visit(self.example_book.empty)
-        self.assertEquals(
-            ['3.1 Block in TOC', 'Block NOT in TOC'],
-            sorted(browser.css('.sl-block h3').text))
+        self.htmlblock.hide_from_toc = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn('An HTML Block', browser.css('.sl-block h3').text)

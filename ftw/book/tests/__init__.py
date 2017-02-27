@@ -25,6 +25,9 @@ class FunctionalTestCase(TestCase):
         self.default_layout_book = self.portal.restrictedTraverse(
             self.layer['default_layout_book_path'])
 
+        self.htmlblock = self.example_book.restrictedTraverse(
+            'introduction/an-html-block')
+
         self.listingblock = self.example_book.restrictedTraverse(
             'historical-background/china/important-documents')
 
