@@ -109,10 +109,12 @@ class BookLayer(PloneSandboxLayer):
 
         create(Builder('file')
                .within(listingblock)
+               .titled(u'Fr\xf6hliches Bild')
                .attach_file_containing(asset('image.jpg').bytes(), 'image.jpg'))
 
         create(Builder('file')
                .within(listingblock)
+               .titled(u'Einfache Webseite')
                .attach_file_containing(asset('lorem.html').bytes(), 'lorem.html'))
 
         create(Builder('chapter').within(book)

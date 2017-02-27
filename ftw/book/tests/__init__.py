@@ -1,12 +1,15 @@
+from contextlib import contextmanager
 from ftw.book.testing import BOOK_FUNCTIONAL_TESTING
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.pdfgenerator.interfaces import IPDFAssembler
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.traversing.interfaces import BeforeTraverseEvent
+import difflib
 import transaction
 
 
@@ -42,8 +45,40 @@ class FunctionalTestCase(TestCase):
             (context, self.request, self.get_latex_layout(export_context)),
             ILaTeXView)
 
+    def get_latex_code(self, obj):
+        got_latex = self.get_latex_view_for(obj).render().strip()
+        return got_latex.replace(IUUID(obj), 'XBlockUUIDX')
+
     def create_dummy(self, **kw):
         return Dummy(**kw)
+
+    def assert_latex_code(self, obj, expected_latex_code):
+        self.maxDiff = None
+        self.assertMultiLineEqual(expected_latex_code.strip(),
+                                  self.get_latex_code(obj))
+
+    @contextmanager
+    def assert_latex_diff(self, obj, expected_diff):
+        latex_before = self.get_latex_code(obj)
+        yield
+        latex_after = self.get_latex_code(obj)
+        got_diff = '\n'.join(difflib.unified_diff(
+            latex_before.splitlines(),
+            latex_after.splitlines(),
+            fromfile='before.tex',
+            tofile='after.tex',
+            lineterm='')).strip()
+        expected_diff = '\n'.join([line or ' ' for line
+                                   in expected_diff.strip().split('\n')])
+
+        if got_diff != expected_diff:
+            raise AssertionError(
+                ('Unexpected diff.\n'
+                 'EXPECTED:\n{}\n\n'
+                 'GOT:\n{}\n\n'
+                 'Full LaTeX after the change:\n{}').format(expected_diff,
+                                                            got_diff,
+                                                            latex_after))
 
 
 class Dummy(object):
