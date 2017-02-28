@@ -20,9 +20,9 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
 \hline
 \multicolumn{1}{p{0.44\tablewidth}}{\textbf{Type}} & \multicolumn{1}{p{0.44\tablewidth}}{\textbf{Title}} & \multicolumn{1}{p{0.12\tablewidth}}{\textbf{modified}} \\
 \hline
-\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Einfache Webseite} & \multicolumn{1}{p{0.12\tablewidth}}{27.02.2017} \\
+\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Einfache Webseite} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
 \hline
-\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Fröhliches Bild} & \multicolumn{1}{p{0.12\tablewidth}}{27.02.2017} \\
+\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Fröhliches Bild} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
 \hline
 \end{tabular}\\
 \vspace{4pt}

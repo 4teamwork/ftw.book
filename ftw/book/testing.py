@@ -1,4 +1,5 @@
 from collective.transmogrifier import transmogrifier
+from datetime import datetime
 from ftw.book.tests.builders import asset
 from ftw.builder import Builder
 from ftw.builder import create
@@ -6,6 +7,7 @@ from ftw.builder import session
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
+from ftw.testing import freeze
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -57,10 +59,11 @@ class BookLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
-        self['example_book_path'] = '/'.join(
-            self.create_example_book().getPhysicalPath())
-        self['default_layout_book_path'] = '/'.join(
-            self.create_default_layout_book().getPhysicalPath())
+        with freeze(datetime(2016, 10, 31, 9, 52, 34)):
+            self['example_book_path'] = '/'.join(
+                self.create_example_book().getPhysicalPath())
+            self['default_layout_book_path'] = '/'.join(
+                self.create_default_layout_book().getPhysicalPath())
 
     def create_example_book(self):
         book = create(Builder('book').titled(u'The Example Book'))
