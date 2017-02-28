@@ -31,6 +31,10 @@ class FunctionalTestCase(TestCase):
             'historical-background/china/important-documents')
         self.table = self.example_book.unrestrictedTraverse(
             'historical-background/china/population')
+        self.textblock = self.example_book.unrestrictedTraverse(
+            'historical-background/china/first-things-first')
+        self.textblock2 = self.example_book.unrestrictedTraverse(
+            'introduction/management-summary')
 
     def grant(self, *roles):
         setRoles(self.portal, TEST_USER_ID, list(roles))

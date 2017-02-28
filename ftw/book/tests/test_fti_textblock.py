@@ -1,6 +1,4 @@
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 import transaction
@@ -30,38 +28,29 @@ class TestTextBlock(FunctionalTestCase):
     @browsing
     def test_showing_block_title(self, browser):
         self.grant('Manager')
-        block = create(Builder('book textblock')
-                       .titled('The Textblock')
-                       .having(show_title=True)
-                       .within(self.example_book.empty))
 
-        browser.login().visit(self.example_book.empty)
-        self.assertEquals(
-            ['3.1 The Textblock'],
-            browser.css('.sl-block h3').text)
+        title = '2.1.1 First things first'
+        self.textblock.show_title = False
+        transaction.commit()
+        browser.login().visit(self.textblock)
+        self.assertNotIn(title, browser.css('.sl-block h4').text)
 
-        block.show_title = False
+        self.textblock.show_title = True
         transaction.commit()
         browser.reload()
-        self.assertEquals(
-            [],
-            browser.css('.sl-block h3').text)
+        self.assertIn(title, browser.css('.sl-block h4').text)
 
     @browsing
     def test_hiding_title_from_table_of_contents_removes_prefix(self, browser):
         self.grant('Manager')
-        block = create(Builder('book textblock')
-                       .titled('The Textblock')
-                       .within(self.example_book.empty))
+        self.textblock.show_title = True
 
-        browser.login().visit(self.example_book.empty)
-        self.assertEquals(
-            ['3.1 The Textblock'],
-            browser.css('.sl-block h3').text)
+        self.textblock.hide_from_toc = False
+        transaction.commit()
+        browser.login().visit(self.textblock)
+        self.assertIn('2.1.1 First things first', browser.css('.sl-block h4').text)
 
-        block.hide_from_toc = True
+        self.textblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
-        self.assertEquals(
-            ['The Textblock'],
-            browser.css('.sl-block h3').text)
+        self.assertIn('First things first', browser.css('.sl-block h4').text)

@@ -3,6 +3,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
+from plone.app.textfield.value import RichTextValue
 from Products.CMFCore.utils import getToolByName
 from unittest2 import skip
 import transaction
@@ -42,9 +43,9 @@ class TestKeywordsView(FunctionalTestCase):
     @browsing
     def test_keywords_tab_provides_select_with_keywords(self, browser):
         self.grant('Manager')
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .with_text(keywords_html('Foo', 'bar', 'Baz')))
+        self.textblock.text = RichTextValue(keywords_html('Foo', 'bar', 'Baz'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertItemsEqual(
@@ -54,9 +55,9 @@ class TestKeywordsView(FunctionalTestCase):
     @browsing
     def test_no_duplicate_keywords(self, browser):
         self.grant('Manager')
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .with_text(keywords_html('Foo', 'bar', 'Foo')))
+        self.textblock.text = RichTextValue(keywords_html('Foo', 'bar', 'Foo'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertItemsEqual(
@@ -65,14 +66,14 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_keywords_are_ordered_normalized_case_insensitive(self, browser):
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .with_text(keywords_html('foo',
-                                        'bar',
-                                        'Baz',
-                                        '\xc3\x84hnliches',
-                                        '\xc3\xb6rtliches',
-                                        '\xc3\x9cbliches')))
+        self.textblock.text = RichTextValue(keywords_html('foo',
+                                                          'bar',
+                                                          'Baz',
+                                                          '\xc3\x84hnliches',
+                                                          '\xc3\xb6rtliches',
+                                                          '\xc3\x9cbliches'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertEquals(
@@ -87,12 +88,11 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_load_results_by_keyword(self, browser):
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .with_text(keywords_html('Foo')))
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .with_text(keywords_html('Bar')))
+        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.reindexObject()
+        self.textblock2.text = RichTextValue(keywords_html('Bar'))
+        self.textblock2.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
@@ -151,52 +151,47 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_block_title_is_shown_when_activated(self, browser):
-        block = create(Builder('book textblock')
-                       .within(self.example_book.empty)
-                       .titled('The Block')
-                       .with_text(keywords_html('Foo'))
-                       .having(show_title=False))
+        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.show_title = False
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
                              view='tabbedview_view-keywords/load')
 
         # show_title is False => show chapter title
-        self.assertEquals(['3 Empty'],
+        self.assertEquals(['2.1 China'],
                           browser.css('.result .title').text)
 
-        block.show_title = True
-        block.reindexObject(idxs=['id'])  # reindex metadata
+        self.textblock.show_title = True
+        self.textblock.reindexObject(idxs=['id'])  # reindex metadata
         transaction.commit()
         browser.reload()
 
         # show_title is True => show block title
-        self.assertEquals(['3.1 The Block'],
+        self.assertEquals(['2.1.1 First things first'],
                           browser.css('.result .title').text)
 
     @browsing
     def test_title_is_linked_with_reader(self, browser):
-        block = create(Builder('book textblock')
-                       .within(self.example_book.empty)
-                       .titled('The Block')
-                       .with_text(keywords_html('Foo'))
-                       .having(show_title=True))
+        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
                              view='tabbedview_view-keywords/load')
 
         self.assertEquals(
-            '{}/@@book_reader_view'.format(block.absolute_url()),
-            browser.find('3.1 The Block').attrib['href'])
+            '{}/@@book_reader_view'.format(self.textblock.absolute_url()),
+            browser.find('2.1.1 First things first').attrib['href'])
 
     @browsing
     def test_keywords_are_shown_foreach_result(self, browser):
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .titled('The Block')
-               .with_text(keywords_html('Foo', 'Bar', 'Baz'))
-               .having(show_title=True))
+        self.textblock.text = RichTextValue(keywords_html('Foo', 'Bar', 'Baz'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
@@ -210,11 +205,9 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_no_duplicate_keywords_in_result(self, browser):
-        create(Builder('book textblock')
-               .within(self.example_book.empty)
-               .titled('The Block')
-               .with_text(keywords_html('Foo', 'Bar', 'Foo'))
-               .having(show_title=True))
+        self.textblock.text = RichTextValue(keywords_html('Foo', 'Bar', 'Foo'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
@@ -225,14 +218,9 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_result_location_is_shown(self, browser):
-        china = self.portal.restrictedTraverse(
-            'the-example-book/historical-background/china')
-
-        create(Builder('book textblock')
-               .within(china)
-               .titled('The Block')
-               .with_text(keywords_html('Foo'))
-               .having(show_title=True))
+        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.reindexObject()
+        transaction.commit()
 
         browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},

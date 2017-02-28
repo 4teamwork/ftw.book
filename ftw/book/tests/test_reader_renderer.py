@@ -1,9 +1,8 @@
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.layer import provide_book_layers
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 from ftw.testbrowser import browsing
+from plone.app.textfield.value import RichTextValue
 from plone.uuid.interfaces import IUUID
 from zope.component import getMultiAdapter
 
@@ -23,16 +22,12 @@ class TestBlockRenderer(FunctionalTestCase):
 
     @browsing
     def test_is_rendered(self, browser):
-        block = create(Builder('book textblock')
-                       .within(self.example_book.empty)
-                       .with_text('<p>Some Text</p>'))
-
         provide_book_layers(self.example_book, self.request)
         reader_view = self.example_book.empty.restrictedTraverse('@@book_reader_view')
-        renderer = getMultiAdapter((block, self.request, reader_view),
+        renderer = getMultiAdapter((self.textblock, self.request, reader_view),
                                    IBookReaderRenderer)
         browser.open_html(renderer.render())
-        self.assertEquals('Some Text', browser.css('p').first.text)
+        self.assertEquals('This is some text.', browser.css('p').first.text)
 
     @browsing
     def test_book_internal_links_are_marked_with_class(self, browser):
@@ -40,13 +35,11 @@ class TestBlockRenderer(FunctionalTestCase):
         html = '<p><a class="internal-link"' + \
             ' href="resolveuid/%s">' % IUUID(chapter) + \
             'The Chapter</a></p>'
-        block = create(Builder('book textblock')
-                       .within(chapter)
-                       .with_text(html))
+        self.textblock.text = RichTextValue(html)
 
         provide_book_layers(self.example_book, self.request)
         reader_view = self.example_book.restrictedTraverse('@@book_reader_view')
-        renderer = getMultiAdapter((block, self.request, reader_view),
+        renderer = getMultiAdapter((self.textblock, self.request, reader_view),
                                    IBookReaderRenderer)
         browser.open_html(renderer.render())
 
