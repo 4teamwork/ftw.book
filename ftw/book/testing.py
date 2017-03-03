@@ -4,6 +4,7 @@ from ftw.book.tests.builders import asset
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.builder import session
+from ftw.builder import ticking_creator
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
@@ -59,75 +60,77 @@ class BookLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
-        with freeze(datetime(2016, 10, 31, 9, 52, 34)):
-            self['example_book_path'] = '/'.join(
-                self.create_example_book().getPhysicalPath())
-            self['default_layout_book_path'] = '/'.join(
-                self.create_default_layout_book().getPhysicalPath())
+        self['example_book_path'] = '/'.join(
+            self.create_example_book().getPhysicalPath())
+        self['default_layout_book_path'] = '/'.join(
+            self.create_default_layout_book().getPhysicalPath())
 
     def create_example_book(self):
-        book = create(Builder('book').titled(u'The Example Book'))
+        with freeze(datetime(2016, 10, 31, 9, 52, 34)) as clock:
+            create = ticking_creator(clock, hours=1)
 
-        introduction = create(Builder('chapter').within(book)
-                              .titled(u'Introduction'))
+            book = create(Builder('book').titled(u'The Example Book'))
 
-        create(Builder('book textblock').within(introduction)
-               .titled(u'Invisible Title')
-               .having(show_title=False))
+            introduction = create(Builder('chapter').within(book)
+                                  .titled(u'Introduction'))
 
-        create(Builder('book textblock').within(introduction)
-               .titled(u'Versioning')
-               .having(show_title=True,
-                       hide_from_toc=True))
+            create(Builder('book textblock').within(introduction)
+                   .titled(u'Invisible Title')
+                   .having(show_title=False))
 
-        create(Builder('book textblock').within(introduction)
-               .with_default_content()
-               .titled(u'Management Summary')
-               .having(show_title=True))
+            create(Builder('book textblock').within(introduction)
+                   .titled(u'Versioning')
+                   .having(show_title=True,
+                           hide_from_toc=True))
 
-        create(Builder('book htmlblock').within(introduction)
-               .titled('An HTML Block')
-               .having(show_title=False,
-                       content='<p>Some <b>bold</b> and <i>italic</i> text.'))
+            create(Builder('book textblock').within(introduction)
+                   .with_default_content()
+                   .titled(u'Management Summary')
+                   .having(show_title=True))
 
-        history = create(Builder('chapter').within(book)
-                         .titled(u'Historical Background'))
-        china = create(Builder('chapter').within(history)
-                       .titled(u'China'))
-        create(Builder('book textblock').within(china)
-               .titled(u'First things first')
-               .with_text(u'<p>This is <i>some</i> text.</p>')
-               .with_image(asset('image.jpg')))
+            create(Builder('book htmlblock').within(introduction)
+                   .titled('An HTML Block')
+                   .having(show_title=False,
+                           content='<p>Some <b>bold</b> and <i>italic</i> text.'))
 
-        create(Builder('table')
-               .titled(u'Population')
-               .with_table((('Ranking', 'City', 'Population'),
-                            ('1', 'Guangzhou', '44 mil <sup>1</sup>'),
-                            ('2', 'Shanghai', '35 mil'),
-                            ('3', 'Chongqing', '30 mil')))
-               .having(border_layout='grid',
-                       footnote_text=RichTextValue(
-                           u'<p><sup>1</sup> thats quite big</p>'))
-               .within(china))
+            history = create(Builder('chapter').within(book)
+                             .titled(u'Historical Background'))
+            china = create(Builder('chapter').within(history)
+                           .titled(u'China'))
+            create(Builder('book textblock').within(china)
+                   .titled(u'First things first')
+                   .with_text(u'<p>This is <i>some</i> text.</p>')
+                   .with_image(asset('image.jpg')))
 
-        listingblock = create(
-            Builder('book listingblock')
-            .titled(u'Important Documents')
-            .within(china))
+            create(Builder('table')
+                   .titled(u'Population')
+                   .with_table((('Ranking', 'City', 'Population'),
+                                ('1', 'Guangzhou', '44 mil <sup>1</sup>'),
+                                ('2', 'Shanghai', '35 mil'),
+                                ('3', 'Chongqing', '30 mil')))
+                   .having(border_layout='grid',
+                           footnote_text=RichTextValue(
+                               u'<p><sup>1</sup> thats quite big</p>'))
+                   .within(china))
 
-        create(Builder('file')
-               .within(listingblock)
-               .titled(u'Fr\xf6hliches Bild')
-               .attach_file_containing(asset('image.jpg').bytes(), 'image.jpg'))
+            listingblock = create(
+                Builder('book listingblock')
+                .titled(u'Important Documents')
+                .within(china))
 
-        create(Builder('file')
-               .within(listingblock)
-               .titled(u'Einfache Webseite')
-               .attach_file_containing(asset('lorem.html').bytes(), 'lorem.html'))
+            create(Builder('file')
+                   .within(listingblock)
+                   .titled(u'Fr\xf6hliches Bild')
+                   .attach_file_containing(asset('image.jpg').bytes(), 'image.jpg'))
 
-        create(Builder('chapter').within(book)
-               .titled(u'Empty')
-               .having(description=u'This chapter should be empty.'))
+            create(Builder('file')
+                   .within(listingblock)
+                   .titled(u'Einfache Webseite')
+                   .attach_file_containing(asset('lorem.html').bytes(), 'lorem.html'))
+
+            create(Builder('chapter').within(book)
+                   .titled(u'Empty')
+                   .having(description=u'This chapter should be empty.'))
 
         return book
 
