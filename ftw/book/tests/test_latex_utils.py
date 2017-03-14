@@ -1,25 +1,11 @@
-from ftw.book.interfaces import IBook
 from ftw.book.latex.utils import get_latex_heading
 from ftw.book.latex.utils import get_raw_image_data
 from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
-from ftw.pdfgenerator.interfaces import ILaTeXLayout
-from ftw.pdfgenerator.interfaces import IPDFAssembler
-from ftw.testing import MockTestCase
-from mocker import ANY
-from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.uuid.interfaces import IUUID
 from StringIO import StringIO
-from textwrap import dedent
-from unittest2 import skip
-from zope.app.component.hooks import setSite
-from zope.component import getGlobalSiteManager
-from zope.component import getMultiAdapter
-from zope.i18n.interfaces import IUserPreferredLanguages
-from zope.interface import alsoProvides
 import hashlib
 import os
 

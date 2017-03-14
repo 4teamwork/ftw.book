@@ -1,7 +1,5 @@
 from Acquisition import aq_parent
 from ftw.book.tests import FunctionalTestCase
-from ftw.builder import Builder
-from ftw.builder import create
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 import transaction
