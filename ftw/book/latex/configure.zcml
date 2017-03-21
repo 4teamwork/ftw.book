@@ -49,11 +49,6 @@
         />
 
     <adapter
-        factory="ftw.book.latex.image.ImageLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
-
-    <adapter
         factory="ftw.book.latex.link.LinkLaTeXView"
         provides="ftw.pdfgenerator.interfaces.ILaTeXView"
         />
