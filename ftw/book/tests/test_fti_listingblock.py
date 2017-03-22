@@ -32,7 +32,7 @@ class TestListingBlock(FunctionalTestCase):
 
     @browsing
     def test_showing_block_title(self, browser):
-        title = '2.1.3 Important Documents'
+        title = '2.1.2 Important Documents'
         selector = '.sl-block h4'
 
         self.grant('Manager')
@@ -48,7 +48,7 @@ class TestListingBlock(FunctionalTestCase):
     def test_hiding_title_from_table_of_contents_removes_prefix(self, browser):
         self.grant('Manager')
         browser.login().visit(aq_parent(self.listingblock))
-        self.assertIn('2.1.3 Important Documents',
+        self.assertIn('2.1.2 Important Documents',
                       browser.css('.sl-block h4').text)
 
         self.listingblock.hide_from_toc = True

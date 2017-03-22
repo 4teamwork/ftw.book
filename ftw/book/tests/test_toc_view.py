@@ -17,8 +17,7 @@ class TestTOCView(FunctionalTestCase):
                 '2 Historical Background',
                 '2.1 China',
                 '2.1.1 First things first',
-                '2.1.2 Population',
-                '2.1.3 Important Documents',
+                '2.1.2 Important Documents',
                 '3 Empty',
             ],
             [e.text for e in browser.css('#content-core .navTreeItem a')])
@@ -64,8 +63,7 @@ class TestTOCView(FunctionalTestCase):
                 '2 Historical Background',
                 '2.1 China',
                 '2.1.1 First things first',
-                '2.1.2 Population',
-                '2.1.3 Important Documents',
+                '2.1.2 Important Documents',
                 '3 Empty',
             ],
             [e.text for e in browser.css('#content-core .navTreeItem a')])
