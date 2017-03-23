@@ -31,6 +31,13 @@
       />
 
   <browser:page
+      for="ftw.book.contents.chapter.IChapterSchema"
+      name="simplelayout-view"
+      permission="zope2.View"
+      class=".simplelayout.ChapterSimplelayoutView"
+      />
+
+  <browser:page
       for="ftw.book.interfaces.IChapter"
       name="block_view"
       template="templates/chapter.pt"

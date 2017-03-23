@@ -1,5 +1,7 @@
 from ftw.book.interfaces import IChapter
+from ftw.simplelayout.browser.simplelayout import SimplelayoutView
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
@@ -17,3 +19,7 @@ class ChapterConfigAdapter(object):
 
     def default_page_layout(self):
         return {'default': [{"cols": [{"blocks": []}]}]}
+
+
+class ChapterSimplelayoutView(SimplelayoutView):
+    template = ViewPageTemplateFile('templates/chapter_simplelayout.pt')
