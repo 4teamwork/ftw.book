@@ -150,6 +150,7 @@ class TestDefaultBookLayout(MockTestCase):
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
         self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('tabulary.sty', data=ANY))
         self.expect(builder.add_file('sphinxftw.cls', data=ANY))
         self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
         self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
@@ -179,6 +180,7 @@ class TestDefaultBookLayout(MockTestCase):
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
         self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('tabulary.sty', data=ANY))
         self.expect(builder.add_file('sphinxftw.cls', data=ANY))
         self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
         self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
@@ -203,6 +205,7 @@ class TestDefaultBookLayout(MockTestCase):
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
         self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('tabulary.sty', data=ANY))
         self.expect(builder.add_file('sphinxftw.cls', data=ANY))
         self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
         self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
@@ -228,6 +231,7 @@ class TestDefaultBookLayout(MockTestCase):
 
         self.expect(builder.add_file('sphinx.sty', data=ANY))
         self.expect(builder.add_file('fncychap.sty', data=ANY))
+        self.expect(builder.add_file('tabulary.sty', data=ANY))
         self.expect(builder.add_file('sphinxftw.cls', data=ANY))
         self.expect(builder.add_file('sphinxhowto.cls', data=ANY))
         self.expect(builder.add_file('sphinxmanual.cls', data=ANY))
