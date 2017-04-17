@@ -1,7 +1,7 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from ftw.book.helpers import BookHelper
 from ftw.book.interfaces import IBook
+from ftw.book.toc import TableOfContents
 from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
 from ftw.pdfgenerator.templating import MakoTemplating
 from plone.app.layout.navigation.interfaces import INavigationRoot
@@ -67,7 +67,7 @@ def get_latex_heading(context, layout, toc=None):
     if toc is not None:
         is_numbered = toc
     else:
-        is_numbered = BookHelper().is_numbered(context)
+        is_numbered = TableOfContents().in_toc(context)
 
     # generate latex
     tocmark = ''

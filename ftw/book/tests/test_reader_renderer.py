@@ -63,5 +63,5 @@ class TestBlockRenderer(FunctionalTestCase):
             IBookReaderRenderer)
         browser.open_html(renderer.render())
 
-        link = browser.find('3 Empty')
+        link = browser.find('Empty')
         self.assertNotIn('book-internal', link.classes)

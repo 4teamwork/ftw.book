@@ -1,4 +1,5 @@
 from ftw.book.interfaces import IChapter
+from ftw.book.toc import TableOfContents
 from ftw.simplelayout.browser.simplelayout import SimplelayoutView
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -23,3 +24,9 @@ class ChapterConfigAdapter(object):
 
 class ChapterSimplelayoutView(SimplelayoutView):
     template = ViewPageTemplateFile('templates/chapter_simplelayout.pt')
+
+    def heading(self):
+        toc = TableOfContents()
+        return '\n'.join((
+            toc.prepend_html_headings(self.context),
+            toc.html_heading(self.context, classes=['documentFirstHeading'])))

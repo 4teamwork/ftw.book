@@ -3,10 +3,9 @@
       tal:omit-tag="python: 1"
       i18n:domain="ftw.simplelayout">
 
-    <tal:HEADING
-          tal:define="title_html view/title_html"
-          tal:condition="title_html"
-          tal:content="structure title_html" />
+    <tal:heading define="title view/block_title"
+                 condition="title"
+                 replace="structure title" />
 
     <div tal:replace="structure view/render_table" />
     <p tal:condition="python: view.can_add and not view.get_table_contents()"

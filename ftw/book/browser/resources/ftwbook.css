@@ -2,6 +2,64 @@ div#portal-column-one div.portletWrapper dl.portletGoToParent {
     margin-bottom:0em;
 }
 
+
+/* Add chapter prefixes / numbering */
+body {
+  counter-reset: chapter;
+  counter-reset: section;
+  counter-reset: subsection;
+  counter-reset: subsubsection;
+  counter-reset: paragraph;
+  counter-reset: subparagraph;
+}
+
+.toc2 {
+  counter-reset: section;
+  counter-increment: chapter;
+}
+.toc2:before {
+  content: counter(chapter) " ";
+}
+
+.toc3 {
+  counter-reset: subsection;
+  counter-increment: section;
+}
+.toc3:before {
+  content: counter(chapter) "." counter(section) " ";
+}
+
+.toc4 {
+  counter-reset: subsubsection;
+  counter-increment: subsection;
+}
+.toc4:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) " ";
+}
+
+.toc5 {
+  counter-reset: paragraph;
+  counter-increment: subsubsection;
+}
+.toc5:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+}
+
+.toc6 {
+  counter-reset: subparagraph;
+  counter-increment: paragraph;
+}
+.toc6:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) " ";
+}
+
+.toc7 {
+  counter-increment: subparagraph;
+}
+.toc7:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) "." counter(subparagraph) " ";
+}
+
 /* Disable simplelayout design menu on chapter, since we cannot
    create a PDF with multiple columns. */
 .portaltype-chapter #simplelayout-contentmenu-design {

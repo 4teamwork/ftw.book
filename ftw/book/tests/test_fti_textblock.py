@@ -1,6 +1,7 @@
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from operator import attrgetter
 import transaction
 
 
@@ -21,15 +22,15 @@ class TestTextBlock(FunctionalTestCase):
         self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
 
-        self.assertEquals(['3.1 The Text Block'],
-                          browser.css('.sl-block h3').text,
-                          'Expected block title to be visible.')
+        self.assertEquals(
+            u'<h3 class="toc3">The Text Block</h3>',
+            browser.css('.sl-block h3').first.outerHTML)
 
     @browsing
     def test_showing_block_title(self, browser):
         self.grant('Manager')
 
-        title = '2.1.1 First things first'
+        title = 'First things first'
         self.textblock.show_title = False
         transaction.commit()
         browser.login().visit(self.textblock)
@@ -48,9 +49,13 @@ class TestTextBlock(FunctionalTestCase):
         self.textblock.hide_from_toc = False
         transaction.commit()
         browser.login().visit(self.textblock)
-        self.assertIn('2.1.1 First things first', browser.css('.sl-block h4').text)
+        self.assertIn(
+            u'<h4 class="toc4">First things first</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
 
         self.textblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
-        self.assertIn('First things first', browser.css('.sl-block h4').text)
+        self.assertIn(
+            u'<h4 class="no-toc">First things first</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))

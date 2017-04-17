@@ -5,11 +5,8 @@
       i18n:domain="ftw.simplelayout">
 
   <metal:content-title fill-slot="content-title">
-    <metal:content-title define-macro="content-title"
-                         tal:condition="view/show_title">
-      <h1 class="documentFirstHeading"
-          tal:content="context/title">
-      </h1>
+    <metal:content-title define-macro="content-title">
+      <hX tal:replace="structure view/heading" />
     </metal:content-title>
   </metal:content-title>
 

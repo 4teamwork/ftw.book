@@ -2,6 +2,7 @@ from Acquisition import aq_parent
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from operator import attrgetter
 import transaction
 
 
@@ -26,13 +27,13 @@ class TestListingBlock(FunctionalTestCase):
         self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
 
-        self.assertEquals(['3.1 Recipes'],
-                          browser.css('.sl-block h3').text,
-                          'Expected block title to be visible.')
+        self.assertEquals(
+            u'<h3 class="toc3">Recipes</h3>',
+            browser.css('.sl-block h3').first.outerHTML)
 
     @browsing
     def test_showing_block_title(self, browser):
-        title = '2.1.2 Important Documents'
+        title = 'Important Documents'
         selector = '.sl-block h4'
 
         self.grant('Manager')
@@ -48,11 +49,13 @@ class TestListingBlock(FunctionalTestCase):
     def test_hiding_title_from_table_of_contents_removes_prefix(self, browser):
         self.grant('Manager')
         browser.login().visit(aq_parent(self.listingblock))
-        self.assertIn('2.1.2 Important Documents',
-                      browser.css('.sl-block h4').text)
+        self.assertIn(
+            u'<h4 class="toc4">Important Documents</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
 
         self.listingblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
-        self.assertIn('Important Documents',
-                      browser.css('.sl-block h4').text)
+        self.assertIn(
+            u'<h4 class="no-toc">Important Documents</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))

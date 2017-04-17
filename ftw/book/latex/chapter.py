@@ -1,6 +1,6 @@
-from ftw.book.helpers import BookHelper
 from ftw.book.interfaces import IChapter
 from ftw.book.latex import utils
+from ftw.book.toc import TableOfContents
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.view import RecursiveLaTeXView
 from zope.component import adapts
@@ -31,12 +31,11 @@ class ChapterLaTeXView(RecursiveLaTeXView):
             'subparagraph',
             )
 
-        helper = BookHelper()
-        heading_numbers = helper.get_chapter_level(self.context)
+        toc = TableOfContents()
+        heading_numbers = map(toc.index, toc.parent_chapters(self.context))
+        heading_numbers.append(toc.index(self.context) - 1)
+
         latex = []
-
-        heading_numbers[-1] -= 1
-
         for level, num in enumerate(heading_numbers):
             latex.append(r'\setcounter{%s}{%s}' % (
                     counters[level], num))

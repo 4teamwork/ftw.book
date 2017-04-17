@@ -1,19 +1,8 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.book import _
-from ftw.book.helpers import BookHelper
 from ftw.pdfgenerator.html2latex.subconverters.table import TableConverter
 from plone.app.layout.viewlets import ViewletBase
-from simplelayout.base import viewlets
 import re
-
-
-class SimpleLayoutListingViewlet(viewlets.SimpleLayoutListingViewlet):
-
-    render = ViewPageTemplateFile('listing.pt')
-    helper = BookHelper()
-
-    def get_valid_parent_h_tags(self):
-        return self.helper.generate_valid_hierarchy_h_tags(self.context)
 
 
 class TableValidationViewlet(ViewletBase):

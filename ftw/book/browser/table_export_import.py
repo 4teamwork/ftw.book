@@ -1,10 +1,10 @@
-import csv
 from Acquisition import aq_inner, aq_parent
-from StringIO import StringIO
+from ftw.book import _
+from ftw.book.toc import TableOfContents
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from ftw.book.helpers import BookHelper
-from ftw.book import _
+from StringIO import StringIO
+import csv
 
 
 class TableExportImport(BrowserView):
@@ -73,7 +73,7 @@ class TableExportImport(BrowserView):
             '%s.csv' % self.context.id,
             ]
         obj = aq_parent(aq_inner(self.context))
-        filename.insert(0, BookHelper().get_chapter_level_string(obj))
+        filename.insert(0, TableOfContents().number(obj))
         filename = '.'.join(filename)
         # set the request and send the file
         self.request.RESPONSE.setHeader('Content-disposition',

@@ -1,6 +1,7 @@
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from operator import attrgetter
 import transaction
 
 
@@ -24,9 +25,9 @@ class TestHTMLBlock(FunctionalTestCase):
         self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
 
-        self.assertEquals(['3.1 The HTML Block'],
-                          browser.css('.sl-block h3').text,
-                          'Expected block title to be visible.')
+        self.assertEquals(
+            u'<h3 class="toc3">The HTML Block</h3>',
+            browser.css('.sl-block h3').first.outerHTML)
 
         self.assertEquals(
             'Some <b>body</b> text',
@@ -36,7 +37,7 @@ class TestHTMLBlock(FunctionalTestCase):
     def test_hiding_block_title(self, browser):
         self.grant('Manager')
 
-        title = '1.2 An HTML Block'
+        title = 'An HTML Block'
         self.htmlblock.show_title = False
         transaction.commit()
         browser.login().visit(self.htmlblock)
@@ -55,9 +56,13 @@ class TestHTMLBlock(FunctionalTestCase):
         self.htmlblock.hide_from_toc = False
         transaction.commit()
         browser.login().visit(self.htmlblock)
-        self.assertIn('1.2 An HTML Block', browser.css('.sl-block h3').text)
+        self.assertIn(
+            u'<h3 class="toc3">An HTML Block</h3>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))
 
         self.htmlblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
-        self.assertIn('An HTML Block', browser.css('.sl-block h3').text)
+        self.assertIn(
+            u'<h3 class="no-toc">An HTML Block</h3>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))

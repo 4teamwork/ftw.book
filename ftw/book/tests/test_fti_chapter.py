@@ -1,6 +1,7 @@
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from operator import attrgetter
 
 
 class TestChapter(FunctionalTestCase):
@@ -14,7 +15,8 @@ class TestChapter(FunctionalTestCase):
         browser.fill({'Title': 'The Chapter'}).submit()
         self.assertEquals(self.example_book.absolute_url() + '/the-chapter/view',
                           browser.url)
-        self.assertEquals('The Chapter', browser.css('h1').first.text)
+        self.assertEquals(['The Chapter'],
+                          browser.css('.documentFirstHeading').text)
 
     @browsing
     def test_subchapter_is_rendered_as_block_in_parent(self, browser):
@@ -23,8 +25,10 @@ class TestChapter(FunctionalTestCase):
         subchapter = chapter.china
 
         browser.login().visit(chapter)
-        block, = browser.css('.simplelayout-block-wrapper')
-        self.assertEquals(['2.1 China'], block.css('h3').text)
+        self.assertIn(
+            u'<h3 class="toc3"><a href="{}">China</a></h3>'.format(
+                subchapter.absolute_url()),
+            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))
 
-        block.find('2.1 China').click()
+        browser.css('#content-core').first.find('China').click()
         self.assertEquals(subchapter, browser.context)
