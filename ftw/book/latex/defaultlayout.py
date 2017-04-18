@@ -56,7 +56,12 @@ class IDefaultBookLayout(Schema):
         default=0)
 
 
-@adapter(IDefaultBookLayout, Interface, IBuilder)
+class IDefaultBookLayoutEnabled(Interface):
+    """Marker interface for default book layout behavior.
+    """
+
+
+@adapter(IDefaultBookLayoutEnabled, Interface, IBuilder)
 class DefaultBookLayout(MakoLayoutBase):
 
     template_directories = ['default_layout_templates']

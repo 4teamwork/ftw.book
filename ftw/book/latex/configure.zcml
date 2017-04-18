@@ -16,6 +16,8 @@
     <plone:behavior
         title="Default layout"
         provides=".defaultlayout.IDefaultBookLayout"
+        marker=".defaultlayout.IDefaultBookLayoutEnabled"
+        factory="plone.behavior.AnnotationStorage"
         />
 
     <adapter

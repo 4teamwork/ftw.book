@@ -1,5 +1,7 @@
 from ftw.book.latex.defaultlayout import IDefaultBookLayout
 from ftw.book.tests import FunctionalTestCase
+from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import factoriesmenu
 from Products.CMFCore.utils import getToolByName
 import re
 
@@ -71,6 +73,15 @@ No content
 \end{document}
             '''.strip(),
             whitespace_clean_latex(layout.render_latex('No content')).strip())
+
+    @browsing
+    def test_layout_renders_with_defaults(self, browser):
+        self.grant('Manager')
+        browser.login().open()
+        factoriesmenu.add('Book')
+        browser.fill({'Title': 'The Book'}).submit()
+        layout = self.get_latex_layout(browser.context)
+        self.assertTrue(layout.render_latex('No content'))
 
     def test_index_title_translated_to_german(self):
         portal_languages = getToolByName(self.portal, 'portal_languages')
