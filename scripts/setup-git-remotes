@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+setup_remote () {
+    name=$1
+    url=$2
+
+    echo ""
+    echo "setup remote \"$name\" -> $url"
+    git remote rm $name 2> /dev/null
+    git remote add $name $url
+    git fetch $name
+}
+
+setup_remote "demo" "zope@ny.4teamwork.ch:/home/zope/ny.4teamwork.ch/22-plone-bookdemo.4teamwork.ch"

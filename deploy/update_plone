@@ -1,0 +1,469 @@
+#!/usr/bin/env python
+
+import argparse
+import ConfigParser
+import json
+import logging
+import os
+import re
+import shlex
+import socket
+import subprocess
+import sys
+
+
+SLACK_USERNAME = "deployment"
+
+CHANGED_FILES = []
+SITES = []
+LOG = logging.getLogger('update_plone')
+USER = os.environ.get('SSH_USER_NAME',
+                      os.environ.get('SSH_USER_EMAIL',
+                                     os.environ.get('USER', 'unknown user')))
+
+
+# Supervisorctrl does not tell whether something is a
+# program or an eventlistener; therefore we keep a list of known
+# eventlisteners.
+EVENTLISTENERS = (
+    'HaProxy',
+    'HttpOk1',
+    'HttpOk2',
+    'HttpOk3',
+    'HttpOk4',
+    'HttpOkpub',
+    'Memmon',
+)
+
+
+# Some programs and eventlisteners should be stopped while updating.
+# They are restarted if they were running before.
+ASSURE_STOPPED = (
+    'HttpOk1',
+    'HttpOk2',
+    'HttpOk3',
+    'HttpOk4',
+    'HttpOkpub',
+    'Memmon',
+    'instancepub',
+)
+
+
+def update_plone(oldrev, newrev, force=False):
+    slack_started(oldrev, newrev)
+    zero_downtime = is_zero_downtime_configured(newrev)
+    print 'UPDATE PLONE'
+    print '${0} -> ${1}'.format(oldrev, newrev)
+
+    CHANGED_FILES.extend(
+        run_bg('git diff {0} {1} --name-only'.format(oldrev, newrev))
+        .strip().splitlines())
+
+    update_sources()
+    print ''
+    print ''
+
+    buildout_required = (
+        force or
+        has_changed(r'^.*\.cfg$') or
+        has_changed(r'setup.py')
+    )
+    print 'buildout required:', bool(buildout_required)
+    print 'zero downtime:', zero_downtime
+    sys.stdout.flush()
+
+    maybe_start('maintenance')
+    maybe_stop('instance0')
+
+    start_after_update = filter(maybe_stop, ASSURE_STOPPED)
+
+    if buildout_required:
+        run_buildout()
+
+    maybe_restart('solr')
+    maybe_restart('tika-server')
+    maybe_restart('redis')
+
+    maybe_start('instance0')
+    proposed_upgrades = has_proposed_upgrades()
+    plone_upgrades = plone_upgrade_needed()
+    if proposed_upgrades or plone_upgrades:
+        if not zero_downtime:
+            stop_load_balanced_instances()
+
+        if plone_upgrades:
+            run_plone_upgrades()
+        if proposed_upgrades:
+            run_upgrades()
+
+        restart_load_balanced_instances()
+    else:
+        restart_load_balanced_instances()
+
+    update_supervisor_config()
+    recook_resources()
+    maybe_stop('instance0')
+
+    # update_supervisor_config did not update event listeners
+    # since "reread" does not list its changes.
+    # We refresh them if we are about to start them anyway.
+    map(maybe_refresh_settings,
+        list(set(EVENTLISTENERS) & set(start_after_update)))
+    map(maybe_start, start_after_update)
+
+    slack_finished(newrev)
+
+
+def run_bg(cmd, cwd=None, abort_on_error=True):
+    if isinstance(cmd, unicode):
+       cmd = cmd.encode('ascii','ignore')
+    proc = subprocess.Popen(shlex.split(cmd),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
+                            cwd=cwd)
+
+    stdout, stderr = proc.communicate()
+    if proc.poll() and abort_on_error:
+        print 'ERROR {0}'.format(cmd)
+        print stdout
+        print stderr
+        sys.stdout.flush()
+        slack_failed(cmd)
+        sys.exit(1)
+    return stdout
+
+
+def run_fg(cmd, abort_on_error=True):
+    LOG.info('> {0}'.format(cmd))
+    print ''
+    print '>', cmd
+    sys.stdout.flush()
+    if os.system(cmd):
+        if abort_on_error:
+            slack_failed(cmd)
+            sys.exit(1)
+        else:
+            return False
+    return True
+
+
+def has_changed(file_regex):
+    return filter(re.compile(file_regex).match, CHANGED_FILES)
+
+
+def update_sources():
+    if not os.path.isdir('src'):
+        return
+
+    for path in filter(os.path.isdir, map('src/'.__add__, os.listdir('src'))):
+        if not os.path.isdir(os.path.join(path, '.git')):
+            print ''
+            print 'WARNING: not a GIT checkout:', path
+            continue
+        oldrev = run_bg('git rev-parse HEAD', cwd=path).strip()
+        if not run_fg('(cd {0} && git pull)'.format(path), abort_on_error=False):
+            continue
+        newrev = run_bg('git rev-parse HEAD', cwd=path).strip()
+        CHANGED_FILES.extend(
+            map((path + os.sep).__add__,
+                run_bg('git diff {0} {1} --name-only'.format(oldrev, newrev),
+                       cwd=path).strip().splitlines()))
+        print path, oldrev, '=>', newrev
+        LOG.info('pulling {0}: {1} => {2}'.format(path, oldrev, newrev))
+
+
+def assure_supervisord_running():
+    try:
+        subprocess.check_call(shlex.split('bin/supervisorctl avail'),
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE)
+    except subprocess.CalledProcessError, exc:
+        if exc.returncode != 2:
+            raise
+        run_fg('bin/supervisord')
+
+
+def supervisor_status():
+    assure_supervisord_running()
+    return dict(map(lambda line: line.split()[:2],
+                    run_bg('bin/supervisorctl status').strip().splitlines()))
+
+
+def load_balanced_instances():
+    whitelist = (
+        'instance1', 'instance2', 'instance3', 'instance4', 'instance5',
+        'instance6', 'instance7', 'instance8', 'instance9')
+
+    for name, status in supervisor_status().items():
+        if name in whitelist:
+            yield name, status
+
+
+def stop_load_balanced_instances():
+    names = [name for (name, status) in load_balanced_instances()
+             if status != 'STOPPED' and name != 'instance0']
+    run_fg('bin/supervisorctl stop {0}'.format(' '.join(names)))
+
+
+def restart_load_balanced_instances():
+    for instance_name, status in load_balanced_instances():
+        if instance_name == 'instance0':
+            continue
+
+        if status != 'STOPPED':
+            run_fg('bin/supervisorctl stop {0}'.format(instance_name))
+        run_fg('bin/supervisorctl update {0}'.format(instance_name))
+        run_fg('bin/supervisorctl start {0}'.format(instance_name))
+
+
+def maybe_stop(name):
+    status = supervisor_status()
+    if name in status and status[name] != 'STOPPED':
+        return run_fg('bin/supervisorctl stop {0}'.format(name))
+    return False
+
+
+def maybe_start(name):
+    status = supervisor_status()
+    if name in status and status[name] != 'RUNNING':
+        run_fg('bin/supervisorctl update {0}'.format(name))
+
+    status = supervisor_status()
+    if name in status and status[name] not in ('RUNNING', 'STARTING'):
+        run_fg('bin/supervisorctl start {0}'.format(name))
+
+
+def maybe_restart(name):
+    status = supervisor_status()
+    if name in status:
+        run_fg('bin/supervisorctl restart {0}'.format(name))
+
+
+def maybe_refresh_settings(name):
+    # Event listeners cannot be updated by a reread / update,
+    # but they are updated when removing / readding.
+    status = supervisor_status()
+    if name not in status:
+        return
+
+    run_fg('bin/supervisorctl remove {0}'.format(name))
+    run_fg('bin/supervisorctl add {0}'.format(name))
+
+
+def run_buildout():
+    run_fg('bin/buildout')
+
+
+def run_upgrades():
+    for site in get_sites():
+        run_fg('bin/upgrade install -s %s --proposed' % site['path'])
+    return True
+
+
+def has_proposed_upgrades():
+    for site in get_sites():
+        command = './bin/upgrade list -s %s --upgrades --json' % site['path']
+        data = json.loads(run_bg(command))
+        if len(data) > 0:
+            print 'Proposed upgrades found.'
+            sys.stdout.flush()
+            return True
+
+    print 'Proposed upgrades: 0'
+    sys.stdout.flush()
+    return False
+
+
+def plone_upgrade_needed():
+    for site in get_sites():
+        command = './bin/upgrade plone_upgrade_needed -s %s' % site['path']
+        if json.loads(run_bg(command)):
+            print 'Plone upgrade needed.'
+            sys.stdout.flush()
+            return True
+
+    return False
+
+
+def run_plone_upgrades():
+    print 'Running Plone upgrades:'
+    for site in get_sites():
+        run_fg('bin/upgrade plone_upgrade -s %s' % site['path'])
+    return True
+
+
+def recook_resources():
+    for site in get_sites():
+        run_fg('bin/upgrade recook -s %s' % site['path'])
+
+
+def update_supervisor_config():
+    """
+    "./bin/supervisorctl reread" has output when the supervisor configuration
+    has changed, e.g.:
+    $ ./bin/supervisorctl reread
+    instance1: changed
+    redis: available
+
+    For updating the supervisor daemon with the new settings, use the "update"
+    action:
+    $ ./bin/supervisorctl update instance1
+    instance1: stopped
+    instance1: updated process group
+
+    As this does restart the programs, we do not want to do it for all programs
+    (not for zeo, for example) and we do not want to stop all programs at once.
+    We also do it at the end of the update as we might already have updated
+    programs earlier when restarting them.
+    """
+
+    blacklist = (
+        # Do not restart "zeo" automatically as it may result in
+        # an unexpected downtime.
+        'zeo',
+    )
+
+    print ''
+    print ''
+    print ''
+    updates = run_bg('bin/supervisorctl reread')
+    print 'Supervisor configuration reread: ', updates
+    LOG.info('Supervisor configuration reread: {0}'.format(updates))
+
+    if ':' not in updates:
+        # No config updates to processes
+        return
+
+    for line in updates.strip().splitlines():
+        program, state = line.strip().split(': ', 1)
+        if program in blacklist:
+            msg = ('Changes on program "{0}" are not automatically updated'
+                   ' because the program is blacklisted.'
+                   ' Manual action is necessary!').format(program)
+            LOG.warning(msg)
+            print '-' * 30
+            print 'WARNING:', msg
+            print '-' * 30
+            continue
+
+        print 'Updating {0} ({1})'.format(program, state)
+        run_fg('bin/supervisorctl update {0}'.format(program))
+
+
+def get_sites():
+    if not os.path.isfile('./bin/upgrade'):
+        return ()
+
+    if len(SITES) == 0:
+        SITES.extend(json.loads(run_bg('./bin/upgrade sites --json')))
+        if len(SITES) == 0:
+            print "ERROR: No site found."
+            sys.exit(1)
+
+        print 'Sites found:', len(SITES)
+
+    return SITES
+
+
+def setup_logging():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.FileHandler('var/log/deploy-plone.log')
+    handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s %(name)s (%(process)s): %(message)s'))
+    logger.addHandler(handler)
+
+
+def is_zero_downtime_configured(newrev):
+    truthy = ('y', 'yes', 't', 'true', 'on', '1')
+    # The zero downtime configuration must be in the buildout.cfg (may be a
+    # symlink) but cannot be in an "extends" since those are not followed!
+    parser = ConfigParser.SafeConfigParser()
+    parser.read('buildout.cfg')
+    option = ('buildout', 'deployment-zero-downtime')
+    if parser.has_option(*option):
+        if parser.get(*option).strip().lower() in truthy:
+            return True
+
+    # When using deploy/pull, we can activate the zero downtime strategy
+    # with an environment variable:
+    # ZERO_DOWNTIME=true
+    if os.environ.get('ZERO_DOWNTIME', '').strip().lower() in truthy:
+        return True
+
+    # Maybe there is a branch "zero-downtime".
+    # When there is one, and it contains our target rev, it save
+    # to update update in zero downtime mode.
+    branches_with_rev = map(
+        lambda line: re.sub('^\* ', '', line.strip()),
+        run_bg('git branch --contains {0}'.format(newrev)).splitlines())
+    return 'zero-downtime' in branches_with_rev
+
+
+def slack_started(oldrev, newrev):
+    if not os.path.isfile('bin/slacker'):
+        return
+
+    commits = run_bg('git --no-pager log --first-parent'
+                     ' --pretty="format:%m %h %s" {0}...{1}'
+                     .format(oldrev, newrev))
+    commits = map(str.strip, commits.strip().splitlines())
+    commits = [re.sub(r'^>', ':heavy_plus_sign:',
+                      re.sub(r'^<', ':x:', commit))
+               for commit in commits]
+    commits = '\n'.join(commits)
+
+    hostname = socket.gethostname()
+    deployment = os.path.basename(os.getcwd())
+    payload = {
+        'text': ':shipit: *{0}* started deploying `{1}` to `{2}` (at `{3}`)'.format(
+            USER, newrev[:7], deployment, hostname),
+        'username': SLACK_USERNAME,
+        'icon_emoji': ':robot_face:',
+        'attachments': [
+            {'text': commits.strip()}
+        ]
+    }
+    cmd ='bin/slacker -r -t "{0}"'.format(
+        json.dumps(payload).replace('"', '\\"').replace('\\\\"', '\\\\\\"'))
+    run_bg(cmd, abort_on_error=False)
+
+
+def slack_finished(newrev):
+    hostname = socket.gethostname()
+    deployment = os.path.basename(os.getcwd())
+    slack(':+1: Deployment finished: installed `{0}` to `{1}` (at `{2}`)'.format(
+        newrev[:7], deployment, hostname))
+
+
+def slack_failed(msg):
+    hostname = socket.gethostname()
+    deployment = os.path.basename(os.getcwd())
+    slack(':boom: Deployment failed: `{0}` to `{1}` (at `{2}`)'.format(
+        msg, deployment, hostname), icon=':rage:')
+
+
+def slack(message, icon=':robot_face:'):
+    if not os.path.isfile('bin/slacker'):
+        return
+
+    cmd = 'bin/slacker -t ":shipit: {0}" -u "{1}" -i "{2}"'.format(
+        message, SLACK_USERNAME, icon)
+    run_bg(cmd, abort_on_error=False)
+
+
+if __name__ == '__main__':
+    setup_logging()
+    LOG.info('"{0}" invoked by {1}.'.format(
+        ' '.join(sys.argv), USER))
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('oldrev', type=str)
+        parser.add_argument('newrev', type=str)
+        parser.add_argument('--force', action='store_true')
+        args = parser.parse_args()
+
+        update_plone(args.oldrev, args.newrev, force=args.force)
+    except Exception, exc:
+        slack_failed(str(exc))
+        raise
