@@ -5,6 +5,7 @@ Changelog
 3.5.4 (unreleased)
 ------------------
 
+- Fix: Make helper text appear [busykoala]
 - Drop Plone 4.2 support. [busykoala]
 
 
