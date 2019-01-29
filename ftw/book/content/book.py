@@ -85,11 +85,11 @@ BookSchema = (folder.ATFolderSchema.copy() +
                 widget=atapi.BooleanWidget(
                     label=_(u'book_label_use_index',
                             default=u'Embedd subject index'),
-                description=_(u'book_help_use_index',
-                              default=u'When enabled, a keyword index '
-                              'will be included in the PDF.'))),
+                    description=_(u'book_help_use_index',
+                                  default=u'When enabled, a keyword index '
+                                          'will be included in the PDF.'))),
 
-            )))
+              )))
 
 
 schemata.finalizeATCTSchema(BookSchema, folderish=True, moveDiscussion=False)
