@@ -1,14 +1,14 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="view/template/macros/main"
       tal:omit-tag="python: 1"
       i18n:domain="ftw.simplelayout">
 
+  <metal:TITLE fill-slot="title">
     <tal:heading define="title view/block_title"
                  condition="title"
                  replace="structure title" />
-
-    <div tal:replace="structure view/render_table" />
-    <p tal:condition="python: view.can_add and not view.get_table_contents()"
-       i18n:translate="">This block is empty.</p>
+  </metal:TITLE>
 
 </html>

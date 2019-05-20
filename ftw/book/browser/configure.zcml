@@ -57,7 +57,6 @@
   <browser:page
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
-      template="templates/htmlblock.pt"
       class=".blockview.HTMLBlockView"
       permission="zope2.View"
       layer="..interfaces.IWithinBookLayer"
@@ -68,6 +67,13 @@
       name="block_view"
       permission="zope2.View"
       class=".blockview.BookFileListingBlockView"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.IBookGalleryBlock"
+      name="block_view"
+      permission="zope2.View"
+      class=".blockview.BookGalleryBlockView"
       />
 
   <browser:page
