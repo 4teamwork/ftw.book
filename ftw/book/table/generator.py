@@ -232,6 +232,7 @@ class TableGenerator(object):
 
         html = html.replace('&#60;', '<')
         html = html.replace('&#62;', '>')
+        html = html.replace('&#34;', '"')
 
         try:
             doc = minidom.parseString('<data>%s</data>' % html)

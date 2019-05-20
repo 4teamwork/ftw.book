@@ -1,11 +1,11 @@
 from ftw.book.testing import BOOK_FUNCTIONAL_TESTING
 from ftw.book.tests.base import PDFDiffTestCase
-from unittest2 import skip
 import os
+import unittest2
 
 
 if not os.environ.get('SKIP_BOOK_EXPORTS', False):
-    @skip('XXX UPDATE ME')
+    @unittest2.skip('PDF tests are currently flaky.')
     class TestPDFExport(PDFDiffTestCase):
 
         layer = BOOK_FUNCTIONAL_TESTING
