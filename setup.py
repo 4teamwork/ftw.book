@@ -82,6 +82,7 @@ setup(name='ftw.book',
         'Products.statusmessages',
         'Zope2',
         'archetypes.schemaextender',
+        'collective.z3cform.datagridfield',
         'ftw.contentpage !=1.11.0, !=1.11.1',
         'ftw.htmlblock',
         'ftw.pdfgenerator>=1.4',
@@ -106,10 +107,6 @@ setup(name='ftw.book',
         'zope.interface',
         'zope.publisher',
         'zope.schema',
-
-        # See https://github.com/collective/collective.z3cform.datagridfield/issues/58
-        # Requires https://github.com/collective/collective.z3cform.datagridfield/pull/56
-        'collective.z3cform.datagridfield >= 2017-04-18-4teamwork',
         ],
 
       tests_require=tests_require,
