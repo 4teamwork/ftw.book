@@ -1,40 +1,35 @@
 <tal:level tal:define="level python:0">
-  <ul tal:define="item view/tree; children view/tree/children;">
-    <li class="navTreeItem visualNoMarker">
+  <ul tal:define="item view/tree;
+                  children view/tree/children"
+      class="book-index">
+    <li>
 
       <tal:level define="item_wf_state_class python: 'state-' + item['item'].review_state;">
 
-        <div tal:define="itemClass string:$item_wf_state_class;">
-
-          <a tal:attributes="href item/item/getURL;
-                             title item/item/Description;
-                             class string:$itemClass">
-            <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
-          </a>
-
-        </div>
+        <a tal:attributes="href item/item/getURL;
+                           title item/item/Description;
+                           class item_wf_state_class">
+          <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
+        </a>
 
       </tal:level>
-      <ul>
+      <ul class="level-1">
         <metal:main define-macro="nav_item">
           <tal:navitem tal:repeat="item children">
-            <li class="navTreeItem visualNoMarker">
+            <li>
 
               <tal:level define="item_wf_state_class python: 'state-' + item['item'].review_state;">
 
-                <div tal:define="itemClass string:$item_wf_state_class;">
-
-                  <a tal:attributes="href item/item/getURL;
-                                     title item/item/Description;
-                                     class string:$itemClass">
-                    <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
-                  </a>
-
-                </div>
+                <a tal:attributes="href item/item/getURL;
+                                   title item/item/Description;
+                                   class item_wf_state_class">
+                  <span tal:replace="python:item['toc_number'] +' '+item['item'].Title">Selected Item Title</span>
+                </a>
 
               </tal:level>
-              <ul tal:attributes="class python:'navTree navTreeLevel'+str(level)"
-                  tal:define="level item/depth; children item/children"
+              <ul tal:attributes="class string:level-${level}"
+                  tal:define="level item/depth;
+                              children item/children"
                   tal:condition="nocall:item/children">
                 <metal:recurse use-macro="here/index_view/template/macros/nav_item"/>
               </ul>

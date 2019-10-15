@@ -20,7 +20,7 @@ class TestTOCView(FunctionalTestCase):
                 '2.1.2 Important Documents',
                 '3 Empty',
             ],
-            [e.text for e in browser.css('#content-core .navTreeItem a')])
+            [e.text for e in browser.css('#content-core .book-index a')])
 
         # limit depth to 1 subchapter
         browser.open(self.example_book, view='edit')
@@ -33,7 +33,7 @@ class TestTOCView(FunctionalTestCase):
                 '2 Historical Background',
                 '3 Empty',
             ],
-            [e.text for e in browser.css('#content-core .navTreeItem a')])
+            [e.text for e in browser.css('#content-core .book-index a')])
 
         # limit depth to 2 subchapter
         browser.open(self.example_book, view='edit')
@@ -49,7 +49,7 @@ class TestTOCView(FunctionalTestCase):
                 '2.1 China',
                 '3 Empty',
             ],
-            [e.text for e in browser.css('#content-core .navTreeItem a')])
+            [e.text for e in browser.css('#content-core .book-index a')])
 
         # empty depth means no limit
         browser.open(self.example_book, view='edit')
@@ -66,4 +66,4 @@ class TestTOCView(FunctionalTestCase):
                 '2.1.2 Important Documents',
                 '3 Empty',
             ],
-            [e.text for e in browser.css('#content-core .navTreeItem a')])
+            [e.text for e in browser.css('#content-core .book-index a')])
