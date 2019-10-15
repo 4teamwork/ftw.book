@@ -138,7 +138,7 @@ class PDFDiffTestCase(TestCase):
             obj,
             'Could not find book object with path %s. IDs on portal %s' % (
                 self.book_object_path,
-                str(self.layer['portal'].objectIds())))
+                str(self.layer['portal'].contentIds())))
         return obj
 
     def _is_base_test(self):

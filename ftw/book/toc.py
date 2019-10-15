@@ -49,7 +49,8 @@ class TableOfContents(object):
 
         parents = filter(self.in_toc, aq_chain(aq_parent(context)))
         for parent in reversed(parents):
-            for child in filter(self.in_toc, parent.objectValues()):
+            # Use contentValues for implicit ftw.trash support.
+            for child in filter(self.in_toc, parent.contentValues()):
                 if child == context:
                     break
 
@@ -113,7 +114,8 @@ class TableOfContents(object):
             return None
 
         parent = aq_parent(aq_inner(context))
-        siblings = parent.objectValues()
+        # Use contentValues for implicit ftw.trash support.
+        siblings = parent.contentValues()
         contained_siblings = filter(self.in_toc, siblings)
         return contained_siblings.index(context) + 1
 
