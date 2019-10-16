@@ -5,14 +5,12 @@ from ftw.testing import MockTestCase
 from json import loads
 from mocker import ANY
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from unittest2 import skip
 from zope.component import provideAdapter
 from zope.interface import Interface
 from zope.traversing.adapters import DefaultTraversable
 from zope.traversing.interfaces import ITraversable
 
 
-@skip('XXX UPDATE ME')
 class TestReaderView(MockTestCase):
 
     def setUp(self):
@@ -239,7 +237,6 @@ class TestReaderView(MockTestCase):
         self.expect(chapter_brain.UID).result('2chapter2')
         self.set_parent(chapter, book)
 
-
         tree = self.create_tree_from_brains([
                 book_brain, chapter_brain])
 
@@ -435,7 +432,6 @@ class TestReaderView(MockTestCase):
         exc = cm.exception
         self.assertEqual(str(exc), 'Could not find book.')
 
-
     def test_render_block_does_not_fail_when_renderer_missing(self):
         brain = self.stub()
         obj = self.set_parent(self.stub(), None)
@@ -481,10 +477,11 @@ class TestReaderView(MockTestCase):
         for depth, title in enumerate(('Book', 'Chapter', 'SubChapter')):
             url += '/%s' % title.lower()
             brains.append(self.create_dummy(
-                    UID=title.lower() + '-uid',
-                    portal_type=depth == 0 and 'Book' or 'Chapter',
-                    Title=title,
-                    getURL=url))
+                UID=title.lower() + '-uid',
+                portal_type=depth == 0 and 'Book' or 'Chapter',
+                show_in_toc=True,
+                Title=title,
+                getURL=url))
 
         context = self.stub()
         self.expect(context.UID()).result('book-uid')
