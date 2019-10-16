@@ -1,5 +1,4 @@
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
-from ftw.book.layer import provide_book_layers
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
@@ -22,7 +21,6 @@ class TestBlockRenderer(FunctionalTestCase):
 
     @browsing
     def test_is_rendered(self, browser):
-        provide_book_layers(self.example_book, self.request)
         reader_view = self.example_book.empty.restrictedTraverse('@@book_reader_view')
         renderer = getMultiAdapter((self.textblock, self.request, reader_view),
                                    IBookReaderRenderer)
@@ -37,7 +35,6 @@ class TestBlockRenderer(FunctionalTestCase):
             'The Chapter</a></p>'
         self.textblock.text = RichTextValue(html)
 
-        provide_book_layers(self.example_book, self.request)
         reader_view = self.example_book.restrictedTraverse('@@book_reader_view')
         renderer = getMultiAdapter((self.textblock, self.request, reader_view),
                                    IBookReaderRenderer)
@@ -56,7 +53,6 @@ class TestBlockRenderer(FunctionalTestCase):
         # Theese links should not be changed to pointing to the reader view.
         # One example is the title of chapters.
 
-        provide_book_layers(self.example_book, self.request)
         reader_view = self.example_book.restrictedTraverse('@@book_reader_view')
         renderer = getMultiAdapter(
             (self.example_book.empty, self.request, reader_view),

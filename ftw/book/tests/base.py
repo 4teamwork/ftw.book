@@ -1,7 +1,5 @@
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.tests import export
 from ftw.pdfgenerator.config import DefaultConfig
-from ftw.pdfgenerator.utils import provide_request_layer
 from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
@@ -58,7 +56,6 @@ class PDFDiffTestCase(TestCase):
 
         request = self.layer['portal'].REQUEST
         mark_layer(None, Dummy(request=request))
-        provide_request_layer(request, IWithinBookLayer)
 
         # configure language to german, since the test book is german
         tool = getToolByName(self.layer['portal'], "portal_languages")
@@ -145,7 +142,6 @@ class PDFDiffTestCase(TestCase):
         """Detect that the class was not subclassed so we can skip the tests.
         """
         return type(self) == PDFDiffTestCase
-
 
     def test_book_export(self):
         if self._is_base_test() or not self.condition():

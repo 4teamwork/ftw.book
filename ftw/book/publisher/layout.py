@@ -3,7 +3,6 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 from archetypes.schemaextender.extender import CACHE_KEY
 from ftw.book.interfaces import IBook
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.publisher.core import getLogger
 from ftw.publisher.core.interfaces import IDataCollector
 from Products.CMFCore.interfaces import ISiteRoot
@@ -53,7 +52,7 @@ class BookLayoutRequestLayerCollector(object):
         if not book:
             return None
 
-        layers = [IWithinBookLayer]
+        layers = []
         layout_layer_name = getattr(book, 'latex_layout', '')
         if layout_layer_name:
             layers.append(resolve(layout_layer_name))

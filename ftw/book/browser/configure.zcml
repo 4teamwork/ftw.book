@@ -23,11 +23,17 @@
   <adapter factory=".simplelayout.ChapterConfigAdapter" />
 
   <browser:page
-      for="*"
+      for="ftw.book.interfaces.IBook"
       name="export_pdf"
       class=".export_pdf.ExportBookPDFView"
       permission="zope2.View"
-	    layer="..interfaces.IWithinBookLayer"
+      />
+
+  <browser:page
+      for="ftw.book.interfaces.IChapter"
+      name="export_pdf"
+      class=".export_pdf.ExportBookPDFView"
+      permission="zope2.View"
       />
 
   <browser:page
@@ -43,7 +49,6 @@
       template="templates/chapter.pt"
       class=".blockview.BookChapterView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -51,7 +56,6 @@
       name="block_view"
       class=".blockview.BookTextBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -59,7 +63,6 @@
       name="block_view"
       class=".blockview.HTMLBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -81,7 +84,6 @@
       name="block_view"
       template="templates/table.pt"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
@@ -96,7 +98,6 @@
       name="ftw.book.textblock.validation"
       class=".viewlets.viewlets.TableValidationViewlet"
       for="ftw.book.interfaces.IBookTextBlock"
-      layer="ftw.book.interfaces.IWithinBookLayer"
       manager="simplelayout.base.interfaces.ISimpleViewletProvider"
       permission="cmf.ModifyPortalContent"
       />

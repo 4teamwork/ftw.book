@@ -56,12 +56,6 @@ class IAddRemarkLayer(Interface):
     """
 
 
-class IWithinBookLayer(Interface):
-    """Request layer interface, automatically provided by request
-    when traversing over book.
-    """
-
-
 class IBookLayoutBehavior(Interface):
     """Mark a behavior as a book layout behavior so that it appears in
     the layout selection vocabulary and acts as instance behavior.

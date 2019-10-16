@@ -1,6 +1,5 @@
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import ILaTeXInjectionController
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import NO_PREFERRED_LAYOUT
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
@@ -28,7 +27,7 @@ class TestInjectionAwareConvertObject(MockTestCase):
         super(TestInjectionAwareConvertObject, self).setUp()
 
         context = self.create_dummy()
-        request = self.providing_stub(IWithinBookLayer)
+        request = self.create_dummy()
         builder = self.providing_stub(IBuilder)
 
         self.layout = BaseLayout(context, request, builder)
@@ -231,7 +230,7 @@ class TestLaTeXInjectionController(MockTestCase):
         super(TestLaTeXInjectionController, self).setUp()
 
         context = self.create_dummy()
-        self.request = self.providing_stub(IWithinBookLayer)
+        self.request = self.create_dummy()
         builder = self.create_dummy()
 
         self.layout = BaseLayout(context, self.request, builder)

@@ -1,4 +1,3 @@
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.testing import ZCML_LAYER
 from ftw.testing import MockTestCase
 from simplelayout.base.interfaces import ISimpleViewletProvider
@@ -17,8 +16,7 @@ class TestTableValidationViewlet(MockTestCase):
         context = self.providing_stub([IBookTextBlock])
         self.expect(context.getText()).result(text)
 
-        request = self.stub_request([IWithinBookLayer,
-                                     IUserPreferredLanguages])
+        request = self.stub_request([IUserPreferredLanguages])
         self.expect(request.getPreferredLanguages()).result('en')
 
         view = self.providing_stub(IBrowserView)

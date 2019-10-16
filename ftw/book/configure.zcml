@@ -71,18 +71,6 @@
              zope.lifecycleevent.interfaces.IObjectAddedEvent"
         handler=".subscribers.add_navigation_portlet" />
 
-    <adapter factory="ftw.book.layer.BookTraverse" />
-
-    <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
-    <adapter
-        name="ftw.book.latexcodeinjection"
-        factory=".latexinjection.LaTeXCodeInjectionExtender"
-        provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
-
-    <class class="Products.Archetypes.BaseObject.BaseObject">
-        <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
-    </class>
-
     <adapter name="show_in_toc" factory=".indexers.show_in_toc" />
 
 

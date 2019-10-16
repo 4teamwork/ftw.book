@@ -4,7 +4,6 @@ mixing in the additional preLatexCode and postLatexCode.
 
 from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
 from ftw.book.interfaces import ILaTeXInjectionController
-from ftw.book.interfaces import IWithinBookLayer
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
@@ -17,7 +16,7 @@ from zope.interface import implements
 
 
 class LaTeXInjectionController(object):
-    adapts(ILaTeXLayout, IWithinBookLayer)
+    adapts(ILaTeXLayout, Interface)
     implements(ILaTeXInjectionController)
 
     ANNOTATION_KEY = 'latex-injection-controller'
@@ -123,7 +122,7 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     ILaTeXCodeInjectionEnabled and within a book.
     """
 
-    adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
+    adapts(ILaTeXCodeInjectionEnabled, Interface, Interface)
 
     def render(self):
         latex = []
@@ -160,7 +159,7 @@ class PostInjectionLaTeXView(InjectionLaTeXViewBase):
     ILaTeXCodeInjectionEnabled and within a book.
     """
 
-    adapts(ILaTeXCodeInjectionEnabled, IWithinBookLayer, Interface)
+    adapts(ILaTeXCodeInjectionEnabled, Interface, Interface)
 
     def render(self):
         latex = []
