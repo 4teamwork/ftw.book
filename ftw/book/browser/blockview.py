@@ -1,7 +1,6 @@
 from ftw.book.toc import TableOfContents
 from ftw.htmlblock.browser.htmlblock import HtmlBlockView
 from ftw.simplelayout.contenttypes.browser.filelistingblock import FileListingBlockView
-from ftw.simplelayout.contenttypes.browser.galleryblock import GalleryBlockView
 from ftw.simplelayout.contenttypes.browser.textblock import TextBlockView
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -30,10 +29,6 @@ class BookTextBlockView(BookBlockMixin, TextBlockView):
 
 
 class BookFileListingBlockView(BookBlockMixin, FileListingBlockView):
-    pass
-
-
-class BookGalleryBlockView(BookBlockMixin, GalleryBlockView):
     pass
 
 

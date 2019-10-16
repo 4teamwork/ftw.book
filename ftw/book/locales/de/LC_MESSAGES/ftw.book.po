@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2017-01-25 12:23+0000\n"
+"POT-Creation-Date: 2019-10-16 08:41+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -88,7 +88,7 @@ msgstr "Leseansicht verlassen"
 msgid "Column ${num}"
 msgstr "Spalte ${num}"
 
-#: ./ftw/book/latex/defaultlayout.py:41
+#: ./ftw/book/latex/configure.zcml:21
 msgid "Default layout"
 msgstr "Standardlayout"
 
@@ -107,10 +107,6 @@ msgstr "Dateiauflistung"
 #: ./ftw/book/contents/table.py:108
 msgid "Format"
 msgstr "Format"
-
-#: ./ftw/book/profiles/default/types/ftw.book.GalleryBlock.xml
-msgid "GalleryBlock"
-msgstr "Bildergalerie"
 
 #: ./ftw/book/content/table.py:290
 #: ./ftw/book/contents/table.py:33
@@ -181,7 +177,6 @@ msgid "The file does not seem to belong to this table."
 msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
 
 #: ./ftw/book/browser/templates/table.pt:14
-#: ./ftw/book/browser/templates/table_content.pt:12
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr "Die Tabelle hat noch keinen Inhalt. Definieren Sie den Inhalt, indem Sie die Tabelle bearbeiten."
 
@@ -208,12 +203,12 @@ msgid "automatically"
 msgstr "Automatisch"
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:89
+#: ./ftw/book/latex/defaultlayout.py:43
 msgid "book_help_titlepage_logo"
 msgstr "Laden Sie ein Bild oder PDF hoch, welches auf der Titelseite im PDF eingebettet wird."
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:102
+#: ./ftw/book/latex/defaultlayout.py:51
 msgid "book_help_titlepage_logo_width"
 msgstr "Wenn Sie ein Logo für die Titelseite benutze, definieren Sie hier die gewünschte Breite in Prozent der Inhaltsbreite."
 
@@ -240,12 +235,12 @@ msgid "book_help_use_toc"
 msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:66
+#: ./ftw/book/latex/defaultlayout.py:32
 msgid "book_label_author"
 msgstr "Autor"
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:78
+#: ./ftw/book/latex/defaultlayout.py:37
 msgid "book_label_author_address"
 msgstr "Adresse des Autors"
 
@@ -256,17 +251,17 @@ msgid "book_label_layout"
 msgstr "Layout"
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:58
+#: ./ftw/book/latex/defaultlayout.py:27
 msgid "book_label_release"
 msgstr "Version"
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:87
+#: ./ftw/book/latex/defaultlayout.py:42
 msgid "book_label_titlepage_logo"
 msgstr "Logo Titelseite"
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:100
+#: ./ftw/book/latex/defaultlayout.py:49
 msgid "book_label_titlepage_logo_width"
 msgstr "Breite Logo Titelseite (%)"
 
@@ -357,7 +352,7 @@ msgid "info_table_export"
 msgstr "Die Tabellendaten können als CSV-Datei exportiert werden. Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder verändert wird, ansonsten kann der Import nicht mehr funktionieren."
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/behaviors/toc.py:19
+#: ./ftw/book/behaviors/toc.py:20
 #: ./ftw/book/latexinjection.py:195
 msgid "injection_help_hide_from_toc"
 msgstr "Wenn diese Option aktiviert ist, wird die Überschrift nicht im Inhaltsverzeichnis angezeigt und auch nicht nummeriert. Die Option ist nur relevant wenn \"Titel anzeigen\" aktiviert ist."
@@ -369,7 +364,7 @@ msgid "injection_help_preferred_column_layout"
 msgstr "Diese Option stellt das Layout auf ein- resp. zweispaltig um. Die Layout-Änderung gilt für diesen und alle darauffolgende Inhalte. Wird die Standard-Option \"Layout übernehmen\" angewählt, so wird keine Layout-Änderung gemacht."
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/behaviors/toc.py:17
+#: ./ftw/book/behaviors/toc.py:18
 #: ./ftw/book/latexinjection.py:193
 msgid "injection_label_hide_from_toc"
 msgstr "Von Inhaltsverzeichnis ausschliessen"
@@ -639,7 +634,7 @@ msgid "table_label_width"
 msgstr "Breite in %"
 
 #. Default: "Please specify the width of the table columns / cells."
-#: ./ftw/book/browser/viewlets/viewlets.py:56
+#: ./ftw/book/browser/viewlets/viewlets.py:45
 msgid "table_width_validation_warning"
 msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses Blockes."
 
@@ -649,7 +644,7 @@ msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
 
 #. Default: "Index"
-#: ./ftw/book/latex/defaultlayout.py:215
+#: ./ftw/book/latex/defaultlayout.py:144
 msgid "title_index"
 msgstr "Stichwortverzeichnis"
 

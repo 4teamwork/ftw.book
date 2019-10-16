@@ -70,13 +70,6 @@
       />
 
   <browser:page
-      for="ftw.book.interfaces.IBookGalleryBlock"
-      name="block_view"
-      permission="zope2.View"
-      class=".blockview.BookGalleryBlockView"
-      />
-
-  <browser:page
       for="ftw.book.interfaces.IRemark"
       name="block_view"
       template="templates/remark.pt"

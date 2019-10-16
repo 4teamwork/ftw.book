@@ -23,11 +23,6 @@
         />
 
     <permission
-        id="ftw.book.AddGalleryBlock"
-        title="ftw.book: Add Book Gallery Block"
-        />
-
-    <permission
         id="ftw.book.AddHtmlBlock"
         title="ftw.book: Add HTML Block"
         />

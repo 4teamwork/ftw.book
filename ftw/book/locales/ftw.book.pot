@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-25 12:23+0000\n"
+"POT-Creation-Date: 2019-10-16 08:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Column ${num}"
 msgstr ""
 
-#: ./ftw/book/latex/defaultlayout.py:41
+#: ./ftw/book/latex/configure.zcml:21
 msgid "Default layout"
 msgstr ""
 
@@ -106,10 +106,6 @@ msgstr ""
 
 #: ./ftw/book/contents/table.py:108
 msgid "Format"
-msgstr ""
-
-#: ./ftw/book/profiles/default/types/ftw.book.GalleryBlock.xml
-msgid "GalleryBlock"
 msgstr ""
 
 #: ./ftw/book/content/table.py:290
@@ -181,7 +177,6 @@ msgid "The file does not seem to belong to this table."
 msgstr ""
 
 #: ./ftw/book/browser/templates/table.pt:14
-#: ./ftw/book/browser/templates/table_content.pt:12
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr ""
 
@@ -208,12 +203,12 @@ msgid "automatically"
 msgstr ""
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:89
+#: ./ftw/book/latex/defaultlayout.py:43
 msgid "book_help_titlepage_logo"
 msgstr ""
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:102
+#: ./ftw/book/latex/defaultlayout.py:51
 msgid "book_help_titlepage_logo_width"
 msgstr ""
 
@@ -240,12 +235,12 @@ msgid "book_help_use_toc"
 msgstr ""
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:66
+#: ./ftw/book/latex/defaultlayout.py:32
 msgid "book_label_author"
 msgstr ""
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:78
+#: ./ftw/book/latex/defaultlayout.py:37
 msgid "book_label_author_address"
 msgstr ""
 
@@ -256,17 +251,17 @@ msgid "book_label_layout"
 msgstr ""
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:58
+#: ./ftw/book/latex/defaultlayout.py:27
 msgid "book_label_release"
 msgstr ""
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:87
+#: ./ftw/book/latex/defaultlayout.py:42
 msgid "book_label_titlepage_logo"
 msgstr ""
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:100
+#: ./ftw/book/latex/defaultlayout.py:49
 msgid "book_label_titlepage_logo_width"
 msgstr ""
 
@@ -357,7 +352,7 @@ msgid "info_table_export"
 msgstr ""
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/behaviors/toc.py:19
+#: ./ftw/book/behaviors/toc.py:20
 #: ./ftw/book/latexinjection.py:195
 msgid "injection_help_hide_from_toc"
 msgstr ""
@@ -369,7 +364,7 @@ msgid "injection_help_preferred_column_layout"
 msgstr ""
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/behaviors/toc.py:17
+#: ./ftw/book/behaviors/toc.py:18
 #: ./ftw/book/latexinjection.py:193
 msgid "injection_label_hide_from_toc"
 msgstr ""
@@ -639,7 +634,7 @@ msgid "table_label_width"
 msgstr ""
 
 #. Default: "Please specify the width of the table columns / cells."
-#: ./ftw/book/browser/viewlets/viewlets.py:56
+#: ./ftw/book/browser/viewlets/viewlets.py:45
 msgid "table_width_validation_warning"
 msgstr ""
 
@@ -649,7 +644,7 @@ msgid "title_import_export_tabledata"
 msgstr ""
 
 #. Default: "Index"
-#: ./ftw/book/latex/defaultlayout.py:215
+#: ./ftw/book/latex/defaultlayout.py:144
 msgid "title_index"
 msgstr ""
 

@@ -13,7 +13,6 @@
     <property name="allowed_content_types">
         <element value="ftw.book.Chapter"/>
         <element value="ftw.book.FileListingBlock" />
-        <element value="ftw.book.GalleryBlock" />
         <element value="ftw.book.HtmlBlock" />
         <element value="ftw.book.Table" />
         <element value="ftw.book.TextBlock"/>

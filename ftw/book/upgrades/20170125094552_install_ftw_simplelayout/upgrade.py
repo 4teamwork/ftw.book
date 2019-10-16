@@ -10,6 +10,4 @@ class InstallFtwSimplelayout(UpgradeStep):
         self.ensure_profile_installed('profile-ftw.htmlblock:default')
         self.ensure_profile_installed(
             'profile-collective.z3cform.datagridfield:default')
-        self.ensure_profile_installed('profile-collective.quickupload:default')
-        self.ensure_profile_installed('profile-ftw.colorbox:default')
         self.install_upgrade_profile()
