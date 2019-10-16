@@ -1,12 +1,22 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:theme="http://namespaces.zope.org/ftw.theming"
+    xmlns:onegov="http://namespaces.zope.org/plonetheme.onegov"
+    xmlns:theming="http://namespaces.zope.org/ftw.theming"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
-  <include package="ftw.theming" file="meta.zcml"/>
+  <configure zcml:condition="installed ftw.theming">
+    <include package="ftw.theming" file="meta.zcml"/>
+    <theming:scss
+        file="browser/resources/theming.scss"
+        profile="ftw.book:default"
+        slot="addon"
+        />
+  </configure>
 
-  <theme:resources profile="ftw.book:default" slot="addon">
-    <theme:scss file="browser/resources/theming.scss" />
-  </theme:resources>
+  <configure zcml:condition="installed plonetheme.onegov">
+    <include package="plonetheme.onegov" />
+    <onegov:add_scss path="browser/resources/onegov.scss" />
+  </configure>
 
 </configure>

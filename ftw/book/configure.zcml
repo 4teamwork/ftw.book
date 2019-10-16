@@ -15,6 +15,7 @@
   <i18n:registerTranslations directory="locales" />
 
   <include file="permissions.zcml" />
+  <include file="resources.zcml" />
   <include package=".latex" />
   <include package=".behaviors" />
   <include package=".browser" />
@@ -25,7 +26,6 @@
   <include package=".tinymce" />
 
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
-  <include zcml:condition="installed ftw.theming" file="resources.zcml" />
 
   <genericsetup:registerProfile
       name="default"

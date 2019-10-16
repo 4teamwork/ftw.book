@@ -2,7 +2,6 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    xmlns:theme="http://namespaces.zope.org/plonetheme.onegov"
     i18n_domain="ftw.book">
 
   <include package="plone.app.contentmenu" />
@@ -11,11 +10,6 @@
 
   <browser:resourceDirectory name="ftw.book-resources" directory="resources" />
   <browser:resourceDirectory name="ftw.book-select2" directory="select2-3.4.5" />
-
-  <configure zcml:condition="installed plonetheme.onegov">
-    <include package="plonetheme.onegov" />
-    <theme:add_scss path="book.scss" />
-  </configure>
 
   <adapter factory=".simplelayout.ChapterConfigAdapter" />
 
