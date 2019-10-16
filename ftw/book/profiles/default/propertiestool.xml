@@ -15,9 +15,6 @@
     <object name="site_properties" meta_type="Plone Property Sheet">
 
         <property name="types_not_searched" type="lines" purge="False">
-            <element value="Table"/>
-            <element value="HTMLBlock"/>
-            <element value="Remark"/>
             <element value="ftw.book.FileListingBlock"/>
             <element value="ftw.book.HtmlBlock"/>
             <element value="ftw.book.Table"/>

@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <rolemap>
     <permissions>
-        <!-- -*- extra stuff goes here -*- -->
+
         <permission name="ftw.book: Add Book" acquire="False">
             <role name="Manager" />
             <role name="Contributor" />
         </permission>
 
         <permission name="ftw.book: Add Chapter" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Book File Listing Block" acquire="False">
             <role name="Manager" />
             <role name="Contributor" />
         </permission>
@@ -23,6 +28,11 @@
         </permission>
 
         <permission name="ftw.book: Add Table" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Book Text Block" acquire="False">
             <role name="Manager" />
             <role name="Contributor" />
         </permission>

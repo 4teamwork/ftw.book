@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
     <dependencies>
-        <dependency>profile-Products.DataGridField:default</dependency>
         <dependency>profile-ftw.simplelayout:lib</dependency>
         <dependency>profile-ftw.htmlblock:default</dependency>
         <dependency>profile-collective.z3cform.datagridfield:default</dependency>

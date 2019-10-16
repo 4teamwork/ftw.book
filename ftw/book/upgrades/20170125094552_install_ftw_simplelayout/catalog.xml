@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+  <column remove="True" value="hideFromTOC" />
+  <column value="show_in_toc" />
+
+</object>

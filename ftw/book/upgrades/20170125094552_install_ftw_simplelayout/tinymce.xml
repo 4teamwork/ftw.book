@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<object>
+
+  <resourcetypes purge="False">
+
+    <containsobjects purge="False">
+      <element remove="True" value="Chapter"/>
+      <element value="ftw.book.Book"/>
+      <element value="ftw.book.Chapter"/>
+    </containsobjects>
+
+    <linkable purge="False">
+      <element remove="True" value="Chapter"/>
+      <element remove="True" value="BookTextBlock"/>
+      <element remove="True" value="HTMLBlock"/>
+      <element remove="True" value="Table"/>
+      <element value="ftw.book.Book"/>
+      <element value="ftw.book.Chapter"/>
+      <element value="ftw.book.TextBlock"/>
+      <element value="ftw.book.HtmlBlock"/>
+    </linkable>
+
+    <containsanchors purge="False">
+      <element remove="True" value="BookTextBlock"/>
+      <element remove="True" value="HTMLBlock"/>
+    </containsanchors>
+
+  </resourcetypes>
+
+</object>
