@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IRemark
 from ftw.contentpage.content import textblock
 from ftw.contentpage.content.schema import finalize
@@ -29,4 +28,4 @@ class Remark(textblock.TextBlock):
     schema = remark_schema
 
 
-atapi.registerType(Remark, PROJECTNAME)
+atapi.registerType(Remark, 'ftw.book')

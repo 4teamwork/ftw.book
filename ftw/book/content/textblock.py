@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IBookTextBlock
 from ftw.contentpage.content import textblock
 from zope.interface import implements
@@ -24,4 +23,4 @@ class BookTextBlock(textblock.TextBlock):
     schema = textblock_schema
 
 
-atapi.registerType(BookTextBlock, PROJECTNAME)
+atapi.registerType(BookTextBlock, 'ftw.book')

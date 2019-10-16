@@ -2,6 +2,8 @@
 <rolemap>
   <permissions>
 
+    <permission name="ftw.book: Add Remark" acquire="True" />
+
     <permission name="ftw.book: Add Book File Listing Block" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

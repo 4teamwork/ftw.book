@@ -2,7 +2,6 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from ftw.book import _
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IHTMLBlock
 from ftw.contentpage.content import textblock
 from ftw.contentpage.content.schema import finalize
@@ -42,4 +41,4 @@ class HTMLBlock(textblock.TextBlock):
     schema = htmlblock_schema
 
 
-atapi.registerType(HTMLBlock, PROJECTNAME)
+atapi.registerType(HTMLBlock, 'ftw.book')

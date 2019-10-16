@@ -8,7 +8,6 @@ except ImportError:
     # No multilingual support
     from Products.Archetypes import atapi
 from ftw.book import _
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IBook
 from zope.interface import implements
 from zope.schema.vocabulary import getVocabularyRegistry
@@ -115,4 +114,4 @@ class Book(folder.ATFolder):
         return False
 
 
-atapi.registerType(Book, PROJECTNAME)
+atapi.registerType(Book, 'ftw.book')

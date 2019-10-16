@@ -22,11 +22,6 @@
             <role name="Contributor" />
         </permission>
 
-        <permission name="ftw.book: Add Remark" acquire="False">
-            <role name="Manager" />
-            <role name="Contributor" />
-        </permission>
-
         <permission name="ftw.book: Add Table" acquire="False">
             <role name="Manager" />
             <role name="Contributor" />

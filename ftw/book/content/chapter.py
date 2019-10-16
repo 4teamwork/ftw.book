@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content import folder
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import IChapter
 from ftw.contentpage.content.schema import finalize
 from simplelayout.base.interfaces import ISimpleLayoutBlock
@@ -31,4 +30,4 @@ class Chapter(folder.ATFolder):
         return False
 
 
-registerType(Chapter, PROJECTNAME)
+registerType(Chapter, 'ftw.book')

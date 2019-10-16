@@ -4,7 +4,6 @@ from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
 from Products.Archetypes.public import DisplayList
 from ftw.book import _
-from ftw.book.config import PROJECTNAME
 from ftw.book.interfaces import ITable
 from ftw.book.table import generator
 from ftw.contentpage.content.schema import finalize
@@ -301,4 +300,4 @@ class Table(ATCTContent, HistoryAwareMixin):
                 ('fullColspan', _('Strech first line')),
                 ))
 
-atapi.registerType(Table, PROJECTNAME)
+atapi.registerType(Table, 'ftw.book')
