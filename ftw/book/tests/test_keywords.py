@@ -10,9 +10,9 @@ import transaction
 
 
 def keywords_html(*keywords):
-    return '<p>{}</p>'.format('\n'.join(
+    return RichTextValue('<p>{}</p>'.format('\n'.join(
         map(lambda word: '<span class="keyword" title="%s">%s</span>' % (
-            word, word), keywords)))
+            word, word), keywords))))
 
 
 def select2_javascripts():
@@ -43,7 +43,7 @@ class TestKeywordsView(FunctionalTestCase):
     @browsing
     def test_keywords_tab_provides_select_with_keywords(self, browser):
         self.grant('Manager')
-        self.textblock.text = RichTextValue(keywords_html('Foo', 'bar', 'Baz'))
+        self.textblock.text = keywords_html('Foo', 'bar', 'Baz')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -55,7 +55,7 @@ class TestKeywordsView(FunctionalTestCase):
     @browsing
     def test_no_duplicate_keywords(self, browser):
         self.grant('Manager')
-        self.textblock.text = RichTextValue(keywords_html('Foo', 'bar', 'Foo'))
+        self.textblock.text = keywords_html('Foo', 'bar', 'Foo')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -66,12 +66,12 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_keywords_are_ordered_normalized_case_insensitive(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('foo',
-                                                          'bar',
-                                                          'Baz',
-                                                          '\xc3\x84hnliches',
-                                                          '\xc3\xb6rtliches',
-                                                          '\xc3\x9cbliches'))
+        self.textblock.text = keywords_html('foo',
+                                            'bar',
+                                            'Baz',
+                                            '\xc3\x84hnliches',
+                                            '\xc3\xb6rtliches',
+                                            '\xc3\x9cbliches')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -88,9 +88,9 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_load_results_by_keyword(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.text = keywords_html('Foo')
         self.textblock.reindexObject()
-        self.textblock2.text = RichTextValue(keywords_html('Bar'))
+        self.textblock2.text = keywords_html('Bar')
         self.textblock2.reindexObject()
         transaction.commit()
 
@@ -151,7 +151,7 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_block_title_is_shown_when_activated(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.text = keywords_html('Foo')
         self.textblock.show_title = False
         self.textblock.reindexObject()
         transaction.commit()
@@ -175,7 +175,7 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_title_is_linked_with_reader(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.text = keywords_html('Foo')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -189,7 +189,7 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_keywords_are_shown_foreach_result(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo', 'Bar', 'Baz'))
+        self.textblock.text = keywords_html('Foo', 'Bar', 'Baz')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -205,7 +205,7 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_no_duplicate_keywords_in_result(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo', 'Bar', 'Foo'))
+        self.textblock.text = keywords_html('Foo', 'Bar', 'Foo')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -218,7 +218,7 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_result_location_is_shown(self, browser):
-        self.textblock.text = RichTextValue(keywords_html('Foo'))
+        self.textblock.text = keywords_html('Foo')
         self.textblock.reindexObject()
         transaction.commit()
 
@@ -274,14 +274,14 @@ class TestKeywordsView(FunctionalTestCase):
 
         create(Builder('book textblock').titled('First Block')
                .within(self.example_book.empty)
-               .with_text(keywords_html('Foo', 'Bar')))
+               .having(text=keywords_html('Foo', 'Bar')))
 
         second_book = create(Builder('book').titled(u'Second Book'))
         second_chapter = create(Builder('chapter').titled(u'Second chapter')
                                 .within(second_book))
         create(Builder('book textblock').titled(u'Second Block')
                .within(second_chapter)
-               .with_text(keywords_html('Bar', 'Baz')))
+               .having(text=keywords_html('Bar', 'Baz')))
 
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertItemsEqual(
