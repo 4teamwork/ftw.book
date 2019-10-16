@@ -42,7 +42,12 @@
     $('.book-reader > div').height(0);
     var content_div_minheight = $('#content').css('min-height');
     $('#content').css('min-height', '0');
-    var $last_element = $('.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last').first();
+    var last_element_selector = '.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last, #bottom-actions > *:not(.visualClear):last';
+    if($(last_element_selector).length === 0) {
+      throw 'Could not find last element of page with selector $("' + last_element_selector + '");';
+    }
+
+    var $last_element = $(last_element_selector).first();
     $last_element.css('min-height', '0');
     var content_height = $last_element.offset().top + $last_element.height();
     $last_element.css('min-height', null);
