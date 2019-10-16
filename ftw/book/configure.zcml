@@ -27,7 +27,6 @@
     <include package=".tinymce" />
 
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
-    <include zcml:condition="installed ftw.publisher.core" package=".publisher" />
     <include zcml:condition="installed ftw.theming" file="resources.zcml" />
 
     <include file="skins.zcml" />
