@@ -5,7 +5,6 @@ from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
 from Products.CMFCore.utils import getToolByName
-from unittest2 import skip
 import transaction
 
 
@@ -109,7 +108,6 @@ class TestKeywordsView(FunctionalTestCase):
         self.assertEquals('No results found.',
                           browser.css('.no-results').first.text)
 
-    @skip('XXX Fix me after reimplementing sorting.')
     @browsing
     def test_results_are_sorted_by_position_in_the_book(self, browser):
         one = create(Builder('chapter')
@@ -118,7 +116,7 @@ class TestKeywordsView(FunctionalTestCase):
 
         two = create(Builder('chapter')
                      .titled('Chapter Two')
-                     .within(self.book))
+                     .within(self.example_book))
 
         # Create blocks in reversed order for verifying that they are
         # actually sorted correctly.
@@ -127,26 +125,27 @@ class TestKeywordsView(FunctionalTestCase):
                .within(two)
                .titled('Block 2.2')
                .having(text=keywords_html('Foo'),
-                       showTitle=True))
+                       show_title=True))
 
         block = create(Builder('book textblock')
                        .within(two)
                        .titled('Block 2.1')
                        .having(text=keywords_html('Foo'),
-                               showTitle=True))
+                               show_title=True))
         two.moveObjectsByDelta([block.getId()], -1)
 
         create(Builder('book textblock')
                .within(one)
-               .having(text=keywords_html('Foo')))
+               .having(text=keywords_html('Foo'),
+                       show_title=False))
 
-        browser.login().open(self.book,
+        browser.login().open(self.example_book,
                              {'book_keywords': 'Foo'},
                              view='tabbedview_view-keywords/load')
 
-        self.assertEquals(['1 Chapter One',
-                           '2.1 Block 2.1',
-                           '2.2 Block 2.2'],
+        self.assertEquals(['4 Chapter One',
+                           '5.1 Block 2.1',
+                           '5.2 Block 2.2'],
                           browser.css('.result .title').text)
 
     @browsing
