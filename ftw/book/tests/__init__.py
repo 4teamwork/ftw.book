@@ -7,8 +7,6 @@ from plone.app.testing import TEST_USER_ID
 from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
-from zope.event import notify
-from zope.traversing.interfaces import BeforeTraverseEvent
 import difflib
 import transaction
 
@@ -19,7 +17,6 @@ class FunctionalTestCase(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         self.request = self.layer['request']
-        notify(BeforeTraverseEvent(self.portal, self.request))
         self.example_book = self.portal.restrictedTraverse(
             self.layer['example_book_path'])
         self.default_layout_book = self.portal.restrictedTraverse(
