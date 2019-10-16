@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-16 08:41+0000\n"
+"POT-Creation-Date: 2019-10-16 13:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,68 +11,67 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/book/content/table.py:161
+#: ./ftw/book/content/table.py:160
 #: ./ftw/book/contents/table.py:65
 msgid "${num} rows"
 msgstr ""
 
-#: ./ftw/book/content/table.py:283
+#: ./ftw/book/content/table.py:282
 #: ./ftw/book/contents/table.py:59
 msgid "10mm"
 msgstr ""
 
-#: ./ftw/book/content/table.py:295
+#: ./ftw/book/content/table.py:294
 #: ./ftw/book/contents/table.py:38
 msgid "10mm ind. + bold"
 msgstr ""
 
-#: ./ftw/book/content/table.py:297
+#: ./ftw/book/content/table.py:296
 #: ./ftw/book/contents/table.py:40
 msgid "10mm ind. + grey font"
 msgstr ""
 
-#: ./ftw/book/content/table.py:293
+#: ./ftw/book/content/table.py:292
 #: ./ftw/book/contents/table.py:36
 msgid "10mm indent"
 msgstr ""
 
-#: ./ftw/book/content/table.py:282
+#: ./ftw/book/content/table.py:281
 #: ./ftw/book/contents/table.py:58
 msgid "2mm"
 msgstr ""
 
-#: ./ftw/book/content/table.py:294
+#: ./ftw/book/content/table.py:293
 #: ./ftw/book/contents/table.py:37
 msgid "2mm ind. + bold"
 msgstr ""
 
-#: ./ftw/book/content/table.py:296
+#: ./ftw/book/content/table.py:295
 #: ./ftw/book/contents/table.py:39
 msgid "2mm ind. + grey font"
 msgstr ""
 
-#: ./ftw/book/content/table.py:292
+#: ./ftw/book/content/table.py:291
 #: ./ftw/book/contents/table.py:35
 msgid "2mm indent"
 msgstr ""
 
-#: ./ftw/book/content/table.py:289
+#: ./ftw/book/content/table.py:288
 #: ./ftw/book/contents/table.py:32
 msgid "Bold"
 msgstr ""
 
-#: ./ftw/book/profiles/default/types/Book.xml
 #: ./ftw/book/profiles/default/types/ftw.book.Book.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Book.xml
 msgid "Book"
 msgstr ""
 
-#: ./ftw/book/profiles/default/types/BookTextBlock.xml
 #: ./ftw/book/upgrades/profiles/3000/types/BookTextBlock.xml
 msgid "BookTextBlock"
 msgstr "Text Block"
 
-#: ./ftw/book/profiles/default/types/Chapter.xml
 #: ./ftw/book/profiles/default/types/ftw.book.Chapter.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Chapter.xml
 msgid "Chapter"
 msgstr ""
 
@@ -80,7 +79,7 @@ msgstr ""
 msgid "Close reader"
 msgstr ""
 
-#: ./ftw/book/content/table.py:57
+#: ./ftw/book/content/table.py:56
 #: ./ftw/book/contents/table.py:84
 msgid "Column ${num}"
 msgstr ""
@@ -98,6 +97,7 @@ msgid "Export"
 msgstr ""
 
 #: ./ftw/book/profiles/default/types/ftw.book.FileListingBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr "File listing block"
 
@@ -105,16 +105,13 @@ msgstr "File listing block"
 msgid "Format"
 msgstr ""
 
-#: ./ftw/book/content/table.py:290
+#: ./ftw/book/content/table.py:289
 #: ./ftw/book/contents/table.py:33
 msgid "Grey font"
 msgstr ""
 
-#: ./ftw/book/profiles/default/types/HTMLBlock.xml
-msgid "HTML Block"
-msgstr ""
-
 #: ./ftw/book/profiles/default/types/ftw.book.HtmlBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.HtmlBlock.xml
 msgid "HtmlBlock"
 msgstr "HTML block"
 
@@ -132,40 +129,33 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-#: ./ftw/book/content/table.py:288
+#: ./ftw/book/content/table.py:287
 #: ./ftw/book/contents/table.py:31
 msgid "Normal"
 msgstr ""
 
-#: ./ftw/book/profiles/default/actions.xml
-msgid "PDF"
-msgstr ""
-
-#: ./ftw/book/profiles/default/types/Remark.xml
-msgid "Remark"
-msgstr ""
-
-#: ./ftw/book/content/table.py:299
+#: ./ftw/book/content/table.py:298
 #: ./ftw/book/contents/table.py:42
 msgid "Row without line"
 msgstr ""
 
-#: ./ftw/book/content/table.py:300
+#: ./ftw/book/content/table.py:299
 #: ./ftw/book/contents/table.py:43
 msgid "Small font"
 msgstr ""
 
-#: ./ftw/book/content/table.py:301
+#: ./ftw/book/content/table.py:300
 #: ./ftw/book/contents/table.py:44
 msgid "Strech first line"
 msgstr ""
 
-#: ./ftw/book/profiles/default/types/Table.xml
 #: ./ftw/book/profiles/default/types/ftw.book.Table.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Table.xml
 msgid "Table"
 msgstr ""
 
 #: ./ftw/book/profiles/default/types/ftw.book.TextBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.TextBlock.xml
 msgid "TextBlock"
 msgstr ""
 
@@ -178,11 +168,10 @@ msgid "The table has no content yet. Edit the table block for adding content."
 msgstr ""
 
 #: ./ftw/book/behaviors/columnlayout.py:61
-#: ./ftw/book/latexinjection.py:180
 msgid "This option inserts a column break when two column layout is active."
 msgstr ""
 
-#: ./ftw/book/configure.zcml:55
+#: ./ftw/book/configure.zcml:52
 msgid "Uninstall ftw.book"
 msgstr ""
 
@@ -194,7 +183,7 @@ msgstr ""
 msgid "You didn't choose a file."
 msgstr ""
 
-#: ./ftw/book/content/table.py:273
+#: ./ftw/book/content/table.py:272
 #: ./ftw/book/contents/table.py:49
 msgid "automatically"
 msgstr ""
@@ -210,24 +199,24 @@ msgid "book_help_titlepage_logo_width"
 msgstr ""
 
 #. Default: "When enabled, a keyword index will be included in the PDF."
-#: ./ftw/book/content/book.py:88
+#: ./ftw/book/content/book.py:87
 #: ./ftw/book/contents/book.py:54
 msgid "book_help_use_index"
 msgstr ""
 
-#: ./ftw/book/content/book.py:78
+#: ./ftw/book/content/book.py:77
 msgid "book_help_use_loi"
 msgstr ""
 
-#: ./ftw/book/content/book.py:68
+#: ./ftw/book/content/book.py:67
 msgid "book_help_use_lot"
 msgstr ""
 
-#: ./ftw/book/content/book.py:48
+#: ./ftw/book/content/book.py:47
 msgid "book_help_use_titlepage"
 msgstr ""
 
-#: ./ftw/book/content/book.py:58
+#: ./ftw/book/content/book.py:57
 msgid "book_help_use_toc"
 msgstr ""
 
@@ -242,7 +231,7 @@ msgid "book_label_author_address"
 msgstr ""
 
 #. Default: "Layout"
-#: ./ftw/book/content/book.py:38
+#: ./ftw/book/content/book.py:37
 #: ./ftw/book/contents/book.py:31
 msgid "book_label_layout"
 msgstr ""
@@ -263,36 +252,36 @@ msgid "book_label_titlepage_logo_width"
 msgstr ""
 
 #. Default: "Embedd subject index"
-#: ./ftw/book/content/book.py:86
+#: ./ftw/book/content/book.py:85
 #: ./ftw/book/contents/book.py:53
 msgid "book_label_use_index"
 msgstr ""
 
 #. Default: "Embedd list of illustrations"
-#: ./ftw/book/content/book.py:76
+#: ./ftw/book/content/book.py:75
 #: ./ftw/book/contents/book.py:49
 msgid "book_label_use_loi"
 msgstr ""
 
 #. Default: "Embedd list of tables."
-#: ./ftw/book/content/book.py:66
+#: ./ftw/book/content/book.py:65
 #: ./ftw/book/contents/book.py:45
 msgid "book_label_use_lot"
 msgstr ""
 
 #. Default: "Embedd a title page"
-#: ./ftw/book/content/book.py:46
+#: ./ftw/book/content/book.py:45
 #: ./ftw/book/contents/book.py:37
 msgid "book_label_use_titlepage"
 msgstr ""
 
 #. Default: "Embedd table of contents"
-#: ./ftw/book/content/book.py:56
+#: ./ftw/book/content/book.py:55
 #: ./ftw/book/contents/book.py:41
 msgid "book_label_use_toc"
 msgstr ""
 
-#: ./ftw/book/content/table.py:276
+#: ./ftw/book/content/table.py:275
 #: ./ftw/book/contents/table.py:52
 msgid "center"
 msgstr ""
@@ -319,29 +308,19 @@ msgstr ""
 msgid "column_title"
 msgstr ""
 
-#. Default: "Add new row"
-#: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:91
-msgid "datagrid_add_button"
-msgstr ""
-
 #. Default: "When exporting the book as PDF the table will be pulled up if there is no content in the first cell. The aim is to place a preceding title at the same height as the first row of the table. For suppressing this behaviour enable this option."
-#: ./ftw/book/content/table.py:220
+#: ./ftw/book/content/table.py:219
 #: ./ftw/book/contents/table.py:245
 msgid "description_no_lifting"
 msgstr ""
 
-#: ./ftw/book/configure.zcml:41
+#: ./ftw/book/configure.zcml:38
 msgid "ftw.book"
 msgstr ""
 
-#: ./ftw/book/content/book.py:28
+#: ./ftw/book/content/book.py:27
 msgid "help_web_toc_depth"
 msgstr "How many chapters should be included before the toc tree stops. 0 means no limit. This has no effect on the PDF."
-
-#. Default: "Please activate the required columns under 'Layout' and and save the object."
-#: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:60
-msgid "info_actvate_columns_first"
-msgstr ""
 
 #. Default: "You can export the tabledata as CSV. Do not manipulate the first row of the exported table to grant the import."
 #: ./ftw/book/browser/templates/table_export_import.pt:21
@@ -350,72 +329,61 @@ msgstr ""
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
 #: ./ftw/book/behaviors/toc.py:20
-#: ./ftw/book/latexinjection.py:195
 msgid "injection_help_hide_from_toc"
 msgstr ""
 
 #. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
 #: ./ftw/book/behaviors/columnlayout.py:45
-#: ./ftw/book/latexinjection.py:125
 msgid "injection_help_preferred_column_layout"
 msgstr ""
 
 #. Default: "Hide from table of contents"
 #: ./ftw/book/behaviors/toc.py:18
-#: ./ftw/book/latexinjection.py:193
 msgid "injection_label_hide_from_toc"
 msgstr ""
 
 #. Default: "Insert page break after this content"
 #: ./ftw/book/behaviors/clearpage.py:32
-#: ./ftw/book/latexinjection.py:166
 msgid "injection_label_insert_clearpage_after_content"
 msgstr ""
 
 #. Default: "Insert page break before this content"
 #: ./ftw/book/behaviors/clearpage.py:24
-#: ./ftw/book/latexinjection.py:154
 msgid "injection_label_insert_clearpage_before_content"
 msgstr ""
 
 #. Default: "Insert column break before this content"
 #: ./ftw/book/behaviors/columnlayout.py:59
-#: ./ftw/book/latexinjection.py:178
 msgid "injection_label_insert_newpage_before_content"
 msgstr ""
 
 #. Default: "Use landscape"
 #: ./ftw/book/behaviors/landscape.py:23
-#: ./ftw/book/latexinjection.py:142
 msgid "injection_label_landscape"
 msgstr ""
 
 #. Default: "No preferred column layout"
 #: ./ftw/book/behaviors/columnlayout.py:19
-#: ./ftw/book/latexinjection.py:111
 msgid "injection_label_no_preferred_column_layout"
 msgstr ""
 
 #. Default: "One column layout"
 #: ./ftw/book/behaviors/columnlayout.py:22
-#: ./ftw/book/latexinjection.py:115
 msgid "injection_label_one_column_layout"
 msgstr ""
 
 #. Default: "Preferred layout"
 #: ./ftw/book/behaviors/columnlayout.py:43
-#: ./ftw/book/latexinjection.py:123
 msgid "injection_label_preferred_column_layout"
 msgstr ""
 
 #. Default: "Two column layout"
 #: ./ftw/book/behaviors/columnlayout.py:25
-#: ./ftw/book/latexinjection.py:119
 msgid "injection_label_two_column_layout"
 msgstr ""
 
 #. Default: "Border Layout"
-#: ./ftw/book/content/table.py:210
+#: ./ftw/book/content/table.py:209
 #: ./ftw/book/contents/table.py:238
 msgid "label_border_layout"
 msgstr ""
@@ -426,7 +394,7 @@ msgid "label_cols_to_import"
 msgstr ""
 
 #. Default: "Column properties"
-#: ./ftw/book/content/table.py:104
+#: ./ftw/book/content/table.py:103
 #: ./ftw/book/contents/table.py:211
 msgid "label_column_properties"
 msgstr ""
@@ -437,25 +405,25 @@ msgid "label_enforce_import"
 msgstr ""
 
 #. Default: "First column is a header column"
-#: ./ftw/book/content/table.py:188
+#: ./ftw/book/content/table.py:187
 #: ./ftw/book/contents/table.py:229
 msgid "label_first_column_is_header"
 msgstr ""
 
 #. Default: "Footer rows are bold"
-#: ./ftw/book/content/table.py:198
+#: ./ftw/book/content/table.py:197
 #: ./ftw/book/contents/table.py:234
 msgid "label_footer_is_bold"
 msgstr ""
 
 #. Default: "Amount of footer rows"
-#: ./ftw/book/content/table.py:178
+#: ./ftw/book/content/table.py:177
 #: ./ftw/book/contents/table.py:223
 msgid "label_footer_rows"
 msgstr ""
 
 #. Default: "Footnote Text"
-#: ./ftw/book/content/table.py:82
+#: ./ftw/book/content/table.py:81
 #: ./ftw/book/contents/table.py:186
 msgid "label_footnote_text"
 msgstr ""
@@ -466,13 +434,13 @@ msgid "label_gotoparent"
 msgstr ""
 
 #. Default: "Amount of header rows"
-#: ./ftw/book/content/table.py:164
+#: ./ftw/book/content/table.py:163
 #: ./ftw/book/contents/table.py:217
 msgid "label_header_rows"
 msgstr ""
 
 #. Default: "HTML"
-#: ./ftw/book/content/htmlblock.py:28
+#: ./ftw/book/content/htmlblock.py:27
 msgid "label_html"
 msgstr ""
 
@@ -482,19 +450,19 @@ msgid "label_modified_csv_file"
 msgstr ""
 
 #. Default: "No lifting"
-#: ./ftw/book/content/table.py:219
+#: ./ftw/book/content/table.py:218
 #: ./ftw/book/contents/table.py:244
 msgid "label_no_lifting"
 msgstr ""
 
 #. Default: "Show title"
-#: ./ftw/book/content/table.py:41
+#: ./ftw/book/content/table.py:40
 #: ./ftw/book/contents/table.py:174
 msgid "label_show_title"
 msgstr ""
 
 #. Default: "Table content"
-#: ./ftw/book/content/table.py:53
+#: ./ftw/book/content/table.py:52
 #: ./ftw/book/contents/table.py:180
 msgid "label_table_content"
 msgstr ""
@@ -505,7 +473,7 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "Table of contents depth"
-#: ./ftw/book/content/book.py:26
+#: ./ftw/book/content/book.py:25
 #: ./ftw/book/contents/book.py:27
 msgid "label_web_toc_depth"
 msgstr ""
@@ -515,7 +483,7 @@ msgstr ""
 msgid "latex_page_reference"
 msgstr ""
 
-#: ./ftw/book/content/table.py:274
+#: ./ftw/book/content/table.py:273
 #: ./ftw/book/contents/table.py:50
 msgid "left"
 msgstr ""
@@ -530,7 +498,7 @@ msgstr ""
 msgid "legend_import_table"
 msgstr ""
 
-#: ./ftw/book/content/table.py:281
+#: ./ftw/book/content/table.py:280
 #: ./ftw/book/contents/table.py:57
 msgid "no indent"
 msgstr ""
@@ -546,28 +514,24 @@ msgid "placeholder_keyword"
 msgstr "Keyword"
 
 #: ./ftw/book/behaviors/codeinjection.py:33
-#: ./ftw/book/latexinjection.py:102
 msgid "post_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code beneath content"
 #: ./ftw/book/behaviors/codeinjection.py:31
-#: ./ftw/book/latexinjection.py:100
 msgid "post_latex_code_label"
 msgstr ""
 
 #: ./ftw/book/behaviors/codeinjection.py:26
-#: ./ftw/book/latexinjection.py:89
 msgid "pre_latex_code_help"
 msgstr ""
 
 #. Default: "LaTeX code above content"
 #: ./ftw/book/behaviors/codeinjection.py:24
-#: ./ftw/book/latexinjection.py:87
 msgid "pre_latex_code_label"
 msgstr ""
 
-#: ./ftw/book/content/table.py:275
+#: ./ftw/book/content/table.py:274
 #: ./ftw/book/contents/table.py:51
 msgid "right"
 msgstr ""
@@ -578,54 +542,54 @@ msgid "select_file_to_import"
 msgstr ""
 
 #. Default: "Active"
-#: ./ftw/book/content/table.py:117
+#: ./ftw/book/content/table.py:116
 #: ./ftw/book/contents/table.py:124
 msgid "table_label_active"
 msgstr ""
 
 #. Default: "Alignment"
-#: ./ftw/book/content/table.py:121
+#: ./ftw/book/content/table.py:120
 #: ./ftw/book/contents/table.py:129
 msgid "table_label_alignment"
 msgstr ""
 
 #. Default: "Bold"
-#: ./ftw/book/content/table.py:125
+#: ./ftw/book/content/table.py:124
 #: ./ftw/book/contents/table.py:136
 msgid "table_label_bold"
 msgstr ""
 
 #. Default: "Column"
-#: ./ftw/book/content/table.py:113
+#: ./ftw/book/content/table.py:112
 msgid "table_label_column"
 msgstr ""
 
 #. Default: "Horizontal borders"
-#: ./ftw/book/content/table.py:28
+#: ./ftw/book/content/table.py:27
 #: ./ftw/book/contents/table.py:77
 msgid "table_label_fancy_listing"
 msgstr ""
 
 #. Default: "Grid Layout"
-#: ./ftw/book/content/table.py:26
+#: ./ftw/book/content/table.py:25
 #: ./ftw/book/contents/table.py:71
 msgid "table_label_gridLayout"
 msgstr ""
 
 #. Default: "Indent"
-#: ./ftw/book/content/table.py:129
+#: ./ftw/book/content/table.py:128
 #: ./ftw/book/contents/table.py:141
 msgid "table_label_indent"
 msgstr ""
 
 #. Default: "No borders"
-#: ./ftw/book/content/table.py:27
+#: ./ftw/book/content/table.py:26
 #: ./ftw/book/contents/table.py:74
 msgid "table_label_invisible"
 msgstr ""
 
 #. Default: "Width (%)"
-#: ./ftw/book/content/table.py:133
+#: ./ftw/book/content/table.py:132
 #: ./ftw/book/contents/table.py:147
 msgid "table_label_width"
 msgstr ""

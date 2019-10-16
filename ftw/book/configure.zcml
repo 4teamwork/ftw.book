@@ -29,8 +29,6 @@
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
     <include zcml:condition="installed ftw.theming" file="resources.zcml" />
 
-    <include file="skins.zcml" />
-
     <genericsetup:registerProfile
         name="default"
         title="ftw.book"
