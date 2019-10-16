@@ -95,9 +95,14 @@ class TableBuilder(DexterityBuilder):
         for index, column in enumerate(obj.column_properties):
             column['active'] = index < active_columns
 
-        obj.data = [dict([('column_%i' % num, value)
-                          for num, value in enumerate(row)])
-                    for row in table]
+        default_row = {'column_%i' % num: '' for num in range(len(obj.column_properties))}
+        data = []
+        for row in table:
+            row_data = default_row.copy()
+            row_data.update({'column_%i' % num: val for num, val in enumerate(row)})
+            data.append(row_data)
+        obj.data = data
+
 
 builder_registry.register('table', TableBuilder)
 

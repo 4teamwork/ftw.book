@@ -23,3 +23,11 @@ https://github.com/4teamwork/ftw.simplelayout/blob/master/ftw/simplelayout/brows
 body #plone-contentmenu-factories .contenttype-ftw-book-chapter {
   display: block !important;
 }
+
+
+a.book-sl-toolbar-icon-table-import-export {
+  background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-icon));
+  &:hover {
+    background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-sl-icon-hover));
+  }
+}

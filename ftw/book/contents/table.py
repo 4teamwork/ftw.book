@@ -1,9 +1,11 @@
+from collections import OrderedDict
 from collective.dexteritytextindexer import searchable
 from collective.z3cform.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield import DictRow
 from ftw.book import _
 from ftw.book.interfaces import ITable
 from ftw.book.table.generator import TableGenerator
+from ftw.simplelayout.browser.actions import DefaultActions
 from plone.app.textfield import RichText
 from plone.autoform.directives import mode
 from plone.autoform.directives import widget
@@ -11,6 +13,8 @@ from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives.form import fieldset
 from plone.directives.form import Schema
+from zope.component import adapter
+from zope.i18n import translate
 from zope.interface import implements
 from zope.interface import Interface
 from zope.interface import provider
@@ -265,6 +269,9 @@ class Table(Item):
     def getData(self):
         return self.data
 
+    def setData(self, data):
+        self.data = data
+
     def getColumnProperties(self):
         return self.column_properties
 
@@ -289,3 +296,18 @@ class Table(Item):
 
     def getNoLifting(self):
         return self.no_lifting
+
+
+@adapter(Interface, Interface)
+class TableBlockActions(DefaultActions):
+
+    def specific_actions(self):
+        return OrderedDict([
+            ('tableExportImport', {
+                'class': 'book-sl-toolbar-icon-table-import-export redirect',
+                'title': translate(_(u'label_table_export_import',
+                                     default=u'Table export / import'),
+                                   context=self.request),
+                'href': '/table_export_import'
+            }),
+        ])

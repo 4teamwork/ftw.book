@@ -11,6 +11,7 @@
         file="browser/resources/theming.scss"
         profile="ftw.book:default"
         slot="addon"
+        after="ftw.simplelayout:browser/resources/theming.toolbar-icons.scss"
         />
   </configure>
 

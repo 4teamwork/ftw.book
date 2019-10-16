@@ -16,13 +16,14 @@
 
   <include file="permissions.zcml" />
   <include file="resources.zcml" />
-  <include package=".latex" />
   <include package=".behaviors" />
   <include package=".browser" />
   <include package=".content" />
-  <include package=".portlets" />
-  <include package=".keyword" />
+  <include package=".contents" />
   <include package=".footnote" />
+  <include package=".keyword" />
+  <include package=".latex" />
+  <include package=".portlets" />
   <include package=".tinymce" />
 
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
