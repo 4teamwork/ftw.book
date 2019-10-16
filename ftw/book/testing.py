@@ -21,7 +21,7 @@ from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
 from zope.configuration import xmlconfig
-import ftw.contentpage.tests.builders
+import ftw.contentpage.tests.builders  # noqa
 
 
 def clear_transmogrifier_registry():
