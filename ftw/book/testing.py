@@ -60,6 +60,7 @@ class BookLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
+        applyProfile(portal, 'ftw.zipexport:default')
         self['example_book_path'] = '/'.join(
             self.create_example_book().getPhysicalPath())
         self['default_layout_book_path'] = '/'.join(
