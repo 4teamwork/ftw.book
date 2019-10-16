@@ -187,25 +187,25 @@ class ITableSchema(Schema):
         required=False,
         allowed_mime_types=('text/html',))
 
+    fieldset(
+        'layout',
+        label=_(u'Layout'),
+        fields=(
+            'column_properties',
+            'header_rows',
+            'footer_rows',
+            'first_column_is_header',
+            'footer_is_bold',
+            'border_layout',
+            'no_lifting',
+        ))
 
-    fieldset('layout',
-             label=_(u'Layout'),
-             fields=(
-                 'column_properties',
-                 'header_rows',
-                 'footer_rows',
-                 'first_column_is_header',
-                 'footer_is_bold',
-                 'border_layout',
-                 'no_lifting',
-             )
-    )
-
-    widget('column_properties', DataGridFieldFactory,
-           allow_insert=False,
-           allow_delete=False,
-           allow_reorder=False,
-           auto_append=False,
+    widget(
+        'column_properties', DataGridFieldFactory,
+        allow_insert=False,
+        allow_delete=False,
+        allow_reorder=False,
+        auto_append=False,
     )
     column_properties = List(
         title=_(u'label_column_properties', default=u'Column properties'),

@@ -1,11 +1,11 @@
 from ftw.book.interfaces import ITable
 from ftw.pdfgenerator.view import MakoLaTeXView
-from zope.component import adapts
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(ITable, Interface, Interface)
 class TableLaTeXView(MakoLaTeXView):
-    adapts(ITable, Interface, Interface)
 
     def render(self):
         latex = []

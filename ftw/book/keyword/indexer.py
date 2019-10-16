@@ -1,7 +1,7 @@
-from StringIO import StringIO
 from ftw.book.interfaces import IBookTextBlock
 from lxml.cssselect import CSSSelector
 from plone.indexer.decorator import indexer
+from StringIO import StringIO
 import lxml.html
 
 

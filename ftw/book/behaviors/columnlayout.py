@@ -30,13 +30,13 @@ PREFERRED_COLUMN_LAYOUT_VOCABULARY = SimpleVocabulary((
 @provider(IFormFieldProvider)
 class IChangeColumnLayout(Schema):
 
-    fieldset('latex',
-             label=_(u'LaTeX'),
-             fields=(
-                 'preferred_column_layout',
-                 'pre_latex_newpage',
-             )
-    )
+    fieldset(
+        'latex',
+        label=_(u'LaTeX'),
+        fields=(
+            'preferred_column_layout',
+            'pre_latex_newpage',
+        ))
 
     write_permission(preferred_column_layout=MODIFY_LATEX_INJECTION_PERMISSION)
     preferred_column_layout = Choice(
@@ -51,13 +51,11 @@ class IChangeColumnLayout(Schema):
             u'active layout is kept.'),
         required=False,
         default=NO_PREFERRED_LAYOUT,
-        vocabulary=PREFERRED_COLUMN_LAYOUT_VOCABULARY,
-    )
+        vocabulary=PREFERRED_COLUMN_LAYOUT_VOCABULARY)
 
     write_permission(pre_latex_newpage=MODIFY_LATEX_INJECTION_PERMISSION)
     pre_latex_newpage = Bool(
         title=_(u'injection_label_insert_newpage_before_content',
                 default=u'Insert column break before this content'),
         description=_(u'This option inserts a column break when '
-                      u'two column layout is active.'),
-    )
+                      u'two column layout is active.'))

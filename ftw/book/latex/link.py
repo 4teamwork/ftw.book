@@ -1,11 +1,11 @@
-from Products.ATContentTypes.interfaces.link import IATLink
 from ftw.pdfgenerator.view import MakoLaTeXView
-from zope.component import adapts
+from Products.ATContentTypes.interfaces.link import IATLink
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(IATLink, Interface, Interface)
 class LinkLaTeXView(MakoLaTeXView):
-    adapts(IATLink, Interface, Interface)
 
     def render(self):
         latex = []

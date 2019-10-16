@@ -4,15 +4,15 @@ from ftw.zipexport.interfaces import IZipRepresentation
 from ftw.zipexport.representations.archetypes import FolderZipRepresentation
 from Products.CMFPlone.utils import safe_unicode
 from StringIO import StringIO
-from zope.component import adapts
+from zope.component import adapter
 from zope.component import getMultiAdapter
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import Interface
 
 
+@implementer(IZipRepresentation)
+@adapter(IBook, Interface)
 class BookZipRepresentation(FolderZipRepresentation):
-    implements(IZipRepresentation)
-    adapts(IBook, Interface)
 
     def get_files(self, path_prefix=u"", recursive=True, toplevel=True):
         filename = '{0}.pdf'.format(self.context.getId())

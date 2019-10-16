@@ -1,12 +1,12 @@
 from ftw.book.interfaces import IBook
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.view import RecursiveLaTeXView
-from zope.component import adapts
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(IBook, Interface, ILaTeXLayout)
 class BookLaTeXView(RecursiveLaTeXView):
-    adapts(IBook, Interface, ILaTeXLayout)
 
     def render(self):
         return self.render_children()

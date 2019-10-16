@@ -3,12 +3,12 @@ from ftw.book.latex import utils
 from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.pdfgenerator.view import MakoLaTeXView
 from ftw.simplelayout.interfaces import IBlockConfiguration
-from zope.component import adapts
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(IBookTextBlock, Interface, Interface)
 class TextBlockLaTeXView(MakoLaTeXView):
-    adapts(IBookTextBlock, Interface, Interface)
 
     def render(self):
         latex_title = ''

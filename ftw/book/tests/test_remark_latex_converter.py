@@ -1,11 +1,13 @@
-from ftw.book.interfaces import IRemark, IAddRemarkLayer
+from ftw.book.interfaces import IAddRemarkLayer
+from ftw.book.interfaces import IRemark
 from ftw.book.latex.remark import RemarkLaTeXView
 from ftw.book.testing import LATEX_ZCML_LAYER
 from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.testing import MockTestCase
-from zope.component import queryMultiAdapter, getMultiAdapter
+from zope.component import getMultiAdapter
+from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
 from zope.interface.verify import verifyClass
 

@@ -11,7 +11,6 @@ from zope.component import getMultiAdapter
 from zope.component import getUtilitiesFor
 from zope.interface import alsoProvides
 from zope.interface import implementer
-from zope.interface import implements
 from zope.interface import Interface
 from zope.interface import noLongerProvides
 from zope.schema.interfaces import IVocabularyFactory
@@ -49,8 +48,8 @@ def get_layout_behavior_registration(book):
     return selected_registration
 
 
+@implementer(IVocabularyFactory)
 class LayoutsVocabulary(object):
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         """Returns a vocabulary with all known LaTeX layouts. A LaTeX layout

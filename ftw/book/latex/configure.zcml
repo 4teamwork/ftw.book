@@ -4,87 +4,87 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="ftw.book">
 
-    <include package="plone.behavior" file="meta.zcml" />
+  <include package="plone.behavior" file="meta.zcml" />
 
-    <utility
-        factory="ftw.book.latex.layouts.LayoutsVocabulary"
-        name="ftw.book.layoutsVocabulary" />
+  <utility
+      factory="ftw.book.latex.layouts.LayoutsVocabulary"
+      name="ftw.book.layoutsVocabulary" />
 
-    <adapter factory=".layouts.BookBehaviorAssignable" />
-    <adapter factory=".layouts.inherit_book_layout" />
+  <adapter factory=".layouts.BookBehaviorAssignable" />
+  <adapter factory=".layouts.inherit_book_layout" />
 
-    <plone:behavior
-        title="Default layout"
-        provides=".defaultlayout.IDefaultBookLayout"
-        marker=".defaultlayout.IDefaultBookLayoutEnabled"
-        factory="plone.behavior.AnnotationStorage"
-        />
+  <plone:behavior
+      title="Default layout"
+      provides=".defaultlayout.IDefaultBookLayout"
+      marker=".defaultlayout.IDefaultBookLayoutEnabled"
+      factory="plone.behavior.AnnotationStorage"
+      />
 
-    <adapter
-        factory=".defaultlayout.DefaultBookLayout"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
-        />
+  <adapter
+      factory=".defaultlayout.DefaultBookLayout"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXLayout"
+      />
 
-    <adapter
-        factory="ftw.book.latex.converter.BookHTML2LatexConverter"
-        provides="ftw.pdfgenerator.interfaces.IHTML2LaTeXConverter"
-        />
+  <adapter
+      factory="ftw.book.latex.converter.BookHTML2LatexConverter"
+      provides="ftw.pdfgenerator.interfaces.IHTML2LaTeXConverter"
+      />
 
-    <adapter
-        factory="ftw.book.latex.book.BookLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.book.BookLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.chapter.ChapterLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.chapter.ChapterLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.IRecursiveLaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.textblock.TextBlockLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.textblock.TextBlockLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.htmlblock.HTMLBlockLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.htmlblock.HTMLBlockLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.link.LinkLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.link.LinkLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.remark.RemarkLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.remark.RemarkLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.table.TableLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.table.TableLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.listingblock.ListingBlockLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        />
+  <adapter
+      factory="ftw.book.latex.listingblock.ListingBlockLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      />
 
-    <adapter
-        factory="ftw.book.latex.latexinjection.LaTeXInjectionController"
-        provides="ftw.book.interfaces.ILaTeXInjectionController"
-        />
+  <adapter
+      factory="ftw.book.latex.latexinjection.LaTeXInjectionController"
+      provides="ftw.book.interfaces.ILaTeXInjectionController"
+      />
 
-    <adapter
-        factory="ftw.book.latex.latexinjection.PreInjectionLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        name="pre-hook"
-        />
+  <adapter
+      factory="ftw.book.latex.latexinjection.PreInjectionLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      name="pre-hook"
+      />
 
-    <adapter
-        factory="ftw.book.latex.latexinjection.PostInjectionLaTeXView"
-        provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-        name="post-hook"
-        />
+  <adapter
+      factory="ftw.book.latex.latexinjection.PostInjectionLaTeXView"
+      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
+      name="post-hook"
+      />
 
 </configure>

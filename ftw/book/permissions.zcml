@@ -2,39 +2,39 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="ftw.book">
 
-    <permission
-        id="ftw.book.ModifyLaTeXInjection"
-        title="ftw.book: Modify LaTeX Injection"
-        />
+  <permission
+      id="ftw.book.ModifyLaTeXInjection"
+      title="ftw.book: Modify LaTeX Injection"
+      />
 
-    <permission
-        id="ftw.book.AddBook"
-        title="ftw.book: Add Book"
-        />
+  <permission
+      id="ftw.book.AddBook"
+      title="ftw.book: Add Book"
+      />
 
-    <permission
-        id="ftw.book.AddChapter"
-        title="ftw.book: Add Chapter"
-        />
+  <permission
+      id="ftw.book.AddChapter"
+      title="ftw.book: Add Chapter"
+      />
 
-    <permission
-        id="ftw.book.AddFileListingBlock"
-        title="ftw.book: Add Book File Listing Block"
-        />
+  <permission
+      id="ftw.book.AddFileListingBlock"
+      title="ftw.book: Add Book File Listing Block"
+      />
 
-    <permission
-        id="ftw.book.AddHtmlBlock"
-        title="ftw.book: Add HTML Block"
-        />
+  <permission
+      id="ftw.book.AddHtmlBlock"
+      title="ftw.book: Add HTML Block"
+      />
 
-    <permission
-        id="ftw.book.AddTable"
-        title="ftw.book: Add Table"
-        />
+  <permission
+      id="ftw.book.AddTable"
+      title="ftw.book: Add Table"
+      />
 
-    <permission
-        id="ftw.book.AddTextBlock"
-        title="ftw.book: Add Book Text Block"
-        />
+  <permission
+      id="ftw.book.AddTextBlock"
+      title="ftw.book: Add Book Text Block"
+      />
 
 </configure>

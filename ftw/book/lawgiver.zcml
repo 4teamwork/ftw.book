@@ -3,30 +3,30 @@
     xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
     i18n_domain="ftw.book">
 
-    <include package="ftw.lawgiver" file="meta.zcml" />
+  <include package="ftw.lawgiver" file="meta.zcml" />
 
-    <lawgiver:map_permissions
-        action_group="add"
-        permissions="ftw.book: Add Book"
-        />
+  <lawgiver:map_permissions
+      action_group="add"
+      permissions="ftw.book: Add Book"
+      />
 
-    <lawgiver:map_permissions
-        action_group="add"
-        permissions="ftw.book: Add Chapter"
-        />
+  <lawgiver:map_permissions
+      action_group="add"
+      permissions="ftw.book: Add Chapter"
+      />
 
-    <lawgiver:map_permissions
-        action_group="edit"
-        permissions="ftw.book: Add Book Text Block,
-                     ftw.book: Add Book File Listing Block,
-                     ftw.book: Add HTML Block,
-                     ftw.book: Add Remark,
-                     ftw.book: Add Table"
-        />
+  <lawgiver:map_permissions
+      action_group="edit"
+      permissions="ftw.book: Add Book Text Block,
+                   ftw.book: Add Book File Listing Block,
+                   ftw.book: Add HTML Block,
+                   ftw.book: Add Remark,
+                   ftw.book: Add Table"
+      />
 
-    <lawgiver:map_permissions
-        action_group="manage content settings"
-        permissions="ftw.book: Modify LaTeX Injection"
-        />
+  <lawgiver:map_permissions
+      action_group="manage content settings"
+      permissions="ftw.book: Modify LaTeX Injection"
+      />
 
 </configure>

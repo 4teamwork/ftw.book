@@ -4,10 +4,11 @@ from plone.portlets.constants import CONTEXT_CATEGORY
 from plone.portlets.interfaces import ILocalPortletAssignmentManager
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
-from zope.component import getUtility, getMultiAdapter
+from Products.CMFCore.utils import getToolByName
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 import logging
-from Products.CMFCore.utils import getToolByName
 
 LOG = logging.getLogger('ftw.book')
 

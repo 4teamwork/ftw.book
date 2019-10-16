@@ -1,12 +1,12 @@
 from ftw.book.interfaces import IHTMLBlock
 from ftw.book.latex import utils
 from ftw.pdfgenerator.view import MakoLaTeXView
-from zope.component import adapts
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(IHTMLBlock, Interface, Interface)
 class HTMLBlockLaTeXView(MakoLaTeXView):
-    adapts(IHTMLBlock, Interface, Interface)
 
     def render(self):
         latex = []

@@ -11,13 +11,13 @@ from zope.schema import Text
 @provider(IFormFieldProvider)
 class ILaTeXCodeInjection(Schema):
 
-    fieldset('latex',
-             label=_(u'LaTeX'),
-             fields=(
-                 'pre_latex_code',
-                 'post_latex_code',
-             )
-    )
+    fieldset(
+        'latex',
+        label=_(u'LaTeX'),
+        fields=(
+            'pre_latex_code',
+            'post_latex_code',
+        ))
 
     write_permission(pre_latex_code=MODIFY_LATEX_INJECTION_PERMISSION)
     pre_latex_code = Text(

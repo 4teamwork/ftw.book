@@ -4,6 +4,7 @@ from ftw.book.interfaces import IBook
 from ftw.book.interfaces import IBookLayoutBehavior
 from ftw.pdfgenerator.babel import get_preferred_babel_option_for_context
 from ftw.pdfgenerator.interfaces import IBuilder
+from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.layout.makolayout import MakoLayoutBase
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.namedfile.field import NamedBlobImage
@@ -11,6 +12,7 @@ from plone.supermodel.model import Schema
 from Products.CMFCore.utils import getToolByName
 from zope.component import adapter
 from zope.i18n import translate
+from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import provider
 from zope.schema import Int
@@ -62,6 +64,7 @@ class IDefaultBookLayoutEnabled(Interface):
 
 
 @adapter(IDefaultBookLayoutEnabled, Interface, IBuilder)
+@implementer(ILaTeXLayout)
 class DefaultBookLayout(MakoLayoutBase):
 
     template_directories = ['default_layout_templates']

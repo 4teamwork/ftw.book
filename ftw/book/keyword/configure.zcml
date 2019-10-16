@@ -3,14 +3,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
 
-    <browser:resourceDirectory
-        name="ftw.book.tinymce.keyword"
-        directory="keyword-plugin"
-        />
+  <browser:resourceDirectory name="ftw.book.tinymce.keyword" directory="keyword-plugin" />
 
-    <adapter
-        name="book_keywords"
-        factory=".indexer.book_keywords"
-        />
+  <adapter
+      name="book_keywords"
+      factory=".indexer.book_keywords"
+      />
 
 </configure>

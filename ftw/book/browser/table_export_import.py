@@ -1,4 +1,5 @@
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ftw.book import _
 from ftw.book.toc import TableOfContents
 from Products.Five.browser import BrowserView

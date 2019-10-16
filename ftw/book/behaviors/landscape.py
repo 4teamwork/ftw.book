@@ -11,16 +11,15 @@ from zope.schema import Bool
 @provider(IFormFieldProvider)
 class ILandscape(Schema):
 
-    fieldset('latex',
-             label=_(u'LaTeX'),
-             fields=(
-                 'landscape',
-             )
-    )
+    fieldset(
+        'latex',
+        label=_(u'LaTeX'),
+        fields=(
+            'landscape',
+        ))
 
     write_permission(landscape=MODIFY_LATEX_INJECTION_PERMISSION)
     landscape = Bool(
         title=_(u'injection_label_landscape', default=u'Use landscape'),
         required=False,
-        default=False,
-    )
+        default=False)

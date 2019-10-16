@@ -9,15 +9,15 @@ from ftw.book.interfaces import TWOCOLUMN_LAYOUT
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.view import MakoLaTeXView
 from zope.annotation import IAnnotations
-from zope.component import adapts
+from zope.component import adapter
 from zope.component import getMultiAdapter
+from zope.interface import implementer
 from zope.interface import Interface
-from zope.interface import implements
 
 
+@adapter(ILaTeXLayout, Interface)
+@implementer(ILaTeXInjectionController)
 class LaTeXInjectionController(object):
-    adapts(ILaTeXLayout, Interface)
-    implements(ILaTeXInjectionController)
 
     ANNOTATION_KEY = 'latex-injection-controller'
 
@@ -117,12 +117,11 @@ class InjectionLaTeXViewBase(MakoLaTeXView):
                                ILaTeXInjectionController)
 
 
+@adapter(ILaTeXCodeInjectionEnabled, Interface, Interface)
 class PreInjectionLaTeXView(InjectionLaTeXViewBase):
     """Mixes in the preLatexCode for every object providing
     ILaTeXCodeInjectionEnabled and within a book.
     """
-
-    adapts(ILaTeXCodeInjectionEnabled, Interface, Interface)
 
     def render(self):
         latex = []
@@ -154,12 +153,11 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
         return controller.set_layout(preferred_layout)
 
 
+@adapter(ILaTeXCodeInjectionEnabled, Interface, Interface)
 class PostInjectionLaTeXView(InjectionLaTeXViewBase):
     """Mixes in the postLatexCode for every object providing
     ILaTeXCodeInjectionEnabled and within a book.
     """
-
-    adapts(ILaTeXCodeInjectionEnabled, Interface, Interface)
 
     def render(self):
         latex = []

@@ -1,2 +1,3 @@
-INDEXES = (('book_keywords', 'KeywordIndex'),
-           )
+INDEXES = (
+    ('book_keywords', 'KeywordIndex'),
+)
