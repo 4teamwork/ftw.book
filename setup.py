@@ -23,6 +23,7 @@ tests_require = [
     'plone.portlets',
     'plone.testing',
     'transaction',
+    'transmogrify.dexterity',
     'unittest2',
     'zope.app.component',
     'zope.browser',

@@ -165,7 +165,7 @@ class PDFDiffTestCase(TestCase):
             '\n'.join((
                     'The built PDF does not match the expected PDF.',
                     'Differing page(s): %s' % ', '.join(
-                        map(str, failed_pages)),
+                        map(str, sorted(failed_pages))),
                     'Result PDF:        %s' % target,
                     'Expected PDF:      %s' % expectation,
                     'Diff PDF:          %s' % difference)))

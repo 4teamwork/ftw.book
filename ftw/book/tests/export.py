@@ -57,8 +57,8 @@ def diff_pdfs(result_path, expectation_path, difference_path):
     os.mkdir(eximages)
     os.mkdir(diffimages)
 
-    run('convert %s %s/page.png' % (result_path, resimages))
-    run('convert %s %s/page.png' % (expectation_path, eximages))
+    run('convert -density 50 -quality 50 -strip %s %s/page.png' % (result_path, resimages))
+    run('convert -density 50 -quality 50 -strip %s %s/page.png' % (expectation_path, eximages))
 
     failed_pages = []
 

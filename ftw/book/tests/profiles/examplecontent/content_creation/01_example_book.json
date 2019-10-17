@@ -1,97 +1,114 @@
 [
 
     {"_path": "example-book",
-     "_type": "Book",
+     "_type": "ftw.book.Book",
      "title": "My Book",
      "use_index": true,
      "_children": [
 
 
          {"_id": "chapter_one",
-          "_type": "Chapter",
+          "_type": "ftw.book.Chapter",
           "title": "Chapter One: Image Tests",
           "_children": [
 
 
               {"_id": "paragraph-one",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Paragraph One",
+               "show_title": false,
                "text": "Hello <b>little</b> world."},
 
 
               {"_id": "paragraph-two",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Paragraph Two",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-small-left",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Image Small Left",
-               "showTitle": true,
+               "show_title": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                "image:file": "images/image01.jpg",
-               "_annotations": {"imageLayout": "small"}},
+               "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                {"scale": "sl_textblock_small",
+                                 "imagefloat": "left"}}},
 
 
               {"_id": "paragraph-three",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, <span class=\"keyword\" title=\"Brewhouse\">brewhouse</span>, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-middle-left",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Image Middle Left",
-               "showTitle": true,
+               "show_title": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                "image:file": "images/image01.jpg",
-               "_annotations": {"imageLayout": "middle"}},
+               "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                {"scale": "sl_textblock_middle",
+                                 "imagefloat": "left"}}},
 
 
               {"_id": "paragraph-four",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-full-width",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Image Full Width",
-               "showTitle": true,
+               "show_title": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                "image:file": "images/image01.jpg",
-               "_annotations": {"imageLayout": "full"}},
+               "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                {"scale": "sl_textblock_large",
+                                 "imagefloat": "no-float"}}},
 
 
               {"_id": "paragraph-five",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-middle-right",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Paragraph Middle Right",
-               "showTitle": true,
+               "show_title": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                "image:file": "images/image01.jpg",
-               "_annotations": {"imageLayout": "middle-right"}},
+               "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                {"scale": "sl_textblock_middle",
+                                 "imagefloat": "right"}}},
 
 
               {"_id": "paragraph-six",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
               {"_id": "paragraph-image-small-right",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "Image Small Right",
-               "showTitle": true,
+               "show_title": true,
                "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                "image:file": "images/image01.jpg",
-               "_annotations": {"imageLayout": "small-right"}},
+               "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                {"scale": "sl_textblock_small",
+                                 "imagefloat": "right"}}},
 
 
               {"_id": "paragraph-seven",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
+               "show_title": false,
                "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation <span class=\"keyword\" title=\"hydrometer\">hydrometer</span>, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
@@ -100,92 +117,109 @@
 
 
               {"_id": "chapter-one-one",
-               "_type": "Chapter",
+               "_type": "ftw.book.Chapter",
                "title": "Chapter One.One: Image tests in two columns mode",
-               "preferredColumnLayout": "twocolumn",
+               "preferred_column_layout": "twocolumn",
                "_children": [
 
 
 
                    {"_id": "paragraph-one",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Paragraph One",
+                    "show_title": false,
                     "text": "Hello <b>little</b> world."},
 
 
                    {"_id": "paragraph-two",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Paragraph Two",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-small-left",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Image Small Left",
-                    "showTitle": true,
+                    "show_title": true,
                     "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                     "image:file": "images/image01.jpg",
-                    "_annotations": {"imageLayout": "small"}},
+                    "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                     {"scale": "sl_textblock_small",
+                                      "imagefloat": "left"}}},
 
 
                    {"_id": "paragraph-three",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-middle-left",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Image Middle Left",
-                    "showTitle": true,
+                    "show_title": true,
                     "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                     "image:file": "images/image01.jpg",
-                    "_annotations": {"imageLayout": "middle"}},
+                    "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                     {"scale": "sl_textblock_middle",
+                                      "imagefloat": "left"}}},
 
 
                    {"_id": "paragraph-four",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-full-width",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Image Full Width",
-                    "showTitle": true,
+                    "show_title": true,
                     "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                     "image:file": "images/image01.jpg",
-                    "_annotations": {"imageLayout": "full"}},
+                    "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                     {"scale": "sl_textblock_large",
+                                      "imagefloat": "no-float"}}},
 
 
                    {"_id": "paragraph-five",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-middle-right",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Paragraph Middle Right",
-                    "showTitle": true,
+                    "show_title": true,
                     "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                     "image:file": "images/image01.jpg",
-                    "_annotations": {"imageLayout": "middle-right"}},
+                    "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                     {"scale": "sl_textblock_middle",
+                                      "imagefloat": "right"}}},
 
 
                    {"_id": "paragraph-six",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"},
 
 
                    {"_id": "paragraph-image-small-right",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
                     "title": "Image Small Right",
-                    "showTitle": true,
+                    "show_title": true,
                     "text": "<p>secondary fermentation reinheitsgebot noble hops bock carboy. malt bottle conditioning carbonation rims bottle conditioning priming aau caramel malt. alcohol caramel malt infusion conditioning tank hoppy keg. pub scotch ale, copper mouthfeel, brewing: hefe biere de garde. priming wheat beer glass malt additive crystal malt hefe pitching. hand pump infusion anaerobic reinheitsgebot. kolsch bock conditioning tank cask conditioning rims aerobic anaerobic. carbonation pub hop back kolsch dextrin bunghole!</p>",
                     "image:file": "images/image01.jpg",
-                    "_annotations": {"imageLayout": "small-right"}},
+                    "_annotations": {"ftw.simplelayout.blockconfiguration":
+                                     {"scale": "sl_textblock_small",
+                                      "imagefloat": "right"}}},
 
 
                    {"_id": "paragraph-seven",
-                    "_type": "BookTextBlock",
+                    "_type": "ftw.book.TextBlock",
+                    "show_title": false,
                     "text": "<p>Hydrometer pilsner dextrin rims units of bitterness brew. keg, brewhouse, attenuation hydrometer, &raquo;bittering&laquo; hops additive, malt, additive, &quot;krausen hefe&quot;. krug reinheitsgebot <b>barleywine</b> barleywine. <i>draft</i> (draught), balthazar <br /><br />autolysis balthazar microbrewery cask anaerobic bung aerobic, crystal malt. kolsch krausen dry hopping racking.</p>"}
 
 
@@ -201,45 +235,51 @@
 
 
          {"_id": "chapter-two",
-          "_type": "Chapter",
+          "_type": "ftw.book.Chapter",
           "title": "Chapter Two",
           "_children": [
 
 
               {"_id": "paragraph1",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "p1",
+               "show_title": false,
                "text": "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>"},
 
 
               {"_id": "paragraph2",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "p2",
+               "show_title": false,
                "text": "<p><ol><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li><li>Aliquam tincidunt mauris eu risus.</li><li>Vestibulum auctor dapibus neque.</li></ol>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.<ul><li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li><li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li><li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li><li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li></ul></p>"},
 
 
               {"_id": "paragraph3",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "p3",
+               "show_title": false,
                "text": "<h1>HTML Ipsum Presents</h1>         <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href=\"http://www.google.ch/\">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p><h2>Header Level 2</h2>        <ol>   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>   <li>Aliquam tincidunt mauris eu risus.</li></ol><blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote><h3>Header Level 3</h3><ul>   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>   <li>Aliquam tincidunt mauris eu risus.</li></ul><pre><code>#header h1 a {   display: block;   width: 300px;   height: 80px; }</code></pre>"},
 
 
               {"_id": "paragraph4",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "p4",
-               "text": "<table summary=\"Table summary\"><caption>Table Caption</caption><thead><tr><th>Header</th><th>Header</th><th>Header</th></tr></thead><tbody><tr><td>Content</td><td>1</td><td>a</td></tr><tr><td>Content</td><td>2</td><td>b</td></tr><tr><td>Content</td><td>3</td><td>c</td></tr><tr><td>Content</td><td>4</td><td>d</td></tr><tr><td>Content</td><td>5</td><td>e</td></tr><tr><td>Content</td><td>6</td><td>f</td></tr></tbody></table>"},
+               "show_title": false,
+               "content": "<table summary=\"Table summary\"><caption>Table Caption</caption><thead><tr><th>Header</th><th>Header</th><th>Header</th></tr></thead><tbody><tr><td>Content</td><td>1</td><td>a</td></tr><tr><td>Content</td><td>2</td><td>b</td></tr><tr><td>Content</td><td>3</td><td>c</td></tr><tr><td>Content</td><td>4</td><td>d</td></tr><tr><td>Content</td><td>5</td><td>e</td></tr><tr><td>Content</td><td>6</td><td>f</td></tr></tbody></table>"},
 
 
               {"_id": "paragraph5",
-               "_type": "BookTextBlock",
+               "_type": "ftw.book.TextBlock",
                "title": "p5",
+               "show_title": false,
                "text": "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa <strong>strong</strong>. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede <a href=\"../chapter_one\">link</a> mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. URL with underscores and hashes: <a href=\"http://test.com/_something#anchor\">http://test.com/_something#anchor</a></p>"},
 
 
               {"_id": "paragraph6",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "p6",
-               "text": "<table class=\"data\">  <tr>    <th>Entry Header 1</th>    <th>Entry Header 2</th>    <th>Entry Header 3</th>    <th>Entry Header 4</th>  </tr>  <tr>    <td>Entry First Line 1</td>    <td>Entry First Line 2</td>    <td>Entry First Line 3</td>    <td>Entry First Line 4</td>  </tr>  <tr>    <td>Entry Line 1</td>    <td>Entry Line 2</td>    <td>Entry Line 3</td>    <td>Entry Line 4</td>  </tr>  <tr>    <td>Entry Last Line 1</td>    <td>Entry Last Line 2</td>    <td>Entry Last Line 3</td>    <td>Entry Last Line 4</td>  </tr></table>"}
+               "show_title": false,
+               "content": "<table class=\"data\">  <tr>    <th>Entry Header 1</th>    <th>Entry Header 2</th>    <th>Entry Header 3</th>    <th>Entry Header 4</th>  </tr>  <tr>    <td>Entry First Line 1</td>    <td>Entry First Line 2</td>    <td>Entry First Line 3</td>    <td>Entry First Line 4</td>  </tr>  <tr>    <td>Entry Line 1</td>    <td>Entry Line 2</td>    <td>Entry Line 3</td>    <td>Entry Line 4</td>  </tr>  <tr>    <td>Entry Last Line 1</td>    <td>Entry Last Line 2</td>    <td>Entry Last Line 3</td>    <td>Entry Last Line 4</td>  </tr></table>"}
 
           ]},
 
@@ -249,58 +289,58 @@
 
 
          {"_id": "special-characters",
-          "_type": "Chapter",
+          "_type": "ftw.book.Chapter",
           "title": "Special Characters",
-          "preferredColumnLayout": "onecolumn",
+          "preferred_column_layout": "onecolumn",
           "_children": [
 
               {"_id": "p1",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für HTML-eigene Zeichen",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Anführungszeichen oben</td><td>&quot;</td></tr><tr><td>Ampersand-Zeichen, kaufmännisches Und</td><td>&amp;</td></tr><tr><td>öffnende spitze Klammer</td><td>&lt;</td></tr><tr><td>schließende spitze Klammer</td><td>&gt;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Anführungszeichen oben</td><td>&quot;</td></tr><tr><td>Ampersand-Zeichen, kaufmännisches Und</td><td>&amp;</td></tr><tr><td>öffnende spitze Klammer</td><td>&lt;</td></tr><tr><td>schließende spitze Klammer</td><td>&gt;</td></tr></tbody></table>"},
 
               {"_id": "p2",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für die Kodierung ISO 8859-1",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>umgekehrtes Ausrufezeichen</td><td>&iexcl;</td></tr><tr><td>Cent-Zeichen</td><td>&cent;</td></tr><tr><td>Pfund-Zeichen</td><td>&pound;</td></tr><tr><td>Yen-Zeichen</td><td>&yen;</td></tr><tr><td>durchbrochener Strich</td><td>&brvbar;</td></tr><tr><td>Paragraph-Zeichen</td><td>&sect;</td></tr><tr><td>Pünktchen oben</td><td>&uml;</td></tr><tr><td>Copyright-Zeichen</td><td>&copy;</td></tr><tr><td>Ordinal-Zeichen weiblich</td><td>&ordf;</td></tr><tr><td>angewinkelte Anführungszeichen links</td><td>&laquo;</td></tr><tr><td>Verneinungs-Zeichen</td><td>&not;</td></tr><tr><td>dingter Trennstrich</td><td>&shy;</td></tr><tr><td>Registriermarke-Zeichen</td><td>&reg;</td></tr><tr><td>Überstrich</td><td>&macr;</td></tr><tr><td>Plusminus-Zeichen</td><td>&plusmn;</td></tr><tr><td>Hoch-2-Zeichen</td><td>&sup2;</td></tr><tr><td>Hoch-3-Zeichen</td><td>&sup3;</td></tr><tr><td>Akut-Zeichen</td><td>&acute;</td></tr><tr><td>Mikro-Zeichen</td><td>&micro;</td></tr><tr><td>Absatz-Zeichen</td><td>&para;</td></tr><tr><td>Mittelpunkt</td><td>&middot;</td></tr><tr><td>Häkchen unten</td><td>&cedil;</td></tr><tr><td>Hoch-1-Zeichen</td><td>&sup1;</td></tr><tr><td>Ordinal-Zeichen männlich</td><td>&ordm;</td></tr><tr><td>angewinkelte Anführungszeichen rechts</td><td>&raquo;</td></tr><tr><td>ein Viertel</td><td>&frac14;</td></tr><tr><td>ein Halb</td><td>&frac12;</td></tr><tr><td>drei Viertel</td><td>&frac34;</td></tr><tr><td>umgekehrtes Fragezeichen</td><td>&iquest;</td></tr><tr><td>A mit accent grave (Gravis)</td><td>&Agrave;</td></tr><tr><td>A mit accent aigu (Akut)</td><td>&Aacute;</td></tr><tr><td>A mit Zirkumflex</td><td>&Acirc;</td></tr><tr><td>A mit Tilde</td><td>&Atilde;</td></tr><tr><td>A Umlaut</td><td>&Auml;</td></tr><tr><td>A mit Ring</td><td>&Aring;</td></tr><tr><td>A mit legiertem E</td><td>&AElig;</td></tr><tr><td>C mit Häkchen</td><td>&Ccedil;</td></tr><tr><td>E mit accent grave (Gravis)</td><td>&Egrave;</td></tr><tr><td>E mit accent aigu (Akut)</td><td>&Eacute;</td></tr><tr><td>E mit Zirkumflex</td><td>&Ecirc;</td></tr><tr><td>E Umlaut</td><td>&Euml;</td></tr><tr><td>I mit accent grave (Gravis)</td><td>&Igrave;</td></tr><tr><td>I mit accent aigu (Akut)</td><td>&Iacute;</td></tr><tr><td>I mit Zirkumflex</td><td>&Icirc;</td></tr><tr><td>I Umlaut</td><td>&Iuml;</td></tr><tr><td>großes Eth (isländisch)</td><td>&ETH;</td></tr><tr><td>N mit Tilde</td><td>&Ntilde;</td></tr><tr><td>O mit accent grave (Gravis)</td><td>&Ograve;</td></tr><tr><td>O mit accent aigu (Akut)</td><td>&Oacute;</td></tr><tr><td>O mit Zirkumflex</td><td>&Ocirc;</td></tr><tr><td>O mit Tilde</td><td>&Otilde;</td></tr><tr><td>O Umlaut</td><td>&Ouml;</td></tr><tr><td>O mit Schrägstrich</td><td>&Oslash;</td></tr><tr><td>U mit accent grave (Gravis)</td><td>&Ugrave;</td></tr><tr><td>U mit accent aigu (Akut)</td><td>&Uacute;</td></tr><tr><td>U mit Zirkumflex</td><td>&Ucirc;</td></tr><tr><td>U Umlaut</td><td>&Uuml;</td></tr><tr><td>Y mit accent aigu (Akut)</td><td>&Yacute;</td></tr><tr><td>großes Thorn (isländisch)</td><td>&THORN;</td></tr><tr><td>scharfes S</td><td>&szlig;</td></tr><tr><td>a mit accent grave (Gravis)</td><td>&agrave;</td></tr><tr><td>a mit accent aigu (Akut)</td><td>&aacute;</td></tr><tr><td>a mit Zirkumflex</td><td>&acirc;</td></tr><tr><td>a mit Tilde</td><td>&atilde;</td></tr><tr><td>a Umlaut</td><td>&auml;</td></tr><tr><td>a mit Ring</td><td>&aring;</td></tr><tr><td>a mit legiertem e</td><td>&aelig;</td></tr><tr><td>c mit Häkchen</td><td>&ccedil;</td></tr><tr><td>e mit accent grave (Gravis)</td><td>&egrave;</td></tr><tr><td>e mit accent aigu (Akut)</td><td>&eacute;</td></tr><tr><td>e mit Zirkumflex</td><td>&ecirc;</td></tr><tr><td>e Umlaut</td><td>&euml;</td></tr><tr><td>i mit accent grave (Gravis)</td><td>&igrave;</td></tr><tr><td>i mit accent aigu (Akut)</td><td>&iacute;</td></tr><tr><td>i mit Zirkumflex</td><td>&icirc;</td></tr><tr><td>i Umlaut</td><td>&iuml;</td></tr><tr><td>kleines Eth (isländisch)</td><td>&eth;</td></tr><tr><td>n mit Tilde</td><td>&ntilde;</td></tr><tr><td>o mit accent grave (Gravis)</td><td>&ograve;</td></tr><tr><td>o mit accent aigu (Akut)</td><td>&oacute;</td></tr><tr><td>o mit Zirkumflex</td><td>&ocirc;</td></tr><tr><td>o mit Tilde</td><td>&otilde;</td></tr><tr><td>o Umlaut</td><td>&ouml;</td></tr><tr><td>Divisions-Zeichen</td><td>&divide;</td></tr><tr><td>o mit Schrägstrich</td><td>&oslash;</td></tr><tr><td>u mit accent grave (Gravis)</td><td>&ugrave;</td></tr><tr><td>u mit accent aigu (Akut)</td><td>&uacute;</td></tr><tr><td>u mit Zirkumflex</td><td>&ucirc;</td></tr><tr><td>u Umlaut</td><td>&uuml;</td></tr><tr><td>y mit accent aigu (Akut)</td><td>&yacute;</td></tr><tr><td>kleines Thorn (isländisch)</td><td>&thorn;</td></tr><tr><td>y Umlaut</td><td>&yuml;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>umgekehrtes Ausrufezeichen</td><td>&iexcl;</td></tr><tr><td>Cent-Zeichen</td><td>&cent;</td></tr><tr><td>Pfund-Zeichen</td><td>&pound;</td></tr><tr><td>Yen-Zeichen</td><td>&yen;</td></tr><tr><td>durchbrochener Strich</td><td>&brvbar;</td></tr><tr><td>Paragraph-Zeichen</td><td>&sect;</td></tr><tr><td>Pünktchen oben</td><td>&uml;</td></tr><tr><td>Copyright-Zeichen</td><td>&copy;</td></tr><tr><td>Ordinal-Zeichen weiblich</td><td>&ordf;</td></tr><tr><td>angewinkelte Anführungszeichen links</td><td>&laquo;</td></tr><tr><td>Verneinungs-Zeichen</td><td>&not;</td></tr><tr><td>dingter Trennstrich</td><td>&shy;</td></tr><tr><td>Registriermarke-Zeichen</td><td>&reg;</td></tr><tr><td>Überstrich</td><td>&macr;</td></tr><tr><td>Plusminus-Zeichen</td><td>&plusmn;</td></tr><tr><td>Hoch-2-Zeichen</td><td>&sup2;</td></tr><tr><td>Hoch-3-Zeichen</td><td>&sup3;</td></tr><tr><td>Akut-Zeichen</td><td>&acute;</td></tr><tr><td>Mikro-Zeichen</td><td>&micro;</td></tr><tr><td>Absatz-Zeichen</td><td>&para;</td></tr><tr><td>Mittelpunkt</td><td>&middot;</td></tr><tr><td>Häkchen unten</td><td>&cedil;</td></tr><tr><td>Hoch-1-Zeichen</td><td>&sup1;</td></tr><tr><td>Ordinal-Zeichen männlich</td><td>&ordm;</td></tr><tr><td>angewinkelte Anführungszeichen rechts</td><td>&raquo;</td></tr><tr><td>ein Viertel</td><td>&frac14;</td></tr><tr><td>ein Halb</td><td>&frac12;</td></tr><tr><td>drei Viertel</td><td>&frac34;</td></tr><tr><td>umgekehrtes Fragezeichen</td><td>&iquest;</td></tr><tr><td>A mit accent grave (Gravis)</td><td>&Agrave;</td></tr><tr><td>A mit accent aigu (Akut)</td><td>&Aacute;</td></tr><tr><td>A mit Zirkumflex</td><td>&Acirc;</td></tr><tr><td>A mit Tilde</td><td>&Atilde;</td></tr><tr><td>A Umlaut</td><td>&Auml;</td></tr><tr><td>A mit Ring</td><td>&Aring;</td></tr><tr><td>A mit legiertem E</td><td>&AElig;</td></tr><tr><td>C mit Häkchen</td><td>&Ccedil;</td></tr><tr><td>E mit accent grave (Gravis)</td><td>&Egrave;</td></tr><tr><td>E mit accent aigu (Akut)</td><td>&Eacute;</td></tr><tr><td>E mit Zirkumflex</td><td>&Ecirc;</td></tr><tr><td>E Umlaut</td><td>&Euml;</td></tr><tr><td>I mit accent grave (Gravis)</td><td>&Igrave;</td></tr><tr><td>I mit accent aigu (Akut)</td><td>&Iacute;</td></tr><tr><td>I mit Zirkumflex</td><td>&Icirc;</td></tr><tr><td>I Umlaut</td><td>&Iuml;</td></tr><tr><td>großes Eth (isländisch)</td><td>&ETH;</td></tr><tr><td>N mit Tilde</td><td>&Ntilde;</td></tr><tr><td>O mit accent grave (Gravis)</td><td>&Ograve;</td></tr><tr><td>O mit accent aigu (Akut)</td><td>&Oacute;</td></tr><tr><td>O mit Zirkumflex</td><td>&Ocirc;</td></tr><tr><td>O mit Tilde</td><td>&Otilde;</td></tr><tr><td>O Umlaut</td><td>&Ouml;</td></tr><tr><td>O mit Schrägstrich</td><td>&Oslash;</td></tr><tr><td>U mit accent grave (Gravis)</td><td>&Ugrave;</td></tr><tr><td>U mit accent aigu (Akut)</td><td>&Uacute;</td></tr><tr><td>U mit Zirkumflex</td><td>&Ucirc;</td></tr><tr><td>U Umlaut</td><td>&Uuml;</td></tr><tr><td>Y mit accent aigu (Akut)</td><td>&Yacute;</td></tr><tr><td>großes Thorn (isländisch)</td><td>&THORN;</td></tr><tr><td>scharfes S</td><td>&szlig;</td></tr><tr><td>a mit accent grave (Gravis)</td><td>&agrave;</td></tr><tr><td>a mit accent aigu (Akut)</td><td>&aacute;</td></tr><tr><td>a mit Zirkumflex</td><td>&acirc;</td></tr><tr><td>a mit Tilde</td><td>&atilde;</td></tr><tr><td>a Umlaut</td><td>&auml;</td></tr><tr><td>a mit Ring</td><td>&aring;</td></tr><tr><td>a mit legiertem e</td><td>&aelig;</td></tr><tr><td>c mit Häkchen</td><td>&ccedil;</td></tr><tr><td>e mit accent grave (Gravis)</td><td>&egrave;</td></tr><tr><td>e mit accent aigu (Akut)</td><td>&eacute;</td></tr><tr><td>e mit Zirkumflex</td><td>&ecirc;</td></tr><tr><td>e Umlaut</td><td>&euml;</td></tr><tr><td>i mit accent grave (Gravis)</td><td>&igrave;</td></tr><tr><td>i mit accent aigu (Akut)</td><td>&iacute;</td></tr><tr><td>i mit Zirkumflex</td><td>&icirc;</td></tr><tr><td>i Umlaut</td><td>&iuml;</td></tr><tr><td>kleines Eth (isländisch)</td><td>&eth;</td></tr><tr><td>n mit Tilde</td><td>&ntilde;</td></tr><tr><td>o mit accent grave (Gravis)</td><td>&ograve;</td></tr><tr><td>o mit accent aigu (Akut)</td><td>&oacute;</td></tr><tr><td>o mit Zirkumflex</td><td>&ocirc;</td></tr><tr><td>o mit Tilde</td><td>&otilde;</td></tr><tr><td>o Umlaut</td><td>&ouml;</td></tr><tr><td>Divisions-Zeichen</td><td>&divide;</td></tr><tr><td>o mit Schrägstrich</td><td>&oslash;</td></tr><tr><td>u mit accent grave (Gravis)</td><td>&ugrave;</td></tr><tr><td>u mit accent aigu (Akut)</td><td>&uacute;</td></tr><tr><td>u mit Zirkumflex</td><td>&ucirc;</td></tr><tr><td>u Umlaut</td><td>&uuml;</td></tr><tr><td>y mit accent aigu (Akut)</td><td>&yacute;</td></tr><tr><td>kleines Thorn (isländisch)</td><td>&thorn;</td></tr><tr><td>y Umlaut</td><td>&yuml;</td></tr></tbody></table>"},
 
               {"_id": "p3",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für griechische Buchstaben",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Alpha groß</td><td>&Alpha;</td></tr><tr><td>alpha klein</td><td>&alpha;</td></tr><tr><td>Beta groß</td><td>&Beta;</td></tr><tr><td>gamma klein</td><td>&gamma;</td></tr><tr><td>Delta groß</td><td>&Delta;</td></tr><tr><td>delta klein</td><td>&delta;</td></tr><tr><td>Epsilon groß</td><td>&Epsilon;</td></tr><tr><td>epsilon klein</td><td>&epsilon;</td></tr><tr><td>Zeta groß</td><td>&Zeta;</td></tr><tr><td>zeta klein</td><td>&zeta;</td></tr><tr><td>Eta groß</td><td>&Eta;</td></tr><tr><td>eta klein</td><td>&eta;</td></tr><tr><td>Theta groß</td><td>&Theta;</td></tr><tr><td>theta klein</td><td>&theta;</td></tr><tr><td>Iota groß</td><td>&Iota;</td></tr><tr><td>iota klein</td><td>&iota;</td></tr><tr><td>Kappa groß</td><td>&Kappa;</td></tr><tr><td>kappa klein</td><td>&kappa;</td></tr><tr><td>Lambda groß</td><td>&Lambda;</td></tr><tr><td>lambda klein</td><td>&lambda;</td></tr><tr><td>My groß</td><td>&Mu;</td></tr><tr><td>my klein</td><td>&mu;</td></tr><tr><td>Ny groß</td><td>&Nu;</td></tr><tr><td>ny klein</td><td>&nu;</td></tr><tr><td>Omikron groß</td><td>&Omicron;</td></tr><tr><td>omikron klein</td><td>&omicron;</td></tr><tr><td>pi klein</td><td>&pi;</td></tr><tr><td>Rho groß</td><td>&Rho;</td></tr><tr><td>rho klein</td><td>&rho;</td></tr><tr><td>Sigma groß</td><td>&Sigma;</td></tr><tr><td>Schluss-Sigma</td><td>&sigmaf;</td></tr><tr><td>sigma klein</td><td>&sigma;</td></tr><tr><td>Tau groß</td><td>&Tau;</td></tr><tr><td>tau klein</td><td>&tau;</td></tr><tr><td>Ypsilon groß</td><td>&Upsilon;</td></tr><tr><td>ypsilon klein</td><td>&upsilon;</td></tr></tr><tr><td>phi klein</td><td>&phi;</td></tr><tr><td>Chi groß</td><td>&Chi;</td></tr><tr><td>chi klein</td><td>&chi;</td></tr><tr><td>Psi groß</td><td>&Psi;</td></tr><tr><td>psi klein</td><td>&psi;</td></tr><tr><td>Omega groß</td><td>&Omega;</td></tr><tr><td>theta Symbol</td><td>&thetasym;</td></tr><tr><td>ypsilon mit Haken</td><td>&upsih;</td></tr><tr><td>pi Symbol</td><td>&piv;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Alpha groß</td><td>&Alpha;</td></tr><tr><td>alpha klein</td><td>&alpha;</td></tr><tr><td>Beta groß</td><td>&Beta;</td></tr><tr><td>gamma klein</td><td>&gamma;</td></tr><tr><td>Delta groß</td><td>&Delta;</td></tr><tr><td>delta klein</td><td>&delta;</td></tr><tr><td>Epsilon groß</td><td>&Epsilon;</td></tr><tr><td>epsilon klein</td><td>&epsilon;</td></tr><tr><td>Zeta groß</td><td>&Zeta;</td></tr><tr><td>zeta klein</td><td>&zeta;</td></tr><tr><td>Eta groß</td><td>&Eta;</td></tr><tr><td>eta klein</td><td>&eta;</td></tr><tr><td>Theta groß</td><td>&Theta;</td></tr><tr><td>theta klein</td><td>&theta;</td></tr><tr><td>Iota groß</td><td>&Iota;</td></tr><tr><td>iota klein</td><td>&iota;</td></tr><tr><td>Kappa groß</td><td>&Kappa;</td></tr><tr><td>kappa klein</td><td>&kappa;</td></tr><tr><td>Lambda groß</td><td>&Lambda;</td></tr><tr><td>lambda klein</td><td>&lambda;</td></tr><tr><td>My groß</td><td>&Mu;</td></tr><tr><td>my klein</td><td>&mu;</td></tr><tr><td>Ny groß</td><td>&Nu;</td></tr><tr><td>ny klein</td><td>&nu;</td></tr><tr><td>Omikron groß</td><td>&Omicron;</td></tr><tr><td>omikron klein</td><td>&omicron;</td></tr><tr><td>pi klein</td><td>&pi;</td></tr><tr><td>Rho groß</td><td>&Rho;</td></tr><tr><td>rho klein</td><td>&rho;</td></tr><tr><td>Sigma groß</td><td>&Sigma;</td></tr><tr><td>Schluss-Sigma</td><td>&sigmaf;</td></tr><tr><td>sigma klein</td><td>&sigma;</td></tr><tr><td>Tau groß</td><td>&Tau;</td></tr><tr><td>tau klein</td><td>&tau;</td></tr><tr><td>Ypsilon groß</td><td>&Upsilon;</td></tr><tr><td>ypsilon klein</td><td>&upsilon;</td></tr></tr><tr><td>phi klein</td><td>&phi;</td></tr><tr><td>Chi groß</td><td>&Chi;</td></tr><tr><td>chi klein</td><td>&chi;</td></tr><tr><td>Psi groß</td><td>&Psi;</td></tr><tr><td>psi klein</td><td>&psi;</td></tr><tr><td>Omega groß</td><td>&Omega;</td></tr><tr><td>theta Symbol</td><td>&thetasym;</td></tr><tr><td>ypsilon mit Haken</td><td>&upsih;</td></tr><tr><td>pi Symbol</td><td>&piv;</td></tr></tbody></table>"},
 
               {"_id": "p4",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für mathematische Symbole",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>partiell</td><td>&part;</td></tr><tr><td>existiert</td><td>&exist;</td></tr><tr><td>leere Menge</td><td>&empty;</td></tr><tr><td>Element von</td><td>&isin;</td></tr><tr><td>Element von (gespiegelt)</td><td>&ni;</td></tr><tr><td>Produkt</td><td>&prod;</td></tr><tr><td>Summe</td><td>&sum;</td></tr><tr><td>minus</td><td>&minus;</td></tr><tr><td>Winkel</td><td>&ang;</td></tr><tr><td>Integral</td><td>&int;</td></tr><tr><td>deshalb</td><td>&there4;</td></tr><tr><td>identisch mit</td><td>&equiv;</td></tr><tr><td>Untermenge von</td><td>&sub;</td></tr><tr><td>Untermenge von oder gleich mit</td><td>&sube;</td></tr><tr><td>Punkt-Operator</td><td>&sdot;</td></tr><tr><td>Raute</td><td>&loz;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>partiell</td><td>&part;</td></tr><tr><td>existiert</td><td>&exist;</td></tr><tr><td>leere Menge</td><td>&empty;</td></tr><tr><td>Element von</td><td>&isin;</td></tr><tr><td>Element von (gespiegelt)</td><td>&ni;</td></tr><tr><td>Produkt</td><td>&prod;</td></tr><tr><td>Summe</td><td>&sum;</td></tr><tr><td>minus</td><td>&minus;</td></tr><tr><td>Winkel</td><td>&ang;</td></tr><tr><td>Integral</td><td>&int;</td></tr><tr><td>deshalb</td><td>&there4;</td></tr><tr><td>identisch mit</td><td>&equiv;</td></tr><tr><td>Untermenge von</td><td>&sub;</td></tr><tr><td>Untermenge von oder gleich mit</td><td>&sube;</td></tr><tr><td>Punkt-Operator</td><td>&sdot;</td></tr><tr><td>Raute</td><td>&loz;</td></tr></tbody></table>"},
 
               {"_id": "p7",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für diverse Symbole",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Bullet-Zeichen</td><td>&bull;</td></tr><tr><td>Minutenzeichen</td><td>&prime;</td></tr><tr><td>Sekundenzeichen</td><td>&Prime;</td></tr><tr><td>Überstrich</td><td>&oline;</td></tr><tr><td>Bruchstrich</td><td>&frasl;</td></tr><tr><td>Weierstraß p</td><td>&weierp;</td></tr><tr><td>Trademark-Zeichen</td><td>&trade;</td></tr><tr><td>Euro-Zeichen</td><td>&euro;</td></tr></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Bullet-Zeichen</td><td>&bull;</td></tr><tr><td>Minutenzeichen</td><td>&prime;</td></tr><tr><td>Sekundenzeichen</td><td>&Prime;</td></tr><tr><td>Überstrich</td><td>&oline;</td></tr><tr><td>Bruchstrich</td><td>&frasl;</td></tr><tr><td>Weierstraß p</td><td>&weierp;</td></tr><tr><td>Trademark-Zeichen</td><td>&trade;</td></tr><tr><td>Euro-Zeichen</td><td>&euro;</td></tr></tr></tbody></table>"},
 
               {"_id": "p8",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen lateinisch erweitert",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>OE-Ligatur</td><td>&OElig;</td></tr><tr><td>oe-Ligatur</td><td>&oelig;</td></tr><tr><td>S mit Hatschek (Caron)</td><td>&Scaron;</td></tr><tr><td>s mit Hatschek (Caron)</td><td>&scaron;</td></tr><tr><td>Y Umlaut</td><td>&Yuml;</td></tr><tr><td>Funktion</td><td>&fnof;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>OE-Ligatur</td><td>&OElig;</td></tr><tr><td>oe-Ligatur</td><td>&oelig;</td></tr><tr><td>S mit Hatschek (Caron)</td><td>&Scaron;</td></tr><tr><td>s mit Hatschek (Caron)</td><td>&scaron;</td></tr><tr><td>Y Umlaut</td><td>&Yuml;</td></tr><tr><td>Funktion</td><td>&fnof;</td></tr></tbody></table>"},
 
               {"_id": "p9",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für Interpunktion",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Gedankenstrich Breite n</td><td>&ndash;</td></tr><tr><td>Gedankenstrich Breite m</td><td>&mdash;</td></tr><tr><td>einfaches Anführungszeichen links</td><td>&lsquo;</td></tr><tr><td>einfaches Anführungszeichen rechts</td><td>&rsquo;</td></tr><tr><td>einfaches low-9-Zeichen</td><td>&sbquo;</td></tr><tr><td>doppeltes Anführungszeichen links</td><td>&ldquo;</td></tr><tr><td>doppeltes Anführungszeichen rechts</td><td>&rdquo;</td></tr><tr><td>doppeltes low-9-Zeichen rechts</td><td>&bdquo;</td></tr><tr><td>Horizontale Ellipse (Auslassungszeichen)</td><td>&hellip;</td></tr><tr><td>Promille</td><td>&permil;</td></tr><tr><td>angewinkeltes einzelnes Anf.zeichen links</td><td>&lsaquo;</td></tr><tr><td>angewinkeltes einzelnes Anf.zeichen rechts</td><td>&rsaquo;</td></tr></tbody></table>"},
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Gedankenstrich Breite n</td><td>&ndash;</td></tr><tr><td>Gedankenstrich Breite m</td><td>&mdash;</td></tr><tr><td>einfaches Anführungszeichen links</td><td>&lsquo;</td></tr><tr><td>einfaches Anführungszeichen rechts</td><td>&rsquo;</td></tr><tr><td>einfaches low-9-Zeichen</td><td>&sbquo;</td></tr><tr><td>doppeltes Anführungszeichen links</td><td>&ldquo;</td></tr><tr><td>doppeltes Anführungszeichen rechts</td><td>&rdquo;</td></tr><tr><td>doppeltes low-9-Zeichen rechts</td><td>&bdquo;</td></tr><tr><td>Horizontale Ellipse (Auslassungszeichen)</td><td>&hellip;</td></tr><tr><td>Promille</td><td>&permil;</td></tr><tr><td>angewinkeltes einzelnes Anf.zeichen links</td><td>&lsaquo;</td></tr><tr><td>angewinkeltes einzelnes Anf.zeichen rechts</td><td>&rsaquo;</td></tr></tbody></table>"},
 
               {"_id": "p10",
-               "_type": "HTMLBlock",
+               "_type": "ftw.book.HtmlBlock",
                "title": "Benannte Zeichen für diakritische Zeichen",
-               "showTitle": true,
-               "text": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Zirkumflex</td><td>&circ;</td></tr><tr><td>kleine Tilde</td><td>&tilde;</td></tr></tbody></table>"}
+               "show_title": true,
+               "content": "<table><thead><tr><th>Beschreibung</th><th>Zeichen</th></tr></thead><tbody><tr><td>Zirkumflex</td><td>&circ;</td></tr><tr><td>kleine Tilde</td><td>&tilde;</td></tr></tbody></table>"}
 
           ]},
 
@@ -312,223 +352,210 @@
 
 
          {"_id": "tables",
-          "_type": "Chapter",
+          "_type": "ftw.book.Chapter",
           "title": "Tables",
-          "showTitle": true,
-          "preferredColumnLayout": "onecolumn",
+          "show_title": true,
+          "preferred_column_layout": "onecolumn",
           "latex_pre_clearpage": true,
           "_children": [
 
               {
-                "_id": "table-one",
-                "_type": "Table",
-                "title": "Table One",
-                "borderLayout": "fancy_listing",
-                "columnProperties": [
-                    {
-                      "active": "1",
-                      "alignment": "left",
-                      "bold": "",
-                      "columnId": "column_0",
-                      "columnTitle": "Spalte 1",
-                      "indent": "",
-                      "width": ""
-                    },
+                  "_id": "table-one",
+                  "_type": "ftw.book.Table",
+                  "title": "Table One",
+                  "border_layout": "fancy_listing",
+                  "column_properties": [
+                      {
+                          "active": "1",
+                          "alignment": "left",
+                          "bold": "",
+                          "columnId": "column_0",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "1",
-                      "alignment": "right",
-                      "bold": "",
-                      "columnId": "column_1",
-                      "columnTitle": "Spalte 2",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "1",
+                          "alignment": "right",
+                          "bold": "",
+                          "columnId": "column_1",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "1",
-                      "alignment": "right",
-                      "bold": "",
-                      "columnId": "column_2",
-                      "columnTitle": "Spalte 3",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "1",
+                          "alignment": "right",
+                          "bold": "",
+                          "columnId": "column_2",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_3",
-                      "columnTitle": "Spalte 4",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_3",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_4",
-                      "columnTitle": "Spalte 5",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_4",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_5",
-                      "columnTitle": "Spalte 6",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_5",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_6",
-                      "columnTitle": "Spalte 7",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_6",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_7",
-                      "columnTitle": "Spalte 8",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_7",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_8",
-                      "columnTitle": "Spalte 9",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_8",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_9",
-                      "columnTitle": "Spalte 10",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_9",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_10",
-                      "columnTitle": "Spalte 11",
-                      "indent": "",
-                      "width": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_10",
+                          "indent": "",
+                          "width": ""
+                      },
 
-                    {
-                      "active": "",
-                      "alignment": "",
-                      "bold": "",
-                      "columnId": "column_11",
-                      "columnTitle": "Spalte 12",
-                      "indent": "",
-                      "width": ""
-                    }
-                ],
-                "contributors": [],
-                "creation_date": "2009/02/11 09:41:03.969 GMT+1",
-                "data": [
-                    {
-                      "column_0": "",
-                      "column_1": "2011",
-                      "column_10": "",
-                      "column_11": "",
-                      "column_2": "2012",
-                      "column_3": "",
-                      "column_4": "",
-                      "column_5": "",
-                      "column_6": "",
-                      "column_7": "",
-                      "column_8": "",
-                      "column_9": "",
-                      "row_format": ""
-                    },
+                      {
+                          "active": "",
+                          "alignment": "",
+                          "bold": "",
+                          "columnId": "column_11",
+                          "indent": "",
+                          "width": ""
+                      }
+                  ],
+                  "contributors": [],
+                  "creation_date": "2009/02/11 09:41:03.969 GMT+1",
+                  "data": [
+                      {
+                          "column_0": "",
+                          "column_1": "2011",
+                          "column_10": "",
+                          "column_11": "",
+                          "column_2": "2012",
+                          "column_3": "",
+                          "column_4": "",
+                          "column_5": "",
+                          "column_6": "",
+                          "column_7": "",
+                          "column_8": "",
+                          "column_9": "",
+                          "row_format": ""
+                      },
 
-                    {
-                      "column_0": "vom Vorjahr anh\u00e4ngig",
-                      "column_1": "14",
-                      "column_10": "",
-                      "column_11": "",
-                      "column_2": "23",
-                      "column_3": "",
-                      "column_4": "",
-                      "column_5": "",
-                      "column_6": "",
-                      "column_7": "",
-                      "column_8": "",
-                      "column_9": "",
-                      "row_format": ""
-                    },
+                      {
+                          "column_0": "vom Vorjahr anh\u00e4ngig",
+                          "column_1": "14",
+                          "column_10": "",
+                          "column_11": "",
+                          "column_2": "23",
+                          "column_3": "",
+                          "column_4": "",
+                          "column_5": "",
+                          "column_6": "",
+                          "column_7": "",
+                          "column_8": "",
+                          "column_9": "",
+                          "row_format": ""
+                      },
 
-                    {
-                      "column_0": "Neueing\u00e4nge",
-                      "column_1": "121",
-                      "column_10": "",
-                      "column_11": "",
-                      "column_2": "101",
-                      "column_3": "",
-                      "column_4": "",
-                      "column_5": "",
-                      "column_6": "",
-                      "column_7": "",
-                      "column_8": "",
-                      "column_9": "",
-                      "row_format": ""
-                    },
+                      {
+                          "column_0": "Neueing\u00e4nge",
+                          "column_1": "121",
+                          "column_10": "",
+                          "column_11": "",
+                          "column_2": "101",
+                          "column_3": "",
+                          "column_4": "",
+                          "column_5": "",
+                          "column_6": "",
+                          "column_7": "",
+                          "column_8": "",
+                          "column_9": "",
+                          "row_format": ""
+                      },
 
-                    {
-                      "column_0": "Total",
-                      "column_1": "135",
-                      "column_10": "",
-                      "column_11": "",
-                      "column_2": "124",
-                      "column_3": "",
-                      "column_4": "",
-                      "column_5": "",
-                      "column_6": "",
-                      "column_7": "",
-                      "column_8": "",
-                      "column_9": "",
-                      "row_format": "bold"
-                    }
-                ],
+                      {
+                          "column_0": "Total",
+                          "column_1": "135",
+                          "column_10": "",
+                          "column_11": "",
+                          "column_2": "124",
+                          "column_3": "",
+                          "column_4": "",
+                          "column_5": "",
+                          "column_6": "",
+                          "column_7": "",
+                          "column_8": "",
+                          "column_9": "",
+                          "row_format": "bold"
+                      }
+                  ],
 
-                "firstColumnIsHeader": false,
-                "footerIsBold": true,
-                "footerRows": "1",
-                "footnoteText": "",
-                "headerIsBold": true,
-                "headerRows": "1",
-                "language": "",
-                "latex_hyphenation": [],
-                "latex_landscape": false,
-                "latex_post_clearpage": false,
-                "latex_pre_clearpage": false,
-                "latex_pre_newpage": false,
-                "latex_preferred_layout": "",
-                "noLifting": false,
-                "non_toc_heading": false,
-                "showTitle": false
+                  "first_column_is_header": false,
+                  "footer_is_bold": true,
+                  "footer_rows": "1",
+                  "footnote_text": "",
+                  "header_rows": "1",
+                  "language": "",
+                  "latex_hyphenation": [],
+                  "latex_landscape": false,
+                  "latex_post_clearpage": false,
+                  "latex_pre_clearpage": false,
+                  "latex_pre_newpage": false,
+                  "latex_preferred_layout": "",
+                  "noLifting": false,
+                  "non_toc_heading": false,
+                  "showTitle": false
               }
 
 

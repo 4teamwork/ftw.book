@@ -20,6 +20,9 @@ from zope.schema import Text
 from zope.schema import TextLine
 
 
+OLD_AT_INTERFACE = 'ftw.book.latex.defaultlayout.IDefaultBookLayoutSelectionLayer'
+
+
 @provider(IFormFieldProvider, IBookLayoutBehavior)
 class IDefaultBookLayout(Schema):
     """Book instance behavior for a standard book layout.
