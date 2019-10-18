@@ -8,6 +8,7 @@ class TestTableLaTeXView(FunctionalTestCase):
         self.assert_latex_code(
             self.table,
             r'''
+\label{path:/plone/the-example-book/historical-background/china/population}
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
 \addtolength\tablewidth{-6\tabcolsep}
@@ -38,6 +39,7 @@ Population
         self.assert_latex_code(
             self.table,
             r'''
+\label{path:/plone/the-example-book/historical-background/china/population}
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
 \addtolength\tablewidth{-6\tabcolsep}
@@ -63,6 +65,7 @@ Population
         self.assert_latex_code(
             self.table,
             r'''
+\label{path:/plone/the-example-book/historical-background/china/population}
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
 \addtolength\tablewidth{-6\tabcolsep}

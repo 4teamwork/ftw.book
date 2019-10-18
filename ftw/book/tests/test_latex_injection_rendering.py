@@ -1,225 +1,135 @@
-from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
+from ftw.book.behaviors.clearpage import IClearpage
+from ftw.book.behaviors.codeinjection import ILaTeXCodeInjection
+from ftw.book.behaviors.columnlayout import IChangeColumnLayout
 from ftw.book.interfaces import ILaTeXInjectionController
 from ftw.book.interfaces import NO_PREFERRED_LAYOUT
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
 from ftw.book.testing import LATEX_ZCML_LAYER
-from ftw.pdfgenerator.interfaces import IBuilder
-from ftw.pdfgenerator.interfaces import ILaTeXView
+from ftw.book.tests import FunctionalTestCase
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.pdfgenerator.layout.baselayout import BaseLayout
 from ftw.testing import MockTestCase
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
-from zope.interface import Interface
-from zope.interface import directlyProvides
 from zope.interface.verify import verifyClass
 
 
-class IFoo(Interface):
-    pass
-
-
-class TestInjectionAwareConvertObject(MockTestCase):
-
-    layer = LATEX_ZCML_LAYER
-
-    def setUp(self):
-        super(TestInjectionAwareConvertObject, self).setUp()
-
-        context = self.create_dummy()
-        request = self.create_dummy()
-        builder = self.providing_stub(IBuilder)
-
-        self.layout = BaseLayout(context, request, builder)
-
-    def mock_extender_values(self, mock, **data):
-        default_data = {'preLatexCode': '',
-                        'postLatexCode': '',
-                        'preferredColumnLayout': NO_PREFERRED_LAYOUT,
-                        'latexLandscape': False,
-                        'preLatexClearpage': False,
-                        'postLatexClearpage': False,
-                        'preLatexNewpage': False}
-        default_data.update(data)
-        data = default_data
-
-        schema = self.stub()
-        self.expect(mock.Schema()).result(schema).count(0, None)
-
-        for fieldname, value in data.items():
-            self.expect(schema.getField(fieldname).get(mock)).result(value)
-
-        self.expect(mock.getPhysicalPath()).result(['', 'path', 'to', 'obj'])
-        return schema
-
-    def test_not_injected_without_interface(self):
-        obj = self.mocker.mock()
-        self.expect(obj.Schema()).count(0)
-
-        self.replay()
-
-        self.assertEqual(self.layout.render_latex_for(obj), '')
+class TestLatexInjection(FunctionalTestCase):
 
     def test_injected_with_interface(self):
-        latex_pre_code = 'INJECTED PRE LATEX CODE'
-        latex_post_code = 'INJECTED POST LATEX CODE'
+        ILaTeXCodeInjection(self.textblock3).pre_latex_code = 'INJECTED PRE'
+        ILaTeXCodeInjection(self.textblock3).post_latex_code = 'INJECTED POST'
 
-        obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
+        self.assert_latex_code(self.textblock3, r'''
+        \label{path:/plone/the-example-book/introduction/versioning}
 
-        self.mock_extender_values(obj, preLatexCode=latex_pre_code,
-                                  postLatexCode=latex_post_code)
+        % ---- LaTeX injection (pre_latex_code) at /plone/the-example-book/introduction/versioning
+        INJECTED PRE
+        % ---- end LaTeX injection (pre_latex_code)
+        \section*{Versioning}
 
-        self.replay()
-        latex = self.layout.render_latex_for(obj)
 
-        self.assertIn(latex_pre_code, latex)
-        self.assertIn(latex_post_code, latex)
-        self.assertIn('/'.join(obj.getPhysicalPath()), latex)
-
-    def test_bad_schemaextender_state(self):
-        # sometimes the field can not be retrieved. We do nothing and we
-        # don't fail in this case.
-        obj_dummy = self.create_dummy()
-        directlyProvides(obj_dummy, ILaTeXCodeInjectionEnabled)
-        obj = self.mocker.proxy(obj_dummy, spec=None)
-        self.mock_extender_values(obj, preLatexCode=None)
-
-        self.replay()
-        latex = self.layout.render_latex_for(obj)
-
-        self.assertEqual(latex.strip(), r'\label{path:/path/to/obj}')
+        % ---- LaTeX injection (post_latex_code) at /plone/the-example-book/introduction/versioning
+        INJECTED POST
+        % ---- end LaTeX injection (post_latex_code)
+        ''')
 
     def test_column_layout_injected(self):
-        obj1 = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(
-            obj1, preferredColumnLayout=NO_PREFERRED_LAYOUT)
+        chapter = create(Builder('chapter').titled(u'Chapter')
+                         .within(create(Builder('book').titled(u'Book'))))
+        create(Builder('book textblock').titled(u'A').within(chapter)
+               .having(preferred_column_layout=ONECOLUMN_LAYOUT))
+        create(Builder('book textblock').titled(u'B').within(chapter)
+               .having(preferred_column_layout=TWOCOLUMN_LAYOUT))
+        create(Builder('book textblock').titled(u'C').within(chapter)
+               .having(preferred_column_layout=NO_PREFERRED_LAYOUT))
+        create(Builder('book textblock').titled(u'D').within(chapter)
+               .having(preferred_column_layout=TWOCOLUMN_LAYOUT))
+        create(Builder('book textblock').titled(u'E').within(chapter)
+               .having(preferred_column_layout=ONECOLUMN_LAYOUT))
 
-        obj1a = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(
-            obj1a, preferredColumnLayout=TWOCOLUMN_LAYOUT)
+        self.assert_latex_code(chapter, r'''
+        \label{path:/plone/book/chapter}
+        \setcounter{chapter}{0}
+        \chapter{Chapter}
+        \label{path:/plone/book/chapter/a}
+        \section{A}
 
-        obj1b = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(
-            obj1b, preferredColumnLayout=ONECOLUMN_LAYOUT)
 
-        obj1c = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(
-            obj1c, preferredColumnLayout=NO_PREFERRED_LAYOUT)
 
-        obj2 = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(
-            obj2, preferredColumnLayout=TWOCOLUMN_LAYOUT)
+        \label{path:/plone/book/chapter/b}
+        \twocolumn
+        \section{B}
 
-        self.replay()
 
-        latex_obj1 = self.layout.render_latex_for(obj1)
-        latex_obj1a = self.layout.render_latex_for(obj1a)
-        latex_obj1b = self.layout.render_latex_for(obj1b)
-        latex_obj1c = self.layout.render_latex_for(obj1c)
-        latex_obj2 = self.layout.render_latex_for(obj2)
 
-        self.assertNotIn('column', latex_obj1)
-        self.assertIn(r'\twocolumn', latex_obj1a)
-        self.assertIn(r'\onecolumn', latex_obj1b)
-        self.assertNotIn('column', latex_obj1c)
-        self.assertIn(r'\twocolumn', latex_obj2)
+        \label{path:/plone/book/chapter/c}
+        \section{C}
 
-    def test_latex_clearpage_injected(self):
-        normal_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(normal_obj)
 
-        pre_clearpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(pre_clearpage_obj, preLatexClearpage=True)
 
-        post_clearpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(post_clearpage_obj, postLatexClearpage=True)
+        \label{path:/plone/book/chapter/d}
+        \section{D}
 
-        for obj in [normal_obj, pre_clearpage_obj, post_clearpage_obj]:
-            self.expect(obj.getPhysicalPath()).result(['', 'myobj'])
 
-        self.replay()
 
-        self.assertNotIn(r'\clearpage',
-                         self.layout.render_latex_for(normal_obj))
+        \label{path:/plone/book/chapter/e}
+        \onecolumn
+        \section{E}
+        ''')
 
-        self.assertIn(r'\clearpage',
-                         self.layout.render_latex_for(pre_clearpage_obj))
+    def test_latex_pre_clearpage_injected(self):
+        IClearpage(self.textblock3).pre_latex_clearpage = True
+        self.assert_latex_code(self.textblock3, r'''
+        \label{path:/plone/the-example-book/introduction/versioning}
+        \clearpage
+        \section*{Versioning}
+        ''')
 
-        self.assertIn(r'\clearpage',
-                         self.layout.render_latex_for(post_clearpage_obj))
+    def test_latex_post_clearpage_injected(self):
+        IClearpage(self.textblock3).post_latex_clearpage = True
+        self.assert_latex_code(self.textblock3, r'''
+        \label{path:/plone/the-example-book/introduction/versioning}
+        \section*{Versioning}
+
+
+        \clearpage
+        ''')
 
     def test_latex_newpage_injected(self):
-        normal_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(normal_obj)
-
-        pre_newpage_obj = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(pre_newpage_obj, preLatexNewpage=True)
-
-        for obj in [normal_obj, pre_newpage_obj]:
-            self.expect(obj.getPhysicalPath()).result(['', 'myobj'])
-
-        self.replay()
-
-        self.assertNotIn(r'\newpage',
-                         self.layout.render_latex_for(normal_obj))
-
-        self.assertIn(r'\newpage',
-                         self.layout.render_latex_for(pre_newpage_obj))
+        IChangeColumnLayout(self.textblock3).pre_latex_newpage = True
+        self.assert_latex_code(self.textblock3, r'''
+        \label{path:/plone/the-example-book/introduction/versioning}
+        \newpage
+        \section*{Versioning}
+        ''')
 
     def test_landscape_mode(self):
-        obj1 = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(obj1, latexLandscape=False)
+        chapter = create(Builder('chapter').titled(u'Chapter')
+                         .having(landscape=True)
+                         .within(create(Builder('book').titled(u'Book'))))
+        create(Builder('book textblock').titled(u'A').within(chapter))
+        create(Builder('book textblock').titled(u'B').within(chapter))
 
-        obj2 = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(obj2, latexLandscape=True)
+        self.assert_latex_code(chapter, r'''
+        \label{path:/plone/book/chapter}
+        \begin{landscape}
+        \setcounter{chapter}{0}
+        \chapter{Chapter}
+        \label{path:/plone/book/chapter/a}
+        \section{A}
 
-        self.replay()
 
-        latex_obj1 = self.layout.render_latex_for(obj1)
-        latex_obj2 = self.layout.render_latex_for(obj2)
 
-        self.assertNotIn(r'landscape', latex_obj1)
+        \label{path:/plone/book/chapter/b}
+        \section{B}
 
-        self.assertIn(r'landscape', latex_obj2)
-        self.assertIn(r'\begin{landscape}', latex_obj2)
-        self.assertIn(r'\end{landscape}', latex_obj2)
 
-    def test_landscape_nested(self):
-        foo = self.providing_stub([ILaTeXCodeInjectionEnabled, IFoo])
-        self.mock_extender_values(foo, latexLandscape=True)
 
-        bar = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(bar, latexLandscape=False)
-
-        baz = self.providing_stub(ILaTeXCodeInjectionEnabled)
-        self.mock_extender_values(baz, latexLandscape=True)
-
-        class FooLaTeXView(object):
-
-            def __init__(self, context, request, layout):
-                self.layout = layout
-
-            def render(self):
-                return '\n'.join((
-                        'Bar: %s' % self.layout.render_latex_for(bar).strip(),
-                        'Baz: %s' % self.layout.render_latex_for(baz).strip(),
-                        ))
-
-        self.mock_adapter(FooLaTeXView, ILaTeXView,
-                          (IFoo, Interface, Interface))
-
-        self.replay()
-
-        self.assertEqual(
-            '\n'.join((
-                    r'\label{path:/path/to/obj}',
-                    r'',
-                    r'\begin{landscape}',
-                    r'Bar: \label{path:/path/to/obj}',
-                    r'Baz: \label{path:/path/to/obj}',
-                    r'\end{landscape}')),
-
-            self.layout.render_latex_for(foo))
+        \end{landscape}
+        ''')
 
 
 class TestLaTeXInjectionController(MockTestCase):

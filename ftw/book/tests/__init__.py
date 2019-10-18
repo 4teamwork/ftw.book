@@ -5,6 +5,7 @@ from ftw.pdfgenerator.interfaces import IPDFAssembler
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.uuid.interfaces import IUUID
+from textwrap import dedent
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 import difflib
@@ -32,6 +33,8 @@ class FunctionalTestCase(TestCase):
             'historical-background/china/first-things-first')
         self.textblock2 = self.example_book.unrestrictedTraverse(
             'introduction/management-summary')
+        self.textblock3 = self.example_book.unrestrictedTraverse(
+            'introduction/versioning')
 
     def grant(self, *roles):
         setRoles(self.portal, TEST_USER_ID, list(roles))
@@ -51,7 +54,7 @@ class FunctionalTestCase(TestCase):
             ILaTeXView)
 
     def get_latex_code(self, obj):
-        got_latex = self.get_latex_view_for(obj).render().strip()
+        got_latex = self.get_latex_layout(obj).render_latex_for(obj).strip()
         return got_latex.replace(IUUID(obj), 'XBlockUUIDX')
 
     def create_dummy(self, **kw):
@@ -59,7 +62,7 @@ class FunctionalTestCase(TestCase):
 
     def assert_latex_code(self, obj, expected_latex_code):
         self.maxDiff = None
-        self.assertMultiLineEqual(expected_latex_code.strip(),
+        self.assertMultiLineEqual(dedent(expected_latex_code).strip(),
                                   self.get_latex_code(obj))
 
     @contextmanager
@@ -74,7 +77,7 @@ class FunctionalTestCase(TestCase):
             tofile='after.tex',
             lineterm='')).strip()
         expected_diff = '\n'.join([line or ' ' for line
-                                   in expected_diff.strip().split('\n')])
+                                   in dedent(expected_diff).strip().split('\n')])
 
         if got_diff != expected_diff:
             raise AssertionError(

@@ -62,12 +62,6 @@ class IBookLayoutBehavior(Interface):
     """
 
 
-class ILaTeXCodeInjectionEnabled(Interface):
-    """Enables LaTeX code injection for admins on
-    book-objects (chapters, text blocks).
-    """
-
-
 class ILaTeXInjectionController(Interface):
     """This adapter controlls LaTeX injection and providing methods for
     retrieving the current injection state, such as the current column

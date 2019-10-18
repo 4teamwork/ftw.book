@@ -13,6 +13,7 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
         self.assert_latex_code(
             self.listingblock,
             r'''
+\label{path:/plone/the-example-book/historical-background/china/important-documents}
 \subsection{Important Documents}
 
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
@@ -38,7 +39,8 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
                 r'''
 --- before.tex
 +++ after.tex
-@@ -1,5 +1,3 @@
+@@ -1,6 +1,4 @@
+ \label{path:/plone/the-example-book/historical-background/china/important-documents}
 -\subsection{Important Documents}
 -
  \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
@@ -54,7 +56,8 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
                 r'''
 --- before.tex
 +++ after.tex
-@@ -1,4 +1,4 @@
+@@ -1,5 +1,5 @@
+ \label{path:/plone/the-example-book/historical-background/china/important-documents}
 -\subsection{Important Documents}
 +\subsection*{Important Documents}
 

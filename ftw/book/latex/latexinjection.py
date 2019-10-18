@@ -2,7 +2,11 @@
 mixing in the additional preLatexCode and postLatexCode.
 """
 
-from ftw.book.interfaces import ILaTeXCodeInjectionEnabled
+from ftw.book.behaviors.clearpage import IClearpage
+from ftw.book.behaviors.codeinjection import ILaTeXCodeInjection
+from ftw.book.behaviors.columnlayout import IChangeColumnLayout
+from ftw.book.behaviors.landscape import ILandscape
+from ftw.book.interfaces import IBookContentType
 from ftw.book.interfaces import ILaTeXInjectionController
 from ftw.book.interfaces import ONECOLUMN_LAYOUT
 from ftw.book.interfaces import TWOCOLUMN_LAYOUT
@@ -86,8 +90,8 @@ class LaTeXInjectionController(object):
 
 class InjectionLaTeXViewBase(MakoLaTeXView):
 
-    def get_rendered_latex_for(self, fieldname):
-        code = self.get_field_value(fieldname)
+    def get_rendered_latex_for(self, schema, fieldname):
+        code = self.get_field_value(schema, fieldname)
         if not code:
             return ''
 
@@ -102,26 +106,16 @@ class InjectionLaTeXViewBase(MakoLaTeXView):
 
         return '\n'.join(latex)
 
-    def get_field_value(self, fieldname):
-        """Returns the value of the field ``fieldname`` or ``None``.
-        """
-        field = self.context.Schema().getField(fieldname)
-        if field is None:
-            return None
-
-        else:
-            return field.get(self.context)
+    def get_field_value(self, schema, fieldname):
+        return getattr(schema(self.context, None), fieldname, None)
 
     def get_controller(self):
         return getMultiAdapter((self.layout, self.request),
                                ILaTeXInjectionController)
 
 
-@adapter(ILaTeXCodeInjectionEnabled, Interface, Interface)
+@adapter(IBookContentType, Interface, Interface)
 class PreInjectionLaTeXView(InjectionLaTeXViewBase):
-    """Mixes in the preLatexCode for every object providing
-    ILaTeXCodeInjectionEnabled and within a book.
-    """
 
     def render(self):
         latex = []
@@ -130,45 +124,45 @@ class PreInjectionLaTeXView(InjectionLaTeXViewBase):
         path = '/'.join(self.context.getPhysicalPath())
         latex.append(r'\label{path:%s}' % path)
 
-        if self.get_field_value('preLatexClearpage'):
+        if self.get_field_value(IClearpage, 'pre_latex_clearpage'):
             latex.append(r'\clearpage')
 
-        if self.get_field_value('preLatexNewpage'):
+        if self.get_field_value(IChangeColumnLayout, 'pre_latex_newpage'):
             latex.append(r'\newpage')
 
         latex.append(self._render_preferred_layout())
         latex.append(self._render_landscape())
-        latex.append(self.get_rendered_latex_for('preLatexCode'))
+        latex.append(self.get_rendered_latex_for(ILaTeXCodeInjection,
+                                                 'pre_latex_code'))
 
-        return '\n'.join(latex).strip()
+        return '\n'.join(filter(None, latex)).strip()
 
     def _render_landscape(self):
-        landscape = self.get_field_value('latexLandscape')
+        landscape = self.get_field_value(ILandscape, 'landscape')
         controller = self.get_controller()
         return controller.set_landscape(self.context, landscape)
 
     def _render_preferred_layout(self):
-        preferred_layout = self.get_field_value('preferredColumnLayout')
+        preferred_layout = self.get_field_value(
+            IChangeColumnLayout, 'preferred_column_layout')
         controller = self.get_controller()
         return controller.set_layout(preferred_layout)
 
 
-@adapter(ILaTeXCodeInjectionEnabled, Interface, Interface)
+@adapter(IBookContentType, Interface, Interface)
 class PostInjectionLaTeXView(InjectionLaTeXViewBase):
-    """Mixes in the postLatexCode for every object providing
-    ILaTeXCodeInjectionEnabled and within a book.
-    """
 
     def render(self):
         latex = []
 
-        if self.get_field_value('postLatexClearpage'):
+        if self.get_field_value(IClearpage, 'post_latex_clearpage'):
             latex.append(r'\clearpage')
 
         latex.append(self._render_landscape())
-        latex.append(self.get_rendered_latex_for('postLatexCode'))
+        latex.append(self.get_rendered_latex_for(ILaTeXCodeInjection,
+                                                 'post_latex_code'))
 
-        return '\n'.join(latex).strip()
+        return '\n'.join(filter(None, latex)).strip()
 
     def _render_landscape(self):
         controller = self.get_controller()
