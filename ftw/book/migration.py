@@ -1,5 +1,7 @@
 from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.upgrade.migration import InplaceMigrator
+from operator import methodcaller
+from Products.CMFCore.utils import getToolByName
 from zope.annotation.interfaces import IAnnotations
 from zope.component.hooks import getSite
 from zope.dottedname.resolve import resolve
@@ -26,6 +28,7 @@ class MigrationUpgradeStepMixin(object):
             BookMigrator,
             ChapterMigrator,
             BookTextBlockMigrator,
+            HTMLBlockMigrator,
         )
 
     def migrate_all_book_types(self):
@@ -40,6 +43,13 @@ def migrate_last_modifier(old_object, new_object):
     value = getattr(old_object, 'lastModifier', None)
     if value:
         IAnnotations(new_object)['collective.lastmodifier'] = value
+
+
+def get_book_paths():
+    catalog = getToolByName(getSite(), 'portal_catalog')
+    query = {'portal_type': ['ftw.book.Book', 'Book']}
+    brains = catalog.unrestrictedSearchResults(query)
+    return map(methodcaller('getPath'), brains)
 
 
 class BookMigrator(InplaceMigrator):
@@ -179,3 +189,34 @@ class BookTextBlockMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'BookTextBlock'}
+
+
+class HTMLBlockMigrator(InplaceMigrator):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+        if IMPORT_ERROR:
+            raise IMPORT_ERROR
+
+        super(HTMLBlockMigrator, self).__init__(
+            new_portal_type='ftw.book.HtmlBlock',
+            ignore_fields=(
+                DUBLIN_CORE_IGNORES
+                + SL_BLOCK_DEFAULT_IGNORED_FIELDS
+                + ignore_fields
+                + (
+                    'description',
+                    'lastModifier',
+                    'searchwords',
+                    'showinsearch',
+                )),
+            field_mapping={
+                'showTitle': 'show_title',
+                'text': 'content'
+            },
+            additional_steps=(
+                (migrate_last_modifier, )
+                + additional_steps),
+            **kwargs)
+
+    def query(self):
+        return {'portal_type': 'HTMLBlock', 'path': get_book_paths()}
