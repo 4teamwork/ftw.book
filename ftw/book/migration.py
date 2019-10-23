@@ -6,6 +6,7 @@ from zope.schema.vocabulary import getVocabularyRegistry
 
 try:
 
+    from ftw.simplelayout.migration import migrate_simplelayout_page_state
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
 
 except ImportError, IMPORT_ERROR:
@@ -20,6 +21,7 @@ class MigrationUpgradeStepMixin(object):
     def migrator_classes(self):
         return (
             BookMigrator,
+            ChapterMigrator,
         )
 
     def migrate_all_book_types(self):
@@ -97,3 +99,33 @@ class BookMigrator(InplaceMigrator):
             value = getattr(old_object, fieldname)
             value = self.normalize_at_field_value(None, fieldname, value)
             yield fieldname, value
+
+
+class ChapterMigrator(InplaceMigrator):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+        if IMPORT_ERROR:
+            raise IMPORT_ERROR
+
+        super(ChapterMigrator, self).__init__(
+            new_portal_type='ftw.book.Chapter',
+            ignore_fields=(
+                DUBLIN_CORE_IGNORES
+                + ignore_fields + (
+                    'lastModifier',  # XXX fix me: migrate from field to annotations
+                    'subject',
+                    'searchwords',
+                    'showinsearch',
+                    'description',  # chapters no longer have descriptions
+                    'effectiveDate',
+                    'excludeFromNav',
+                    'expirationDate',
+                )),
+            additional_steps=(
+                (migrate_simplelayout_page_state, )
+                + additional_steps),
+            **kwargs
+        )
+
+    def query(self):
+        return {'portal_type': 'Chapter', 'sort_on': 'path'}

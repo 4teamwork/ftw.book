@@ -37,4 +37,9 @@
       title="ftw.book: Add Book Text Block"
       />
 
+  <permission
+      id="ftw.book.AddRemark"
+      title="ftw.book: Add Remark"
+      />
+
 </configure>
