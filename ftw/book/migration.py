@@ -1,5 +1,6 @@
 from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.upgrade.migration import InplaceMigrator
+from zope.annotation.interfaces import IAnnotations
 from zope.component.hooks import getSite
 from zope.dottedname.resolve import resolve
 from zope.schema.vocabulary import getVocabularyRegistry
@@ -32,6 +33,12 @@ class MigrationUpgradeStepMixin(object):
                              'Migrate {}'.format(migrator_class.__name__)))
 
 
+def migrate_last_modifier(old_object, new_object):
+    value = getattr(old_object, 'lastModifier', None)
+    if value:
+        IAnnotations(new_object)['collective.lastmodifier'] = value
+
+
 class BookMigrator(InplaceMigrator):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
@@ -43,13 +50,16 @@ class BookMigrator(InplaceMigrator):
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
-                    'lastModifier',  # XXX fix me: migrate from field to annotations
+                    'lastModifier',
                     'searchwords',
                     'showinsearch',
                     'subject',
                     'topics',
                     'latex_layout',  # self.set_book_layout migrates this field
                 )),
+            additional_steps=(
+                (migrate_last_modifier, )
+                + additional_steps),
             **kwargs
         )
         self.steps_after_clone = (self.set_book_layout,) + self.steps_after_clone
@@ -112,7 +122,7 @@ class ChapterMigrator(InplaceMigrator):
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
-                    'lastModifier',  # XXX fix me: migrate from field to annotations
+                    'lastModifier',
                     'subject',
                     'searchwords',
                     'showinsearch',
@@ -122,7 +132,8 @@ class ChapterMigrator(InplaceMigrator):
                     'expirationDate',
                 )),
             additional_steps=(
-                (migrate_simplelayout_page_state, )
+                (migrate_simplelayout_page_state,
+                 migrate_last_modifier)
                 + additional_steps),
             **kwargs
         )
