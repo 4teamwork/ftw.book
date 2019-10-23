@@ -8,6 +8,8 @@ from zope.schema.vocabulary import getVocabularyRegistry
 try:
 
     from ftw.simplelayout.migration import migrate_simplelayout_page_state
+    from ftw.simplelayout.migration import migrate_sl_image_layout
+    from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
 
 except ImportError, IMPORT_ERROR:
@@ -23,6 +25,7 @@ class MigrationUpgradeStepMixin(object):
         return (
             BookMigrator,
             ChapterMigrator,
+            BookTextBlockMigrator,
         )
 
     def migrate_all_book_types(self):
@@ -140,3 +143,39 @@ class ChapterMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'Chapter', 'sort_on': 'path'}
+
+
+class BookTextBlockMigrator(InplaceMigrator):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+        if IMPORT_ERROR:
+            raise IMPORT_ERROR
+
+        super(BookTextBlockMigrator, self).__init__(
+            new_portal_type='ftw.book.TextBlock',
+            ignore_fields=(
+                DUBLIN_CORE_IGNORES
+                + SL_BLOCK_DEFAULT_IGNORED_FIELDS
+                + ignore_fields + (
+                    'lastModifier',
+                    'description',
+                    'teaserSelectLink',
+                    'searchwords',
+                    'showinsearch',
+                    'teaserExternalUrl',
+                    'teaserReference',
+                )),
+            field_mapping={
+                'showTitle': 'show_title',
+                'imageAltText': 'image_alt_text',
+                'imageCaption': 'image_caption',
+                'imageClickable': 'open_image_in_overlay'},
+            additional_steps=(
+                (migrate_sl_image_layout,
+                 migrate_last_modifier)
+                + additional_steps),
+            **kwargs
+        )
+
+    def query(self):
+        return {'portal_type': 'BookTextBlock'}
