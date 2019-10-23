@@ -20,7 +20,10 @@ from zope.schema import Text
 from zope.schema import TextLine
 
 
+# AT -> DX migration hints.
 OLD_AT_INTERFACE = 'ftw.book.latex.defaultlayout.IDefaultBookLayoutSelectionLayer'
+OLD_FIELDNAMES = ('release', 'author', 'author_address', 'titlepage_logo', 'titlepage_logo_width')
+OLD_NEW_MAPPING = {'author': 'book_author'}
 
 
 @provider(IFormFieldProvider, IBookLayoutBehavior)
