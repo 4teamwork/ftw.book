@@ -27,6 +27,7 @@ class MigrationUpgradeStepMixin(object):
         return (
             BookMigrator,
             ChapterMigrator,
+            TableMigrator,
             BookTextBlockMigrator,
             HTMLBlockMigrator,
         )
@@ -220,3 +221,39 @@ class HTMLBlockMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'HTMLBlock', 'path': get_book_paths()}
+
+
+class TableMigrator(InplaceMigrator):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+        if IMPORT_ERROR:
+            raise IMPORT_ERROR
+
+        super(TableMigrator, self).__init__(
+            new_portal_type='ftw.book.Table',
+            ignore_fields=(
+                DUBLIN_CORE_IGNORES
+                + SL_BLOCK_DEFAULT_IGNORED_FIELDS
+                + ignore_fields
+                + (
+                    'description',
+                    'lastModifier',
+                    'searchwords',
+                    'showinsearch',
+                )),
+            field_mapping={
+                'borderLayout': 'border_layout',
+                'columnProperties': 'column_properties',
+                'firstColumnIsHeader': 'first_column_is_header',
+                'footerIsBold': 'footer_is_bold',
+                'footerRows': 'footer_rows',
+                'footnoteText': 'footnote_text',
+                'headerRows': 'header_rows',
+                'noLifting': 'no_lifting',
+                'showTitle': 'show_title',
+            },
+            additional_steps=additional_steps,
+            **kwargs)
+
+    def query(self):
+        return {'portal_type': 'Table'}
