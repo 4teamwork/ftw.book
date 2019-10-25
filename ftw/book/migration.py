@@ -1,5 +1,6 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+from copy import deepcopy
 from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.upgrade.migration import InplaceMigrator
 from operator import methodcaller
@@ -13,8 +14,8 @@ from zope.schema.vocabulary import getVocabularyRegistry
 
 try:
 
+    from ftw.simplelayout.interfaces import IBlockConfiguration
     from ftw.simplelayout.migration import migrate_simplelayout_page_state
-    from ftw.simplelayout.migration import migrate_sl_image_layout
     from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
     import ftw.book.content.book  # noqa
@@ -216,7 +217,7 @@ class BookTextBlockMigrator(InplaceMigrator):
                 'imageCaption': 'image_caption',
                 'imageClickable': 'open_image_in_overlay'},
             additional_steps=(
-                (migrate_sl_image_layout,
+                (self.migrate_sl_image_layout,
                  migrate_last_modifier)
                 + additional_steps),
             **kwargs
@@ -224,6 +225,37 @@ class BookTextBlockMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'BookTextBlock'}
+
+    def migrate_sl_image_layout(self, old_object, new_object):
+        block_layout_mapping = {
+            'small': {
+                'scale': 'sl_textblock_small',
+                'imagefloat': 'left'},
+            'middle': {
+                'scale': 'sl_textblock_middle',
+                'imagefloat': 'left'},
+            'full': {
+                'scale': 'sl_textblock_large',
+                'imagefloat': 'no-float'},
+            'middle-right': {
+                'scale': 'sl_textblock_middle',
+                'imagefloat': 'right'},
+            'small-right': {
+                'scale': 'sl_textblock_small',
+                'imagefloat': 'right'},
+            'no-image': {
+                'scale': 'sl_textblock_small',
+                'imagefloat': 'left'},
+        }
+
+        image_layout = IAnnotations(old_object).get('imageLayout', None)
+        if not image_layout or image_layout == 'dummy-dummy-dummy':
+            return
+
+        new_config = IBlockConfiguration(new_object)
+        cfg = new_config.load()
+        cfg.update(block_layout_mapping[image_layout])
+        new_config.store(cfg)
 
 
 class BookListingBlockMigrator(InplaceMigrator):
@@ -369,3 +401,17 @@ class TableMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'Table'}
+
+    def get_field_values(self, old_object):
+        for name, value in super(TableMigrator, self).get_field_values(old_object):
+            if name == 'columnProperties':
+                value = deepcopy(value)
+                for item in value:
+                    item.pop('columnTitle', None)
+                    item['active'] = bool(item['active'])
+                    item['bold'] = bool(item['bold'])
+                    item['width'] = item['width'] and int(item['width']) or None
+                yield name, value
+
+            else:
+                yield name, value
