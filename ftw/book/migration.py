@@ -410,7 +410,10 @@ class TableMigrator(InplaceMigrator):
                     item.pop('columnTitle', None)
                     item['active'] = bool(item['active'])
                     item['bold'] = bool(item['bold'])
-                    item['width'] = item['width'] and int(item['width']) or None
+                    if item['width']:
+                        item['width'] = int(item['width'].replace('%', '').strip())
+                    else:
+                        item['width'] = None
                 yield name, value
 
             else:
