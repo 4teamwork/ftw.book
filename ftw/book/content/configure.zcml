@@ -31,13 +31,6 @@
         />
   </class>
 
-  <class class=".remark.Remark">
-    <require
-        permission="zope2.View"
-        interface="..interfaces.IRemark"
-        />
-  </class>
-
   <class class=".textblock.BookTextBlock">
       <require
           permission="zope2.View"

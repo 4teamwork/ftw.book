@@ -5,6 +5,8 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
+- Remove "Remark" type. Make sure to remove all instanes before updating. [jone]
+
 - Deprecate get_raw_image_data utils function. [jone]
 
 - Drop next / previous support. [jone]

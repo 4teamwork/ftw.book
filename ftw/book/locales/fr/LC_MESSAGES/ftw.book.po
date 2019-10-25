@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-16 15:48+0000\n"
+"POT-Creation-Date: 2019-10-25 06:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,10 +87,6 @@ msgstr "Colonne ${num}"
 #: ./ftw/book/latex/configure.zcml:21
 msgid "Default layout"
 msgstr "Layout standard"
-
-#: ./ftw/book/browser/templates/export_pdf.pt:22
-msgid "Embed remarks"
-msgstr "Lier commentaires"
 
 #: ./ftw/book/browser/templates/table_export_import.pt:28
 msgid "Export"
@@ -189,12 +185,12 @@ msgid "automatically"
 msgstr "Automatiquement"
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:45
+#: ./ftw/book/latex/defaultlayout.py:51
 msgid "book_help_titlepage_logo"
 msgstr "Télécharger une image ou un PDF qui sera affiché sur la page de titre"
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:53
+#: ./ftw/book/latex/defaultlayout.py:59
 msgid "book_help_titlepage_logo_width"
 msgstr "Largeur du logo adapté selon la largeur de page à disposition"
 
@@ -221,12 +217,12 @@ msgid "book_help_use_toc"
 msgstr "Si cette option est choissie, une table des matières sera créée"
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:34
+#: ./ftw/book/latex/defaultlayout.py:40
 msgid "book_label_author"
 msgstr "Auteur"
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:39
+#: ./ftw/book/latex/defaultlayout.py:45
 msgid "book_label_author_address"
 msgstr "Adresse de l'auteur"
 
@@ -237,47 +233,51 @@ msgid "book_label_layout"
 msgstr "Layout"
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:29
+#: ./ftw/book/latex/defaultlayout.py:35
 msgid "book_label_release"
 msgstr "Version"
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:44
+#: ./ftw/book/latex/defaultlayout.py:50
 msgid "book_label_titlepage_logo"
 msgstr "Logo d'en-tête"
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:51
+#: ./ftw/book/latex/defaultlayout.py:57
 msgid "book_label_titlepage_logo_width"
 msgstr "Taille du logo de la page d'en-tête"
 
-#. Default: "Embedd subject index"
+#. Default: "Embed subject index"
 #: ./ftw/book/content/book.py:85
 #: ./ftw/book/contents/book.py:53
 msgid "book_label_use_index"
 msgstr ""
 
-#. Default: "Embedd list of illustrations"
+#. Default: "Embed list of illustrations"
 #: ./ftw/book/content/book.py:75
 #: ./ftw/book/contents/book.py:49
+#, fuzzy
 msgid "book_label_use_loi"
 msgstr "Lier liste des illustrations"
 
-#. Default: "Embedd list of tables."
+#. Default: "Embed list of tables"
 #: ./ftw/book/content/book.py:65
 #: ./ftw/book/contents/book.py:45
+#, fuzzy
 msgid "book_label_use_lot"
 msgstr "Lier liste des tableaux"
 
-#. Default: "Embedd a title page"
+#. Default: "Embed a title page"
 #: ./ftw/book/content/book.py:45
 #: ./ftw/book/contents/book.py:37
+#, fuzzy
 msgid "book_label_use_titlepage"
 msgstr "Lier page d'en-tête"
 
-#. Default: "Embedd table of contents"
+#. Default: "Embed table of contents"
 #: ./ftw/book/content/book.py:55
 #: ./ftw/book/contents/book.py:41
+#, fuzzy
 msgid "book_label_use_toc"
 msgstr "Lier tableau du contenu"
 
@@ -615,7 +615,7 @@ msgid "title_import_export_tabledata"
 msgstr "Importer/exporter les données du tableau"
 
 #. Default: "Index"
-#: ./ftw/book/latex/defaultlayout.py:147
+#: ./ftw/book/latex/defaultlayout.py:153
 msgid "title_index"
 msgstr ""
 

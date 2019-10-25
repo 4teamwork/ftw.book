@@ -30,11 +30,6 @@ class IHTMLBlock(IBookContentType):
     """
 
 
-class IRemark(IBookContentType):
-    """Remark marker interface.
-    """
-
-
 class ITable(IBookContentType):
     """Table marker interface.
     """
@@ -47,12 +42,6 @@ class IBookTextBlock(ITextBlock, IBookContentType):
 
 class IBookFileListingBlock(IFileListingBlock, IBookContentType):
     """File listing block for books.
-    """
-
-
-class IAddRemarkLayer(Interface):
-    """ Request layer interface, provided if we select to show remarks in
-    the pdf export wizard
     """
 
 

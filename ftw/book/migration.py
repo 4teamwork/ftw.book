@@ -33,11 +33,20 @@ class MigrationUpgradeStepMixin(object):
         )
 
     def migrate_all_book_types(self):
+        self.verify()
         for migrator_class in self.migrator_classes:
             migrator = migrator_class()
             map(migrator.migrate_object,
                 self.objects(migrator.query(),
                              'Migrate {}'.format(migrator_class.__name__)))
+
+    def verify(self):
+        brains = self.catalog_unrestricted_search({'portal_type': 'Remark'})
+        if len(brains):
+            raise ValueError(
+                'The new ftw.book version does no longer provide a "Remark" block. '
+                'Before migrating to dexterity, all remarks must be removed. '
+                'You may want to convert them to textblocks.')
 
 
 def migrate_last_modifier(old_object, new_object):

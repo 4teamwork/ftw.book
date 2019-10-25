@@ -56,11 +56,6 @@
       />
 
   <adapter
-      factory="ftw.book.latex.remark.RemarkLaTeXView"
-      provides="ftw.pdfgenerator.interfaces.ILaTeXView"
-      />
-
-  <adapter
       factory="ftw.book.latex.table.TableLaTeXView"
       provides="ftw.pdfgenerator.interfaces.ILaTeXView"
       />

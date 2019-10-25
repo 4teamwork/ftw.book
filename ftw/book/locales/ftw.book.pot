@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-16 15:48+0000\n"
+"POT-Creation-Date: 2019-10-25 06:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,10 +89,6 @@ msgstr ""
 
 #: ./ftw/book/latex/configure.zcml:21
 msgid "Default layout"
-msgstr ""
-
-#: ./ftw/book/browser/templates/export_pdf.pt:22
-msgid "Embed remarks"
 msgstr ""
 
 #: ./ftw/book/browser/templates/table_export_import.pt:28
@@ -192,12 +188,12 @@ msgid "automatically"
 msgstr ""
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:45
+#: ./ftw/book/latex/defaultlayout.py:51
 msgid "book_help_titlepage_logo"
 msgstr ""
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:53
+#: ./ftw/book/latex/defaultlayout.py:59
 msgid "book_help_titlepage_logo_width"
 msgstr ""
 
@@ -224,12 +220,12 @@ msgid "book_help_use_toc"
 msgstr ""
 
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:34
+#: ./ftw/book/latex/defaultlayout.py:40
 msgid "book_label_author"
 msgstr ""
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:39
+#: ./ftw/book/latex/defaultlayout.py:45
 msgid "book_label_author_address"
 msgstr ""
 
@@ -240,45 +236,45 @@ msgid "book_label_layout"
 msgstr ""
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:29
+#: ./ftw/book/latex/defaultlayout.py:35
 msgid "book_label_release"
 msgstr ""
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:44
+#: ./ftw/book/latex/defaultlayout.py:50
 msgid "book_label_titlepage_logo"
 msgstr ""
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:51
+#: ./ftw/book/latex/defaultlayout.py:57
 msgid "book_label_titlepage_logo_width"
 msgstr ""
 
-#. Default: "Embedd subject index"
+#. Default: "Embed subject index"
 #: ./ftw/book/content/book.py:85
 #: ./ftw/book/contents/book.py:53
 msgid "book_label_use_index"
 msgstr ""
 
-#. Default: "Embedd list of illustrations"
+#. Default: "Embed list of illustrations"
 #: ./ftw/book/content/book.py:75
 #: ./ftw/book/contents/book.py:49
 msgid "book_label_use_loi"
 msgstr ""
 
-#. Default: "Embedd list of tables."
+#. Default: "Embed list of tables"
 #: ./ftw/book/content/book.py:65
 #: ./ftw/book/contents/book.py:45
 msgid "book_label_use_lot"
 msgstr ""
 
-#. Default: "Embedd a title page"
+#. Default: "Embed a title page"
 #: ./ftw/book/content/book.py:45
 #: ./ftw/book/contents/book.py:37
 msgid "book_label_use_titlepage"
 msgstr ""
 
-#. Default: "Embedd table of contents"
+#. Default: "Embed table of contents"
 #: ./ftw/book/content/book.py:55
 #: ./ftw/book/contents/book.py:41
 msgid "book_label_use_toc"
@@ -618,7 +614,7 @@ msgid "title_import_export_tabledata"
 msgstr ""
 
 #. Default: "Index"
-#: ./ftw/book/latex/defaultlayout.py:147
+#: ./ftw/book/latex/defaultlayout.py:153
 msgid "title_index"
 msgstr ""
 

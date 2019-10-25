@@ -14,20 +14,6 @@
   <adapter factory=".simplelayout.ChapterConfigAdapter" />
 
   <browser:page
-      for="ftw.book.interfaces.IBook"
-      name="export_pdf"
-      class=".export_pdf.ExportBookPDFView"
-      permission="zope2.View"
-      />
-
-  <browser:page
-      for="ftw.book.interfaces.IChapter"
-      name="export_pdf"
-      class=".export_pdf.ExportBookPDFView"
-      permission="zope2.View"
-      />
-
-  <browser:page
       for="ftw.book.contents.chapter.IChapterSchema"
       name="simplelayout-view"
       permission="zope2.View"
@@ -61,13 +47,6 @@
       name="block_view"
       permission="zope2.View"
       class=".blockview.BookFileListingBlockView"
-      />
-
-  <browser:page
-      for="ftw.book.interfaces.IRemark"
-      name="block_view"
-      template="templates/remark.pt"
-      permission="zope2.View"
       />
 
   <browser:page
