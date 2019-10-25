@@ -1,6 +1,8 @@
 from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.upgrade.migration import InplaceMigrator
 from operator import methodcaller
+from plone import api
+from plone.dexterity.utils import createContentInContainer
 from Products.CMFCore.utils import getToolByName
 from zope.annotation.interfaces import IAnnotations
 from zope.component.hooks import getSite
@@ -156,13 +158,27 @@ class ChapterMigrator(InplaceMigrator):
                 )),
             additional_steps=(
                 (migrate_simplelayout_page_state,
-                 migrate_last_modifier)
+                 migrate_last_modifier,
+                 self.migrate_chapter_files)
                 + additional_steps),
             **kwargs
         )
 
     def query(self):
         return {'portal_type': 'Chapter', 'sort_on': 'path'}
+
+    def migrate_chapter_files(self, old_page, new_page):
+        files = old_page.listFolderContents(contentFilter={'portal_type': ['File', 'ftw.file.File']})
+        if not files:
+            return
+
+        listingblock = createContentInContainer(
+            container=new_page,
+            portal_type='ftw.book.FileListingBlock',
+            title='')
+
+        for obj in files:
+            api.content.move(source=obj, target=listingblock, safe_id=True)
 
 
 class BookTextBlockMigrator(InplaceMigrator):
