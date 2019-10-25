@@ -18,7 +18,6 @@
   <include file="resources.zcml" />
   <include package=".behaviors" />
   <include package=".browser" />
-  <include package=".content" />
   <include package=".contents" />
   <include package=".footnote" />
   <include package=".keyword" />

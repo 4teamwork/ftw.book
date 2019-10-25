@@ -8,7 +8,6 @@ from ftw.builder import ticking_creator
 from ftw.builder.testing import functional_session_factory
 from ftw.testing import freeze
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
-from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
@@ -18,7 +17,6 @@ from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
 from zope.configuration import xmlconfig
-import ftw.contentpage.tests.builders  # noqa
 
 
 def clear_transmogrifier_registry():

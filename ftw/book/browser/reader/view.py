@@ -4,7 +4,6 @@ from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.browser.toc_tree import BookTocTree
 from ftw.book.interfaces import IBook
-from ftw.contentpage.interfaces import IListingBlock
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
 from Products.CMFCore.utils import getToolByName
@@ -148,9 +147,6 @@ class ReaderView(BrowserView):
 
     def render_block(self, brain):
         obj = brain.getObject()
-        if IListingBlock.providedBy(aq_parent(aq_inner(obj))):
-            return ''
-
         renderer = queryMultiAdapter((obj, self.request, self),
                                      IBookReaderRenderer)
         if not renderer:
