@@ -64,14 +64,6 @@
       template="templates/table_export_import.pt"
       />
 
-  <browser:viewlet
-      name="ftw.book.textblock.validation"
-      class=".viewlets.viewlets.TableValidationViewlet"
-      for="ftw.book.interfaces.IBookTextBlock"
-      manager="simplelayout.base.interfaces.ISimpleViewletProvider"
-      permission="cmf.ModifyPortalContent"
-      />
-
   <browser:page
       for="..interfaces.IBook"
       name="book_view"

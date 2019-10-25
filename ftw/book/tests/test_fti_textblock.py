@@ -1,7 +1,10 @@
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from ftw.testbrowser.pages import statusmessages
 from operator import attrgetter
+from plone.app.textfield.value import RichTextValue
+from textwrap import dedent
 import transaction
 
 
@@ -59,3 +62,24 @@ class TestTextBlock(FunctionalTestCase):
         self.assertIn(
             u'<h4 class="no-toc">First things first</h4>',
             map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
+
+    @browsing
+    def test_warning_when_table_widths_not_specified(self, browser):
+        browser.login().open(self.textblock)
+        statusmessages.assert_no_messages()
+
+        self.textblock.text = RichTextValue(dedent(r'''
+        <p>ok:</p>
+        <table>
+          <tr><td width="100%">foo</td></tr>
+        </table>
+        <p>not ok:</p>
+        <table>
+          <tr><td>bar</td></tr>
+        </table>
+        '''), mimeType='text/html', outputMimeType='text/html')
+        transaction.commit()
+
+        browser.reload()
+        statusmessages.assert_message(
+            'Please specify the width of the table columns / cells')
