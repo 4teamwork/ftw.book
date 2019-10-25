@@ -182,16 +182,3 @@ class LatexZCMLLayer(Layer):
 
 
 LATEX_ZCML_LAYER = LatexZCMLLayer()
-
-
-class ZCMLLayer(ComponentRegistryLayer):
-    """Test layer loading the complete package ZCML.
-    """
-
-    def setUp(self):
-        super(ZCMLLayer, self).setUp()
-        import ftw.book.tests
-        self.load_zcml_file('test.zcml', ftw.book.tests)
-
-
-ZCML_LAYER = ZCMLLayer()
