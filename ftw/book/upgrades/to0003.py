@@ -1,5 +1,4 @@
 from Products.CMFCore.utils import getToolByName
-from ftw.book.content.chapter import Chapter
 from zope.interface import alsoProvides
 
 
@@ -25,6 +24,7 @@ def remove_fti_action(setup, portal_type, action_id):
 
 def migrate_chapter_classes(setup):
     from simplelayout.base.interfaces import ISimpleLayoutBlock
+    from ftw.book.content.chapter import Chapter
     catalog = getToolByName(setup, 'portal_catalog')
     brains = catalog(portal_type='Chapter')
 

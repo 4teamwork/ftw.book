@@ -17,6 +17,11 @@ try:
     from ftw.simplelayout.migration import migrate_sl_image_layout
     from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
+    import ftw.book.content.book  # noqa
+    import ftw.book.content.chapter  # noqa
+    import ftw.book.content.htmlblock  # noqa
+    import ftw.book.content.table  # noqa
+    import ftw.book.content.textblock  # noqa
 
 except ImportError, IMPORT_ERROR:
     pass

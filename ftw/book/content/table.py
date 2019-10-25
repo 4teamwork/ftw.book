@@ -36,7 +36,7 @@ table_schema = (ATContentTypeSchema.copy() +
                     macro='datagridwidget_bibliothek_table',
                     columns=dict([
                         ('column_%i' % i, DataGridField.Column(
-                            label='Column ' + i))
+                            label='Column %s' % i))
                         for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
                             'row_format',
                             DataGridField.SelectColumn(
@@ -114,7 +114,7 @@ table_schema = (ATContentTypeSchema.copy() +
                         keyColumn='columnId',
                         initialData={
                             'columnId': 'column_%i' % (i),
-                            'columnTitle': u'Column ' + i,
+                            'columnTitle': u'Column %s' % i,
                             'active': False,
                             'alignment': '',
                             'bold': False,
