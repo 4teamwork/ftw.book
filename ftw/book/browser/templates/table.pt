@@ -17,7 +17,7 @@
             </dd>
         </dl>
 
-        <span class="footnotesize" tal:content="structure context/footnote_text" />
+        <span class="footnotesize" tal:content="structure context/footnote_text/output|nothing" />
 
     </tal:BLOCK>
 
