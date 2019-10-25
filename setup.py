@@ -8,10 +8,8 @@ maintainer = 'Jonas Baumann'
 
 tests_require = [
     'collective.transmogrifier',
-    'Products.GenericSetup',
     'ftw.builder',
     'ftw.inflator',
-    'ftw.publisher.core',
     'ftw.tabbedview',
     'ftw.testbrowser',
     'ftw.testing',
