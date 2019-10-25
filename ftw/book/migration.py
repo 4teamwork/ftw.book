@@ -311,7 +311,9 @@ class TableMigrator(InplaceMigrator):
                 'noLifting': 'no_lifting',
                 'showTitle': 'show_title',
             },
-            additional_steps=additional_steps,
+            additional_steps=(
+                (migrate_last_modifier, )
+                + additional_steps),
             **kwargs)
 
     def query(self):
