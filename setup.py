@@ -8,6 +8,7 @@ maintainer = 'Jonas Baumann'
 
 tests_require = [
     'Products.GenericSetup',
+    'collective.transmogrifier',
     'ftw.builder',
     'ftw.contentpage [tests]',
     'ftw.inflator',
