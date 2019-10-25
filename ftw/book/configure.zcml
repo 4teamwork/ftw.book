@@ -7,8 +7,6 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
-  <include package="Products.CMFCore" file="permissions.zcml" />
-  <include package="Products.DataGridField" />
   <include package="ftw.profilehook" />
 
   <five:registerPackage package="." initialize=".initialize" />

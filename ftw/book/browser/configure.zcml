@@ -4,8 +4,6 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
-  <include package="plone.app.contentmenu" />
-
   <include package=".reader" />
 
   <browser:resourceDirectory name="ftw.book-resources" directory="resources" />
