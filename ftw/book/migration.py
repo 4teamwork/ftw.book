@@ -1,3 +1,5 @@
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.upgrade.migration import InplaceMigrator
 from operator import methodcaller
@@ -31,6 +33,7 @@ class MigrationUpgradeStepMixin(object):
             ChapterMigrator,
             TableMigrator,
             BookTextBlockMigrator,
+            ImageToBookTextBlockMigrator,
             HTMLBlockMigrator,
         )
 
@@ -215,6 +218,37 @@ class BookTextBlockMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'BookTextBlock'}
+
+
+class ImageToBookTextBlockMigrator(InplaceMigrator):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+        if IMPORT_ERROR:
+            raise IMPORT_ERROR
+
+        super(ImageToBookTextBlockMigrator, self).__init__(
+            new_portal_type='ftw.book.TextBlock',
+            ignore_fields=(
+                DUBLIN_CORE_IGNORES
+                + SL_BLOCK_DEFAULT_IGNORED_FIELDS
+                + ignore_fields + (
+                    'lastModifier',
+                    'description',
+                    'searchwords',
+                    'showinsearch')),
+            additional_steps=(
+                (migrate_last_modifier, )
+                + additional_steps),
+            **kwargs)
+
+    def migrate_object(self, old_object):
+        if aq_parent(aq_inner(old_object)).portal_type not in ['Chapter', 'ftw.book.Chapter']:
+            # Only migrate images in chapters.
+            return
+        return super(ImageToBookTextBlockMigrator, self).migrate_object(old_object)
+
+    def query(self):
+        return {'portal_type': 'Image', 'path': get_book_paths()}
 
 
 class HTMLBlockMigrator(InplaceMigrator):
