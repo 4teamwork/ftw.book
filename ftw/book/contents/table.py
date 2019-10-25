@@ -149,7 +149,7 @@ class ITableColumnProperties(Schema):
 
     width = Int(
         title=_(u'table_label_width', default=u'Width (%)'),
-        required=True,
+        required=False,
         default=10)
 
 
