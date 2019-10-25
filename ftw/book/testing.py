@@ -5,15 +5,12 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.builder import session
 from ftw.builder import ticking_creator
-from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
-from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import freeze
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
-from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
@@ -198,40 +195,3 @@ class ZCMLLayer(ComponentRegistryLayer):
 
 
 ZCML_LAYER = ZCMLLayer()
-
-
-class FtwBookLayer(PloneSandboxLayer):
-
-    defaultBases = (COMPONENT_REGISTRY_ISOLATION, BUILDER_LAYER)
-
-    def setUpZope(self, app, configurationContext):
-        xmlconfig.string(
-            '<configure xmlns="http://namespaces.zope.org/zope">'
-            '  <include package="z3c.autoinclude" file="meta.zcml" />'
-            '  <includePlugins package="plone" />'
-            '  <includePluginsOverrides package="plone" />'
-            '</configure>',
-            context=configurationContext)
-
-        z2.installProduct(app, 'ftw.book')
-        z2.installProduct(app, 'simplelayout.base')
-        z2.installProduct(app, 'ftw.contentpage')
-
-    def setUpPloneSite(self, portal):
-        # Install into Plone site using portal_setup
-        applyProfile(portal, 'ftw.book:default')
-        applyProfile(portal, 'ftw.tabbedview:default')
-        applyProfile(portal, 'ftw.zipexport:default')
-
-    def tearDown(self):
-        super(FtwBookLayer, self).tearDown()
-        clear_transmogrifier_registry()
-
-
-FTW_BOOK_FIXTURE = FtwBookLayer()
-FTW_BOOK_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FTW_BOOK_FIXTURE, ), name="ftw.book:Integration")
-FTW_BOOK_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(FTW_BOOK_FIXTURE,
-           set_builder_session_factory(functional_session_factory)
-    ), name="ftw.book:Functional (OLD)")
