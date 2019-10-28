@@ -54,6 +54,7 @@ class BookLayer(PloneSandboxLayer):
         z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, 'plone.app.referenceablebehavior:default')
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
         applyProfile(portal, 'ftw.zipexport:default')

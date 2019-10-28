@@ -14,6 +14,7 @@ tests_require = [
     'ftw.testbrowser',
     'ftw.testing',
     'ftw.zipexport',
+    'plone.app.referenceablebehavior',
     'plone.app.testing',
     'plone.mocktestcase',
     'transmogrify.dexterity',
