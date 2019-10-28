@@ -257,6 +257,14 @@ class BookTextBlockMigrator(InplaceMigrator):
         cfg.update(block_layout_mapping[image_layout])
         new_config.store(cfg)
 
+    def get_at_field_values(self, old_object):
+        for item in super(BookTextBlockMigrator, self).get_at_field_values(old_object):
+            yield item
+
+        if hasattr(old_object, 'adjudicationDate'):
+            # izug.latex extension
+            yield 'adjudicationDate', getattr(old_object, 'adjudicationDate')
+
 
 class BookListingBlockMigrator(InplaceMigrator):
     # WARNING: Needs to be run before ImageToBookTextBlockMigrator
@@ -418,3 +426,11 @@ class TableMigrator(InplaceMigrator):
 
             else:
                 yield name, value
+
+    def get_at_field_values(self, old_object):
+        for item in super(TableMigrator, self).get_at_field_values(old_object):
+            yield item
+
+        if hasattr(old_object, 'lift_table'):
+            # izug.latex extension
+            yield 'lift_table', getattr(old_object, 'lift_table')
