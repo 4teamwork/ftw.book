@@ -11,6 +11,7 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component.hooks import getSite
 from zope.dottedname.resolve import resolve
 from zope.schema.vocabulary import getVocabularyRegistry
+import os
 
 try:
 
@@ -30,11 +31,20 @@ else:
     IMPORT_ERROR = None
 
 
+try:
+    from ftwbook.graphicblock.migration import GraphicBlockMigrator
+except ImportError:
+    HAS_GRAPHICBLOCK = False
+else:
+    HAS_GRAPHICBLOCK = True
+    os.environ['FTWBOOK_GRAPHICBLOCK_SKIP_DEXTERITY_MIGRATION'] = 'true'
+
+
 class MigrationUpgradeStepMixin(object):
 
     @property
     def migrator_classes(self):
-        return (
+        classes = [
             BookMigrator,
             ChapterMigrator,
             TableMigrator,
@@ -42,7 +52,10 @@ class MigrationUpgradeStepMixin(object):
             BookListingBlockMigrator,
             ImageToBookTextBlockMigrator,
             HTMLBlockMigrator,
-        )
+        ]
+        if HAS_GRAPHICBLOCK:
+            classes.append(GraphicBlockMigrator)
+        return classes
 
     def migrate_all_book_types(self):
         self.verify()
