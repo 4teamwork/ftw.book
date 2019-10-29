@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<portlets>
+
+    <portlet 
+        addview="ftw.book.portlet.gotoparent"
+        title="Go To Parent"
+        description="">
+        <for interface="plone.app.portlets.interfaces.IColumn" />
+    </portlet>
+ 
+</portlets>

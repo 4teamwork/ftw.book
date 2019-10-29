@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record name="plone.types_not_searched"
+            interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+            field="types_not_searched">
+        <value>
+        </value>
+    </record>
+
+    <records interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+             prefix="plone">
+        <value key="allowed_sizes" purge="false">
+        </value>
+    </records>
+
+    <records prefix="plone.resources/ftwbook-css"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="true"/>
+
+    <records prefix="plone.resources/reader-css"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="true"/>
+
+    <records prefix="plone.resources/reader-navigation-css"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="true"/>
+
+    <records prefix="plone.resources/table-js"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="true"/>
+
+    <records prefix="plone.bundles/ftw-subsite-resources"
+        interface='Products.CMFPlone.interfaces.IBundleRegistry'
+        remove="true" />
+
+</registry>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record name="plone.types_not_searched"
+            interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+            field="types_not_searched">
+        <value>
+            <element>ftw.book.FileListingBlock</element>
+            <element>ftw.book.HtmlBlock</element>
+            <element>ftw.book.Table</element>
+            <element>ftw.book.TextBlock</element>
+        </value>
+    </record>
+
+    <records interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+             prefix="plone">
+        <value key="allowed_sizes" purge="false">
+            <element>sl_textblock_small 480:480</element>
+            <element>sl_textblock_middle 800:800</element>
+            <element>sl_textblock_large 1280:1280</element>
+        </value>
+    </records>
+
+    <records prefix="plone.resources/ftwbook-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="css">
+            <element>++resource++ftw.book-resources/ftwbook.css</element>
+        </value>
+    </records>
+
+    <records prefix="plone.resources/reader-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="css">
+            <!-- TODO: check what has to happen with expression tag -->
+            <!-- expression="python:'book_reader_view' in portal.restrictedTraverse('@@plone_context_state').current_page_url()" -->
+            <element>++resource++ftw.book-reader/reader.css</element>
+        </value>
+    </records>
+
+    <records prefix="plone.resources/reader-navigation-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="css">
+            <!-- TODO: check what has to happen with expression tag -->
+            <!-- expression="python:'book_reader_view' in portal.restrictedTraverse('@@plone_context_state').current_page_url()" -->
+            <element>++resource++ftw.book-reader/reader-navigation.css</element>
+        </value>
+    </records>
+
+    <records prefix="plone.resources/table-js"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+        <value key="js">++resource++ftw.book-resources/table.js</value>
+        <value key="deps">jquery</value>
+    </records>
+
+    <records prefix="plone.bundles/ftw-subsite-resources" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="resources">
+            <element>ftwbook-css</element>
+            <element>reader-css</element>
+            <element>reader-navigation-css</element>
+            <element>table-js</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="depends">plone-legacy</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">++plone++book/ftw-book-compiled.js</value>
+        <value key="csscompilation">++plone++book/ftw-book-compiled.css</value>
+        <value key="merge_with">default</value>
+    </records>
+
+</registry>

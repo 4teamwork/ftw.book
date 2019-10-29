@@ -8,9 +8,9 @@ from ftw.builder import ticking_creator
 from ftw.builder.testing import functional_session_factory
 from ftw.testing import freeze
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
-from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
 from plone.testing import Layer
@@ -64,6 +64,8 @@ class BookLayer(PloneSandboxLayer):
             self.create_default_layout_book().getPhysicalPath())
 
     def create_example_book(self):
+        import transaction
+        transaction.commit()
         with freeze(datetime(2016, 10, 31, 9, 52, 34)) as clock:
             create = ticking_creator(clock, hours=1)
 
