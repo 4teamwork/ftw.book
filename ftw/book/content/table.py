@@ -1,4 +1,3 @@
-from Products import DataGridField
 from Products.Archetypes import atapi
 from Products.Archetypes.public import DisplayList
 from Products.ATContentTypes.content.base import ATCTContent
@@ -19,34 +18,14 @@ BORDER_LAYOUTS = (
 table_schema = (ATContentTypeSchema.copy() +
                 atapi.Schema((
 
+            # DataGridField.DataGridField(name='data')
+            # DataGridField.DataGridField(name='columnProperties')
+
             atapi.BooleanField(
                 name='showTitle',
                 schemata='default',
                 default=False,
                 widget=atapi.BooleanWidget()),
-
-            DataGridField.DataGridField(
-                name='data',
-                schemata='default',
-                searchable=True,
-                required=False,
-                columns=['column_%i' % i for i in
-                         range(MAX_AMOUNT_OF_COLUMNS)] + ['row_format'],
-                widget=DataGridField.DataGridWidget(
-                    macro='datagridwidget_bibliothek_table',
-                    columns=dict([
-                        ('column_%i' % i, DataGridField.Column(
-                            label='Column %s' % i))
-                        for i in range(MAX_AMOUNT_OF_COLUMNS)] + [(
-                            'row_format',
-                            DataGridField.SelectColumn(
-                                label='Format',
-                                vocabulary='getRowFormatVocabulary',
-                            ),
-                        )]
-                        ),
-                    ),
-                ),
 
             atapi.TextField(
                 name='footnoteText',
@@ -59,70 +38,6 @@ table_schema = (ATContentTypeSchema.copy() +
                 default_input_type='text/html',
                 default_output_type='text/x-html-safe',
                 widget=atapi.RichWidget()),
-
-            DataGridField.DataGridField(
-                name='columnProperties',
-                schemata='Layout',
-                searchable=False,
-                required=False,
-                allow_insert=False,
-                allow_delete=False,
-                allow_reorder=False,
-                columns=(
-                    'columnId',
-                    'columnTitle',
-                    'active',
-                    'alignment',
-                    'bold',
-                    'indent',
-                    'width',
-                    ),
-                widget=DataGridField.DataGridWidget(
-                    columns={
-                        'columnId': DataGridField.FixedColumn(
-                            'column_id',
-                            default='column_x',
-                            visible=False,
-                            ),
-                        'columnTitle': DataGridField.FixedColumn(
-                            'Column',
-                            default='Row X',
-                            ),
-                        'active': DataGridField.CheckboxColumn(
-                            'Active',
-                            default=False,
-                            ),
-                        'alignment': DataGridField.SelectColumn(
-                            'Alignment',
-                            vocabulary='getAlignmentVocabulary',
-                            ),
-                        'bold': DataGridField.CheckboxColumn(
-                            'Bold',
-                            default=False,
-                            ),
-                        'indent': DataGridField.SelectColumn(
-                            'Indent',
-                            vocabulary='getIndentVocabulary',
-                            ),
-                        'width': DataGridField.Column(
-                            'Width (%)',
-                            ),
-                        },
-                    ),
-                fixed_rows=[
-                    DataGridField.FixedRow(
-                        keyColumn='columnId',
-                        initialData={
-                            'columnId': 'column_%i' % (i),
-                            'columnTitle': u'Column %s' % i,
-                            'active': False,
-                            'alignment': '',
-                            'bold': False,
-                            'indent': '',
-                            'width': '10',
-                            },
-                        ) for i in range(MAX_AMOUNT_OF_COLUMNS)],
-                ),
 
             atapi.StringField(
                 name='headerRows',

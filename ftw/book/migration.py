@@ -434,3 +434,6 @@ class TableMigrator(InplaceMigrator):
         if hasattr(old_object, 'lift_table'):
             # izug.latex extension
             yield 'lift_table', getattr(old_object, 'lift_table')
+
+        yield 'data', old_object.data
+        yield 'columnProperties', old_object.columnProperties
