@@ -3,16 +3,7 @@
 
     <record name="plone.types_not_searched"
             interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
-            field="types_not_searched">
-        <value>
-        </value>
-    </record>
-
-    <records interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
-             prefix="plone">
-        <value key="allowed_sizes" purge="false">
-        </value>
-    </records>
+            field="types_not_searched" />
 
     <records prefix="plone.resources/ftwbook-css"
              interface='Products.CMFPlone.interfaces.IResourceRegistry'
@@ -30,7 +21,7 @@
              interface='Products.CMFPlone.interfaces.IResourceRegistry'
              remove="true"/>
 
-    <records prefix="plone.bundles/ftw-subsite-resources"
+    <records prefix="plone.bundles/ftw-book-resources"
         interface='Products.CMFPlone.interfaces.IBundleRegistry'
         remove="true" />
 
