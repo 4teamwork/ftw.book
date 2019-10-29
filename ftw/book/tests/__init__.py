@@ -1,15 +1,23 @@
 from contextlib import contextmanager
+from ftw.book import IS_PLONE_5
 from ftw.book.testing import BOOK_FUNCTIONAL_TESTING
 from ftw.pdfgenerator.interfaces import ILaTeXView
 from ftw.pdfgenerator.interfaces import IPDFAssembler
-from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 from plone.uuid.interfaces import IUUID
 from textwrap import dedent
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 import difflib
 import transaction
+
+
+LOREM_ITEM = 'historical-background/china/important-documents/einfache-webseite',
+# IMAGE_ITEM = 'historical-background/china/important-documents/froeliches-bild',
+if IS_PLONE_5:
+    LOREM_ITEM = 'historical-background/china/important-documents/lorem.html'
+    # IMAGE_ITEM = 'historical-background/china/important-documents/image.jpg',
 
 
 class FunctionalTestCase(TestCase):

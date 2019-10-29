@@ -1,10 +1,11 @@
+from Products.CMFCore.utils import getToolByName
+from ftw.book.testing import LanguageSetter
 from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
-from Products.CMFCore.utils import getToolByName
 import transaction
 
 
@@ -20,7 +21,7 @@ def select2_javascripts():
     return filter(lambda src: 'select2' in src, sources)
 
 
-class TestKeywordsView(FunctionalTestCase):
+class TestKeywordsView(FunctionalTestCase, LanguageSetter):
 
     @browsing
     def test_keywords_only_available_when_use_keywords_enabled(self, browser):
@@ -303,24 +304,19 @@ class TestKeywordsView(FunctionalTestCase):
 
     @browsing
     def test_select2_translations_are_loaded(self, browser):
-        languages = getToolByName(self.layer['portal'], "portal_languages")
-
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertEquals(
             ['++resource++ftw.book-select2/select2.js'],
             select2_javascripts(),
             'Expected no translation to be loaded for english.')
 
-        languages.manage_setLanguageSettings('de', ['de'])
-        transaction.commit()
+        self.set_language_settings('de', ['de'])
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertIn(
             '++resource++ftw.book-select2/select2_locale_de.js',
             select2_javascripts())
 
-        languages.manage_setLanguageSettings('de-ch', ['de-ch'],
-                                             setUseCombinedLanguageCodes=True)
-        transaction.commit()
+        self.set_language_settings('de-ch', ['de-ch'], use_combined=True)
         browser.login().visit(self.example_book, view='tabbedview_view-keywords')
         self.assertIn(
             '++resource++ftw.book-select2/select2_locale_de.js',

@@ -1,6 +1,7 @@
-from ftw.book.tests import FunctionalTestCase
-from plone.indexer.interfaces import IIndexer
 from Products.CMFCore.utils import getToolByName
+from ftw.book.tests import FunctionalTestCase
+from ftw.book.tests import LOREM_ITEM
+from plone.indexer.interfaces import IIndexer
 from zope.component import getMultiAdapter
 
 
@@ -18,7 +19,7 @@ class TestShowInTocIndexer(FunctionalTestCase):
             'historical-background/china',
             'historical-background/china/first-things-first',
             'historical-background/china/important-documents',
-            'historical-background/china/important-documents/einfache-webseite',
+            LOREM_ITEM,
         ))
 
         self.assertEquals(
