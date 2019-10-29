@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<object name="ftw.book.Book"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.book">
+
+    <property name="title" i18n:translate="">Book</property>
+    <property name="description"></property>
+    <property name="icon_expr"></property>
+    <property name="allow_discussion">False</property>
+    <property name="global_allow">True</property>
+    <property name="filter_content_types">True</property>
+    <property name="allowed_content_types">
+        <element value="ftw.book.Chapter"/>
+    </property>
+
+    <property name="schema">ftw.book.contents.book.IBookSchema</property>
+    <property name="klass">ftw.book.contents.book.Book</property>
+    <property name="add_permission">ftw.book.AddBook</property>
+
+    <property name="behaviors">
+        <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
+        <element value="plone.app.content.interfaces.INameFromTitle" />
+        <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
+        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+        <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
+        <element value="ftw.book.behaviors.toc.IShowInToc" />
+    </property>
+
+    <property name="default_view">book_view</property>
+    <property name="default_view_fallback">False</property>
+    <property name="view_methods">
+        <element value="book_view"/>
+        <element value="tabbed_view" />
+    </property>
+
+    <alias from="(Default)" to="(dynamic view)"/>
+    <alias from="edit" to="@@edit"/>
+    <alias from="sharing" to="@@sharing"/>
+    <alias from="view" to="(selected layout)"/>
+
+    <action
+        action_id="view"
+        title="View"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}"
+        visible="True">
+        <permission value="View"/>
+    </action>
+
+    <action
+        action_id="edit"
+        title="Edit"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}/edit"
+        visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+
+    <action
+        action_id="pdf"
+        title="PDF"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}/export_pdf"
+        visible="True">
+        <permission value="View" />
+    </action>
+
+    <action
+        action_id="reader"
+        title="Read Book"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}/@@book_reader_view"
+        visible="True">
+        <permission value="View" />
+    </action>
+
+    <action
+        action_id="index"
+        title="Index"
+        category="tabbedview-tabs"
+        condition_expr=""
+        url_expr="string:${object_url}#index"
+        visible="True">
+        <permission value="View"/>
+    </action>
+
+    <action
+        action_id="bookdocuments"
+        title="BookDocuments"
+        category="tabbedview-tabs"
+        condition_expr=""
+        url_expr="string:${object_url}#bookdocuments"
+        visible="True">
+        <permission value="View"/>
+    </action>
+
+    <action
+        action_id="keywords"
+        title="BookKeywords"
+        category="tabbedview-tabs"
+        condition_expr="here/getUse_index"
+        url_expr="string:${object_url}#keywords"
+        visible="True">
+        <permission value="View"/>
+    </action>
+
+</object>

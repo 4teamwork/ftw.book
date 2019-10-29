@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+
+        <permission name="ftw.book: Add Book" acquire="True" />
+        <permission name="ftw.book: Add Chapter" acquire="True" />
+        <permission name="ftw.book: Add Book File Listing Block" acquire="True" />
+        <permission name="ftw.book: Add HTML Block" acquire="True" />
+        <permission name="ftw.book: Add Table" acquire="True" />
+        <permission name="ftw.book: Add Book Text Block" acquire="True" />
+        <permission name="ftw.book: Modify LaTeX Injection" acquire="True" />
+
+    </permissions>
+</rolemap>

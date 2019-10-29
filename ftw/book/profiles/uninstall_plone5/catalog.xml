@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+
+  <column remove="True" value="showTitle" />
+  <column remove="True" value="show_in_toc" />
+  <column remove="True" value="book_keywords" />
+
+</object>

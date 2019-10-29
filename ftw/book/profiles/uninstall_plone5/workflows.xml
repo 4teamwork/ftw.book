@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool">
+  <bindings>
+
+    <type remove="True" type_id="ftw.book.FileListingBlock"/>
+    <type remove="True" type_id="ftw.book.HtmlBlock"/>
+    <type remove="True" type_id="ftw.book.Table"/>
+    <type remove="True" type_id="ftw.book.TextBlock"/>
+
+  </bindings>
+</object>

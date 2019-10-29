@@ -26,9 +26,19 @@
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
   <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
       name="default"
       title="ftw.book"
       directory="profiles/default"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="default"
+      title="ftw.book"
+      directory="profiles/default_plone5"
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
@@ -39,9 +49,20 @@
       />
 
   <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
       name="uninstall"
       title="Uninstall ftw.book"
       directory="profiles/uninstall"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="uninstall"
+      title="Uninstall ftw.book"
+      directory="profiles/uninstall_plone5"
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"

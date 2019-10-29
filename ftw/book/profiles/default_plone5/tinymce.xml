@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<object>
+
+    <resourcetypes purge="False">
+
+        <customplugins purge="False">
+            <element value="tinymce_keyword|/++resource++ftw.book.tinymce.keyword/editor_plugin.js"/>
+            <element value="tinymce_footnote|/++resource++ftw.book.tinymce.footnote/editor_plugin.js"/>
+        </customplugins>
+
+        <containsobjects purge="False">
+            <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
+        </containsobjects>
+
+        <linkable purge="False">
+            <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
+            <element value="ftw.book.TextBlock"/>
+            <element value="ftw.book.HtmlBlock"/>
+        </linkable>
+
+        <containsanchors purge="False">
+            <element value="ftw.book.TextBlock"/>
+            <element value="ftw.book.HtmlBlock"/>
+        </containsanchors>
+
+    </resourcetypes>
+
+</object>
