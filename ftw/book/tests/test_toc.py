@@ -1,4 +1,5 @@
 from ftw.book.tests import FunctionalTestCase
+from ftw.book.tests import LOREM_ITEM
 from ftw.book.toc import TableOfContents
 from operator import methodcaller
 
@@ -19,7 +20,7 @@ class TestTableOfContents(FunctionalTestCase):
             'historical-background/china',
             'historical-background/china/first-things-first',
             'historical-background/china/important-documents',
-            'historical-background/china/important-documents/lorem.html',
+            LOREM_ITEM,
         ))
 
     def test_html_heading(self):
@@ -226,7 +227,7 @@ class TestTableOfContents(FunctionalTestCase):
                 TableOfContents().parent_chapters(
                     self.example_book.restrictedTraverse(
                         'historical-background/china'
-                        '/important-documents/lorem.html'))))
+                        '/{}'.format('/'.join(LOREM_ITEM.split('/')[-2:]))))))
 
         self.assertEquals(
             ['Historical Background', 'China'],

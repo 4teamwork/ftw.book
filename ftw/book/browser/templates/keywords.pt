@@ -11,7 +11,7 @@
             <script src="++resource++ftw.book-select2/select2.js"
                     type="text/javascript" language="javascript"></script>
             <script
-                tal:define="lang context/portal_languages/getPreferredLanguage;
+                tal:define="lang view/get_language;
                             lang python: lang.split('-')[0]"
                 tal:condition="python: lang != 'en'"
                 tal:attributes="src string:++resource++ftw.book-select2/select2_locale_${lang}.js"

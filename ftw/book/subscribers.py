@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from ftw.book import IS_PLONE_5
 from ftw.book.portlets import gotoparent
 from plone.app.portlets.portlets import navigation
 from plone.portlets.constants import CONTEXT_CATEGORY
@@ -10,9 +11,7 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 import logging
-import pkg_resources
 
-IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 LOG = logging.getLogger('ftw.book')
 
 

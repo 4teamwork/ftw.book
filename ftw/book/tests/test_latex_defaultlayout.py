@@ -1,8 +1,9 @@
+from Products.CMFCore.utils import getToolByName
 from ftw.book.latex.defaultlayout import IDefaultBookLayout
+from ftw.book.testing import LanguageSetter
 from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from Products.CMFCore.utils import getToolByName
 import re
 
 
@@ -12,7 +13,7 @@ def whitespace_clean_latex(latex):
     return latex
 
 
-class TestDefaultBookLayout(FunctionalTestCase):
+class TestDefaultBookLayout(FunctionalTestCase, LanguageSetter):
 
     def setUp(self):
         super(TestDefaultBookLayout, self).setUp()
@@ -84,8 +85,7 @@ No content
         self.assertTrue(layout.render_latex('No content'))
 
     def test_index_title_translated_to_german(self):
-        portal_languages = getToolByName(self.portal, 'portal_languages')
-        portal_languages.manage_setLanguageSettings('de', ['de'])
+        self.set_language_settings('de', ['de'])
         layout = self.get_latex_layout(self.default_layout_book)
         self.assertIn(
             r'\renewcommand{\indexname}{Stichwortverzeichnis}',
