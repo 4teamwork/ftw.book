@@ -305,15 +305,16 @@ class BookListingBlockMigrator(InplaceMigrator):
                 'tableColumns': 'columns',
             },
             additional_steps=(
-                (migrate_last_modifier,
-                 self.move_images_to_parent)
+                (migrate_last_modifier,)
                 + additional_steps),
             **kwargs)
+
+        self.steps_before_clone += (self.move_images_to_parent,)
 
     def query(self):
         return {'portal_type': 'ListingBlock', 'path': get_book_paths()}
 
-    def move_images_to_parent(self, old_object, new_object):
+    def move_images_to_parent(self, old_object):
         # Images in listingblocks are no longer support and the book
         # does not support a gallery block.
         # Thus we need to move to the chapter and the ImageToBookTextBlockMigrator
