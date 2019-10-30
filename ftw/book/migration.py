@@ -154,9 +154,10 @@ class BookMigrator(InplaceMigrator):
         for fieldname in layout_fieldnames:
             if fieldname in self.ignore_fields:
                 continue
-            value = getattr(old_object, fieldname)
-            value = self.normalize_at_field_value(None, fieldname, value)
-            yield fieldname, value
+            value = getattr(old_object, fieldname, None)
+            if value:
+                value = self.normalize_at_field_value(None, fieldname, value)
+                yield fieldname, value
 
 
 class ChapterMigrator(InplaceMigrator):
