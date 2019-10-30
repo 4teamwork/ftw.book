@@ -186,9 +186,24 @@ class ChapterMigrator(InplaceMigrator):
                 + additional_steps),
             **kwargs
         )
+        self.steps_before_clone += (
+            self.move_listingblock_images_to_chapter,
+        )
 
     def query(self):
         return {'portal_type': 'Chapter', 'sort_on': 'path'}
+
+    def move_listingblock_images_to_chapter(self, old_object):
+        # Images in listingblocks are no longer support and the book
+        # does not support a gallery block.
+        # Thus we need to move to the chapter and the ImageToBookTextBlockMigrator
+        # will convert it to a textblock so that it is visible in the book.
+        listingblocks = old_object.listFolderContents(contentFilter={
+            'portal_type': ['ListingBlock', 'ftw.book.FileListingBlock']})
+        for listingblock in listingblocks:
+            images = listingblock.listFolderContents(contentFilter={'portal_type': ['Image']})
+            for image in images:
+                api.content.move(source=image, target=old_object, safe_id=True)
 
     def migrate_chapter_files(self, old_page, new_page):
         files = old_page.listFolderContents(contentFilter={'portal_type': ['File', 'ftw.file.File']})
@@ -309,20 +324,8 @@ class BookListingBlockMigrator(InplaceMigrator):
                 + additional_steps),
             **kwargs)
 
-        self.steps_before_clone += (self.move_images_to_parent,)
-
     def query(self):
         return {'portal_type': 'ListingBlock', 'path': get_book_paths()}
-
-    def move_images_to_parent(self, old_object):
-        # Images in listingblocks are no longer support and the book
-        # does not support a gallery block.
-        # Thus we need to move to the chapter and the ImageToBookTextBlockMigrator
-        # will convert it to a textblock so that it is visible in the book.
-        images = old_object.listFolderContents(contentFilter={'portal_type': ['Image']})
-        chapter = aq_parent(aq_inner(old_object))
-        for image in images:
-            api.content.move(source=image, target=chapter, safe_id=True)
 
 
 class ImageToBookTextBlockMigrator(InplaceMigrator):
