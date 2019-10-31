@@ -4,7 +4,7 @@
     <record name="plone.types_not_searched"
             interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
             field="types_not_searched">
-        <value>
+        <value purge="false">
             <element>ftw.book.FileListingBlock</element>
             <element>ftw.book.HtmlBlock</element>
             <element>ftw.book.Table</element>
