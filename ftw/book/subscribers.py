@@ -70,16 +70,19 @@ def left_slot_portlets(object_):
     if 'go-to-parent-portlet' not in mapping.keys():
         mapping['go-to-parent-portlet'] = gotoparent.Assignment()
 
-    portal_url = getToolByName(object_, 'portal_url')
-
-    relative_path = '/'.join(object_.getPhysicalPath())[
-        len(portal_url.getPortalPath()):]
-
-    # The new portlet assignment __init__ method does not accept root anymore
-    # https://github.com/plone/plone.app.portlets/blob/40369fc1ce4d7eddc115695332694bd36995589f/plone/app/portlets/portlets/navigation.py#L148-L159
-    obj_uid = IUUID(object_)
-
-    mapping['navigation'] = navigation.Assignment(
-        root_uid=obj_uid,
-        topLevel=0,
-        includeTop=1)
+    if IS_PLONE_5:
+        # The new portlet assignment __init__ method does not accept root anymore
+        # https://github.com/plone/plone.app.portlets/blob/40369fc1ce4d7eddc115695332694bd36995589f/plone/app/portlets/portlets/navigation.py#L148-L159
+        obj_uid = IUUID(object_)
+        mapping['navigation'] = navigation.Assignment(
+            root_uid=obj_uid,
+            topLevel=0,
+            includeTop=1)
+    else:
+        portal_url = getToolByName(object_, 'portal_url')
+        relative_path = '/'.join(object_.getPhysicalPath())[
+            len(portal_url.getPortalPath()):]
+        mapping['navigation'] = navigation.Assignment(
+            root=relative_path,
+            topLevel=0,
+            includeTop=1)
