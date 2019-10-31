@@ -6,13 +6,13 @@ from ftw.builder import create
 from ftw.builder import session
 from ftw.builder import ticking_creator
 from ftw.builder.testing import functional_session_factory
-from ftw.testing import IS_PLONE_5
 from ftw.testing import freeze
+from ftw.testing import IS_PLONE_5
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
 from plone import api
+from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
 from plone.registry.interfaces import IRegistry
@@ -21,6 +21,7 @@ from plone.testing import z2
 from plone.testing import zca
 from zope.component import getUtility
 from zope.configuration import xmlconfig
+from zope.globalrequest import getRequest
 import ftw.file.tests.builders  # noqa
 import transaction
 
@@ -215,6 +216,7 @@ class LanguageSetter(object):
                 self.ltool.addSupportedLanguage(lang)
             self.ltool.setDefaultLanguage(default)
             self.ltool.setLanguageCookie()
+            self._set_preferred_language(default)
             registry = getUtility(IRegistry)
             language_settings = registry.forInterface(
                     ILanguageSchema, prefix='plone')
@@ -230,3 +232,10 @@ class LanguageSetter(object):
                 startNeutral=start_neutral,
                 setContentN=True)
         transaction.commit()
+
+    def _set_preferred_language(self, default):
+        from plone.i18n.utility import LanguageBinding
+        request = getRequest()
+        binding = request.get("LANGUAGE_TOOL", None)
+        if isinstance(binding, LanguageBinding):
+            binding.LANGUAGE = default
