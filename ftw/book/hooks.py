@@ -1,11 +1,12 @@
-from ftw.book.tests import IS_PLONE_5
 from Products.CMFCore.utils import getToolByName
 from ftw.book.config import INDEXES
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 import logging
+import pkg_resources
 
 
+IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 PROFILE_ID = 'profile-ftw.book:default'
 
 
