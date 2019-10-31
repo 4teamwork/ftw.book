@@ -21,6 +21,7 @@ from plone.testing import z2
 from plone.testing import zca
 from zope.component import getUtility
 from zope.configuration import xmlconfig
+from zope.globalrequest import getRequest
 import transaction
 
 
@@ -214,6 +215,7 @@ class LanguageSetter(object):
                 self.ltool.addSupportedLanguage(lang)
             self.ltool.setDefaultLanguage(default)
             self.ltool.setLanguageCookie()
+            self._set_preferred_language(default)
             registry = getUtility(IRegistry)
             language_settings = registry.forInterface(
                     ILanguageSchema, prefix='plone')
@@ -229,3 +231,10 @@ class LanguageSetter(object):
                 startNeutral=start_neutral,
                 setContentN=True)
         transaction.commit()
+
+    def _set_preferred_language(self, default):
+        from plone.i18n.utility import LanguageBinding
+        request = getRequest()
+        binding = request.get("LANGUAGE_TOOL", None)
+        if isinstance(binding, LanguageBinding):
+            binding.LANGUAGE = default
