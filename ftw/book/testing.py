@@ -215,10 +215,11 @@ class LanguageSetter(object):
             self.ltool.setDefaultLanguage(default)
             self.ltool.setLanguageCookie()
             registry = getUtility(IRegistry)
-            language_settings = registry.forInterface(ILanguageSchema, prefix='plone')
+            language_settings = registry.forInterface(
+                    ILanguageSchema, prefix='plone')
             language_settings.use_content_negotiation = True
         else:
-            self.ltool = self.portal.portal_languages
+            self.ltool = api.portal.get().portal_languages
             self.ltool.manage_setLanguageSettings(
                 default,
                 supported,

@@ -13,11 +13,9 @@ import difflib
 import transaction
 
 
-LOREM_ITEM = 'historical-background/china/important-documents/einfache-webseite',
-# IMAGE_ITEM = 'historical-background/china/important-documents/froeliches-bild',
+LOREM_ITEM = 'historical-background/china/important-documents/einfache-webseite'
 if IS_PLONE_5:
     LOREM_ITEM = 'historical-background/china/important-documents/lorem.html'
-    # IMAGE_ITEM = 'historical-background/china/important-documents/image.jpg',
 
 
 class FunctionalTestCase(TestCase):
