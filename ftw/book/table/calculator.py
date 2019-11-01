@@ -101,6 +101,8 @@ class ColumnWidthsCalculator(object):
 
         for i, width in enumerate(widths):
             if not (isinstance(width, int) or isinstance(width, float)):
+                if width is None:
+                    width = 0
                 try:
                     width = int(width)
                 except ValueError:
