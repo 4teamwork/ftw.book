@@ -214,7 +214,10 @@ class ChapterMigrator(InplaceMigrator):
         listingblock = createContentInContainer(
             container=new_page,
             portal_type='ftw.book.FileListingBlock',
-            title='')
+            title='',
+            show_title=False,
+            hide_from_toc=True,
+            columns=['getContentType', 'Title'])
 
         for obj in files:
             api.content.move(source=obj, target=listingblock, safe_id=True)
