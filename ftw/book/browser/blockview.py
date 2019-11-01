@@ -69,7 +69,7 @@ class BookChapterView(BrowserView):
     def block_title(self):
         return TableOfContents().html_heading(
             self.context,
-            linked=False,
+            linked=True,
             prepend_html_headings=self.prepend_html_headings)
 
 
