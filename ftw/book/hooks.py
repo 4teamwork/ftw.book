@@ -30,6 +30,10 @@ def clean_plone5_registry(site):
     types_not_searched.remove('ftw.book.TextBlock')
     registry['plone.types_not_searched'] = tuple(types_not_searched)
 
+    displayed_types = list(registry['plone.displayed_types'])
+    displayed_types.remove(u'ftw.book.Book')
+    registry['plone.displayed_types'] = tuple(displayed_types)
+
 
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.

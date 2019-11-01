@@ -3,6 +3,8 @@
 
     <!-- types_not_searched are removed in hooks.py -->
 
+    <!-- displayed_types are removed in hooks.py -->
+
     <records prefix="plone.resources/ftwbook-css"
              interface='Products.CMFPlone.interfaces.IResourceRegistry'
              remove="true"/>
