@@ -5,7 +5,6 @@
 @include portal-type-font-awesome-icon(ftw-book-table, table);
 @include portal-type-font-awesome-icon(ftw-book-textblock, paragraph);
 
-
 /* HTML Block
 https://github.com/4teamwork/ftw.htmlblock/blob/master/ftw/htmlblock/browser/resources/styles.scss
 */
@@ -17,17 +16,240 @@ https://github.com/4teamwork/ftw.htmlblock/blob/master/ftw/htmlblock/browser/res
   pointer-events: none;
 }
 
-
 /* let chapter be addable although its a sl block
 https://github.com/4teamwork/ftw.simplelayout/blob/master/ftw/simplelayout/browser/dynamic_scss_resources.py */
 body #plone-contentmenu-factories .contenttype-ftw-book-chapter {
   display: block !important;
 }
 
-
 a.book-sl-toolbar-icon-table-import-export {
   background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-icon));
   &:hover {
     background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-sl-icon-hover));
   }
+}
+
+/* MAIN BOOK STYLES */
+div#portal-column-one div.portletWrapper dl.portletGoToParent {
+  margin-bottom: 0em;
+}
+
+/* Add chapter prefixes / numbering */
+body {
+  counter-reset: chapter;
+  counter-reset: section;
+  counter-reset: subsection;
+  counter-reset: subsubsection;
+  counter-reset: paragraph;
+  counter-reset: subparagraph;
+}
+
+.toc2 {
+  counter-reset: section;
+  counter-increment: chapter;
+
+  &:before {
+    content: counter(chapter) " ";
+  }
+}
+
+.toc3 {
+  counter-reset: subsection;
+  counter-increment: section;
+
+  &:before {
+    content: counter(chapter) "." counter(section) " ";
+  }
+}
+
+.toc4 {
+  counter-reset: subsubsection;
+  counter-increment: subsection;
+
+  &:before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) " ";
+  }
+}
+
+.toc5 {
+  counter-reset: paragraph;
+  counter-increment: subsubsection;
+
+  &:before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+  }
+}
+
+.toc6 {
+  counter-reset: subparagraph;
+  counter-increment: paragraph;
+
+  &:before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) " ";
+  }
+}
+
+.toc7 {
+  counter-increment: subparagraph;
+
+  &:before {
+    content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) "." counter(subparagraph) " ";
+  }
+}
+
+/* Disable simplelayout design menu on chapter, since we cannot
+   create a PDF with multiple columns. */
+.portaltype-chapter #simplelayout-contentmenu-design {
+  display: none;
+}
+
+.BlockOverallWrapper.chapter > a {
+  display: block;
+  margin-bottom: 2em;
+}
+
+.simplelayout-content table {
+  width: 100%;
+}
+
+.border-grid {
+  border: 1px solid #DEDEDE;
+}
+
+.border-right {
+  border-right: 1px solid #DEDEDE;
+}
+
+.border-left {
+  border-left: 1px solid #DEDEDE;
+}
+
+.border-bottom {
+  border-bottom-width: 1px;
+  border-bottom-color: #DEDEDE;
+  border-bottom-style: solid;
+}
+
+.border-top {
+  border-top-width: 1px;
+  border-top-color: #DEDEDE;
+  border-top-style: solid;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.indent2 {
+  padding-left: 2mm;
+}
+
+.indent10 {
+  padding-left: 10mm;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.grey {
+  color: #808080;
+}
+
+.scriptsize {
+  font-size: 7.5pt;
+  font-weight: normal;
+}
+
+.footnotesize {
+  font-size: 7pt;
+}
+
+.sl-export-import-action {
+  background: url("++resource++ftw.book-resources/icon_export_import.png") no-repeat !important;
+}
+
+span.keyword, body.mceContentBody span.keyword {
+  border: 1px dashed green;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/* Keywords tab */
+#keywords_overview {
+  padding-top: 1em;
+
+  form .select2-container {
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  .result, .no-results {
+    clear: both;
+    padding-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+/* READER AND READER NAVIGATION */
+#content .book-reader-navigation {
+  li {
+    list-style: none;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0em 0em;
+    margin-left: 2em;
+
+    &.book-reader-navigation-0 {
+      margin-left: 0;
+    }
+  }
+
+  a {
+    border: none;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 0.25em;
+    display: block;
+
+    &:hover, &:visited, &:link {
+      border: none;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 0.25em;
+      display: block;
+    }
+
+    &.active {
+      color: #75AD0A;
+    }
+  }
+}
+
+.book-reader-content {
+  overflow-y: scroll;
+  padding: 0em 2em;
+}
+
+.book-reader-navigation {
+  overflow-y: scroll;
+  float: left;
+  width: 30em;
+  height: 50px;
+  max-width: 30%;
+}
+
+#content #close-book-reader {
+  display: none;
 }
