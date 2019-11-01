@@ -1,0 +1,33 @@
+span.keyword, body.mceContentBody span.keyword {
+  border: 1px dashed green;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+span.footnote:after {
+  display: inline-block;
+  content: ' ';
+  background-image: url("/++resource++ftw.book-resources/tinymce/footnote_icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 2px;
+  width: 1em;
+  height: 1em;
+}
+
+span.footnote {
+  position: relative;
+}
+
+span.footnote:hover:before {
+  border: 1px solid #205c90;
+  padding: 3px 6px;
+  background: #ddd;
+  content: attr(data-footnote);
+  position: absolute;
+  left: 0;
+  top: 1.3em;
+  width: 200px;
+  text-align: center;
+  z-index: 2;
+}
