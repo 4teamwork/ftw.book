@@ -159,6 +159,9 @@ class BookMigrator(InplaceMigrator):
                 value = self.normalize_at_field_value(None, fieldname, value)
                 yield fieldname, value
 
+        if hasattr(old_object, 'content_categories'):
+            yield 'content_categories', getattr(old_object, 'content_categories')
+
 
 class ChapterMigrator(InplaceMigrator):
 
