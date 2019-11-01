@@ -29,6 +29,11 @@ ul.book-index {
 }
 
 
+.ftw-book-table table {
+  width: 100%;
+}
+
+
 /* let chapter be addable although its a sl block
 https://github.com/4teamwork/ftw.simplelayout/blob/master/ftw/simplelayout/browser/dynamic_scss_resources.py */
 body #plone-contentmenu-factories .contenttype-ftw-book-chapter {
