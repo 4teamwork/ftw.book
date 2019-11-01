@@ -26,7 +26,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
 
     def render(self):
         view = self.context.restrictedTraverse('block_view')
-        html = view()
+        html = view(prepend_html_headings=True)
         html = self.mark_book_internal_links(html)
         return html
 
