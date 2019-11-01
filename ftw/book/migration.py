@@ -262,7 +262,7 @@ class ChapterMigrator(InplaceMigrator):
         listingblock = createContentInContainer(
             container=new_page,
             portal_type='ftw.book.FileListingBlock',
-            title='',
+            title='Auflistungsblock',
             show_title=False,
             hide_from_toc=True,
             columns=['getContentType', 'Title'])
