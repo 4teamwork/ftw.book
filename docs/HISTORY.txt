@@ -45,6 +45,8 @@ Changelog
 
 - Add Plone 5 support. [busykoala]
 
+- Add grunt setup for development. [busykoala]
+
 
 3.5.4 (2019-02-05)
 ------------------
