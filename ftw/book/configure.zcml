@@ -21,7 +21,6 @@
   <include package=".keyword" />
   <include package=".latex" />
   <include package=".portlets" />
-  <include package=".tinymce" />
 
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 

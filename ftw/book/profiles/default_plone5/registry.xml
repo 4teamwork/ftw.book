@@ -12,13 +12,15 @@
         </value>
     </record>
 
-    <records prefix="plone.resources/ftwbook-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <records prefix="plone.resources/ftwbook-css"
+             interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="css">
             <element>++resource++ftw.book-resources/ftwbook.css</element>
         </value>
     </records>
 
-    <records prefix="plone.resources/reader-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <records prefix="plone.resources/reader-css"
+             interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="css">
             <!-- TODO: check what has to happen with expression tag -->
             <!-- expression="python:'book_reader_view' in portal.restrictedTraverse('@@plone_context_state').current_page_url()" -->
@@ -26,7 +28,8 @@
         </value>
     </records>
 
-    <records prefix="plone.resources/reader-navigation-css" interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <records prefix="plone.resources/reader-navigation-css"
+             interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="css">
             <!-- TODO: check what has to happen with expression tag -->
             <!-- expression="python:'book_reader_view' in portal.restrictedTraverse('@@plone_context_state').current_page_url()" -->
@@ -35,12 +38,12 @@
     </records>
 
     <records prefix="plone.resources/table-js"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+             interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="js">++resource++ftw.book-resources/table.js</value>
         <value key="deps">jquery</value>
     </records>
 
-    <records prefix="plone.bundles/ftw-book-resources" interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <records prefix="plone.bundles/ftw-book-resources" interface="Products.CMFPlone.interfaces.IBundleRegistry">
         <value key="resources">
             <element>ftwbook-css</element>
             <element>reader-css</element>
