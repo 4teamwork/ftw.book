@@ -29,4 +29,6 @@ class ChapterSimplelayoutView(SimplelayoutView):
         toc = TableOfContents()
         return '\n'.join((
             toc.prepend_html_headings(self.context),
-            toc.html_heading(self.context, classes=['documentFirstHeading'])))
+            toc.html_heading(self.context,
+                             classes=['documentFirstHeading'],
+                             tagname='h1')))
