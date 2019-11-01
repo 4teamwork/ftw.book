@@ -17,6 +17,7 @@ try:
 
     from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
     from ftw.simplelayout.interfaces import IBlockConfiguration
+    from ftw.simplelayout.interfaces import IPageConfiguration
     from ftw.simplelayout.migration import migrate_simplelayout_page_state
     from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
@@ -79,6 +80,10 @@ class MigrationUpgradeStepMixin(object):
     def post_migration_update_page_configs(self):
         query = {'portal_type': ['ftw.book.Chapter']}
         for obj in self.objects(query, 'Update page configs of chapters'):
+            # At this point we have an incomplete page config.
+            # We need to reset it and rebuild it from scratch in order to
+            # properly include all blocks.
+            IPageConfiguration(obj).store({'default': []}, update_positions=False)
             synchronize_page_config_with_blocks(obj)
 
 
