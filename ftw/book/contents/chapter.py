@@ -22,3 +22,7 @@ class IChapterSchema(Schema):
 
 class Chapter(Container):
     implements(IChapter)
+
+    # Prevent acquisition in exclude_from_nav indexer
+    # since when IExcludeFromNavigation is not enabled.
+    exclude_from_nav = False
