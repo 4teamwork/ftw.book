@@ -12,6 +12,12 @@
         </value>
     </record>
 
+    <record name="plone.displayed_types">
+        <value purge="false">
+            <element>ftw.book.Book</element>
+        </value>
+    </record>
+
     <records prefix="plone.resources/ftwbook-css"
              interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="css">
