@@ -15,6 +15,7 @@ import os
 
 try:
 
+    from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
     from ftw.simplelayout.interfaces import IBlockConfiguration
     from ftw.simplelayout.migration import migrate_simplelayout_page_state
     from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -65,6 +66,8 @@ class MigrationUpgradeStepMixin(object):
                 self.objects(migrator.query(),
                              'Migrate {}'.format(migrator_class.__name__)))
 
+        self.post_migration_update_page_configs()
+
     def verify(self):
         brains = self.catalog_unrestricted_search({'portal_type': 'Remark'})
         if len(brains):
@@ -72,6 +75,11 @@ class MigrationUpgradeStepMixin(object):
                 'The new ftw.book version does no longer provide a "Remark" block. '
                 'Before migrating to dexterity, all remarks must be removed. '
                 'You may want to convert them to textblocks.')
+
+    def post_migration_update_page_configs(self):
+        query = {'portal_type': ['ftw.book.Chapter']}
+        for obj in self.objects(query, 'Update page configs of chapters'):
+            synchronize_page_config_with_blocks(obj)
 
 
 def migrate_last_modifier(old_object, new_object):
