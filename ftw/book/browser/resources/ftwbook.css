@@ -130,7 +130,7 @@ body {
 }
 
 .sl-export-import-action {
-  background: url(++resource++ftw.book-resources/icon_export_import.png) no-repeat !important;
+  background: url("++resource++ftw.book-resources/icon_export_import.png") no-repeat !important;
 }
 
 
