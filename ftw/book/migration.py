@@ -20,6 +20,7 @@ try:
     from ftw.simplelayout.interfaces import IPageConfiguration
     from ftw.simplelayout.migration import migrate_simplelayout_page_state
     from ftw.simplelayout.migration import SL_BLOCK_DEFAULT_IGNORED_FIELDS
+    from ftw.upgrade.migration import DEFAULT_ATTRIBUTES_TO_COPY
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
     import ftw.book.content.book  # noqa
     import ftw.book.content.chapter  # noqa
@@ -40,6 +41,10 @@ except ImportError:
 else:
     HAS_GRAPHICBLOCK = True
     os.environ['FTWBOOK_GRAPHICBLOCK_SKIP_DEXTERITY_MIGRATION'] = 'true'
+
+
+# Also migrate creators.
+ATTRIBUTES_TO_MIGRATE = DEFAULT_ATTRIBUTES_TO_COPY + ('creators',)
 
 
 class MigrationUpgradeStepMixin(object):
@@ -140,6 +145,7 @@ class BookMigrator(InplaceMigrator):
 
         super(BookMigrator, self).__init__(
             new_portal_type='ftw.book.Book',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
@@ -216,6 +222,7 @@ class ChapterMigrator(InplaceMigrator):
 
         super(ChapterMigrator, self).__init__(
             new_portal_type='ftw.book.Chapter',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
@@ -279,6 +286,7 @@ class BookTextBlockMigrator(InplaceMigrator):
 
         super(BookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -324,6 +332,7 @@ class BookListingBlockMigrator(InplaceMigrator):
 
         super(BookListingBlockMigrator, self).__init__(
             new_portal_type='ftw.book.FileListingBlock',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -357,6 +366,7 @@ class ImageToBookTextBlockMigrator(InplaceMigrator):
 
         super(ImageToBookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -396,6 +406,7 @@ class HTMLBlockMigrator(InplaceMigrator):
 
         super(HTMLBlockMigrator, self).__init__(
             new_portal_type='ftw.book.HtmlBlock',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -427,6 +438,7 @@ class TableMigrator(InplaceMigrator):
 
         super(TableMigrator, self).__init__(
             new_portal_type='ftw.book.Table',
+            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
