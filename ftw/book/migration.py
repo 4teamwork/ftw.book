@@ -373,6 +373,13 @@ class ImageToBookTextBlockMigrator(InplaceMigrator):
     def query(self):
         return {'portal_type': 'Image', 'path': get_book_paths()}
 
+    def get_at_field_values(self, old_object):
+        for item in super(ImageToBookTextBlockMigrator, self).get_at_field_values(old_object):
+            yield item
+
+        yield 'show_title', False
+        yield 'hide_from_toc', True
+
 
 class HTMLBlockMigrator(InplaceMigrator):
 
