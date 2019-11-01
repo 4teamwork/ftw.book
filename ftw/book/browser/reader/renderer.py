@@ -39,7 +39,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
         book_path = '/'.join(book.getPhysicalPath())
         context_url = self.context.absolute_url()
 
-        doc = lxml.html.parse(StringIO(html))
+        doc = lxml.html.parse(StringIO(u'<div>{}</div>'.format(html)))
         for node in doc.xpath('//a'):
             if 'href' not in node.attrib:
                 continue
