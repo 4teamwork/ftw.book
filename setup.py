@@ -21,6 +21,8 @@ tests_require = [
 ]
 
 extras_require = {
+    'plone4': [
+        'Products.TinyMCE'],
     'tests': tests_require,
     'tabbeview': [
         'ftw.tabbedview',
@@ -59,7 +61,6 @@ setup(name='ftw.book',
       install_requires=[
           'BeautifulSoup!=4.0b',
           'Plone',
-          'Products.TinyMCE',
           'collective.z3cform.datagridfield>=1.3.3',
           'ftw.file >= 2.0.1',
           'ftw.htmlblock>=1.1.0',

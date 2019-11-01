@@ -42,6 +42,8 @@ Usage
 
 - Install a LaTeX distribution, see `ftw.pdfgenerator`_  install instructions.
 
+- For Plone 4.x the extra ``plone4`` is required from ``ftw.book >= 4.1.x``.
+
 
 Compatibility
 -------------
