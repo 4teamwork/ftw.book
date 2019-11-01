@@ -18,6 +18,21 @@
         </value>
     </record>
 
+    <record name="plone.custom_plugins"
+            interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+            field="custom_plugins">
+        <value purge="true">
+            <element>keyword|++resource++ftw.book-resources/tinymce/keyword-button-plugin.js</element>
+            <element>footnote|++resource++ftw.book-resources/tinymce/footnote-button-plugin.js</element>
+        </value>
+    </record>
+
+    <record name="plone.toolbar"
+            interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+            field="toolbar">
+        <value>ltr rtl | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | unlink plonelink ploneimage | keyword | footnote</value>
+    </record>
+
     <records prefix="plone.resources/ftwbook-css"
              interface="Products.CMFPlone.interfaces.IResourceRegistry">
         <value key="css">
