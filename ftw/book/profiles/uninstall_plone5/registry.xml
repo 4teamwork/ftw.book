@@ -5,17 +5,13 @@
 
     <!-- displayed_types are removed in hooks.py -->
 
-    <records prefix="plone.resources/ftwbook-css"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="true"/>
+    <!-- custom_attributes are removed in hooks.py -->
 
-    <records prefix="plone.resources/reader-css"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="true"/>
+    <!-- content_css are removed in hooks.py -->
 
-    <records prefix="plone.resources/reader-navigation-css"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="true"/>
+    <!-- custom_plugins are removed in hooks.py -->
+
+    <!-- toolbar elements are removed in hooks.py -->
 
     <records prefix="plone.resources/table-js"
              interface='Products.CMFPlone.interfaces.IResourceRegistry'
