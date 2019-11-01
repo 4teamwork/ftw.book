@@ -88,6 +88,38 @@ def migrate_last_modifier(old_object, new_object):
         IAnnotations(new_object)['collective.lastmodifier'] = value
 
 
+def migrate_sl_image_layout(old_object, new_object):
+    block_layout_mapping = {
+        'small': {
+            'scale': 'sl_textblock_small',
+            'imagefloat': 'left'},
+        'middle': {
+            'scale': 'sl_textblock_middle',
+            'imagefloat': 'left'},
+        'full': {
+            'scale': 'sl_textblock_large',
+            'imagefloat': 'no-float'},
+        'middle-right': {
+            'scale': 'sl_textblock_middle',
+            'imagefloat': 'right'},
+        'small-right': {
+            'scale': 'sl_textblock_small',
+            'imagefloat': 'right'},
+        'no-image': {
+            'scale': 'sl_textblock_small',
+            'imagefloat': 'left'},
+    }
+
+    image_layout = IAnnotations(old_object).get('imageLayout', None)
+    if not image_layout or image_layout == 'dummy-dummy-dummy':
+        return
+
+    new_config = IBlockConfiguration(new_object)
+    cfg = new_config.load()
+    cfg.update(block_layout_mapping[image_layout])
+    new_config.store(cfg)
+
+
 def get_book_paths():
     catalog = getToolByName(getSite(), 'portal_catalog')
     query = {'portal_type': ['ftw.book.Book', 'Book']}
@@ -260,7 +292,7 @@ class BookTextBlockMigrator(InplaceMigrator):
                 'imageCaption': 'image_caption',
                 'imageClickable': 'open_image_in_overlay'},
             additional_steps=(
-                (self.migrate_sl_image_layout,
+                (migrate_sl_image_layout,
                  migrate_last_modifier)
                 + additional_steps),
             **kwargs
@@ -268,37 +300,6 @@ class BookTextBlockMigrator(InplaceMigrator):
 
     def query(self):
         return {'portal_type': 'BookTextBlock'}
-
-    def migrate_sl_image_layout(self, old_object, new_object):
-        block_layout_mapping = {
-            'small': {
-                'scale': 'sl_textblock_small',
-                'imagefloat': 'left'},
-            'middle': {
-                'scale': 'sl_textblock_middle',
-                'imagefloat': 'left'},
-            'full': {
-                'scale': 'sl_textblock_large',
-                'imagefloat': 'no-float'},
-            'middle-right': {
-                'scale': 'sl_textblock_middle',
-                'imagefloat': 'right'},
-            'small-right': {
-                'scale': 'sl_textblock_small',
-                'imagefloat': 'right'},
-            'no-image': {
-                'scale': 'sl_textblock_small',
-                'imagefloat': 'left'},
-        }
-
-        image_layout = IAnnotations(old_object).get('imageLayout', None)
-        if not image_layout or image_layout == 'dummy-dummy-dummy':
-            return
-
-        new_config = IBlockConfiguration(new_object)
-        cfg = new_config.load()
-        cfg.update(block_layout_mapping[image_layout])
-        new_config.store(cfg)
 
     def get_at_field_values(self, old_object):
         for item in super(BookTextBlockMigrator, self).get_at_field_values(old_object):
@@ -360,7 +361,8 @@ class ImageToBookTextBlockMigrator(InplaceMigrator):
                     'searchwords',
                     'showinsearch')),
             additional_steps=(
-                (migrate_last_modifier, )
+                (migrate_sl_image_layout,
+                 migrate_last_modifier)
                 + additional_steps),
             **kwargs)
 
