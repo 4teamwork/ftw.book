@@ -11,7 +11,7 @@
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
-        <element value="File" />
+        <element value="ftw.file.File" />
     </property>
 
     <property name="schema">ftw.book.contents.filelistingblock.IBookFileListingBlockSchema</property>
