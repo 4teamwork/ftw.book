@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.0.1 (unreleased)
+4.0.1 (2019-11-04)
 ------------------
 
 - Add ftw.file (2.x) as dependency for ftw.file DX integration. [mathias.leimgruber]
