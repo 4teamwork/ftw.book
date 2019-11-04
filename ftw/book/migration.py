@@ -43,10 +43,6 @@ else:
     os.environ['FTWBOOK_GRAPHICBLOCK_SKIP_DEXTERITY_MIGRATION'] = 'true'
 
 
-# Also migrate creators.
-ATTRIBUTES_TO_MIGRATE = DEFAULT_ATTRIBUTES_TO_COPY + ('creators',)
-
-
 def get_book_paths():
     catalog = getToolByName(getSite(), 'portal_catalog')
     query = {'portal_type': ['ftw.book.Book', 'Book']}
@@ -105,6 +101,10 @@ class BookTypeMigratorBase(InplaceMigrator):
     def __init__(self, *args, **kwargs):
         if IMPORT_ERROR:
             raise IMPORT_ERROR
+
+        kwargs.setdefault('attributes_to_migrate',
+                          DEFAULT_ATTRIBUTES_TO_COPY + ('creators',))
+
         super(BookTypeMigratorBase, self).__init__(*args, **kwargs)
 
     def migrate_sl_image_layout(self, old_object, new_object):
@@ -149,7 +149,6 @@ class BookMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(BookMigrator, self).__init__(
             new_portal_type='ftw.book.Book',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
@@ -223,7 +222,6 @@ class ChapterMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(ChapterMigrator, self).__init__(
             new_portal_type='ftw.book.Chapter',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + ignore_fields + (
@@ -284,7 +282,6 @@ class BookTextBlockMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(BookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -327,7 +324,6 @@ class BookListingBlockMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(BookListingBlockMigrator, self).__init__(
             new_portal_type='ftw.book.FileListingBlock',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -358,7 +354,6 @@ class ImageToBookTextBlockMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(ImageToBookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -395,7 +390,6 @@ class HTMLBlockMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(HTMLBlockMigrator, self).__init__(
             new_portal_type='ftw.book.HtmlBlock',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
@@ -424,7 +418,6 @@ class TableMigrator(BookTypeMigratorBase):
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(TableMigrator, self).__init__(
             new_portal_type='ftw.book.Table',
-            attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
             ignore_fields=(
                 DUBLIN_CORE_IGNORES
                 + SL_BLOCK_DEFAULT_IGNORED_FIELDS
