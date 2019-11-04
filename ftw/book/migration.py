@@ -68,9 +68,10 @@ class MigrationUpgradeStepMixin(object):
         self.verify()
         for migrator_class in self.migrator_classes:
             migrator = migrator_class()
-            map(migrator.migrate_object,
-                self.objects(migrator.query(),
-                             'Migrate {}'.format(migrator_class.__name__)))
+            query = migrator.query()
+            query.setdefault('path', get_book_paths())
+            objects = tuple(self.objects(query, 'Migrate {}'.format(migrator_class.__name__)))
+            map(migrator.migrate_object, objects)
 
         self.post_migration_update_page_configs()
 
