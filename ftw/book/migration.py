@@ -1,3 +1,4 @@
+from Acquisition import aq_base
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from copy import deepcopy
@@ -98,13 +99,27 @@ class MigrationUpgradeStepMixin(object):
 
 class BookTypeMigratorBase(InplaceMigrator):
 
+    schemaextender_fields = {
+        'preLatexCode': 'pre_latex_code',  # XXX <BaseUnit at a.-gesetzgebung/preLatexCode>
+        'postLatexCode': 'post_latex_code',
+        'preferredColumnLayout': 'preferred_column_layout',
+        'latexLandscape': 'landscape',
+        'preLatexClearpage': 'pre_latex_clearpage',
+        'postLatexClearpage': 'post_latex_clearpage',
+        'preLatexNewpage': 'pre_latex_newpage',
+        'hideFromTOC': 'hide_from_toc',
+    }
+
     def __init__(self, *args, **kwargs):
         if IMPORT_ERROR:
             raise IMPORT_ERROR
 
         kwargs.setdefault('attributes_to_migrate',
                           DEFAULT_ATTRIBUTES_TO_COPY + ('creators',))
-
+        if 'field_mapping' in kwargs:
+            kwargs['field_mapping'].update(self.schemaextender_fields)
+        else:
+            kwargs['field_mapping'] = dict(self.schemaextender_fields)
         super(BookTypeMigratorBase, self).__init__(*args, **kwargs)
 
     def migrate_sl_image_layout(self, old_object, new_object):
@@ -142,6 +157,25 @@ class BookTypeMigratorBase(InplaceMigrator):
         value = getattr(old_object, 'lastModifier', None)
         if value:
             IAnnotations(new_object)['collective.lastmodifier'] = value
+
+    def get_old_schemaextender_fieldnames(self, old_object):
+        return list(self.schemaextender_fields)
+
+    def get_at_field_values(self, old_object):
+        for item in super(BookTypeMigratorBase, self).get_at_field_values(old_object):
+            yield item
+
+        for fieldname in self.get_old_schemaextender_fieldnames(old_object):
+            if fieldname in self.ignore_fields:
+                continue
+            if not hasattr(aq_base(old_object), fieldname):
+                continue
+            value = getattr(old_object, fieldname, None)
+            if callable(value):
+                value = value()
+            if value:
+                value = self.normalize_at_field_value(None, fieldname, value)
+                yield fieldname, value
 
 
 class BookMigrator(BookTypeMigratorBase):
@@ -199,22 +233,12 @@ class BookMigrator(BookTypeMigratorBase):
     def get_layout_module(self, dottedname):
         return resolve('.'.join(dottedname.split('.')[:-1]))
 
-    def get_at_field_values(self, old_object):
-        for item in super(BookMigrator, self).get_at_field_values(old_object):
-            yield item
-
-        layout_fieldnames = getattr(self.get_layout_module(old_object.latex_layout),
-                                    'OLD_FIELDNAMES')
-        for fieldname in layout_fieldnames:
-            if fieldname in self.ignore_fields:
-                continue
-            value = getattr(old_object, fieldname, None)
-            if value:
-                value = self.normalize_at_field_value(None, fieldname, value)
-                yield fieldname, value
-
-        if hasattr(old_object, 'content_categories'):
-            yield 'content_categories', getattr(old_object, 'content_categories')
+    def get_old_schemaextender_fieldnames(self, old_object):
+        fieldnames = super(BookMigrator, self).get_old_schemaextender_fieldnames(old_object)
+        fieldnames += list(getattr(self.get_layout_module(old_object.latex_layout),
+                                   'OLD_FIELDNAMES'))
+        fieldnames.append('content_categories')
+        return fieldnames
 
 
 class ChapterMigrator(BookTypeMigratorBase):
@@ -309,13 +333,11 @@ class BookTextBlockMigrator(BookTypeMigratorBase):
     def query(self):
         return {'portal_type': 'BookTextBlock'}
 
-    def get_at_field_values(self, old_object):
-        for item in super(BookTextBlockMigrator, self).get_at_field_values(old_object):
-            yield item
-
-        if hasattr(old_object, 'adjudicationDate'):
-            # izug.latex extension
-            yield 'adjudicationDate', getattr(old_object, 'adjudicationDate')
+    def get_old_schemaextender_fieldnames(self, old_object):
+        fieldnames = super(BookTextBlockMigrator, self).get_old_schemaextender_fieldnames(old_object)
+        # izug.latex extension
+        fieldnames.append('adjudicationDate')
+        return fieldnames
 
 
 class BookListingBlockMigrator(BookTypeMigratorBase):
@@ -464,13 +486,12 @@ class TableMigrator(BookTypeMigratorBase):
             else:
                 yield name, value
 
-    def get_at_field_values(self, old_object):
-        for item in super(TableMigrator, self).get_at_field_values(old_object):
-            yield item
-
-        if hasattr(old_object, 'lift_table'):
-            # izug.latex extension
-            yield 'lift_table', getattr(old_object, 'lift_table')
-
-        yield 'data', old_object.data
-        yield 'columnProperties', old_object.columnProperties
+    def get_old_schemaextender_fieldnames(self, old_object):
+        fieldnames = super(TableMigrator, self).get_old_schemaextender_fieldnames(old_object)
+        # izug.latex extension
+        fieldnames.extend([
+            'lift_table',
+            'data',
+            'columnProperties',
+        ])
+        return fieldnames
