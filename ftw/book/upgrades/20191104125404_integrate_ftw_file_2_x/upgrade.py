@@ -6,4 +6,5 @@ class IntegrateFtwFile2X(UpgradeStep):
     """
 
     def __call__(self):
+        self.ensure_profile_installed('ftw.file:default')
         self.install_upgrade_profile()
