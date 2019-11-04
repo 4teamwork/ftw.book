@@ -1,0 +1,49 @@
+@include portal-type-font-awesome-icon(ftw-book-book, book);
+@include portal-type-font-awesome-icon(ftw-book-chapter, bookmark);
+@include portal-type-font-awesome-icon(ftw-book-filelistingblock, list-ul);
+@include portal-type-font-awesome-icon(ftw-book-htmlblock, code);
+@include portal-type-font-awesome-icon(ftw-book-table, table);
+@include portal-type-font-awesome-icon(ftw-book-textblock, paragraph);
+
+
+/* HTML Block
+https://github.com/4teamwork/ftw.htmlblock/blob/master/ftw/htmlblock/browser/resources/styles.scss
+*/
+@include ie-only(".sl-can-edit .ftw-book-htmlblock.has-iframe .sl-block-content") {
+  cursor:  not-allowed;
+}
+
+@include ie-only(".sl-can-edit .ftw-book-htmlblock iframe") {
+  pointer-events: none;
+}
+
+
+ul.book-index {
+  &, & ul {
+    list-style: none;
+  }
+  li {
+    margin-top: .2em;
+    margin-bottom: 0;
+  }
+}
+
+
+.ftw-book-table table {
+  width: 100%;
+}
+
+
+/* let chapter be addable although its a sl block
+https://github.com/4teamwork/ftw.simplelayout/blob/master/ftw/simplelayout/browser/dynamic_scss_resources.py */
+body #plone-contentmenu-factories .contenttype-ftw-book-chapter {
+  display: block !important;
+}
+
+
+a.book-sl-toolbar-icon-table-import-export {
+  background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-icon));
+  &:hover {
+    background-image: embed-resource("importexport.svg", $fill-css:('.icon', $color-sl-icon-hover));
+  }
+}

@@ -1,0 +1,24 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.book">
+
+    <tal:BLOCK define="table context/getTable">
+
+        <a tal:attributes="name here/getId"></a>
+
+        <table tal:condition="table" tal:replace="structure table" />
+
+        <dl tal:condition="not:table" class="portalMessage warning">
+            <dt i18n:domain="plone" i18n:translate="">Warning</dt>
+            <dd i18n:translate="">
+                The table has no content yet.
+                Edit the table block for adding content.
+            </dd>
+        </dl>
+
+        <span class="footnotesize" tal:content="structure context/footnote_text/output|nothing" />
+
+    </tal:BLOCK>
+
+</html>

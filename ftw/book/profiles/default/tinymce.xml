@@ -9,19 +9,20 @@
         </customplugins>
 
         <containsobjects purge="False">
-            <element value="Chapter"/>
+            <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
         </containsobjects>
 
         <linkable purge="False">
-            <element value="Chapter"/>
-            <element value="BookTextBlock"/>
-            <element value="HTMLBlock"/>
-            <element value="Table"/>
+            <element value="ftw.book.Book"/>
+            <element value="ftw.book.Chapter"/>
+            <element value="ftw.book.TextBlock"/>
+            <element value="ftw.book.HtmlBlock"/>
         </linkable>
 
         <containsanchors purge="False">
-            <element value="BookTextBlock"/>
-            <element value="HTMLBlock"/>
+            <element value="ftw.book.TextBlock"/>
+            <element value="ftw.book.HtmlBlock"/>
         </containsanchors>
 
     </resourcetypes>

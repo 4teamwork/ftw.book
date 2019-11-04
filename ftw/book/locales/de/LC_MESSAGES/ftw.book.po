@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2016-04-28 07:54+0000\n"
+"POT-Creation-Date: 2019-11-01 14:33+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -12,66 +12,59 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "X-Is-Fallback-For: de-de de-at de-ch\n"
 
-#: ./ftw/book/content/table.py:161
+#: ./ftw/book/contents/table.py:69
 msgid "${num} rows"
 msgstr "${num} Zeilen"
 
-#: ./ftw/book/content/table.py:283
+#: ./ftw/book/contents/table.py:63
 msgid "10mm"
 msgstr "10mm"
 
-#: ./ftw/book/content/table.py:295
+#: ./ftw/book/contents/table.py:42
 msgid "10mm ind. + bold"
 msgstr "10mm einr. + fett"
 
-#: ./ftw/book/content/table.py:297
+#: ./ftw/book/contents/table.py:44
 msgid "10mm ind. + grey font"
 msgstr "10mm einr. + grau"
 
-#: ./ftw/book/content/table.py:293
+#: ./ftw/book/contents/table.py:40
 msgid "10mm indent"
 msgstr "10mm einrücken"
 
-#: ./ftw/book/content/table.py:282
+#: ./ftw/book/contents/table.py:62
 msgid "2mm"
 msgstr "2mm"
 
-#: ./ftw/book/content/table.py:294
+#: ./ftw/book/contents/table.py:41
 msgid "2mm ind. + bold"
 msgstr "2mm einr. + fett"
 
-#: ./ftw/book/content/table.py:296
+#: ./ftw/book/contents/table.py:43
 msgid "2mm ind. + grey font"
 msgstr "2mm einr. + grau"
 
-#: ./ftw/book/content/table.py:292
+#: ./ftw/book/contents/table.py:39
 msgid "2mm indent"
 msgstr "2mm einrücken"
 
-#: ./ftw/book/upgrades/configure.zcml:203
-msgid "Add footnote plugin."
-msgstr ""
-
-#: ./ftw/book/content/table.py:289
+#: ./ftw/book/contents/table.py:36
 msgid "Bold"
 msgstr "Fett"
 
 #. Default: "Book"
-#: ./ftw/book/profiles/default/types/Book.xml
+#: ./ftw/book/profiles/default/types/ftw.book.Book.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Book.xml
 msgid "Book"
 msgstr "Buch"
 
-#: ./ftw/book/profiles/default/types/BookTextBlock.xml
 #: ./ftw/book/upgrades/profiles/3000/types/BookTextBlock.xml
 msgid "BookTextBlock"
 msgstr "Text Block"
 
-#: ./ftw/book/upgrades/configure.zcml:194
-msgid "Change HTMLBlock icon."
-msgstr ""
-
 #. Default: "Chapter"
-#: ./ftw/book/profiles/default/types/Chapter.xml
+#: ./ftw/book/profiles/default/types/ftw.book.Chapter.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Chapter.xml
 msgid "Chapter"
 msgstr "Kapitel"
 
@@ -79,203 +72,181 @@ msgstr "Kapitel"
 msgid "Close reader"
 msgstr "Leseansicht verlassen"
 
-#: ./ftw/book/content/table.py:57
+#: ./ftw/book/contents/table.py:88
 msgid "Column ${num}"
 msgstr "Spalte ${num}"
 
-#: ./ftw/book/latex/defaultlayout.py:41
+#: ./ftw/book/latex/configure.zcml:21
 msgid "Default layout"
 msgstr "Standardlayout"
-
-#: ./ftw/book/browser/templates/export_pdf.pt:22
-msgid "Embed remarks"
-msgstr "Kommentare einbinden"
 
 #: ./ftw/book/browser/templates/table_export_import.pt:28
 msgid "Export"
 msgstr "Exportieren"
 
-#: ./ftw/book/content/table.py:290
+#: ./ftw/book/profiles/default/types/ftw.book.FileListingBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.FileListingBlock.xml
+msgid "FileListingBlock"
+msgstr "Dateiauflistung"
+
+#: ./ftw/book/contents/table.py:112
+msgid "Format"
+msgstr "Format"
+
+#: ./ftw/book/contents/table.py:37
 msgid "Grey font"
 msgstr "Graue Schrift"
 
-#: ./ftw/book/profiles/default/types/HTMLBlock.xml
-msgid "HTML Block"
+#: ./ftw/book/profiles/default/types/ftw.book.HtmlBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.HtmlBlock.xml
+msgid "HtmlBlock"
 msgstr "HTML Block"
 
 #: ./ftw/book/browser/templates/table_export_import.pt:72
 msgid "Import"
 msgstr "Importieren"
 
-#: ./ftw/book/upgrades/configure.zcml:156
-msgid "Install ftw.contentpage and make ListingBlock available in books"
-msgstr ""
+#: ./ftw/book/behaviors/clearpage.py:16
+#: ./ftw/book/behaviors/codeinjection.py:16
+#: ./ftw/book/behaviors/columnlayout.py:35
+msgid "LaTeX"
+msgstr "LaTeX"
 
-#: ./ftw/book/upgrades/configure.zcml:110
-msgid "Install tinymce keyword plugin"
-msgstr ""
+#: ./ftw/book/contents/table.py:196
+msgid "Layout"
+msgstr "Layout"
 
-#: ./ftw/book/content/table.py:288
+#: ./ftw/book/contents/table.py:35
 msgid "Normal"
 msgstr "Normal"
 
-#: ./ftw/book/profiles/default/actions.xml
-msgid "PDF"
-msgstr "PDF"
-
-#: ./ftw/book/upgrades/configure.zcml:147
-msgid "Register BookTextBlock as linkable in TinyMCE."
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:185
-msgid "Register new 'Add Chapter' permission."
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:138
-msgid "Register new keywords tab."
-msgstr ""
-
-#: ./ftw/book/profiles/default/types/Remark.xml
-msgid "Remark"
-msgstr "Kommentar"
-
-#: ./ftw/book/content/table.py:299
+#: ./ftw/book/contents/table.py:46
 msgid "Row without line"
 msgstr "Zeile ohne Linie"
 
-#: ./ftw/book/content/table.py:300
+#: ./ftw/book/contents/table.py:47
 msgid "Small font"
 msgstr "Kleine Schrift"
 
-#: ./ftw/book/content/table.py:301
+#: ./ftw/book/contents/table.py:48
 msgid "Strech first line"
 msgstr "Zeilen Verbinden"
 
-#: ./ftw/book/profiles/default/types/Table.xml
+#: ./ftw/book/profiles/default/types/ftw.book.Table.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.Table.xml
 msgid "Table"
 msgstr "Tabelle"
 
-#: ./ftw/book/browser/table_export_import.py:117
+#: ./ftw/book/profiles/default/types/ftw.book.TextBlock.xml
+#: ./ftw/book/upgrades/20170125094552_install_ftw_simplelayout/types/ftw.book.TextBlock.xml
+msgid "TextBlock"
+msgstr "Text/Bild"
+
+#: ./ftw/book/browser/table_export_import.py:118
 msgid "The file does not seem to belong to this table."
 msgstr "Die Datei scheint nicht zu dieser Tabaelle zu gehören"
 
-#: ./ftw/book/browser/templates/table_content.pt:12
+#: ./ftw/book/browser/templates/table.pt:14
 msgid "The table has no content yet. Edit the table block for adding content."
 msgstr "Die Tabelle hat noch keinen Inhalt. Definieren Sie den Inhalt, indem Sie die Tabelle bearbeiten."
 
-#: ./ftw/book/latexinjection.py:180
+#: ./ftw/book/behaviors/columnlayout.py:60
 msgid "This option inserts a column break when two column layout is active."
 msgstr "Dies Option fügt einen Spaltenumbruch vor diesem Inhalt ein, sofern dieser im Zweispaltigen Layout angezeigt wird. Wird der Inhalt davor in der rechten Spalte dargestellt, so wird ein Seitenumbruch eingefügt."
 
-#: ./ftw/book/configure.zcml:54
+#: ./ftw/book/configure.zcml:48
 msgid "Uninstall ftw.book"
-msgstr ""
+msgstr "ftw.book deinstallieren"
 
-#: ./ftw/book/browser/table_export_import.py:93
+#: ./ftw/book/browser/table_export_import.py:94
 msgid "You didn't choose a column."
 msgstr "Sie haben keine Spalte ausgewählt"
 
-#: ./ftw/book/browser/table_export_import.py:89
+#: ./ftw/book/browser/table_export_import.py:90
 msgid "You didn't choose a file."
 msgstr "Sie haben kein File ausgewählt"
 
-#: ./ftw/book/content/table.py:273
+#: ./ftw/book/contents/table.py:53
 msgid "automatically"
 msgstr "Automatisch"
 
 #. Default: "Upload an image or a PDF, which will be displayed on the titlepage"
-#: ./ftw/book/latex/defaultlayout.py:89
+#: ./ftw/book/latex/defaultlayout.py:51
 msgid "book_help_titlepage_logo"
 msgstr "Laden Sie ein Bild oder PDF hoch, welches auf der Titelseite im PDF eingebettet wird."
 
 #. Default: "Width of the titlepage logo in percent of the content width."
-#: ./ftw/book/latex/defaultlayout.py:102
+#: ./ftw/book/latex/defaultlayout.py:59
 msgid "book_help_titlepage_logo_width"
 msgstr "Wenn Sie ein Logo für die Titelseite benutze, definieren Sie hier die gewünschte Breite in Prozent der Inhaltsbreite."
 
 #. Default: "When enabled, a keyword index will be included in the PDF."
-#: ./ftw/book/content/book.py:88
+#: ./ftw/book/contents/book.py:54
 msgid "book_help_use_index"
 msgstr "Wenn diese Option angewählt ist, wird im PDF am Ende des Buches ein Stichwortverzeichnis generiert."
 
-#: ./ftw/book/content/book.py:78
-msgid "book_help_use_loi"
-msgstr "Wenn diese Option angewählt ist, wird automatisch ein Abbildungsverzeichnis erstellt."
-
-#: ./ftw/book/content/book.py:68
-msgid "book_help_use_lot"
-msgstr "Wenn dies Option angewählt ist, wird automatisch ein Tabbellenverzeichnis erstellt."
-
-#: ./ftw/book/content/book.py:48
-msgid "book_help_use_titlepage"
-msgstr "Wenn diese Option angewählt ist, wird eine Titelseite erzeugt."
-
-#: ./ftw/book/content/book.py:58
-msgid "book_help_use_toc"
-msgstr "Wenn diese Option angewählt ist, wird automatisch ein Inhaltsverzeichnis erstellt."
-
 #. Default: "Author"
-#: ./ftw/book/latex/defaultlayout.py:66
+#: ./ftw/book/latex/defaultlayout.py:40
 msgid "book_label_author"
 msgstr "Autor"
 
 #. Default: "Author Address"
-#: ./ftw/book/latex/defaultlayout.py:78
+#: ./ftw/book/latex/defaultlayout.py:45
 msgid "book_label_author_address"
 msgstr "Adresse des Autors"
 
 #. Default: "Layout"
-#: ./ftw/book/content/book.py:38
+#: ./ftw/book/contents/book.py:31
 msgid "book_label_layout"
 msgstr "Layout"
 
 #. Default: "Release"
-#: ./ftw/book/latex/defaultlayout.py:58
+#: ./ftw/book/latex/defaultlayout.py:35
 msgid "book_label_release"
 msgstr "Version"
 
 #. Default: "Titlepage logo"
-#: ./ftw/book/latex/defaultlayout.py:87
+#: ./ftw/book/latex/defaultlayout.py:50
 msgid "book_label_titlepage_logo"
 msgstr "Logo Titelseite"
 
 #. Default: "Titlepage logo width (%)"
-#: ./ftw/book/latex/defaultlayout.py:100
+#: ./ftw/book/latex/defaultlayout.py:57
 msgid "book_label_titlepage_logo_width"
 msgstr "Breite Logo Titelseite (%)"
 
-#. Default: "Embedd subject index"
-#: ./ftw/book/content/book.py:86
+#. Default: "Embed subject index"
+#: ./ftw/book/contents/book.py:53
 msgid "book_label_use_index"
 msgstr "Stichwortverzeichnis einbetten"
 
-#. Default: "Embedd list of illustrations"
-#: ./ftw/book/content/book.py:76
+#. Default: "Embed list of illustrations"
+#: ./ftw/book/contents/book.py:49
 msgid "book_label_use_loi"
 msgstr "Abbildungsverzeichnis einbetten"
 
-#. Default: "Embedd list of tables."
-#: ./ftw/book/content/book.py:66
+#. Default: "Embed list of tables"
+#: ./ftw/book/contents/book.py:45
 msgid "book_label_use_lot"
 msgstr "Tabellenverzeichnis einbetten"
 
-#. Default: "Embedd a title page"
-#: ./ftw/book/content/book.py:46
+#. Default: "Embed a title page"
+#: ./ftw/book/contents/book.py:37
 msgid "book_label_use_titlepage"
 msgstr "Titelseite einbetten"
 
-#. Default: "Embedd table of contents"
-#: ./ftw/book/content/book.py:56
+#. Default: "Embed table of contents"
+#: ./ftw/book/contents/book.py:41
 msgid "book_label_use_toc"
 msgstr "Inhaltsverzeichnis einbetten"
 
-#: ./ftw/book/content/table.py:276
+#: ./ftw/book/contents/table.py:56
 msgid "center"
 msgstr "Zentriert"
 
 #. Default: "Creator"
 #: ./ftw/book/browser/book_tabs.py:29
-#: ./ftw/book/browser/tabbed_book_view.py:40
+#: ./ftw/book/browser/tabbed_book_view.py:38
 msgid "column_creator"
 msgstr "Ersteller"
 
@@ -291,52 +262,18 @@ msgstr "Geändert"
 
 #. Default: "Title"
 #: ./ftw/book/browser/book_tabs.py:22
-#: ./ftw/book/browser/tabbed_book_view.py:36
+#: ./ftw/book/browser/tabbed_book_view.py:34
 msgid "column_title"
 msgstr "Titel"
 
-#. Default: "Add new row"
-#: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:91
-msgid "datagrid_add_button"
-msgstr "Neue Zeile hinzufügen"
-
 #. Default: "When exporting the book as PDF the table will be pulled up if there is no content in the first cell. The aim is to place a preceding title at the same height as the first row of the table. For suppressing this behaviour enable this option."
-#: ./ftw/book/content/table.py:220
+#: ./ftw/book/contents/table.py:249
 msgid "description_no_lifting"
 msgstr "Ist beim exportieren eines Buches als PDF die erste Zelle leer, wird die gesammte Tabelle um eine Zeile nach oben geschoben. Somit wird der Titel der Tabelle auf der gleichen Höhe wie die erste Zeile der Tabelle dargestellt. Um dieses Verhalten zu unterdrücken, aktivieren Sie diese Option."
 
-#: ./ftw/book/configure.zcml:40
+#: ./ftw/book/configure.zcml:34
 msgid "ftw.book"
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:33
-msgid "ftw.book.upgrades.2200"
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:63
-msgid "ftw.book.upgrades.2300"
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:82
-msgid "ftw.book.upgrades.2301"
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:101
-msgid "ftw.book.upgrades.3000"
-msgstr ""
-
-#: ./ftw/book/upgrades/configure.zcml:129
-msgid "ftw.book.upgrades.3002"
-msgstr ""
-
-#: ./ftw/book/content/book.py:28
-msgid "help_web_toc_depth"
-msgstr "Wieviele Kapitelebenen sollen im Inhaltsverzeichnis angezeigt werden. 0 bedeutet keine Einschränkung. Dies hat keinen Einfluss auf das PDF."
-
-#. Default: "Please activate the required columns under 'Layout' and and save the object."
-#: ./ftw/book/skins/ftw_book_templates/datagridwidget_bibliothek_table.pt:60
-msgid "info_actvate_columns_first"
-msgstr "Bitte aktivieren Sie die gewünschte Anzahl Spalten unter 'Layout' und Speichern Sie anschliessend das Objekt."
+msgstr "ftw.book"
 
 #. Default: "You can export the tabledata as CSV. Do not manipulate the first row of the exported table to grant the import."
 #: ./ftw/book/browser/templates/table_export_import.pt:21
@@ -344,62 +281,62 @@ msgid "info_table_export"
 msgstr "Die Tabellendaten können als CSV-Datei exportiert werden. Es sollte darauf geachtet werden, dass die erste Zeile der Tabelle nicht gelöscht oder verändert wird, ansonsten kann der Import nicht mehr funktionieren."
 
 #. Default: "Hides the title from the table of contents and does not number the heading."
-#: ./ftw/book/latexinjection.py:195
+#: ./ftw/book/behaviors/toc.py:20
 msgid "injection_help_hide_from_toc"
 msgstr "Wenn diese Option aktiviert ist, wird die Überschrift nicht im Inhaltsverzeichnis angezeigt und auch nicht nummeriert. Die Option ist nur relevant wenn \"Titel anzeigen\" aktiviert ist."
 
 #. Default: "When choosing a one or two column layout, the layout will switched for this content and all subsequent contents in the PDF, if necessary. If \"no preferred layout\" is selected the currently active layout is kept."
-#: ./ftw/book/latexinjection.py:125
+#: ./ftw/book/behaviors/columnlayout.py:45
 msgid "injection_help_preferred_column_layout"
 msgstr "Diese Option stellt das Layout auf ein- resp. zweispaltig um. Die Layout-Änderung gilt für diesen und alle darauffolgende Inhalte. Wird die Standard-Option \"Layout übernehmen\" angewählt, so wird keine Layout-Änderung gemacht."
 
 #. Default: "Hide from table of contents"
-#: ./ftw/book/latexinjection.py:193
+#: ./ftw/book/behaviors/toc.py:18
 msgid "injection_label_hide_from_toc"
 msgstr "Von Inhaltsverzeichnis ausschliessen"
 
 #. Default: "Insert page break after this content"
-#: ./ftw/book/latexinjection.py:166
+#: ./ftw/book/behaviors/clearpage.py:31
 msgid "injection_label_insert_clearpage_after_content"
 msgstr "Seitenumbruch nach diesem Inhalt einfügen"
 
 #. Default: "Insert page break before this content"
-#: ./ftw/book/latexinjection.py:154
+#: ./ftw/book/behaviors/clearpage.py:24
 msgid "injection_label_insert_clearpage_before_content"
 msgstr "Seitenumbruch vor diesem Inhalt einfügen"
 
 #. Default: "Insert column break before this content"
-#: ./ftw/book/latexinjection.py:178
+#: ./ftw/book/behaviors/columnlayout.py:58
 msgid "injection_label_insert_newpage_before_content"
 msgstr "Spaltenumbruch vor diesem Inhalt einfügen"
 
 #. Default: "Use landscape"
-#: ./ftw/book/latexinjection.py:142
+#: ./ftw/book/behaviors/landscape.py:23
 msgid "injection_label_landscape"
 msgstr "Querformat verwenden"
 
 #. Default: "No preferred column layout"
-#: ./ftw/book/latexinjection.py:111
+#: ./ftw/book/behaviors/columnlayout.py:19
 msgid "injection_label_no_preferred_column_layout"
 msgstr "Layout übernehmen"
 
 #. Default: "One column layout"
-#: ./ftw/book/latexinjection.py:115
+#: ./ftw/book/behaviors/columnlayout.py:22
 msgid "injection_label_one_column_layout"
 msgstr "Einspaltiges Layout"
 
 #. Default: "Preferred layout"
-#: ./ftw/book/latexinjection.py:123
+#: ./ftw/book/behaviors/columnlayout.py:43
 msgid "injection_label_preferred_column_layout"
 msgstr "Layout erzwingen"
 
 #. Default: "Two column layout"
-#: ./ftw/book/latexinjection.py:119
+#: ./ftw/book/behaviors/columnlayout.py:25
 msgid "injection_label_two_column_layout"
 msgstr "Zweispaltiges Layout"
 
 #. Default: "Border Layout"
-#: ./ftw/book/content/table.py:210
+#: ./ftw/book/contents/table.py:242
 msgid "label_border_layout"
 msgstr "Rahmenlayout"
 
@@ -409,7 +346,7 @@ msgid "label_cols_to_import"
 msgstr "Zu importierende Spalten"
 
 #. Default: "Column properties"
-#: ./ftw/book/content/table.py:104
+#: ./ftw/book/contents/table.py:215
 msgid "label_column_properties"
 msgstr "Spalteneigenschaften"
 
@@ -419,22 +356,22 @@ msgid "label_enforce_import"
 msgstr "Import erzwingen"
 
 #. Default: "First column is a header column"
-#: ./ftw/book/content/table.py:188
+#: ./ftw/book/contents/table.py:233
 msgid "label_first_column_is_header"
 msgstr "Erste Spalte ist eine Kopfspalte"
 
 #. Default: "Footer rows are bold"
-#: ./ftw/book/content/table.py:198
+#: ./ftw/book/contents/table.py:238
 msgid "label_footer_is_bold"
 msgstr "Fusszeilen fett darstellen"
 
 #. Default: "Amount of footer rows"
-#: ./ftw/book/content/table.py:178
+#: ./ftw/book/contents/table.py:227
 msgid "label_footer_rows"
 msgstr "Anzahl Fusszeilen"
 
 #. Default: "Footnote Text"
-#: ./ftw/book/content/table.py:82
+#: ./ftw/book/contents/table.py:190
 msgid "label_footnote_text"
 msgstr "Text Fussnote"
 
@@ -444,14 +381,9 @@ msgid "label_gotoparent"
 msgstr "Zurück zu ${book_name}"
 
 #. Default: "Amount of header rows"
-#: ./ftw/book/content/table.py:164
+#: ./ftw/book/contents/table.py:221
 msgid "label_header_rows"
 msgstr "Anzahl Kopfzeilen"
-
-#. Default: "HTML"
-#: ./ftw/book/content/htmlblock.py:28
-msgid "label_html"
-msgstr "HTML"
 
 #. Default: "Modified CSV-file:"
 #: ./ftw/book/browser/templates/table_export_import.pt:45
@@ -459,22 +391,32 @@ msgid "label_modified_csv_file"
 msgstr "Bearbeitetes CSV-File"
 
 #. Default: "No lifting"
-#: ./ftw/book/content/table.py:219
+#: ./ftw/book/contents/table.py:248
 msgid "label_no_lifting"
 msgstr "Kein Heben der Tabelle"
 
 #. Default: "Show title"
-#: ./ftw/book/content/table.py:41
+#: ./ftw/book/contents/table.py:178
 msgid "label_show_title"
 msgstr "Titel anzeigen"
 
 #. Default: "Table content"
-#: ./ftw/book/content/table.py:53
+#: ./ftw/book/contents/table.py:184
 msgid "label_table_content"
 msgstr "Tabelleninhalt"
 
+#. Default: "Table export / import"
+#: ./ftw/book/contents/table.py:308
+msgid "label_table_export_import"
+msgstr "Tabelle exportieren / importieren"
+
+#. Default: "Title"
+#: ./ftw/book/contents/table.py:174
+msgid "label_title"
+msgstr "Titel"
+
 #. Default: "Table of contents depth"
-#: ./ftw/book/content/book.py:26
+#: ./ftw/book/contents/book.py:27
 msgid "label_web_toc_depth"
 msgstr "Inhaltsverzeichnistiefe"
 
@@ -483,7 +425,7 @@ msgstr "Inhaltsverzeichnistiefe"
 msgid "latex_page_reference"
 msgstr "Siehe Seite ${pageref}"
 
-#: ./ftw/book/content/table.py:274
+#: ./ftw/book/contents/table.py:54
 msgid "left"
 msgstr "Links"
 
@@ -497,7 +439,7 @@ msgstr "Tabelle exportieren"
 msgid "legend_import_table"
 msgstr "Tabelle importieren"
 
-#: ./ftw/book/content/table.py:281
+#: ./ftw/book/contents/table.py:61
 msgid "no indent"
 msgstr "Nicht einrücken"
 
@@ -511,25 +453,25 @@ msgstr "Es wurde nichts gefunden."
 msgid "placeholder_keyword"
 msgstr "Stichwort"
 
-#: ./ftw/book/latexinjection.py:102
+#: ./ftw/book/behaviors/codeinjection.py:33
 msgid "post_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch nach dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code beneath content"
-#: ./ftw/book/latexinjection.py:100
+#: ./ftw/book/behaviors/codeinjection.py:31
 msgid "post_latex_code_label"
 msgstr "LaTeX-Code nach Inhalt"
 
-#: ./ftw/book/latexinjection.py:89
+#: ./ftw/book/behaviors/codeinjection.py:26
 msgid "pre_latex_code_help"
 msgstr "Hier definierter LaTeX-Code wird automatisch vor dem Inhalt dieses Objekts eingefügt. Warnung: fehlerhafter LaTeX-Code kann dazu führen, dass das PDF nicht mehr exportiert werden kann!"
 
 #. Default: "LaTeX code above content"
-#: ./ftw/book/latexinjection.py:87
+#: ./ftw/book/behaviors/codeinjection.py:24
 msgid "pre_latex_code_label"
 msgstr "LaTeX-Code vor Inhalt"
 
-#: ./ftw/book/content/table.py:275
+#: ./ftw/book/contents/table.py:55
 msgid "right"
 msgstr "Rechts"
 
@@ -538,53 +480,53 @@ msgstr "Rechts"
 msgid "select_file_to_import"
 msgstr "Laden Sie die hier exportierte und modifizierte CSV-Datei wieder hoch. Beachten Sie, dass es bei veränderter ersten Zeile zu Problemen kommen kann.<br />Die Kopfzeilen werden nicht importiert!"
 
+#. Default: "Successfully imported the column."
+#: ./ftw/book/browser/table_export_import.py:137
+msgid "table_import_successful"
+msgstr "Die Tabellenspalte wurde erfolgreich importiert."
+
 #. Default: "Active"
-#: ./ftw/book/content/table.py:117
+#: ./ftw/book/contents/table.py:128
 msgid "table_label_active"
 msgstr "Aktiv"
 
 #. Default: "Alignment"
-#: ./ftw/book/content/table.py:121
+#: ./ftw/book/contents/table.py:133
 msgid "table_label_alignment"
 msgstr "Ausrichtung"
 
 #. Default: "Bold"
-#: ./ftw/book/content/table.py:125
+#: ./ftw/book/contents/table.py:140
 msgid "table_label_bold"
 msgstr "Fett"
 
-#. Default: "Column"
-#: ./ftw/book/content/table.py:113
-msgid "table_label_column"
-msgstr "Spalte"
-
 #. Default: "Horizontal borders"
-#: ./ftw/book/content/table.py:28
+#: ./ftw/book/contents/table.py:81
 msgid "table_label_fancy_listing"
 msgstr "Horizontale Linien"
 
 #. Default: "Grid Layout"
-#: ./ftw/book/content/table.py:26
+#: ./ftw/book/contents/table.py:75
 msgid "table_label_gridLayout"
 msgstr "Gitternetz"
 
 #. Default: "Indent"
-#: ./ftw/book/content/table.py:129
+#: ./ftw/book/contents/table.py:145
 msgid "table_label_indent"
 msgstr "Einrückung"
 
 #. Default: "No borders"
-#: ./ftw/book/content/table.py:27
+#: ./ftw/book/contents/table.py:78
 msgid "table_label_invisible"
 msgstr "Kein Rahmen"
 
 #. Default: "Width (%)"
-#: ./ftw/book/content/table.py:133
+#: ./ftw/book/contents/table.py:151
 msgid "table_label_width"
 msgstr "Breite in %"
 
-#. Default: "Please specify the width of the table columns / cells."
-#: ./ftw/book/browser/viewlets/viewlets.py:56
+#. Default: "Please specify the width of the table columns / cells"
+#: ./ftw/book/browser/templates/titled_block_view.pt:17
 msgid "table_width_validation_warning"
 msgstr "Bitte definieren Sie die Spalten- / Zellenbreite in der Tabelle dieses Blockes."
 
@@ -594,7 +536,7 @@ msgid "title_import_export_tabledata"
 msgstr "Tabellendaten importieren / exportieren"
 
 #. Default: "Index"
-#: ./ftw/book/latex/defaultlayout.py:215
+#: ./ftw/book/latex/defaultlayout.py:153
 msgid "title_index"
 msgstr "Stichwortverzeichnis"
 

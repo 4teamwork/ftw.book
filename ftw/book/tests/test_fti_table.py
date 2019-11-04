@@ -1,111 +1,50 @@
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
-from ftw.builder import Builder
-from ftw.builder import create
+from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from unittest2 import TestCase
+import transaction
 
 
-class TestTable(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
-
-    def setUp(self):
-        self.book = create(Builder('book'))
-        self.chapter = create(Builder('chapter').within(self.book))
+class TestTable(FunctionalTestCase):
 
     @browsing
     def test_creating_table(self, browser):
-        browser.login().visit(self.chapter)
+        self.grant('Manager')
+        browser.login().visit(self.example_book.empty)
         factoriesmenu.add('Table')
         browser.fill({
-                'Title': 'The Table',
-                'Show title': True,
-                'columnProperties.active.1': True,
-                'columnProperties.active.2': True}).submit()
+            'Title': 'The Table',
+            'Show title': True}).submit()
 
-        self.assertEquals(self.chapter.absolute_url() + '/#the-table',
+        self.assertEquals(self.example_book.empty.absolute_url() + '#the-table',
                           browser.url)
-        blocks = browser.css('.BlockOverallWrapper.table')
-        self.assertEquals(1, len(blocks),
+        self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
-        block, = blocks
-
-        self.assertEquals('The table has no content yet.'
-                          ' Edit the table block for adding content.',
-                          block.css('.portalMessage dd').first.text)
-
-    @browsing
-    def test_table_rendering(self, browser):
-        create(Builder('table')
-               .titled('The Table')
-               .having(showTitle=True)
-               .with_table([['Foo', 'Bar'],
-                            ['1', '2'],
-                            ['3', '4']])
-               .within(self.chapter))
-
-        browser.login().visit(self.chapter)
-        block, = browser.css('.BlockOverallWrapper.table')
 
         self.assertEquals(
-            [{'Foo': '1',
-              'Bar': '2'},
-             {'Foo': '3',
-              'Bar': '4'}],
-            block.css('table').first.dicts())
+            'The table has no content yet.'
+            ' Edit the table block for adding content.',
+            browser.css('.ftw-book-table .portalMessage dd').first.text)
 
     @browsing
-    def test_showing_block_title(self, browser):
-        create(Builder('table')
-               .titled('Visible')
-               .with_dummy_table()
-               .having(showTitle=True)
-               .within(self.chapter))
-
-        create(Builder('table')
-               .titled('Hidden')
-               .with_dummy_table()
-               .having(showTitle=False)
-               .within(self.chapter))
-
-        browser.login().visit(self.chapter)
-        visible, hidden = browser.css('.BlockOverallWrapper.table')
-
+    def test_table_is_rendered(self, browser):
+        browser.login().visit(self.table)
         self.assertEquals(
-            ['Visible'],
-            visible.css('table caption').text,
-            'Expected block title of the "Visible" block to be visible.')
-
-        self.assertEquals(
-            [],
-            hidden.css('table caption').text,
-            'Expected block title of the "Hidden" block to be hidden.')
+            [{'City': 'Guangzhou', 'Population': '44 mil 1', 'Ranking': '1'},
+             {'City': 'Shanghai', 'Population': '35 mil', 'Ranking': '2'},
+             {'City': 'Chongqing', 'Population': '30 mil', 'Ranking': '3'}],
+            browser.css('.ftw-book-table table').first.dicts())
 
     @browsing
-    def test_hidden_fields(self, browser):
-        browser.login().open(self.chapter)
-        factoriesmenu.add('Table')
+    def test_hiding_block_title(self, browser):
+        self.grant('Manager')
 
-        self.assertFalse(
-            browser.find('Description'),
-            '"Description" field should not be visible.')
+        title = 'Population'
+        self.table.show_title = False
+        transaction.commit()
+        browser.login().visit(self.table)
+        self.assertNotIn(title, browser.css('.sl-block table caption').text)
 
-        self.assertFalse(
-            browser.find('Hide from table of contents'),
-            '"Hide from table of contents" field should not be visible.')
-
-        self.assertFalse(
-            browser.find('Exclude from navigation'),
-            '"Exclude from navigation" field should not be visible.')
-
-    @browsing
-    def test_latex_fields_available(self, browser):
-        browser.login().open(self.chapter)
-        factoriesmenu.add('Table')
-
-        form = browser.find('Title').parent('form')
-        labels = form.field_labels
-
-        self.assertIn('LaTeX code above content', labels)
-        self.assertIn('LaTeX code beneath content', labels)
+        self.table.show_title = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(title, browser.css('.sl-block table caption').text)

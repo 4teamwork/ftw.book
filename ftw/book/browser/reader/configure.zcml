@@ -3,6 +3,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.book">
 
+  <browser:resourceDirectory name="ftw.book-reader" directory="resources" />
+
   <browser:page
       for="*"
       name="book_reader_view"
@@ -10,10 +12,6 @@
       permission="zope2.View"
       allowed_attributes="render_next render_previous"
       />
-
-  <browser:resourceDirectory
-      name="ftw.book-reader"
-      directory="resources" />
 
   <adapter factory=".renderer.DefaultBlockRenderer" />
   <adapter factory=".renderer.BookRenderer" />

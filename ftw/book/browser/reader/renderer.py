@@ -1,20 +1,19 @@
+from Acquisition import aq_chain
+from ftw.book.browser.reader.interfaces import IBookReaderRenderer
+from ftw.book.interfaces import IBook
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from StringIO import StringIO
-from ftw.book.browser.reader.interfaces import IBookReaderRenderer
-from ftw.book.interfaces import IBook
-from simplelayout.base.interfaces import ISimpleLayoutBlock
-from zope.component import adapts
-from zope.interface import implements, Interface
+from zope.component import adapter
+from zope.interface import implementer
+from zope.interface import Interface
 from zope.publisher.interfaces.browser import IBrowserView
 import lxml.html
 
 
+@implementer(IBookReaderRenderer)
 class BaseBookReaderRenderer(object):
-    """Base block renderer used to subclass.
-    """
-
-    implements(IBookReaderRenderer)
 
     def __init__(self, context, request, readerview):
         self.context = context
@@ -22,26 +21,25 @@ class BaseBookReaderRenderer(object):
         self.readerview = readerview
 
 
+@adapter(ISimplelayoutBlock, Interface, IBrowserView)
 class DefaultBlockRenderer(BaseBookReaderRenderer):
-    """The simplelayout block renderer.
-    It renders the simplealyout default "block_view".
-    """
-
-    adapts(ISimpleLayoutBlock, Interface, IBrowserView)
 
     def render(self):
         view = self.context.restrictedTraverse('block_view')
-        html = view()
+        html = view(prepend_html_headings=True)
         html = self.mark_book_internal_links(html)
         return html
 
     def mark_book_internal_links(self, html):
-        book = IBook(self.context)
+        books = filter(IBook.providedBy, aq_chain(self.context))
+        if not books:
+            raise ValueError('Not within book.')
+        book = books[0]
         book_url = book.absolute_url()
         book_path = '/'.join(book.getPhysicalPath())
         context_url = self.context.absolute_url()
 
-        doc = lxml.html.parse(StringIO(html))
+        doc = lxml.html.parse(StringIO(u'<div>{}</div>'.format(html)))
         for node in doc.xpath('//a'):
             if 'href' not in node.attrib:
                 continue
@@ -90,13 +88,8 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
         return url
 
 
+@adapter(IBook, Interface, IBrowserView)
 class BookRenderer(BaseBookReaderRenderer):
-    """The book renderer renders the title page and the table of
-    contents of the book.
-    """
-
-    adapts(IBook, Interface, IBrowserView)
-
     template = ViewPageTemplateFile('templates/book_title.pt')
 
     def render(self):

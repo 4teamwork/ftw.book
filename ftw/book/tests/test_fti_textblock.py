@@ -1,88 +1,85 @@
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
-from ftw.builder import Builder
-from ftw.builder import create
+from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from unittest2 import TestCase
+from ftw.testbrowser.pages import statusmessages
+from operator import attrgetter
+from plone.app.textfield.value import RichTextValue
+from textwrap import dedent
+import transaction
 
 
-class TestTextBlock(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
-
-    def setUp(self):
-        self.book = create(Builder('book'))
-        self.chapter = create(Builder('chapter').within(self.book))
+class TestTextBlock(FunctionalTestCase):
 
     @browsing
     def test_creating_textblock(self, browser):
-        browser.login().visit(self.chapter)
-        factoriesmenu.add('Text Block')
+        self.grant('Manager')
+        browser.login().visit(self.example_book.empty)
+        factoriesmenu.add('TextBlock')
         browser.fill({
                 'Title': 'The Text Block',
-                'Show Title': True,
+                'Show title': True,
                 'Text': '<b>Some body text</b>'}).submit()
-        self.assertEquals(self.chapter.absolute_url() + '/#the-text-block',
-                          browser.url)
-        blocks = browser.css('.BlockOverallWrapper.booktextblock')
-        self.assertEquals(1, len(blocks),
+        self.assertEquals(
+            self.example_book.empty.absolute_url() + '#the-text-block',
+            browser.url)
+        self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
 
-        block, = blocks
-        self.assertEquals(['1.1 The Text Block'], block.css('h3').text,
-                          'Expected block title to be visible.')
+        self.assertEquals(
+            u'<h3 class="toc3">The Text Block</h3>',
+            browser.css('.sl-block h3').first.outerHTML)
 
     @browsing
     def test_showing_block_title(self, browser):
-        create(Builder('book textblock')
-               .titled('Visible')
-               .having(showTitle=True)
-               .within(self.chapter))
+        self.grant('Manager')
 
-        create(Builder('book textblock')
-               .titled('Hidden')
-               .having(showTitle=False)
-               .within(self.chapter))
+        title = 'First things first'
+        self.textblock.show_title = False
+        transaction.commit()
+        browser.login().visit(self.textblock)
+        self.assertNotIn(title, browser.css('.sl-block h4').text)
 
-        browser.login().visit(self.chapter)
-        visible, hidden = browser.css('.BlockOverallWrapper.booktextblock')
-
-        self.assertEquals(
-            ['1.1 Visible'], visible.css('h3').text,
-            'Expected block title of the "Visible" block to be visible.')
-
-        self.assertEquals(
-            [], hidden.css('h3').text,
-            'Expected block title of the "Hidden" block to be hidden.')
+        self.textblock.show_title = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(title, browser.css('.sl-block h4').text)
 
     @browsing
-    def test_hiding_title_from_table_of_contents(self, browser):
-        create(Builder('book textblock')
-               .titled('Block in TOC')
-               .having(showTitle=True,
-                       hideFromTOC=False)
-               .within(self.chapter))
+    def test_hiding_title_from_table_of_contents_removes_prefix(self, browser):
+        self.grant('Manager')
+        self.textblock.show_title = True
 
-        create(Builder('book textblock')
-                     .titled('Block NOT in TOC')
-                     .having(showTitle=True,
-                             hideFromTOC=True)
-                     .within(self.chapter))
+        self.textblock.hide_from_toc = False
+        transaction.commit()
+        browser.login().visit(self.textblock)
+        self.assertIn(
+            u'<h4 class="toc4">First things first</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
 
-        browser.login().visit(self.chapter)
-
-        self.assertEquals(
-            ['1.1 Block in TOC', 'Block NOT in TOC'],
-            browser.css('.BlockOverallWrapper.booktextblock h3').text,
-            'Only the first block title should have a number prefix.')
+        self.textblock.hide_from_toc = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(
+            u'<h4 class="no-toc">First things first</h4>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
 
     @browsing
-    def test_latex_fields_available(self, browser):
-        browser.login().open(self.chapter)
-        factoriesmenu.add('Text Block')
+    def test_warning_when_table_widths_not_specified(self, browser):
+        browser.login().open(self.textblock)
+        statusmessages.assert_no_messages()
 
-        form = browser.find('Title').parent('form')
-        labels = form.field_labels
+        self.textblock.text = RichTextValue(dedent(r'''
+        <p>ok:</p>
+        <table>
+          <tr><td width="100%">foo</td></tr>
+        </table>
+        <p>not ok:</p>
+        <table>
+          <tr><td>bar</td></tr>
+        </table>
+        '''), mimeType='text/html', outputMimeType='text/html')
+        transaction.commit()
 
-        self.assertIn('LaTeX code above content', labels)
-        self.assertIn('LaTeX code beneath content', labels)
+        browser.reload()
+        statusmessages.assert_message(
+            'Please specify the width of the table columns / cells')

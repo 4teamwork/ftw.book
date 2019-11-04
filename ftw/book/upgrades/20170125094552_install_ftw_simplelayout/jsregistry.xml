@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+
+    <javascript
+        id="++resource++ftw.book-resources/table.js"
+        compression="none"
+        authenticated="False"
+        enabled="True"
+        />
+
+</object>

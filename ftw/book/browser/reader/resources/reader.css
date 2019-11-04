@@ -8,6 +8,7 @@
   float: left;
   width: 30em;
   height: 50px;
+  max-width: 30%;
 }
 
 #content #close-book-reader {

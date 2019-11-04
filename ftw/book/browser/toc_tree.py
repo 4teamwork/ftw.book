@@ -7,18 +7,7 @@ class BookTocTree(object):
     def __call__(self, tree):
 
         def filterer(item):
-            brain = item.get('item')
-            if brain.portal_type in ('Book', 'Chapter'):
-                return True
-
-            elif not getattr(brain, 'showTitle', None):
-                return False
-
-            elif getattr(brain, 'hideFromTOC', None):
-                return False
-
-            else:
-                return True
+            return item.get('item').show_in_toc
 
         tree = filter_tree(filterer, tree, copy=True)
 

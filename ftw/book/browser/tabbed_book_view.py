@@ -5,14 +5,12 @@ from ftw.table import helper
 
 
 class BooksView(TabbedView):
-    """Tabbed book overview"""
 
     def get_tabs(self):
         return [{'id': 'books', 'class': ''}, ]
 
 
 class Tab(CatalogListingView):
-    """Search for the hole plone site"""
 
     def __init__(self, *args, **kwargs):
         super(Tab, self).__init__(*args, **kwargs)

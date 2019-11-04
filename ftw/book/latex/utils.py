@@ -1,9 +1,12 @@
-from Acquisition import aq_inner, aq_parent
-from Products.ATContentTypes.lib.imagetransform import ATCTImageTransform
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ftw.book.interfaces import IBook
+from ftw.book.toc import TableOfContents
 from ftw.pdfgenerator.html2latex.utils import generate_manual_caption
 from ftw.pdfgenerator.templating import MakoTemplating
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from Products.ATContentTypes.lib.imagetransform import ATCTImageTransform
+from zope.deprecation import deprecate
 import os.path
 
 
@@ -61,13 +64,15 @@ def get_latex_heading(context, layout, toc=None):
 
     command = HEADING_COMMANDS[level]
 
-    hide_from_toc_field = context.Schema().getField('hideFromTOC')
-    hide_from_toc = hide_from_toc_field and hide_from_toc_field.get(context)
+    if toc is not None:
+        is_numbered = toc
+    else:
+        is_numbered = TableOfContents().in_toc(context)
 
     # generate latex
     tocmark = ''
 
-    if toc is None and hide_from_toc is True or toc is False:
+    if toc is False or not is_numbered:
         tocmark = '*'
 
     latex = '\\%s%s{%s}\n' % (
@@ -78,8 +83,8 @@ def get_latex_heading(context, layout, toc=None):
     return latex
 
 
+@deprecate('Do not load the image data, but use a fio with builder.add_file.')
 def get_raw_image_data(image):
-    # XXX use scaling?
     transformer = ATCTImageTransform()
     img = transformer.getImageAsFile(img=image)
 
@@ -178,7 +183,7 @@ class ImageLaTeXGenerator(MakoTemplating):
 
         self.layout.use_package('graphicx')
         self.layout.get_builder().add_file(
-            '%s.jpg' % name, get_raw_image_data(image))
+            '%s.jpg' % name, image.open())
 
         return r'\includegraphics[width=%s]{%s}' % (width, name)
 

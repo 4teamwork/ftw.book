@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+
+    <object name="site_properties" meta_type="Plone Property Sheet">
+
+        <property name="types_not_searched" type="lines" purge="False">
+            <element remove="True" value="Table"/>
+            <element remove="True" value="HTMLBlock"/>
+            <element remove="True" value="Remark"/>
+        </property>
+
+    </object>
+
+</object>

@@ -1,0 +1,19 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.simplelayout">
+
+  <metal:content-title fill-slot="content-title">
+    <metal:content-title define-macro="content-title">
+      <hX tal:replace="structure view/heading" />
+    </metal:content-title>
+  </metal:content-title>
+
+  <div metal:fill-slot="content-core">
+
+    <span tal:replace="structure context/@@authenticator/authenticator"/>
+    <div tal:replace="structure simplelayout:default" />
+
+  </div>
+</html>

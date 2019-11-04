@@ -1,21 +1,86 @@
+from ftw.book.toc import TableOfContents
+from ftw.htmlblock.browser.htmlblock import HtmlBlockView
+from ftw.pdfgenerator.html2latex.subconverters.table import TableConverter
+from ftw.simplelayout.contenttypes.browser.filelistingblock import FileListingBlockView
+from ftw.simplelayout.contenttypes.browser.textblock import TextBlockView
 from Products.Five.browser import BrowserView
-from ftw.book.helpers import BookHelper
-from ftw.contentpage.browser.textblock_view import TextBlockView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+import re
 
 
-class BookTextBlockView(TextBlockView):
+class BookBlockMixin:
+    book_template = ViewPageTemplateFile('templates/titled_block_view.pt')
+    content_field_for_table_width_check = None
 
-    def get_dynamic_title(self):
-        return BookHelper()(self.context)
+    def __call__(self, prepend_html_headings=False):
+        self.prepend_html_headings = prepend_html_headings
+        return self.book_template()
 
+    @property
+    def block_title(self):
+        return TableOfContents().html_heading(
+            self.context,
+            linked=False,
+            prepend_html_headings=self.prepend_html_headings)
 
-class HTMLBlockView(BrowserView):
+    def has_tables_with_missing_widths(self):
+        if self.content_field_for_table_width_check is None:
+            return
 
-    def get_dynamic_title(self):
-        return BookHelper()(self.context)
+        value = getattr(self.context, self.content_field_for_table_width_check, '')
+        if not value:
+            return False
+
+        return self._html_has_tables_with_missing_length(
+            getattr(value, 'output', value))
+
+    def _html_has_tables_with_missing_length(self, html):
+        xpr = re.compile(TableConverter.pattern, re.DOTALL)
+        start = 0
+
+        while True:
+            match = xpr.search(html, start)
+            if not match:
+                return False
+
+            start = match.end()
+            if self._table_has_missing_lengths(html, match):
+                return True
+
+        return False
+
+    def _table_has_missing_lengths(self, html, match):
+        table = TableConverter(None, match, html)
+        table.parse()
+
+        for column in table.columns:
+            if not column.get_width():
+                return True
+        return False
 
 
 class BookChapterView(BrowserView):
 
-    def get_dynamic_title(self):
-        return BookHelper()(self.context, linked=True)
+    def __call__(self, prepend_html_headings=False):
+        self.prepend_html_headings = prepend_html_headings
+        return self.index()
+
+    @property
+    def block_title(self):
+        return TableOfContents().html_heading(
+            self.context,
+            linked=True,
+            prepend_html_headings=self.prepend_html_headings)
+
+
+class BookTextBlockView(BookBlockMixin, TextBlockView):
+    teaser_url = None
+    content_field_for_table_width_check = 'text'
+
+
+class BookFileListingBlockView(BookBlockMixin, FileListingBlockView):
+    pass
+
+
+class HTMLBlockView(BookBlockMixin, HtmlBlockView):
+    content_field_for_table_width_check = 'content'

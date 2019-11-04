@@ -2,30 +2,20 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    xmlns:theme="http://namespaces.zope.org/plonetheme.onegov"
     i18n_domain="ftw.book">
 
   <include package=".reader" />
 
-  <browser:resourceDirectory
-      name='ftw.book-resources'
-      directory="resources" />
+  <browser:resourceDirectory name="ftw.book-resources" directory="resources" />
+  <browser:resourceDirectory name="ftw.book-select2" directory="select2-3.4.5" />
 
-  <browser:resourceDirectory
-      name="ftw.book-select2"
-      directory="select2-3.4.5" />
-
-  <configure zcml:condition="installed plonetheme.onegov">
-      <include package="plonetheme.onegov" />
-      <theme:add_scss path="book.scss" />
-  </configure>
+  <adapter factory=".simplelayout.ChapterConfigAdapter" />
 
   <browser:page
-      for="*"
-      name="export_pdf"
-      class=".export_pdf.ExportBookPDFView"
+      for="ftw.book.contents.chapter.IChapterSchema"
+      name="simplelayout-view"
       permission="zope2.View"
-	    layer="..interfaces.IWithinBookLayer"
+      class=".simplelayout.ChapterSimplelayoutView"
       />
 
   <browser:page
@@ -34,38 +24,33 @@
       template="templates/chapter.pt"
       class=".blockview.BookChapterView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
       for="ftw.book.interfaces.IBookTextBlock"
       name="block_view"
-      template="templates/textblock_view.pt"
       class=".blockview.BookTextBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
       for="ftw.book.interfaces.IHTMLBlock"
       name="block_view"
-      template="templates/htmlblock_view.pt"
       class=".blockview.HTMLBlockView"
       permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
       />
 
   <browser:page
-      for="ftw.book.interfaces.IRemark"
+      for="ftw.book.interfaces.IBookFileListingBlock"
       name="block_view"
-      template="templates/remark.pt"
       permission="zope2.View"
+      class=".blockview.BookFileListingBlockView"
       />
 
   <browser:page
       for="ftw.book.interfaces.ITable"
       name="block_view"
-      template="templates/table_content.pt"
+      template="templates/table.pt"
       permission="zope2.View"
       />
 
@@ -75,25 +60,6 @@
       class=".table_export_import.TableExportImport"
       permission="zope.Public"
       template="templates/table_export_import.pt"
-      />
-
-  <!-- override simplelayoutlisting for special display -->
-  <browser:viewlet
-      for="simplelayout.base.interfaces.ISimplelayoutView"
-      name="simplelayout.base.listing.body"
-      manager="simplelayout.base.interfaces.ISimpleViewletListingProvider"
-      class=".viewlets.viewlets.SimpleLayoutListingViewlet"
-      permission="zope2.View"
-      layer="..interfaces.IWithinBookLayer"
-      />
-
-  <browser:viewlet
-      name="ftw.book.textblock.validation"
-      class=".viewlets.viewlets.TableValidationViewlet"
-      for="ftw.book.interfaces.IBookTextBlock"
-      layer="ftw.book.interfaces.IWithinBookLayer"
-      manager="simplelayout.base.interfaces.ISimpleViewletProvider"
-      permission="cmf.ModifyPortalContent"
       />
 
   <browser:page
@@ -111,45 +77,39 @@
       permission="zope2.View"
       />
 
-  <include package="plone.app.contentmenu" />
-
-  <adapter factory=".nextprevious.BookNextPrevious" />
-
   <configure zcml:condition="installed ftw.tabbedview">
-     <browser:page
-         for="Products.CMFCore.interfaces._content.IFolderish"
-         name="tabbed_book_view"
-         class=".tabbed_book_view.BooksView"
-         permission="zope2.View"
-         allowed_attributes="listing"
-         />
-     <browser:page
-         for="Products.CMFCore.interfaces._content.IFolderish"
-         name="tabbedview_view-books"
-         class=".tabbed_book_view.BooksTab"
-         permission="zope2.View"
-         />
-     <browser:page
-         for="ftw.book.interfaces.IBook"
-         name="tabbedview_view-index"
-         class=".book_tabs.IndexTab"
-         permission="zope2.View"
-         />
-     <browser:page
-         for="ftw.book.interfaces.IBook"
-         name="tabbedview_view-bookdocuments"
-         class=".book_tabs.DocumentsTab"
-         permission="zope2.View"
-         />
-     <browser:page
-         for="ftw.book.interfaces.IBook"
-         name="tabbedview_view-keywords"
-         class=".keywords.KeywordsTab"
-         permission="zope2.View"
-         allowed_attributes="load macros"
-         />
+    <browser:page
+        for="Products.CMFCore.interfaces._content.IFolderish"
+        name="tabbed_book_view"
+        class=".tabbed_book_view.BooksView"
+        permission="zope2.View"
+        allowed_attributes="listing"
+        />
+    <browser:page
+        for="Products.CMFCore.interfaces._content.IFolderish"
+        name="tabbedview_view-books"
+        class=".tabbed_book_view.BooksTab"
+        permission="zope2.View"
+        />
+    <browser:page
+        for="ftw.book.interfaces.IBook"
+        name="tabbedview_view-index"
+        class=".book_tabs.IndexTab"
+        permission="zope2.View"
+        />
+    <browser:page
+        for="ftw.book.interfaces.IBook"
+        name="tabbedview_view-bookdocuments"
+        class=".book_tabs.DocumentsTab"
+        permission="zope2.View"
+        />
+    <browser:page
+        for="ftw.book.interfaces.IBook"
+        name="tabbedview_view-keywords"
+        class=".keywords.KeywordsTab"
+        permission="zope2.View"
+        allowed_attributes="load macros"
+        />
   </configure>
-
-
 
 </configure>

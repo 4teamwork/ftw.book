@@ -2,35 +2,23 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '3.5.5.dev0'
+version = '4.0.0.dev0'
 maintainer = 'Jonas Baumann'
 
 
 tests_require = [
-    'Products.GenericSetup',
+    'collective.transmogrifier',
     'ftw.builder',
-    'ftw.contentpage [tests]',
     'ftw.inflator',
-    'ftw.publisher.core',
     'ftw.tabbedview',
     'ftw.testbrowser',
     'ftw.testing',
     'ftw.zipexport',
-    'mocker',
+    'plone.app.referenceablebehavior',
     'plone.app.testing',
-    'plone.browserlayer',
     'plone.mocktestcase',
-    'plone.portlets',
-    'plone.testing',
-    'transaction',
-    'unittest2',
-    'zope.app.component',
-    'zope.browser',
-    'zope.configuration',
-    'zope.i18n',
-    'zope.traversing',
-    'zope.viewlet',
-    ]
+    'transmogrify.dexterity',
+]
 
 extras_require = {
     'tests': tests_require,
@@ -43,17 +31,17 @@ extras_require = {
 setup(name='ftw.book',
       version=version,
       description='Produce books with Plone and export them in a high ' + \
-          'quality PDF.',
+      'quality PDF.',
 
       long_description=open('README.rst').read() + '\n' + \
-          open(os.path.join('docs', 'HISTORY.txt')).read(),
+      open(os.path.join('docs', 'HISTORY.txt')).read(),
 
       classifiers=[
-        'Framework :: Plone',
-        'Framework :: Plone :: 4.3',
-        'Intended Audience :: Developers',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        ],
+          'Framework :: Plone',
+          'Framework :: Plone :: 4.3',
+          'Intended Audience :: Developers',
+          'Topic :: Software Development :: Libraries :: Python Modules',
+      ],
 
       keywords='ftw book pdf plone',
       author='4teamwork AG',
@@ -68,41 +56,18 @@ setup(name='ftw.book',
       zip_safe=False,
 
       install_requires=[
-        'AccessControl',
-        'Acquisition',
-        'BeautifulSoup!=4.0b',
-        'Plone',
-        'Products.ATContentTypes',
-        'Products.Archetypes',
-        'Products.CMFCore',
-        'Products.CMFPlone',
-        'Products.DataGridField>=1.9',
-        'Products.GenericSetup',
-        'Products.TinyMCE',
-        'Products.statusmessages',
-        'Zope2',
-        'archetypes.schemaextender',
-        'ftw.contentpage !=1.11.0, !=1.11.1',
-        'ftw.pdfgenerator>=1.4',
-        'ftw.profilehook',
-        'ftw.upgrade',
-        'lxml',
-        'plone.app.contentmenu',
-        'plone.app.layout',
-        'plone.app.portlets',
-        'plone.indexer',
-        'plone.portlets',
-        'setuptools',
-        'simplelayout.base >= 4.0.0',
-        'zope.annotation',
-        'zope.component',
-        'zope.dottedname',
-        'zope.i18n',
-        'zope.i18nmessageid',
-        'zope.interface',
-        'zope.publisher',
-        'zope.schema',
-        ],
+          'BeautifulSoup!=4.0b',
+          'Plone',
+          'Products.TinyMCE',
+          'collective.z3cform.datagridfield>=1.3.3',
+          'ftw.htmlblock>=1.1.0',
+          'ftw.pdfgenerator>=1.4',
+          'ftw.profilehook',
+          'ftw.simplelayout >= 2.1.0',
+          'ftw.upgrade',
+          'lxml',
+          'setuptools',
+      ],
 
       tests_require=tests_require,
       extras_require=extras_require,
@@ -111,5 +76,4 @@ setup(name='ftw.book',
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
       target = plone
-      """,
-      )
+      """)

@@ -1,14 +1,14 @@
-from ftw.book.helpers import BookHelper
 from ftw.book.interfaces import IChapter
 from ftw.book.latex import utils
+from ftw.book.toc import TableOfContents
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.pdfgenerator.view import RecursiveLaTeXView
-from zope.component import adapts
+from zope.component import adapter
 from zope.interface import Interface
 
 
+@adapter(IChapter, Interface, ILaTeXLayout)
 class ChapterLaTeXView(RecursiveLaTeXView):
-    adapts(IChapter, Interface, ILaTeXLayout)
 
     def render(self):
         latex = self.get_heading_counters_latex()
@@ -17,7 +17,7 @@ class ChapterLaTeXView(RecursiveLaTeXView):
         return latex
 
     def get_heading_counters_latex(self):
-        if self.context != self.layout.context:
+        if self.context != getattr(self.layout, 'export_context', None):
             # Only set the heading counters when exporting this chapter
             # directly. Otherwise it is not the first content.
             return ''
@@ -31,15 +31,11 @@ class ChapterLaTeXView(RecursiveLaTeXView):
             'subparagraph',
             )
 
-        helper = BookHelper()
-        heading_numbers = helper.get_chapter_level(self.context)
+        toc = TableOfContents()
+        heading_numbers = map(toc.index, toc.parent_chapters(self.context))
+        heading_numbers.append(toc.index(self.context) - 1)
+
         latex = []
-
-        if heading_numbers[-1] == 1:
-            del heading_numbers[-1]
-        else:
-            heading_numbers[-1] -= 1
-
         for level, num in enumerate(heading_numbers):
             latex.append(r'\setcounter{%s}{%s}' % (
                     counters[level], num))

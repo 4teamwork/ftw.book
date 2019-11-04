@@ -7,86 +7,82 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.book">
 
-    <include package="Products.CMFCore" file="permissions.zcml" />
-    <include package="Products.DataGridField" />
-    <include package="ftw.profilehook" />
+  <include package="ftw.profilehook" />
 
-    <five:registerPackage package="." initialize=".initialize" />
+  <five:registerPackage package="." initialize=".initialize" />
+  <i18n:registerTranslations directory="locales" />
 
-    <i18n:registerTranslations directory="locales" />
+  <include file="permissions.zcml" />
+  <include file="resources.zcml" />
+  <include package=".behaviors" />
+  <include package=".browser" />
+  <include package=".contents" />
+  <include package=".footnote" />
+  <include package=".keyword" />
+  <include package=".latex" />
+  <include package=".portlets" />
+  <include package=".tinymce" />
 
-    <!-- Include the sub-packages that use their own configure.zcml files. -->
-    <include file="permissions.zcml" />
-    <include package=".latex" />
-    <include package=".browser" />
-    <include package=".content" />
-    <include package=".portlets" />
-    <include package=".upgrades" />
-    <include package=".keyword" />
-    <include package=".footnote" />
-    <include package=".tinymce" />
+  <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
-    <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
-    <include zcml:condition="installed ftw.publisher.core" package=".publisher" />
+  <genericsetup:registerProfile
+      name="default"
+      title="ftw.book"
+      directory="profiles/default"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
-    <include file="skins.zcml" />
+  <profilehook:hook
+      profile="ftw.book:default"
+      handler=".hooks.installed"
+      />
 
-    <genericsetup:registerProfile
-        name="default"
-        title="ftw.book"
-        directory="profiles/default"
-        description=""
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Uninstall ftw.book"
+      directory="profiles/uninstall"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
 
-    <profilehook:hook
-        profile="ftw.book:default"
-        handler=".hooks.installed"
-        />
+  <profilehook:hook
+      profile="ftw.book:uninstall"
+      handler=".hooks.uninstalled"
+      />
 
-    <genericsetup:registerProfile
-        name="uninstall"
-        title="Uninstall ftw.book"
-        directory="profiles/uninstall"
-        description=""
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
-        />
+  <include package=".upgrades" />
 
-    <profilehook:hook
-        profile="ftw.book:uninstall"
-        handler=".hooks.uninstalled"
-        />
+  <subscriber
+      for=".interfaces.IBook
+           zope.lifecycleevent.interfaces.IObjectMovedEvent"
+      handler=".subscribers.add_navigation_portlet" />
 
-    <adapter factory=".bookadapter.find_book" />
+  <subscriber
+      for=".interfaces.IBook
+           zope.lifecycleevent.interfaces.IObjectAddedEvent"
+      handler=".subscribers.add_navigation_portlet" />
 
-    <!-- We register only ObjectMoved here. We also would require ObjectAdded but it is called with both events.
-         If we would follow the python way and add ObjectAdded explicit we only end up with the handler called twice,
-         which is unnessesary and inefficient. -->
+  <adapter name="show_in_toc" factory=".indexers.show_in_toc" />
 
-    <subscriber
-        for=".interfaces.IBook
-             zope.lifecycleevent.interfaces.IObjectMovedEvent"
-        handler=".eventhandler.add_navigation_portlet" />
-
-    <subscriber
-        for=".interfaces.IBook
-             Products.Archetypes.interfaces.IObjectInitializedEvent"
-        handler=".eventhandler.add_navigation_portlet" />
-
-    <adapter factory="ftw.book.layer.BookTraverse" />
-
-    <!-- ILaTeXCodeInjectionEnabled schema extender adapter -->
+  <!-- https://github.com/4teamwork/ftw.simplelayout/issues/406 -->
+  <configure package="ftw.simplelayout.contenttypes.contents">
     <adapter
-        name="ftw.book.latexcodeinjection"
-        factory=".latexinjection.LaTeXCodeInjectionExtender"
-        provides="archetypes.schemaextender.interfaces.ISchemaExtender" />
+        factory=".textblock.TextBlockActions"
+        name="ftw-book-textblock-actions"
+        for="* *"
+        />
 
-    <class class="Products.Archetypes.BaseObject.BaseObject">
-        <implements interface="ftw.book.interfaces.ILaTeXCodeInjectionEnabled" />
-    </class>
+    <adapter
+        factory=".filelistingblock.ListingBlockActions"
+        name="ftw-book-filelistingblock-actions"
+        for="* *"
+        />
+  </configure>
 
-    <configure zcml:condition="installed ftw.zipexport">
-        <adapter factory=".zipexport.BookZipRepresentation" />
-    </configure>
+  <configure zcml:condition="installed ftw.zipexport">
+    <adapter factory=".zipexport.BookZipRepresentation" />
+  </configure>
+
 </configure>

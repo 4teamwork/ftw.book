@@ -1,10 +1,11 @@
-import csv
-from Acquisition import aq_inner, aq_parent
-from StringIO import StringIO
+from Acquisition import aq_inner
+from Acquisition import aq_parent
+from ftw.book import _
+from ftw.book.toc import TableOfContents
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from ftw.book.helpers import BookHelper
-from ftw.book import _
+from StringIO import StringIO
+import csv
 
 
 class TableExportImport(BrowserView):
@@ -25,7 +26,7 @@ class TableExportImport(BrowserView):
     def active_columns(self):
         context = aq_inner(self.context)
         columns = []
-        for i, row in enumerate(context.columnProperties):
+        for i, row in enumerate(context.getColumnProperties()):
             if row['active']:
                 columns.append('column_%i' % i)
         return columns
@@ -33,11 +34,11 @@ class TableExportImport(BrowserView):
     def get_column_options(self):
         context = aq_inner(self.context)
         options = []
-        if len(context.data) == 0:
+        if len(context.getData()) == 0:
             return options
         options.append(('', ' - Bitte auswaehlen - '))
-        first_row = context.data[0].copy()
-        for i, row in enumerate(context.columnProperties):
+        first_row = context.getData()[0].copy()
+        for i, row in enumerate(context.getColumnProperties()):
             key = 'column_%i' % i
             label = '%s (Spalte %i)' % (
                 first_row[key],
@@ -55,7 +56,7 @@ class TableExportImport(BrowserView):
         first_column = self.active_columns[0]
         first_row = dict([(first_column, self.context.absolute_url())])
         writer.writerow(first_row)
-        for row in context.data:
+        for row in context.getData():
             writer.writerow(dict([
                         (col, row[col])
                         for col
@@ -70,10 +71,10 @@ class TableExportImport(BrowserView):
         # bookid.1.3.2.tableid.csv
         # for the chapters instead of the IDs the position-in-parent is used
         filename = [
-            '%s.csv' % self.context.id,
+            '%s.csv' % self.context.getId(),
             ]
         obj = aq_parent(aq_inner(self.context))
-        filename.insert(0, BookHelper().get_chapter_level_string(obj))
+        filename.insert(0, TableOfContents().number(obj))
         filename = '.'.join(filename)
         # set the request and send the file
         self.request.RESPONSE.setHeader('Content-disposition',
@@ -123,7 +124,7 @@ class TableExportImport(BrowserView):
         for i, row in enumerate(rows):
             # XXX This is very ugly! Perhaps we can also add new feature like
             # add new rows, just modify, or delete all rows and build it new
-            if i < int(context.headerRows):
+            if i < int(context.getHeaderRows()):
                 # do not update header- or footer-rows
                 continue
             try:
@@ -132,7 +133,7 @@ class TableExportImport(BrowserView):
                 break
 
         context.setData(data)
-        context.processForm()
-        message = 'Die Spalte wurde erfolgreich importiert'
-        IStatusMessage(self.request).addStatusMessage(message, type='info')
+        IStatusMessage(self.request).addStatusMessage(
+            _(u'table_import_successful', default=u'Successfully imported the column.'),
+            type='info')
         return self.request.RESPONSE.redirect('.')

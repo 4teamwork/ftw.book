@@ -1,12 +1,11 @@
-from Products.CMFCore.utils import getToolByName
-from ftw.book.interfaces import IWithinBookLayer
-from ftw.book.latex.defaultlayout import IDefaultBookLayoutSelectionLayer
+from ftw.book.latex.defaultlayout import IDefaultBookLayout
+from ftw.book.latex.layouts import get_layout_behavior_registration
 from ftw.book.tests import export
 from ftw.pdfgenerator.config import DefaultConfig
-from ftw.pdfgenerator.utils import provide_request_layer
 from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.dottedname.resolve import resolve
 import os
@@ -28,7 +27,7 @@ class PDFGeneratorTestConfig(DefaultConfig):
 class PDFDiffTestCase(TestCase):
 
     # The path to the book object relative to the plone site root.
-    book_object_path = None
+    book_object_path = 'example-book'
 
     # The relative path to the expected PDF file.
     # The path is relative to the subclassing TestCase class.
@@ -38,18 +37,17 @@ class PDFDiffTestCase(TestCase):
     # while the layout layer already is on the request.
     # This allows to directly set layout field values using ftw.inflator
     # content creation.
-    profiles = []
+    profiles = ['ftw.book.tests:examplecontent']
 
-    # The book layout layer is set on the request and activates a specific
-    # book layout.
-    book_layout_layer = IDefaultBookLayoutSelectionLayer
+    # The book_layout_layer is the interface of the layout behavior.
+    book_layout_layer = IDefaultBookLayout
 
     # The result_dir_name is the directory name in parts/test where the
     # resulting PDF and the diff is saved.
     result_dir_name = 'test_book_export'
 
     def condition(self):
-        return True
+        return os.environ.get('SKIP_BOOK_EXPORTS', '').strip().lower() != 'true'
 
     def setUp(self):
         if self._is_base_test() or not self.condition():
@@ -63,14 +61,15 @@ class PDFDiffTestCase(TestCase):
 
         request = self.layer['portal'].REQUEST
         mark_layer(None, Dummy(request=request))
-        provide_request_layer(request, IWithinBookLayer)
-        provide_request_layer(request, self.book_layout_layer)
 
         # configure language to german, since the test book is german
         tool = getToolByName(self.layer['portal'], "portal_languages")
         tool.manage_setLanguageSettings('de', ['de'])
 
         self.install_profiles()
+        book = self.get_book_object()
+        self.enable_layout(book)
+        self.configure_layout(book)
 
         expectation = self.get_absolute_path(self.expected_result)
         filenamebase, _ext = os.path.splitext(os.path.basename(expectation))
@@ -124,8 +123,20 @@ class PDFDiffTestCase(TestCase):
         """
         portal = self.layer['portal']
 
+        self.layer['load_zcml_string'](
+            '<configure>'
+            '  <include package="ftw.book.tests" file="examplecontent.zcml" />'
+            '</configure>')
+
         for profile in self.profiles:
             applyProfile(portal, profile)
+
+    def enable_layout(self, book):
+        book.latex_layout = self.book_layout_layer.__identifier__
+        get_layout_behavior_registration(book)
+
+    def configure_layout(self, book):
+        pass
 
     def get_absolute_path(self, path):
         """Makes a path relative to the test case (self) absolute.
@@ -144,14 +155,13 @@ class PDFDiffTestCase(TestCase):
             obj,
             'Could not find book object with path %s. IDs on portal %s' % (
                 self.book_object_path,
-                str(self.layer['portal'].objectIds())))
+                str(self.layer['portal'].contentIds())))
         return obj
 
     def _is_base_test(self):
         """Detect that the class was not subclassed so we can skip the tests.
         """
         return type(self) == PDFDiffTestCase
-
 
     def test_book_export(self):
         if self._is_base_test() or not self.condition():
@@ -175,7 +185,7 @@ class PDFDiffTestCase(TestCase):
             '\n'.join((
                     'The built PDF does not match the expected PDF.',
                     'Differing page(s): %s' % ', '.join(
-                        map(str, failed_pages)),
+                        map(str, sorted(failed_pages))),
                     'Result PDF:        %s' % target,
                     'Expected PDF:      %s' % expectation,
                     'Diff PDF:          %s' % difference)))

@@ -1,14 +1,14 @@
-from Acquisition import aq_inner, aq_parent
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.browser.reader.utils import flaten_tree
 from ftw.book.browser.toc_tree import BookTocTree
 from ftw.book.interfaces import IBook
-from ftw.contentpage.interfaces import IListingBlock
 from json import dumps
 from plone.app.layout.navigation.navtree import buildFolderTree
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
 
@@ -147,9 +147,6 @@ class ReaderView(BrowserView):
 
     def render_block(self, brain):
         obj = brain.getObject()
-        if IListingBlock.providedBy(aq_parent(aq_inner(obj))):
-            return ''
-
         renderer = queryMultiAdapter((obj, self.request, self),
                                      IBookReaderRenderer)
         if not renderer:

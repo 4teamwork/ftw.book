@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ftw.simplelayout">
+
+  <include package="plone.behavior" file="meta.zcml" />
+
+  <plone:behavior
+      title="LaTeX: Injection Code"
+      provides="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection"
+      />
+
+  <plone:behavior
+      title="LaTeX: Change Column Layout"
+      provides="ftw.book.behaviors.columnlayout.IChangeColumnLayout"
+      />
+
+  <plone:behavior
+      title="LaTeX: Landscape support"
+      provides="ftw.book.behaviors.landscape.ILandscape"
+      />
+
+  <plone:behavior
+      title="LaTeX: Clearpage checkboxes"
+      provides="ftw.book.behaviors.clearpage.IClearpage"
+      />
+
+  <plone:behavior
+      title="LaTeX: Option for hiding title from table of contents"
+      provides="ftw.book.behaviors.toc.IHideTitleFromTOC"
+      />
+
+  <plone:behavior
+      title="Show in table of contents."
+      provides="ftw.book.behaviors.toc.IShowInToc"
+      />
+
+</configure>

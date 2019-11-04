@@ -2,57 +2,52 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
+from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from zope.interface import Interface
 
 
 ModifyLaTeXInjection = "ftw.book: Modify LaTeX Injection"
 
 
-class IBook(Interface):
+class IBookContentType(Interface):
+    """All ftw.book content types provide this interface.
+    """
+
+
+class IBook(IBookContentType):
     """Book marker interface.
     """
 
 
-class IChapter(Interface):
+class IChapter(IBookContentType):
     """Chapter marker interface.
     """
 
 
-class IHTMLBlock(Interface):
+class IHTMLBlock(IBookContentType):
     """HTMLBlock marker interface.
     """
 
 
-class IRemark(Interface):
-    """Remark marker interface.
+class ITable(IBookContentType):
+    """Table marker interface.
     """
 
 
-class ITable(Interface):
-    """Remark marker interface.
-    """
-
-
-class IBookTextBlock(Interface):
+class IBookTextBlock(ITextBlock, IBookContentType):
     """Book text block marker interface.
     """
 
 
-class IAddRemarkLayer(Interface):
-    """ Request layer interface, provided if we select to show remarks in
-    the pdf export wizard
+class IBookFileListingBlock(IFileListingBlock, IBookContentType):
+    """File listing block for books.
     """
 
 
-class IWithinBookLayer(Interface):
-    """Request layer interface, automatically provided by request
-    when traversing over book.
-    """
-
-
-class ILaTeXCodeInjectionEnabled(Interface):
-    """Enables LaTeX code injection for admins on
-    book-objects (chapters, text blocks).
+class IBookLayoutBehavior(Interface):
+    """Mark a behavior as a book layout behavior so that it appears in
+    the layout selection vocabulary and acts as instance behavior.
     """
 
 

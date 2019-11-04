@@ -2,10 +2,24 @@ Changelog
 =========
 
 
-3.5.5 (unreleased)
+4.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Reimplementation of ``ftw.book`` with Dexterity [jone]
+
+  - Is based on ``ftw.simplelayout`` (DX) instead of ``ftw.contentpage`` (AT).
+  - The content type ``Remark`` is no longer supported.
+    All instances must be removed before updating.
+  - Files are no longer allowed in chapters, use file listing blocks instead.
+  - Images are no longer allowed in chapters, use the image field of text blocks instead.
+  - Links are no longer allowed in chapters, use text blocks instead.
+  - Support for next / previous is dropped as it was not properly implemented / used.
+  - LaTeX layouts need to be reimplemented: they are now instance behaviors.
+  - An automatic content migration is provided.
+
+- Deprecate get_raw_image_data utils function. [jone]
+
+- Drop Plone 4.2 support. [jone]
 
 
 3.5.4 (2019-02-05)

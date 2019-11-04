@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<object name="ftw.book.FileListingBlock"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.book">
+
+    <property name="title" i18n:translate="">FileListingBlock</property>
+    <property name="description"></property>
+    <property name="icon_expr"></property>
+    <property name="allow_discussion">False</property>
+    <property name="global_allow">False</property>
+    <property name="filter_content_types">True</property>
+    <property name="allowed_content_types">
+        <element value="File" />
+    </property>
+
+    <property name="schema">ftw.book.contents.filelistingblock.IBookFileListingBlockSchema</property>
+    <property name="klass">ftw.book.contents.filelistingblock.BookFileListingBlock</property>
+    <property name="add_permission">ftw.book.AddFileListingBlock</property>
+
+    <property name="behaviors">
+        <element value="plone.app.content.interfaces.INameFromTitle" />
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
+        <element value="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"/>
+        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+        <element value="ftw.book.behaviors.toc.IShowInToc" />
+        <element value="ftw.book.behaviors.toc.IHideTitleFromTOC" />
+        <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
+        <element value="ftw.book.behaviors.columnlayout.IChangeColumnLayout" />
+        <element value="ftw.book.behaviors.landscape.ILandscape" />
+        <element value="ftw.book.behaviors.clearpage.IClearpage" />
+    </property>
+
+    <property name="default_view">redirect_to_parent</property>
+    <property name="default_view_fallback">False</property>
+    <property name="view_methods">
+        <element value="redirect_to_parent"/>
+    </property>
+
+    <alias from="(Default)" to="(dynamic view)"/>
+    <alias from="edit" to="@@edit"/>
+    <alias from="sharing" to="@@sharing"/>
+    <alias from="view" to="(selected layout)"/>
+
+    <action
+        action_id="view"
+        title="View"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}"
+        visible="True">
+        <permission value="View"/>
+    </action>
+
+    <action
+        action_id="edit"
+        title="Edit"
+        category="object"
+        condition_expr=""
+        url_expr="string:${object_url}/edit"
+        visible="True">
+        <permission value="Modify portal content"/>
+    </action>
+
+</object>

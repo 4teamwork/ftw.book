@@ -1,20 +1,21 @@
-from ftw.book.interfaces import IWithinBookLayer
+from ftw.book.interfaces import IBookContentType
 from ftw.book.latex.highlight_subconverter import VisualHighlightSubconverter
 from ftw.book.latex.hyperlink_subconverter import BookHyperlinkConverter
 from ftw.book.latex.index_subconverter import IndexSubconverter
 from ftw.pdfgenerator import interfaces
 from ftw.pdfgenerator.html2latex.converter import HTML2LatexConverter
 from ftw.pdfgenerator.html2latex.subconverters import hyperlink
-from zope.component import adapts
-from zope.interface import implements, Interface
+from zope.component import adapter
+from zope.interface import implementer
+from zope.interface import Interface
 
 
 BOTTOM = interfaces.HTML2LATEX_CUSTOM_PATTERN_PLACEHOLDER_BOTTOM
 
 
+@implementer(interfaces.IHTML2LaTeXConverter)
+@adapter(IBookContentType, Interface, interfaces.ILaTeXLayout)
 class BookHTML2LatexConverter(HTML2LatexConverter):
-    implements(interfaces.IHTML2LaTeXConverter)
-    adapts(Interface, IWithinBookLayer, interfaces.ILaTeXLayout)
 
     def __init__(self, context, request, layout):
         HTML2LatexConverter.__init__(self, context, request, layout)

@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.book">
+
+  <adapter
+      name="ftw-book-table-actions"
+      factory=".table.TableBlockActions"
+      />
+
+</configure>

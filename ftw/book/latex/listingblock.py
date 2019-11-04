@@ -1,7 +1,7 @@
-from StringIO import StringIO
+from ftw.book.interfaces import IBookFileListingBlock
 from ftw.book.latex import utils
-from ftw.contentpage.interfaces import IListingBlock
 from ftw.pdfgenerator.view import MakoLaTeXView
+from StringIO import StringIO
 from zope.component import adapts
 from zope.interface import Interface
 import lxml.etree
@@ -62,16 +62,15 @@ def add_table_column_widths(doc):
 
 
 class ListingBlockLaTeXView(MakoLaTeXView):
-    adapts(IListingBlock, Interface, Interface)
+    adapts(IBookFileListingBlock, Interface, Interface)
 
     def render(self):
         latex = []
 
-        if self.context.getShowTitle():
+        if self.context.show_title:
             latex.append(utils.get_latex_heading(self.context, self.layout))
 
         latex.append(self.table_latex())
-
         return '\n'.join(latex)
 
     def table_latex(self):

@@ -1,0 +1,24 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="view/template/macros/main"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.simplelayout">
+
+  <metal:TITLE fill-slot="title">
+    <tal:heading define="title view/block_title"
+                 condition="title"
+                 replace="structure title" />
+
+    <dl class="portalMessage warning"
+        i18n:domain="ftw.book"
+        tal:condition="view/has_tables_with_missing_widths">
+      <dt i18n:domain="plone">Warning</dt>
+      <dd i18n:translate="table_width_validation_warning">
+        Please specify the width of the table columns / cells
+      </dd>
+    </dl>
+
+  </metal:TITLE>
+
+</html>

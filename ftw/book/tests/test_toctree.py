@@ -1,18 +1,20 @@
-from ftw.testing import MockTestCase
 from ftw.book.browser.toc_tree import BookTocTree
+from ftw.testing import MockTestCase
 
 
 class TestTocTree(MockTestCase):
 
     def test_get_toc_tree(self):
-        book_brain = self.create_dummy(portal_type='Book')
-        chapter_brain = self.create_dummy(portal_type='Chapter')
-        textblock_brain = self.create_dummy(showTitle=False,
+        book_brain = self.create_dummy(portal_type='Book',
+                                       show_in_toc=True)
+        chapter_brain = self.create_dummy(portal_type='Chapter',
+                                          show_in_toc=True)
+        textblock_brain = self.create_dummy(show_in_toc=False,
                                             portal_type='BookTextBlock')
-        textblock2_brain = self.create_dummy(showTitle=True,
-                                             hideFromTOC=True,
+        textblock2_brain = self.create_dummy(show_in_toc=False,
                                              portal_type='BookTextBlock')
-        subchapter_brain = self.create_dummy(portal_type='Chapter')
+        subchapter_brain = self.create_dummy(portal_type='Chapter',
+                                             show_in_toc=True)
 
         tree = {
             'item': book_brain,

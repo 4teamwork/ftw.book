@@ -1,4 +1,3 @@
-from ftw.book.content.textblock import BookTextBlock
 from ftw.upgrade import UpgradeStep
 from operator import methodcaller
 
@@ -18,6 +17,7 @@ class MigrateParagraphs(UpgradeStep):
                    self.catalog_unrestricted_search({'portal_type': 'Book'}))
 
     def migrate_paragraph(self, obj):
+        from ftw.book.content.textblock import BookTextBlock
         self.migrate_class(obj, BookTextBlock)
         obj.portal_type = 'BookTextBlock'
         obj.reindexObject()

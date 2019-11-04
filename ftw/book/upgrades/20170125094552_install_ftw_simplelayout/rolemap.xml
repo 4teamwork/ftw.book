@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+
+    <permission name="ftw.book: Add Book File Listing Block" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+
+    <permission name="ftw.book: Add Book Text Block" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+
+  </permissions>
+</rolemap>

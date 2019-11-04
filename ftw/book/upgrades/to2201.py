@@ -1,4 +1,4 @@
-from ftw.book.eventhandler import add_navigation_portlet
+from ftw.book.subscribers import add_navigation_portlet
 from ftw.upgrade import UpgradeStep
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager

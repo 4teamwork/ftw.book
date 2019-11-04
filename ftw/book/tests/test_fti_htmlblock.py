@@ -1,101 +1,93 @@
-from ftw.book.testing import FTW_BOOK_FUNCTIONAL_TESTING
-from ftw.builder import Builder
-from ftw.builder import create
+from ftw.book.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
-from unittest2 import TestCase
+from ftw.testbrowser.pages import statusmessages
+from operator import attrgetter
+from plone.app.textfield.value import RichTextValue
+from textwrap import dedent
+import transaction
 
 
-
-class TestHTMLBlock(TestCase):
-
-    layer = FTW_BOOK_FUNCTIONAL_TESTING
-
-    def setUp(self):
-        self.book = create(Builder('book'))
-        self.chapter = create(Builder('chapter').within(self.book))
+class TestHTMLBlock(FunctionalTestCase):
 
     @browsing
     def test_creating_htmlblock(self, browser):
-        browser.login().visit(self.chapter)
-        factoriesmenu.add('HTML Block')
+        self.grant('Manager')
+        browser.login().visit(self.example_book.empty)
+        factoriesmenu.add('HTML block')
 
         browser.fill({
-                'Title': 'The HTML Block',
-                'Show Title': True,
-                'HTML': '<p>Some <b>body</b> text</p>'}).submit()
-        self.assertEquals(self.chapter.absolute_url() + '/#the-html-block',
-                          browser.url)
+            'Title': 'The HTML Block',
+            'Show title': True,
+            'Content': '<p>Some <b>body</b> text</p>'}).submit()
 
-        blocks = browser.css('.BlockOverallWrapper.html-block')
-        self.assertEquals(1, len(blocks),
+        self.assertEquals(
+            self.example_book.empty.absolute_url() + '#the-html-block',
+            browser.url)
+
+        self.assertEquals(1, len(browser.css('.sl-block')),
                           'Expected chapter to have exactly one block')
 
-        block, = blocks
-        self.assertEquals(['1.1 The HTML Block'], block.css('h3').text,
-                          'Expected block title to be visible.')
+        self.assertEquals(
+            u'<h3 class="toc3">The HTML Block</h3>',
+            browser.css('.sl-block h3').first.outerHTML)
 
         self.assertEquals(
-            '<p>Some <b>body</b> text</p>',
-            block.css('.sl-text-wrapper').first.normalized_innerHTML)
+            'Some <b>body</b> text',
+            browser.css('.sl-block p').first.normalized_innerHTML)
 
     @browsing
-    def test_showing_block_title(self, browser):
-        create(Builder('htmlblock')
-               .titled('Visible')
-               .having(showTitle=True)
-               .within(self.chapter))
+    def test_hiding_block_title(self, browser):
+        self.grant('Manager')
 
-        create(Builder('htmlblock')
-               .titled('Hidden')
-               .having(showTitle=False)
-               .within(self.chapter))
+        title = 'An HTML Block'
+        self.htmlblock.show_title = False
+        transaction.commit()
+        browser.login().visit(self.htmlblock)
+        self.assertNotIn(title, browser.css('.sl-block h3').text)
 
-        browser.login().visit(self.chapter)
-        visible, hidden = browser.css('.BlockOverallWrapper.html-block')
-
-        self.assertEquals(
-            ['1.1 Visible'], visible.css('h3').text,
-            'Expected block title of the "Visible" block to be visible.')
-
-        self.assertEquals(
-            [], hidden.css('h3').text,
-            'Expected block title of the "Hidden" block to be hidden.')
+        self.htmlblock.show_title = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(title, browser.css('.sl-block h3').text)
 
     @browsing
-    def test_hiding_title_from_table_of_contents(self, browser):
-        create(Builder('htmlblock')
-               .titled('Block in TOC')
-               .having(showTitle=True,
-                       hideFromTOC=False)
-               .within(self.chapter))
+    def test_no_prefix_when_hiding_title_from_table_of_contents(self, browser):
+        self.grant('Manager')
+        self.htmlblock.show_title = True
 
-        create(Builder('htmlblock')
-                     .titled('Block NOT in TOC')
-                     .having(showTitle=True,
-                             hideFromTOC=True)
-                     .within(self.chapter))
+        self.htmlblock.hide_from_toc = False
+        transaction.commit()
+        browser.login().visit(self.htmlblock)
+        self.assertIn(
+            u'<h3 class="toc3">An HTML Block</h3>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))
 
-        browser.login().visit(self.chapter)
-
-        self.assertEquals(
-            ['1.1 Block in TOC', 'Block NOT in TOC'],
-            browser.css('.BlockOverallWrapper.html-block h3').text,
-            'Only the first block title should have a number prefix.')
+        self.htmlblock.hide_from_toc = True
+        transaction.commit()
+        browser.reload()
+        self.assertIn(
+            u'<h3 class="no-toc">An HTML Block</h3>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))
 
     @browsing
-    def test_latex_fields_available(self, browser):
-        browser.login().open(self.chapter)
-        factoriesmenu.add('HTML Block')
+    def test_warning_when_table_widths_not_specified(self, browser):
+        browser.login().open(self.htmlblock)
+        statusmessages.assert_no_messages()
 
-        form = browser.find('Title').parent('form')
-        labels = form.field_labels
+        self.htmlblock.content = RichTextValue(dedent(r'''
+        <p>ok:</p>
+        <table>
+          <tr><td width="100%">foo</td></tr>
+        </table>
+        <p>not ok:</p>
+        <table>
+          <tr><td>bar</td></tr>
+        </table>
+        '''), mimeType='text/html', outputMimeType='text/html')
+        transaction.commit()
+        browser.reload()
 
-        self.assertIn('LaTeX code above content', labels)
-        self.assertIn('LaTeX code beneath content', labels)
-
-    @browsing
-    def test_text_field_is_textarea_for_html(self, browser):
-        browser.login().visit(self.chapter)
-        factoriesmenu.add('HTML Block')
-        self.assertEquals('textarea', browser.find('HTML').tag)
+        browser.reload()
+        statusmessages.assert_message(
+            'Please specify the width of the table columns / cells')
