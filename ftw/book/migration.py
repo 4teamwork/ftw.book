@@ -35,13 +35,10 @@ else:
     IMPORT_ERROR = None
 
 
-try:
-    from ftwbook.graphicblock.migration import GraphicBlockMigrator
-except ImportError:
-    HAS_GRAPHICBLOCK = False
-else:
-    HAS_GRAPHICBLOCK = True
-    os.environ['FTWBOOK_GRAPHICBLOCK_SKIP_DEXTERITY_MIGRATION'] = 'true'
+# Tell the upgrade step in ftwbook.graphicblock that the graphicblock
+# migration should not be executed, because we need to migrate the chapters
+# first and the graphicblock migration will be triggered from here.
+os.environ['FTWBOOK_GRAPHICBLOCK_SKIP_DEXTERITY_MIGRATION'] = 'true'
 
 
 def get_book_paths():
@@ -64,8 +61,14 @@ class MigrationUpgradeStepMixin(object):
             ImageToBookTextBlockMigrator,
             HTMLBlockMigrator,
         ]
-        if HAS_GRAPHICBLOCK:
+
+        try:
+            from ftwbook.graphicblock.migration import GraphicBlockMigrator
+        except ImportError:
+            pass
+        else:
             classes.append(GraphicBlockMigrator)
+
         return classes
 
     def migrate_all_book_types(self):
