@@ -174,8 +174,6 @@ class BookTypeMigratorBase(InplaceMigrator):
             if not hasattr(aq_base(old_object), fieldname):
                 continue
             value = getattr(old_object, fieldname, None)
-            if callable(value):
-                value = value()
             if value:
                 value = self.normalize_at_field_value(None, fieldname, value)
                 yield fieldname, value
