@@ -138,12 +138,17 @@ def get_book_paths():
     return map(methodcaller('getPath'), brains)
 
 
-class BookMigrator(InplaceMigrator):
+class BookTypeMigratorBase(InplaceMigrator):
 
-    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
+    def __init__(self, *args, **kwargs):
         if IMPORT_ERROR:
             raise IMPORT_ERROR
+        super(BookTypeMigratorBase, self).__init__(*args, **kwargs)
 
+
+class BookMigrator(BookTypeMigratorBase):
+
+    def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
         super(BookMigrator, self).__init__(
             new_portal_type='ftw.book.Book',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -215,12 +220,9 @@ class BookMigrator(InplaceMigrator):
             yield 'content_categories', getattr(old_object, 'content_categories')
 
 
-class ChapterMigrator(InplaceMigrator):
+class ChapterMigrator(BookTypeMigratorBase):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(ChapterMigrator, self).__init__(
             new_portal_type='ftw.book.Chapter',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -279,12 +281,9 @@ class ChapterMigrator(InplaceMigrator):
             api.content.move(source=obj, target=listingblock, safe_id=True)
 
 
-class BookTextBlockMigrator(InplaceMigrator):
+class BookTextBlockMigrator(BookTypeMigratorBase):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(BookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -324,13 +323,10 @@ class BookTextBlockMigrator(InplaceMigrator):
             yield 'adjudicationDate', getattr(old_object, 'adjudicationDate')
 
 
-class BookListingBlockMigrator(InplaceMigrator):
+class BookListingBlockMigrator(BookTypeMigratorBase):
     # WARNING: Needs to be run before ImageToBookTextBlockMigrator
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(BookListingBlockMigrator, self).__init__(
             new_portal_type='ftw.book.FileListingBlock',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -359,12 +355,9 @@ class BookListingBlockMigrator(InplaceMigrator):
         return {'portal_type': 'ListingBlock', 'path': get_book_paths()}
 
 
-class ImageToBookTextBlockMigrator(InplaceMigrator):
+class ImageToBookTextBlockMigrator(BookTypeMigratorBase):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(ImageToBookTextBlockMigrator, self).__init__(
             new_portal_type='ftw.book.TextBlock',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -399,12 +392,9 @@ class ImageToBookTextBlockMigrator(InplaceMigrator):
         yield 'hide_from_toc', True
 
 
-class HTMLBlockMigrator(InplaceMigrator):
+class HTMLBlockMigrator(BookTypeMigratorBase):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(HTMLBlockMigrator, self).__init__(
             new_portal_type='ftw.book.HtmlBlock',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
@@ -431,12 +421,9 @@ class HTMLBlockMigrator(InplaceMigrator):
         return {'portal_type': 'HTMLBlock', 'path': get_book_paths()}
 
 
-class TableMigrator(InplaceMigrator):
+class TableMigrator(BookTypeMigratorBase):
 
     def __init__(self, ignore_fields=(), additional_steps=(), **kwargs):
-        if IMPORT_ERROR:
-            raise IMPORT_ERROR
-
         super(TableMigrator, self).__init__(
             new_portal_type='ftw.book.Table',
             attributes_to_migrate=ATTRIBUTES_TO_MIGRATE,
