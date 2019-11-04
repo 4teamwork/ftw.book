@@ -18,7 +18,7 @@ class TestShowInTocIndexer(FunctionalTestCase):
             'historical-background/china',
             'historical-background/china/first-things-first',
             'historical-background/china/important-documents',
-            'historical-background/china/important-documents/einfache-webseite',
+            'historical-background/china/important-documents/lorem.html',
         ))
 
         self.assertEquals(

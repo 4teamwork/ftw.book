@@ -24,6 +24,15 @@ Features
   HTML table representation which also convertable into a PDF.
 
 
+Requirements
+------------
+
+- Requires `ftw.simplelayout`_ for block based content creation.
+- Requires `ftw.file`_ for file listings.
+- Requires `ftw.pdfgenerator`_ for generating PDFs.
+- Requires `ftw.htmlblock`_ for custom HTML tables.
+
+
 Usage
 -----
 
@@ -77,5 +86,8 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.book`` is licensed under GNU General Public License, version 2.
 
+.. _ftw.file: https://github.com/4teamwork/ftw.file
+.. _ftw.htmlblock: https://github.com/4teamwork/ftw.htmlblock
 .. _ftw.pdfgenerator: https://github.com/4teamwork/ftw.pdfgenerator
+.. _ftw.simplelayout: https://github.com/4teamwork/ftw.simplelayout
 .. _ImageMagick: http://cactuslab.com/imagemagick/

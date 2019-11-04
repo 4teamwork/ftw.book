@@ -19,7 +19,7 @@ class TestTableOfContents(FunctionalTestCase):
             'historical-background/china',
             'historical-background/china/first-things-first',
             'historical-background/china/important-documents',
-            'historical-background/china/important-documents/einfache-webseite',
+            'historical-background/china/important-documents/lorem.html',
         ))
 
     def test_html_heading(self):
@@ -226,7 +226,7 @@ class TestTableOfContents(FunctionalTestCase):
                 TableOfContents().parent_chapters(
                     self.example_book.restrictedTraverse(
                         'historical-background/china'
-                        '/important-documents/einfache-webseite'))))
+                        '/important-documents/lorem.html'))))
 
         self.assertEquals(
             ['Historical Background', 'China'],

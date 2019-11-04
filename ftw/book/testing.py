@@ -17,6 +17,7 @@ from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
 from zope.configuration import xmlconfig
+import ftw.file.tests.builders  # noqa
 
 
 def clear_transmogrifier_registry():
@@ -119,12 +120,12 @@ class BookLayer(PloneSandboxLayer):
             create(Builder('file')
                    .within(listingblock)
                    .titled(u'Fr\xf6hliches Bild')
-                   .attach_file_containing(asset('image.jpg').bytes(), 'image.jpg'))
+                   .attach_file_containing(asset('image.jpg').bytes(), u'image.jpg'))
 
             create(Builder('file')
                    .within(listingblock)
                    .titled(u'Einfache Webseite')
-                   .attach_file_containing(asset('lorem.html').bytes(), 'lorem.html'))
+                   .attach_file_containing(asset('lorem.html').bytes(), u'lorem.html'))
 
             create(Builder('chapter').within(book)
                    .titled(u'Empty')

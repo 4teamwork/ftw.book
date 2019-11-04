@@ -13,7 +13,7 @@ class IndexTab(IndexView):
 
 class DocumentsTab(CatalogListingView):
 
-    types = ['File', 'Image']
+    types = ['ftw.file.File', 'Image']
     sort_on = 'created'
     show_selects = False
     show_menu = False
