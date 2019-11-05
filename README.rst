@@ -3,12 +3,6 @@ ftw.book
 
 This package provides content types for creating a book which can be exported as PDF.
 
-.. figure:: http://onegov.ch/approved.png/image
-   :align: right
-   :target: http://onegov.ch/community/zertifizierte-module/ftw.book
-
-   Certified: 01/2013
-
 
 Features
 --------
