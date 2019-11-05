@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix navigation and search settings for new DX types. [jone]
+- Fix chapter's title translation. [jone]
 
 
 4.0.1 (2019-11-04)
