@@ -5,7 +5,7 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix navigation and search settings for new DX types. [jone]
 
 
 4.0.1 (2019-11-04)
