@@ -79,7 +79,16 @@ class BookTextBlockView(BookBlockMixin, TextBlockView):
 
 
 class BookFileListingBlockView(BookBlockMixin, FileListingBlockView):
-    pass
+
+    def render_table(self, ignore_columns=()):
+        self.ignored_columns = ignore_columns
+        return super(BookFileListingBlockView, self).render_table()
+
+    def _filtered_columns(self):
+        columns = super(BookFileListingBlockView, self)._filtered_columns()
+        for column in columns:
+            if column['column'] not in self.ignored_columns:
+                yield column
 
 
 class HTMLBlockView(BookBlockMixin, HtmlBlockView):
