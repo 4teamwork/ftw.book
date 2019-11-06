@@ -26,8 +26,8 @@ class TestTextBlock(FunctionalTestCase):
                           'Expected chapter to have exactly one block')
 
         self.assertEquals(
-            u'<h3 class="toc3">The Text Block</h3>',
-            browser.css('.sl-block h3').first.outerHTML)
+            u'<h2 class="toc3">The Text Block</h2>',
+            browser.css('.sl-block h2').first.outerHTML)
 
     @browsing
     def test_showing_block_title(self, browser):
@@ -37,12 +37,12 @@ class TestTextBlock(FunctionalTestCase):
         self.textblock.show_title = False
         transaction.commit()
         browser.login().visit(self.textblock)
-        self.assertNotIn(title, browser.css('.sl-block h4').text)
+        self.assertNotIn(title, browser.css('.sl-block h2').text)
 
         self.textblock.show_title = True
         transaction.commit()
         browser.reload()
-        self.assertIn(title, browser.css('.sl-block h4').text)
+        self.assertIn(title, browser.css('.sl-block h2').text)
 
     @browsing
     def test_hiding_title_from_table_of_contents_removes_prefix(self, browser):
@@ -53,15 +53,15 @@ class TestTextBlock(FunctionalTestCase):
         transaction.commit()
         browser.login().visit(self.textblock)
         self.assertIn(
-            u'<h4 class="toc4">First things first</h4>',
-            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
+            u'<h2 class="toc4">First things first</h2>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h2')))
 
         self.textblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
         self.assertIn(
-            u'<h4 class="no-toc">First things first</h4>',
-            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
+            u'<h2 class="no-toc">First things first</h2>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h2')))
 
     @browsing
     def test_warning_when_table_widths_not_specified(self, browser):
