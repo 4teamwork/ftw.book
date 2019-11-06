@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2019-11-01 14:33+0000\n"
+"POT-Creation-Date: 2019-11-05 13:06+0000\n"
 "PO-Revision-Date: 2012-11-14 14:46+0100\n"
 "Last-Translator: Julian Infanger <julian.infanger@4teamwork.ch>\n"
 "Language-Team: Julian Infanger <julian.infanger@4teamwork.ch>\n"
@@ -411,6 +411,7 @@ msgid "label_table_export_import"
 msgstr "Tabelle exportieren / importieren"
 
 #. Default: "Title"
+#: ./ftw/book/contents/chapter.py:15
 #: ./ftw/book/contents/table.py:174
 msgid "label_title"
 msgstr "Titel"
