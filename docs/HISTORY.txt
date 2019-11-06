@@ -5,6 +5,7 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
+- Remove "Type" column from listing block table in PDF. [jone]
 - Fix navigation and search settings for new DX types. [jone]
 - Fix chapter's title translation. [jone]
 
