@@ -21,6 +21,7 @@ class BookBlockMixin:
         return TableOfContents().html_heading(
             self.context,
             linked=False,
+            tagname='h2',
             prepend_html_headings=self.prepend_html_headings)
 
     def has_tables_with_missing_widths(self):
@@ -69,6 +70,7 @@ class BookChapterView(BrowserView):
     def block_title(self):
         return TableOfContents().html_heading(
             self.context,
+            tagname='h2',
             linked=True,
             prepend_html_headings=self.prepend_html_headings)
 

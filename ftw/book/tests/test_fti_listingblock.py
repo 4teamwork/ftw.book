@@ -28,13 +28,13 @@ class TestListingBlock(FunctionalTestCase):
                           'Expected chapter to have exactly one block')
 
         self.assertEquals(
-            u'<h3 class="toc3">Recipes</h3>',
-            browser.css('.sl-block h3').first.outerHTML)
+            u'<h2 class="toc3">Recipes</h2>',
+            browser.css('.sl-block h2').first.outerHTML)
 
     @browsing
     def test_showing_block_title(self, browser):
         title = 'Important Documents'
-        selector = '.sl-block h4'
+        selector = '.sl-block h2'
 
         self.grant('Manager')
         browser.login().visit(aq_parent(self.listingblock))
@@ -50,12 +50,12 @@ class TestListingBlock(FunctionalTestCase):
         self.grant('Manager')
         browser.login().visit(aq_parent(self.listingblock))
         self.assertIn(
-            u'<h4 class="toc4">Important Documents</h4>',
-            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
+            u'<h2 class="toc4">Important Documents</h2>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h2')))
 
         self.listingblock.hide_from_toc = True
         transaction.commit()
         browser.reload()
         self.assertIn(
-            u'<h4 class="no-toc">Important Documents</h4>',
-            map(attrgetter('outerHTML'), browser.css('.sl-block h4')))
+            u'<h2 class="no-toc">Important Documents</h2>',
+            map(attrgetter('outerHTML'), browser.css('.sl-block h2')))

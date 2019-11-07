@@ -5,6 +5,7 @@ Changelog
 4.0.2 (unreleased)
 ------------------
 
+- Always use h2 heading chapter content and make chapter block more compact. [jone]
 - PDF: use external links for non-PDF content. [jone]
 - Remove "Type" column from listing block table in PDF. [jone]
 - Fix navigation and search settings for new DX types. [jone]
