@@ -1,7 +1,6 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from ftw.book.tests import FunctionalTestCase
-from plone.uuid.interfaces import IUUID
 
 
 class TestBookInternalHyperlinksLaTeX(FunctionalTestCase):
@@ -14,6 +13,14 @@ class TestBookInternalHyperlinksLaTeX(FunctionalTestCase):
             'Link to {}!\n'.format(self.latex_hyperref_to(self.textblock2)),
             self.get_latex_view_for(self.htmlblock).render())
 
+    def test_files_are_not_considered_as_internal_link(self):
+        self.htmlblock.content = ('Link to file {}!'.format(
+            self.html_link_to(self.lorem_file)))
+
+        self.assertEquals(
+            'Link to file {}!\n'.format(self.latex_link_to(self.lorem_file)),
+            self.get_latex_view_for(self.htmlblock).render())
+
     def test_spaces_are_not_escaped(self):
         self.grant('Manager')
         aq_parent(aq_inner(self.textblock2)).manage_renameObject(
@@ -24,8 +31,8 @@ class TestBookInternalHyperlinksLaTeX(FunctionalTestCase):
             self.get_latex_view_for(self.htmlblock).render().strip())
 
     def html_link_to(self, obj):
-        return '<a class="internal-link" href="resolveuid/{}">{}</a>'.format(
-            IUUID(self.textblock2), self.textblock2.Title())
+        return '<a class="internal-link" href="{}">{}</a>'.format(
+            obj.absolute_url(), obj.Title())
 
     def latex_hyperref_to(self, obj):
         convert = self.get_latex_layout(obj).get_converter().convert
@@ -33,3 +40,11 @@ class TestBookInternalHyperlinksLaTeX(FunctionalTestCase):
                 r'See page \pageref{path:%(path)s}}}') % {
                     'title': convert(obj.Title()),
                     'path': '/'.join(obj.getPhysicalPath())}
+
+    def latex_link_to(self, obj):
+        convert = self.get_latex_layout(self.example_book).get_converter().convert
+        return (r'\href{%(url)s}{%(label)s\footnote{\href{%(url)s}'
+                r'{\url{%(url_label)s}}}}') % {
+                    'label': convert(obj.Title()),
+                    'url': obj.absolute_url(),
+                    'url_label': obj.absolute_url()}

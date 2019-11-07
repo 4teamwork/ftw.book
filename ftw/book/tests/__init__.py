@@ -27,6 +27,8 @@ class FunctionalTestCase(TestCase):
             'introduction/an-html-block')
         self.listingblock = self.example_book.restrictedTraverse(
             'historical-background/china/important-documents')
+        self.lorem_file = self.listingblock.restrictedTraverse(
+            'lorem.html')
         self.table = self.example_book.unrestrictedTraverse(
             'historical-background/china/population')
         self.textblock = self.example_book.unrestrictedTraverse(
