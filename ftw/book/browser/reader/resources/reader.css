@@ -1,0 +1,16 @@
+.book-reader-content {
+  overflow-y: scroll;
+  padding: 0em 2em;
+}
+
+.book-reader-navigation {
+  overflow-y: scroll;
+  float: left;
+  width: 30em;
+  height: 50px;
+  max-width: 30%;
+}
+
+#content #close-book-reader {
+  display: none;
+}

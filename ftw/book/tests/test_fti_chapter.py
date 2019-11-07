@@ -26,9 +26,9 @@ class TestChapter(FunctionalTestCase):
 
         browser.login().visit(chapter)
         self.assertIn(
-            u'<h3 class="toc3"><a href="{}">China</a></h3>'.format(
+            u'<h2 class="toc3"><a href="{}">China</a></h2>'.format(
                 subchapter.absolute_url()),
-            map(attrgetter('outerHTML'), browser.css('.sl-block h3')))
+            map(attrgetter('outerHTML'), browser.css('.sl-block h2')))
 
         browser.css('#content-core').first.find('China').click()
         self.assertEquals(subchapter, browser.context)

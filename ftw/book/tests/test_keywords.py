@@ -22,7 +22,7 @@ def select2_javascripts():
 
 
 class TestKeywordsView(FunctionalTestCase, LanguageSetter):
-
+    
     @browsing
     def test_keywords_only_available_when_use_keywords_enabled(self, browser):
         tab_label = 'Keywords'

@@ -1,0 +1,194 @@
+div#portal-column-one div.portletWrapper dl.portletGoToParent {
+    margin-bottom:0em;
+}
+
+
+/* Add chapter prefixes / numbering */
+body {
+  counter-reset: chapter;
+  counter-reset: section;
+  counter-reset: subsection;
+  counter-reset: subsubsection;
+  counter-reset: paragraph;
+  counter-reset: subparagraph;
+}
+
+.toc2 {
+  counter-reset: section;
+  counter-increment: chapter;
+}
+.toc2:before {
+  content: counter(chapter) " ";
+}
+
+.toc3 {
+  counter-reset: subsection;
+  counter-increment: section;
+}
+.toc3:before {
+  content: counter(chapter) "." counter(section) " ";
+}
+
+.toc4 {
+  counter-reset: subsubsection;
+  counter-increment: subsection;
+}
+.toc4:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) " ";
+}
+
+.toc5 {
+  counter-reset: paragraph;
+  counter-increment: subsubsection;
+}
+.toc5:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+}
+
+.toc6 {
+  counter-reset: subparagraph;
+  counter-increment: paragraph;
+}
+.toc6:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) " ";
+}
+
+.toc7 {
+  counter-increment: subparagraph;
+}
+.toc7:before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) "." counter(subparagraph) " ";
+}
+
+/* Disable simplelayout design menu on chapter, since we cannot
+   create a PDF with multiple columns. */
+.portaltype-chapter #simplelayout-contentmenu-design {
+  display: none;
+}
+
+.BlockOverallWrapper.chapter > a {
+  display: block;
+  margin-bottom: 2em;
+}
+
+
+/* Table content-type */
+
+.simplelayout-content table {
+    width: 100%;
+}
+/*table.bibliothekTable th {
+    font-weight: normal;
+}
+*/
+.border-grid {
+    border: 1px solid #DEDEDE;
+}
+.border-right {
+    border-right:1px solid #DEDEDE;
+}
+.border-left {
+    border-left:1px solid #DEDEDE;
+}
+.border-bottom {
+    border-bottom-width:1px;
+    border-bottom-color: #DEDEDE;
+    border-bottom-style:solid;
+}
+.border-top {
+    border-top-width:1px;
+    border-top-color:#DEDEDE;
+    border-top-style:solid;
+}
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+}
+.center {
+    text-align: center;
+}
+.indent2{
+    padding-left: 2mm;
+}
+.indent10{
+    padding-left: 10mm;
+}
+.bold {
+    font-weight: bold !important;
+}
+.grey {
+    color: #808080;
+}
+.scriptsize {
+    font-size: 7.5pt;
+    font-weight: normal;
+}
+.footnotesize {
+    font-size: 7pt;
+}
+
+.sl-export-import-action {
+  background: url(++resource++ftw.book-resources/icon_export_import.png) no-repeat !important;
+}
+
+
+/** TINYMCE keyword plugin **/
+.ploneSkin span.mce_tinymce_keyword {
+	background: url("++resource++ftw.book.tinymce.keyword/img/keyword.png") no-repeat center center;
+}
+
+span.keyword, body.mceContentBody span.keyword {
+  border: 1px dashed green;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/** TINYMCE footnote plugin **/
+.ploneSkin span.mce_tinymce_footnote {
+  background: url("++resource++ftw.book.tinymce.footnote/img/footnote.png") no-repeat center center;
+}
+
+span.footnote:after {
+  display: inline-block;
+  content: ' ';
+  background-image: url("++resource++ftw.book.tinymce.footnote/img/info.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 2px;
+  width: 1em;
+  height: 1em;
+}
+span.footnote {
+  position: relative;
+}
+span.footnote:hover:before {
+  border: 1px solid #205c90;
+  padding: 3px 6px;
+  background: #ddd;
+  content: attr(data-footnote);
+  position: absolute;
+  left: 0;
+  top: 1.3em;
+  width: 200px;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Keywords tab */
+#keywords_overview {
+  padding-top: 1em;
+}
+
+#keywords_overview form .select2-container {
+  float: left;
+  margin-right: 0.5em;
+}
+
+#keywords_overview .result,
+#keywords_overview .no-results {
+  clear: both;
+  padding-top: 1em;
+  margin-bottom: 1em;
+}

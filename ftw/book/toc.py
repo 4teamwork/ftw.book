@@ -9,7 +9,8 @@ import cgi
 
 class TableOfContents(object):
 
-    def html_heading(self, context, classes=None, linked=False):
+    def html_heading(self, context, classes=None, linked=False,
+                     tagname=None, prepend_html_headings=False):
         """Returns a HTML representation of the heading of the context.
         The HTML-heading has the correct level.
         Additional classes may be mixed in.
@@ -36,8 +37,18 @@ class TableOfContents(object):
         else:
             inner = title
 
-        return '<h{level} class="{classes}">{inner}</h{level}>'.format(
-            level=level,
+        if tagname is None:
+            tagname = 'h{}'.format(level)
+
+        if prepend_html_headings:
+            prepend_html = '{}\n'.format(
+                self.prepend_html_headings(context))
+        else:
+            prepend_html = ''
+
+        return '{pre}<{tag} class="{classes}">{inner}</{tag}>'.format(
+            pre=prepend_html,
+            tag=tagname,
             classes=' '.join(sorted(classes)),
             inner=inner)
 

@@ -14,7 +14,7 @@ def whitespace_clean_latex(latex):
 
 
 class TestDefaultBookLayout(FunctionalTestCase, LanguageSetter):
-
+    
     def setUp(self):
         super(TestDefaultBookLayout, self).setUp()
         self.maxDiff = None

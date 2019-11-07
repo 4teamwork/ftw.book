@@ -60,6 +60,10 @@ class IBookSchema(Schema):
 class Book(Container):
     implements(IBook)
 
+    # Prevent acquisition in exclude_from_nav indexer
+    # since when IExcludeFromNavigation is not enabled.
+    exclude_from_nav = False
+
     # XXX Backwards compatiblity methods; should be removed
 
     def getWeb_toc_depth(self):

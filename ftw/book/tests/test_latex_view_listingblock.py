@@ -18,15 +18,15 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
 
 \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
 \setlength\tablewidth\linewidth
-\addtolength\tablewidth{-6\tabcolsep}
+\addtolength\tablewidth{-4\tabcolsep}
 \renewcommand{\arraystretch}{1.4}
-\begin{tabular}{p{0.44\tablewidth}p{0.44\tablewidth}p{0.12\tablewidth}}
+\begin{tabular}{p{0.88\tablewidth}p{0.12\tablewidth}}
 \hline
-\multicolumn{1}{p{0.44\tablewidth}}{\textbf{Type}} & \multicolumn{1}{p{0.44\tablewidth}}{\textbf{Title}} & \multicolumn{1}{p{0.12\tablewidth}}{\textbf{modified}} \\
+\multicolumn{1}{p{0.88\tablewidth}}{\textbf{Title}} & \multicolumn{1}{p{0.12\tablewidth}}{\textbf{modified}} \\
 \hline
-\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Einfache Webseite} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
+\multicolumn{1}{p{0.88\tablewidth}}{Einfache Webseite} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
 \hline
-\multicolumn{1}{p{0.44\tablewidth}}{} & \multicolumn{1}{p{0.44\tablewidth}}{Fröhliches Bild} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
+\multicolumn{1}{p{0.88\tablewidth}}{Fröhliches Bild} & \multicolumn{1}{p{0.12\tablewidth}}{31.10.2016} \\
 \hline
 \end{tabular}\\
 \vspace{4pt}
@@ -45,7 +45,7 @@ class TestListingBlockLaTeXView(FunctionalTestCase):
 -
  \makeatletter\@ifundefined{tablewidth}{\newlength\tablewidth}\makeatother
  \setlength\tablewidth\linewidth
- \addtolength\tablewidth{-6\tabcolsep}
+ \addtolength\tablewidth{-4\tabcolsep}
                 '''):
             self.listingblock.show_title = False
 

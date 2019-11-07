@@ -26,7 +26,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
 
     def render(self):
         view = self.context.restrictedTraverse('block_view')
-        html = view()
+        html = view(prepend_html_headings=True)
         html = self.mark_book_internal_links(html)
         return html
 
@@ -39,7 +39,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
         book_path = '/'.join(book.getPhysicalPath())
         context_url = self.context.absolute_url()
 
-        doc = lxml.html.parse(StringIO(html))
+        doc = lxml.html.parse(StringIO(u'<div>{}</div>'.format(html)))
         for node in doc.xpath('//a'):
             if 'href' not in node.attrib:
                 continue

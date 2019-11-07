@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '4.0.0.dev0'
+version = '4.0.2.dev0'
 maintainer = 'Jonas Baumann'
 
 
@@ -62,6 +62,7 @@ setup(name='ftw.book',
           'BeautifulSoup!=4.0b',
           'Plone',
           'collective.z3cform.datagridfield>=1.3.3',
+          'ftw.file >= 2.0.1',
           'ftw.htmlblock>=1.1.0',
           'ftw.pdfgenerator>=1.4',
           'ftw.profilehook',

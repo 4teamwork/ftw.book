@@ -12,12 +12,17 @@ class BookBlockMixin:
     book_template = ViewPageTemplateFile('templates/titled_block_view.pt')
     content_field_for_table_width_check = None
 
-    def __call__(self):
+    def __call__(self, prepend_html_headings=False):
+        self.prepend_html_headings = prepend_html_headings
         return self.book_template()
 
     @property
     def block_title(self):
-        return TableOfContents().html_heading(self.context, linked=False)
+        return TableOfContents().html_heading(
+            self.context,
+            linked=False,
+            tagname='h2',
+            prepend_html_headings=self.prepend_html_headings)
 
     def has_tables_with_missing_widths(self):
         if self.content_field_for_table_width_check is None:
@@ -57,9 +62,17 @@ class BookBlockMixin:
 
 class BookChapterView(BrowserView):
 
+    def __call__(self, prepend_html_headings=False):
+        self.prepend_html_headings = prepend_html_headings
+        return self.index()
+
     @property
     def block_title(self):
-        return TableOfContents().html_heading(self.context, linked=True)
+        return TableOfContents().html_heading(
+            self.context,
+            tagname='h2',
+            linked=True,
+            prepend_html_headings=self.prepend_html_headings)
 
 
 class BookTextBlockView(BookBlockMixin, TextBlockView):
@@ -68,7 +81,16 @@ class BookTextBlockView(BookBlockMixin, TextBlockView):
 
 
 class BookFileListingBlockView(BookBlockMixin, FileListingBlockView):
-    pass
+
+    def render_table(self, ignore_columns=()):
+        self.ignored_columns = ignore_columns
+        return super(BookFileListingBlockView, self).render_table()
+
+    def _filtered_columns(self):
+        columns = super(BookFileListingBlockView, self)._filtered_columns()
+        for column in columns:
+            if column['column'] not in self.ignored_columns:
+                yield column
 
 
 class HTMLBlockView(BookBlockMixin, HtmlBlockView):

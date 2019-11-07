@@ -3,12 +3,6 @@ ftw.book
 
 This package provides content types for creating a book which can be exported as PDF.
 
-.. figure:: http://onegov.ch/approved.png/image
-   :align: right
-   :target: http://onegov.ch/community/zertifizierte-module/ftw.book
-
-   Certified: 01/2013
-
 
 Features
 --------
@@ -22,6 +16,15 @@ Features
 - Provides a "Reader" view which displays the book on one page for a enjoyable reading experience.
 - Provides simplalayout "Table" block for enter tabular data using a datagrid widget which generates
   HTML table representation which also convertable into a PDF.
+
+
+Requirements
+------------
+
+- Requires `ftw.simplelayout`_ for block based content creation.
+- Requires `ftw.file`_ for file listings.
+- Requires `ftw.pdfgenerator`_ for generating PDFs.
+- Requires `ftw.htmlblock`_ for custom HTML tables.
 
 
 Usage
@@ -88,5 +91,8 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.book`` is licensed under GNU General Public License, version 2.
 
+.. _ftw.file: https://github.com/4teamwork/ftw.file
+.. _ftw.htmlblock: https://github.com/4teamwork/ftw.htmlblock
 .. _ftw.pdfgenerator: https://github.com/4teamwork/ftw.pdfgenerator
+.. _ftw.simplelayout: https://github.com/4teamwork/ftw.simplelayout
 .. _ImageMagick: http://cactuslab.com/imagemagick/

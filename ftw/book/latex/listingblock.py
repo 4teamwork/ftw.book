@@ -75,7 +75,7 @@ class ListingBlockLaTeXView(MakoLaTeXView):
 
     def table_latex(self):
         view = self.context.restrictedTraverse('block_view')
-        table_html = view.render_table()
+        table_html = view.render_table(ignore_columns=('getContentType',))
         table_html = remove_html_links(table_html)
         table_html = remove_table_summary(table_html)
         table_html = remove_table_caption(table_html)
