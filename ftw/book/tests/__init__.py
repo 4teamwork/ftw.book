@@ -13,9 +13,7 @@ import difflib
 import transaction
 
 
-LOREM_ITEM = 'historical-background/china/important-documents/einfache-webseite'
-if IS_PLONE_5:
-    LOREM_ITEM = 'historical-background/china/important-documents/lorem.html'
+LOREM_ITEM = 'historical-background/china/important-documents/lorem.html'
 
 
 class FunctionalTestCase(TestCase):
