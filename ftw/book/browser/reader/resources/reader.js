@@ -336,7 +336,7 @@
   }
 
   /* stay in reader when clicking on book internal links */
-  $('a.book-internal').live('click', function(e) {
+  $('a.book-internal').on('click', function(e) {
     e.preventDefault();
     goto_block($(this).data('uid'), $(this).attr('href'));
   });
