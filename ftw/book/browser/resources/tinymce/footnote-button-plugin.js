@@ -1,8 +1,8 @@
 (function(tinymce) {
   tinymce.PluginManager.add('footnote', function(editor) {
     editor.addButton('footnote', {
-      text: 'Footnote',
-      icon: false,
+      icon: 'footnote',
+      image: '++resource++ftw.book-resources/tinymce/footnote_icon.png',
       onclick: function() {
         var selectionContent = editor.selection.getContent();
 

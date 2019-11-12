@@ -1,8 +1,8 @@
 (function(tinymce) {
   tinymce.PluginManager.add('keyword', function(editor) {
     editor.addButton('keyword', {
-      text: 'Keyword',
-      icon: false,
+      icon: 'keyword',
+      image: '++resource++ftw.book-resources/tinymce/keyword_icon.png',
       onclick: function() {
         var selectionContent = editor.selection.getContent();
 
