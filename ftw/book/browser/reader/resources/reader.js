@@ -42,7 +42,7 @@
     $('.book-reader > div').height(0);
     var content_div_minheight = $('#content').css('min-height');
     $('#content').css('min-height', '0');
-    var last_element_selector = '.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last, #bottom-actions > *:not(.visualClear):last';
+    var last_element_selector = '.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last, #bottom-actions > *:not(.visualClear):last, footer#portal-footer-wrapper #portal-footer';
     if($(last_element_selector).length === 0) {
       throw 'Could not find last element of page with selector $("' + last_element_selector + '");';
     }
