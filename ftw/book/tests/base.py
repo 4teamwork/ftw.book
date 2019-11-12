@@ -6,7 +6,7 @@ from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
 from Products.CMFCore.utils import getToolByName
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.dottedname.resolve import resolve
 import os
 

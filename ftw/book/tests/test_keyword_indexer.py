@@ -5,7 +5,7 @@ from ftw.builder import create
 from plone.app.textfield.value import RichTextValue
 from plone.mocktestcase.dummy import Dummy
 from Products.CMFCore.utils import getToolByName
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestUnitKeywords(TestCase):

@@ -4,7 +4,7 @@ from ftw.book.latex.listingblock import add_table_column_widths
 from ftw.book.latex.listingblock import remove_html_links
 from ftw.book.latex.listingblock import remove_table_summary
 from ftw.book.tests import FunctionalTestCase
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestListingBlockLaTeXView(FunctionalTestCase):

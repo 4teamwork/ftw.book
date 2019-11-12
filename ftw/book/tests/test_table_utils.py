@@ -1,4 +1,4 @@
-from unittest2 import TestCase
+from unittest import TestCase
 from ftw.book.table.utils import cleanup_standalone_html_tags
 
 
