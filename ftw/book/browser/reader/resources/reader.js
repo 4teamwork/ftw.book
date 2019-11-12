@@ -325,6 +325,10 @@
 
   function get_baseurl() {
     var baseurl = $('head base').attr('href');
+    if (!baseurl) {
+      baseurl = $('body').data('base-url');
+    }
+
     if(baseurl.substr(baseurl.length-1, 1) != '/') {
       baseurl += '/';
     }
