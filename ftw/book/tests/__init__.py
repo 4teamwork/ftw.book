@@ -6,7 +6,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.uuid.interfaces import IUUID
 from textwrap import dedent
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getMultiAdapter
 import difflib
 import transaction

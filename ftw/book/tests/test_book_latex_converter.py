@@ -5,7 +5,7 @@ from ftw.pdfgenerator.interfaces import IHTML2LaTeXConverter
 from ftw.pdfgenerator.interfaces import ILaTeXLayout
 from ftw.testing import MockTestCase
 from mocker import ANY
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
 import tempfile

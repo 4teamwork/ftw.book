@@ -1,5 +1,5 @@
 from ftw.book.table.calculator import ColumnWidthsCalculator
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestTableCalculator(TestCase):
