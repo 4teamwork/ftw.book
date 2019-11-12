@@ -12,7 +12,7 @@ tests_require = [
     'ftw.inflator',
     'ftw.tabbedview',
     'ftw.testbrowser',
-    'ftw.testing',
+    'ftw.testing<2a',
     'ftw.zipexport',
     'plone.app.referenceablebehavior',
     'plone.app.testing',
