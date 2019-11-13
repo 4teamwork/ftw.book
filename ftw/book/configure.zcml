@@ -17,11 +17,10 @@
   <include package=".behaviors" />
   <include package=".browser" />
   <include package=".contents" />
-  <include package=".footnote" />
-  <include package=".keyword" />
   <include package=".latex" />
   <include package=".portlets" />
-
+  <include zcml:condition="not-have plone-5" package=".footnote" />
+  <include zcml:condition="not-have plone-5" package=".keyword" />
   <include zcml:condition="not-have plone-5" package=".tinymce" />
 
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
