@@ -272,3 +272,15 @@ body {
 #content #close-book-reader {
   display: none;
 }
+
+
+/** TINYMCE plugins Plone 4 **/
+.ploneSkin {
+  span.mce_tinymce_keyword {
+    background: url("++resource++ftw.book.tinymce.keyword/img/keyword.png") no-repeat center center;
+  }
+
+  span.mce_tinymce_footnote {
+    background: url("++resource++ftw.book.tinymce.footnote/img/footnote.png") no-repeat center center;
+  }
+}
