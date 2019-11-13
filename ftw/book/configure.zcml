@@ -23,6 +23,11 @@
   <include zcml:condition="not-have plone-5" package=".keyword" />
   <include zcml:condition="not-have plone-5" package=".tinymce" />
 
+  <adapter
+      name="book_keywords"
+      factory=".browser.indexer.book_keywords"
+      />
+
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
   <genericsetup:registerProfile

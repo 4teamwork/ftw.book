@@ -5,9 +5,4 @@
 
   <browser:resourceDirectory name="ftw.book.tinymce.keyword" directory="keyword-plugin" />
 
-  <adapter
-      name="book_keywords"
-      factory=".indexer.book_keywords"
-      />
-
 </configure>

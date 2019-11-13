@@ -1,10 +1,10 @@
-from ftw.book.keyword.indexer import book_keywords
+from Products.CMFCore.utils import getToolByName
+from ftw.book.browser.indexer import book_keywords
 from ftw.book.tests import FunctionalTestCase
 from ftw.builder import Builder
 from ftw.builder import create
 from plone.app.textfield.value import RichTextValue
 from plone.mocktestcase.dummy import Dummy
-from Products.CMFCore.utils import getToolByName
 from unittest import TestCase
 
 
