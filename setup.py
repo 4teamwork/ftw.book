@@ -21,8 +21,6 @@ tests_require = [
 ]
 
 extras_require = {
-    'plone4': [
-        'Products.TinyMCE'],
     'tests': tests_require,
     'tabbeview': [
         'ftw.tabbedview',
