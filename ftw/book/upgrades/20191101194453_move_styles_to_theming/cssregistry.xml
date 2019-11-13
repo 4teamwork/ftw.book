@@ -16,14 +16,4 @@
         id="++resource++ftw.book-reader/reader-navigation.css"
         />
 
-    <stylesheet
-      id="++resource++ftw.book-resources/tinymce/tinymce_minimal.css"
-      title=""
-      cacheable="True"
-      compression="safe"
-      cookable="True"
-      rel="stylesheet"
-      rendering="import"
-      />
-
 </object>
