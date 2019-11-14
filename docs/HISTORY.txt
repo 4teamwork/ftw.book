@@ -2,10 +2,11 @@ Changelog
 =========
 
 
-4.0.3 (unreleased)
+4.1.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add Plone 5 support. [busykoala]
+- Add grunt setup for development. [busykoala]
 
 
 4.0.2 (2019-11-08)
@@ -42,10 +43,6 @@ Changelog
 - Deprecate get_raw_image_data utils function. [jone]
 
 - Drop Plone 4.2 support. [jone]
-
-- Add Plone 5 support. [busykoala]
-
-- Add grunt setup for development. [busykoala]
 
 
 3.5.4 (2019-02-05)
