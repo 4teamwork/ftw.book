@@ -42,7 +42,7 @@
     $('.book-reader > div').height(0);
     var content_div_minheight = $('#content').css('min-height');
     $('#content').css('min-height', '0');
-    var last_element_selector = '.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last, #bottom-actions > *:not(.visualClear):last';
+    var last_element_selector = '.bookReaderLastElement, #visual-portal-wrapper > *:not(.visualClear):last, #bottom-actions > *:not(.visualClear):last, footer#portal-footer-wrapper #portal-footer';
     if($(last_element_selector).length === 0) {
       throw 'Could not find last element of page with selector $("' + last_element_selector + '");';
     }
@@ -325,6 +325,10 @@
 
   function get_baseurl() {
     var baseurl = $('head base').attr('href');
+    if (!baseurl) {
+      baseurl = $('body').data('base-url');
+    }
+
     if(baseurl.substr(baseurl.length-1, 1) != '/') {
       baseurl += '/';
     }
@@ -332,7 +336,7 @@
   }
 
   /* stay in reader when clicking on book internal links */
-  $('a.book-internal').live('click', function(e) {
+  $('a.book-internal').on('click', function(e) {
     e.preventDefault();
     goto_block($(this).data('uid'), $(this).attr('href'));
   });

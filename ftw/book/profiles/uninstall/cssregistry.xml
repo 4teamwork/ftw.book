@@ -3,17 +3,7 @@
 
     <stylesheet
         remove="True"
-        id="++resource++ftw.book-resources/ftwbook.css"
-        />
-
-    <stylesheet
-        remove="True"
-        id="++resource++ftw.book-reader/reader.css"
-        />
-
-    <stylesheet
-        remove="True"
-        id="++resource++ftw.book-reader/reader-navigation.css"
+        id="++resource++ftw.book-resources/tinymce/tinymce_minimal.css"
         />
 
 </object>

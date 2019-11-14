@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<registry>
+
+    <!-- types_not_searched are removed in hooks.py -->
+
+    <!-- displayed_types are removed in hooks.py -->
+
+    <!-- custom_attributes are removed in hooks.py -->
+
+    <!-- content_css are removed in hooks.py -->
+
+    <!-- custom_plugins are removed in hooks.py -->
+
+    <!-- toolbar elements are removed in hooks.py -->
+
+    <records prefix="plone.resources/table-js"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="true"/>
+
+    <records prefix="plone.bundles/ftw-book-resources"
+        interface='Products.CMFPlone.interfaces.IBundleRegistry'
+        remove="true" />
+
+</registry>

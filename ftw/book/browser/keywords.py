@@ -1,7 +1,8 @@
-from ftw.book.browser.toc_tree import BookTocTree
-from plone.app.layout.navigation.navtree import buildFolderTree
+from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ftw.book.browser.toc_tree import BookTocTree
+from plone.app.layout.navigation.navtree import buildFolderTree
 from zope.publisher.browser import BrowserView
 import os.path
 import unicodedata
@@ -79,6 +80,12 @@ class KeywordsTab(BrowserView):
                     'reader_url': '%s/@@book_reader_view' % brain.getURL()}
 
         return self._chapters
+
+
+    def get_language(self):
+        portal_state = self.context.unrestrictedTraverse("@@plone_portal_state")
+
+        return aq_inner(self.context).Language() or portal_state.default_language()
 
     def _prepare_item(self, brain):
         keywords = sorted(set(brain.book_keywords),

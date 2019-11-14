@@ -13,6 +13,12 @@
         slot="addon"
         after="ftw.simplelayout:browser/resources/theming.toolbar-icons.scss"
         />
+    <theming:scss
+        file="browser/resources/tinymce/tinymce_minimal.css"
+        profile="ftw.book:default"
+        slot="addon"
+        after="ftw.simplelayout:browser/resources/theming.toolbar-icons.scss"
+        />
   </configure>
 
   <configure zcml:condition="installed plonetheme.onegov">

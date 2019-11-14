@@ -1,11 +1,11 @@
 from ftw.book.latex.defaultlayout import IDefaultBookLayout
 from ftw.book.latex.layouts import get_layout_behavior_registration
+from ftw.book.testing import LanguageSetter
 from ftw.book.tests import export
 from ftw.pdfgenerator.config import DefaultConfig
 from plone.app.testing import applyProfile
 from plone.browserlayer.layer import mark_layer
 from plone.mocktestcase.dummy import Dummy
-from Products.CMFCore.utils import getToolByName
 from unittest import TestCase
 from zope.dottedname.resolve import resolve
 import os
@@ -24,7 +24,7 @@ class PDFGeneratorTestConfig(DefaultConfig):
         return self.path
 
 
-class PDFDiffTestCase(TestCase):
+class PDFDiffTestCase(TestCase, LanguageSetter):
 
     # The path to the book object relative to the plone site root.
     book_object_path = 'example-book'
@@ -63,8 +63,7 @@ class PDFDiffTestCase(TestCase):
         mark_layer(None, Dummy(request=request))
 
         # configure language to german, since the test book is german
-        tool = getToolByName(self.layer['portal'], "portal_languages")
-        tool.manage_setLanguageSettings('de', ['de'])
+        self.set_language_settings('de', ['de'])
 
         self.install_profiles()
         book = self.get_book_object()

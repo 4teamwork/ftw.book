@@ -46,7 +46,7 @@ Usage
 Compatibility
 -------------
 
-Runs with `Plone <http://www.plone.org/>`_ `4.3`.
+Runs with `Plone <http://www.plone.org/>`_ `4.3` and `5.1`.
 
 
 Development / tests
@@ -55,6 +55,15 @@ Development / tests
 For running the full PDF generation tests `ImageMagick`_ is required for diffing
 the PDFs.
 
+In Plone 5 working on resources is a pain because they have to be recooked after every
+change. Therefore there is a Grunt setup provided watching the resources and updating them.
+
+To setup and run the watcher do:
+
+::
+
+    npm install
+    grunt watch
 
 Uninstall
 ---------

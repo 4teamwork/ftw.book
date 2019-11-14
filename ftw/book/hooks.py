@@ -1,8 +1,13 @@
-from ftw.book.config import INDEXES
 from Products.CMFCore.utils import getToolByName
+from ftw.book.config import INDEXES
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
 import logging
+import pkg_resources
+import re
 
 
+IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 PROFILE_ID = 'profile-ftw.book:default'
 
 
@@ -12,6 +17,43 @@ def installed(site):
 
 def uninstalled(site):
     remove_catalog_indexes(site)
+    if IS_PLONE_5:
+        clean_plone5_registry(site)
+
+
+def clean_plone5_registry(site):
+    registry = getUtility(IRegistry)
+
+    types_not_searched = list(registry['plone.types_not_searched'])
+    types_not_searched.remove('ftw.book.FileListingBlock')
+    types_not_searched.remove('ftw.book.HtmlBlock')
+    types_not_searched.remove('ftw.book.Table')
+    types_not_searched.remove('ftw.book.TextBlock')
+    registry['plone.types_not_searched'] = tuple(types_not_searched)
+
+    displayed_types = list(registry['plone.displayed_types'])
+    displayed_types.remove(u'ftw.book.Book')
+    registry['plone.displayed_types'] = tuple(displayed_types)
+
+    custom_attributes = registry['plone.custom_attributes']
+    custom_attributes.remove(u'data-footnote')
+    registry['plone.custom_attributes'] = custom_attributes
+
+    content_css_entries = registry['plone.content_css']
+    content_css_entries.remove(
+            u'++resource++ftw.book-resources/tinymce/tinymce_minimal.css')
+    registry['plone.content_css'] = content_css_entries
+
+    custom_plugins = registry['plone.custom_plugins']
+    custom_plugins.remove(u'keyword|++resource++ftw.book-resources/tinymce/keyword-button-plugin.js')
+    custom_plugins.remove(u'footnote|++resource++ftw.book-resources/tinymce/footnote-button-plugin.js')
+    registry['plone.custom_plugins'] = custom_plugins
+
+    tinymce_toolbar = registry['plone.toolbar']
+    # this works unless the entries came first
+    tinymce_toolbar = re.sub(r'\s*\|*\s*keyword\s*', '', tinymce_toolbar)
+    tinymce_toolbar = re.sub(r'\s*\|*\s*footnote\s*', '', tinymce_toolbar)
+    registry['plone.toolbar'] = tinymce_toolbar
 
 
 def add_catalog_indexes(context, logger=None):

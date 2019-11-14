@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+
+        <permission name="ftw.book: Add Book" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Chapter" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Book File Listing Block" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add HTML Block" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Table" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Add Book Text Block" acquire="False">
+            <role name="Manager" />
+            <role name="Contributor" />
+        </permission>
+
+        <permission name="ftw.book: Modify LaTeX Injection" acquire="False">
+            <role name="Manager" />
+        </permission>
+
+    </permissions>
+</rolemap>

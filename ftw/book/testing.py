@@ -7,17 +7,23 @@ from ftw.builder import session
 from ftw.builder import ticking_creator
 from ftw.builder.testing import functional_session_factory
 from ftw.testing import freeze
+from ftw.testing import IS_PLONE_5
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
+from plone import api
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PloneSandboxLayer
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
+from plone.registry.interfaces import IRegistry
 from plone.testing import Layer
 from plone.testing import z2
 from plone.testing import zca
+from zope.component import getUtility
 from zope.configuration import xmlconfig
+from zope.globalrequest import getRequest
 import ftw.file.tests.builders  # noqa
+import transaction
 
 
 def clear_transmogrifier_registry():
@@ -55,6 +61,8 @@ class BookLayer(PloneSandboxLayer):
         z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
+        if IS_PLONE_5:
+            applyProfile(portal, 'plone.app.contenttypes:default')
         applyProfile(portal, 'plone.app.referenceablebehavior:default')
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
@@ -65,6 +73,7 @@ class BookLayer(PloneSandboxLayer):
             self.create_default_layout_book().getPhysicalPath())
 
     def create_example_book(self):
+        transaction.commit()
         with freeze(datetime(2016, 10, 31, 9, 52, 34)) as clock:
             create = ticking_creator(clock, hours=1)
 
@@ -182,3 +191,51 @@ class LatexZCMLLayer(Layer):
 
 
 LATEX_ZCML_LAYER = LatexZCMLLayer()
+
+
+class LanguageSetter(object):
+
+    def set_language_settings(self, default='en', supported=None,
+                              use_combined=False, start_neutral=True):
+        """
+        Sets language settings regardeless if plone4.3 or plone5.1
+        :param default: default site language
+        :param supported: list of supported languages
+        """
+        # startNeutral is not used/available in plone 5.1 anymore
+
+        if not supported:
+            supported = [default]
+
+        if IS_PLONE_5:
+            from Products.CMFPlone.interfaces import ILanguageSchema
+
+            self.ltool = api.portal.get_tool('portal_languages')
+            self.ltool.settings.use_combined_language_codes = use_combined
+            for lang in supported:
+                self.ltool.addSupportedLanguage(lang)
+            self.ltool.setDefaultLanguage(default)
+            self.ltool.setLanguageCookie()
+            self._set_preferred_language(default)
+            registry = getUtility(IRegistry)
+            language_settings = registry.forInterface(
+                    ILanguageSchema, prefix='plone')
+            language_settings.use_content_negotiation = True
+        else:
+            self.ltool = api.portal.get().portal_languages
+            self.ltool.manage_setLanguageSettings(
+                default,
+                supported,
+                setUseCombinedLanguageCodes=use_combined,
+                # Set this only for better testing ability
+                setCookieEverywhere=True,
+                startNeutral=start_neutral,
+                setContentN=True)
+        transaction.commit()
+
+    def _set_preferred_language(self, default):
+        from plone.i18n.utility import LanguageBinding
+        request = getRequest()
+        binding = request.get("LANGUAGE_TOOL", None)
+        if isinstance(binding, LanguageBinding):
+            binding.LANGUAGE = default

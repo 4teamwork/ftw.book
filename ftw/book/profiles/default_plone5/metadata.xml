@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<metadata>
+    <dependencies>
+        <dependency>profile-ftw.simplelayout.contenttypes:default</dependency>
+        <dependency>profile-ftw.htmlblock:default</dependency>
+        <dependency>profile-ftw.file:default</dependency>
+        <dependency>profile-collective.z3cform.datagridfield:default</dependency>
+    </dependencies>
+</metadata>

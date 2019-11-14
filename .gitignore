@@ -15,3 +15,4 @@ src/
 var/
 /README.html
 /tmp/
+node_modules/

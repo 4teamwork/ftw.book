@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record name="plone.types_not_searched"
+            interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+            field="types_not_searched">
+        <value purge="false">
+            <element>ftw.book.FileListingBlock</element>
+            <element>ftw.book.HtmlBlock</element>
+            <element>ftw.book.Table</element>
+            <element>ftw.book.TextBlock</element>
+        </value>
+    </record>
+
+    <record name="plone.displayed_types">
+        <value purge="false">
+            <element>ftw.book.Book</element>
+        </value>
+    </record>
+
+    <!-- add tinymce plugins for footnote and keyword -->
+    <record name="plone.custom_plugins"
+            interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+            field="custom_plugins">
+        <value purge="true">
+            <element>keyword|++resource++ftw.book-resources/tinymce/keyword-button-plugin.js</element>
+            <element>footnote|++resource++ftw.book-resources/tinymce/footnote-button-plugin.js</element>
+        </value>
+    </record>
+
+    <!-- append keyword and footnote plugins/buttons to tinymce -->
+    <record name="plone.toolbar"
+            interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+            field="toolbar">
+        <value>ltr rtl | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | unlink plonelink ploneimage | keyword | footnote</value>
+    </record>
+
+    <!-- allow attribut data-footnote for footnote data in tinymce tags -->
+    <record name="plone.custom_attributes"
+            interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema"
+            field="custom_attributes">
+        <value>
+          <element>data-footnote</element>
+        </value>
+    </record>
+
+    <!-- add minimal css to tinymce for footnote and keyword styles -->
+    <record name="plone.content_css"
+            interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+            field="content_css">
+        <value purge="false">
+            <element>++resource++ftw.book-resources/tinymce/tinymce_minimal.css</element>
+        </value>
+    </record>
+
+    <records prefix="plone.resources/table-js"
+             interface="Products.CMFPlone.interfaces.IResourceRegistry">
+        <value key="js">++resource++ftw.book-resources/table.js</value>
+        <value key="deps">jquery</value>
+    </records>
+
+    <records prefix="plone.bundles/ftw-book-resources" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="resources">
+            <element>table-js</element>
+        </value>
+        <value key="enabled">True</value>
+        <value key="depends">plone-legacy</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">++plone++book/ftw-book-compiled.js</value>
+        <value key="merge_with">default</value>
+    </records>
+
+</registry>
