@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.1.0 (unreleased)
+4.1.0 (2019-11-14)
 ------------------
 
 - Add Plone 5 support. [busykoala]
