@@ -63,7 +63,6 @@ class BookLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         if IS_PLONE_5:
             applyProfile(portal, 'plone.app.contenttypes:default')
-        applyProfile(portal, 'plone.app.referenceablebehavior:default')
         applyProfile(portal, 'ftw.tabbedview:default')
         applyProfile(portal, 'ftw.book:default')
         applyProfile(portal, 'ftw.zipexport:default')

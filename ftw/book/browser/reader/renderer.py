@@ -1,13 +1,13 @@
 from Acquisition import aq_chain
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from StringIO import StringIO
 from ftw.book.browser.reader.interfaces import IBookReaderRenderer
 from ftw.book.interfaces import IBook
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from StringIO import StringIO
+from plone import api
 from zope.component import adapter
-from zope.interface import implementer
 from zope.interface import Interface
+from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserView
 import lxml.html
 
@@ -63,7 +63,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
         return lxml.html.tostring(doc)
 
     def get_uid_by_path(self, path):
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = api.portal.get_tool('portal_catalog')
         rid = catalog.getrid(path)
         if rid is None:
             return None
@@ -77,14 +77,11 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
 
         parts = url.split('/')
         if parts[-2] == 'resolveuid' or parts[-2] == 'resolveUid':
-            reference_catalog = getToolByName(self.context,
-                                              'reference_catalog')
-
-            uid = parts[-1]
-            obj = reference_catalog.lookupObject(uid)
+            portal_catalog = api.portal.get_tool('portal_catalog')
+            obj = portal_catalog.unrestrictedSearchResults(UID=parts[-1])
 
             if obj is not None:
-                url = obj.absolute_url()
+                url = obj[0].getURL()
         return url
 
 
