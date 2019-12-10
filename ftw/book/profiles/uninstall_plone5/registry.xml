@@ -13,10 +13,6 @@
 
     <!-- toolbar elements are removed in hooks.py -->
 
-    <records prefix="plone.resources/table-js"
-             interface='Products.CMFPlone.interfaces.IResourceRegistry'
-             remove="true"/>
-
     <records prefix="plone.bundles/ftw-book-resources"
         interface='Products.CMFPlone.interfaces.IBundleRegistry'
         remove="true" />

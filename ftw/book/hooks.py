@@ -40,8 +40,6 @@ def clean_plone5_registry(site):
     registry['plone.custom_attributes'] = custom_attributes
 
     content_css_entries = registry['plone.content_css']
-    content_css_entries.remove(
-            u'++resource++ftw.book-resources/tinymce/tinymce_minimal.css')
     registry['plone.content_css'] = content_css_entries
 
     custom_plugins = registry['plone.custom_plugins']
