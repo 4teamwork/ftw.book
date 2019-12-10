@@ -55,6 +55,9 @@ Development / tests
 For running the full PDF generation tests `ImageMagick`_ is required for diffing
 the PDFs.
 
+Since we need to re-compile the resources after each change, there is a
+watcher implemented started with ``yarn watch`` recompiling after each change.
+
 Uninstall
 ---------
 
