@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records prefix="plone.resources/table-js" interface="Products.CMFPlone.interfaces.IResourceRegistry" remove="True" />
+
+  <records prefix="plone.bundles/ftw-book-resources" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="enabled">True</value>
+    <value key="depends">plone</value>
+    <value key="stub_js_modules">jquery</value>
+    <value key="compile">False</value>
+    <value key="csscompilation">++resource++ftw.book-resources/book-compiled.css</value>
+    <value key="jscompilation">++resource++ftw.book-resources/book-compiled.js</value>
+    <value key="last_compilation">2019-12-07 15:25:00</value>
+    <value key="merge_with">default</value>
+  </records>
+
+</registry>

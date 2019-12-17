@@ -1,0 +1,1 @@
+require(['table'], function (table) {});

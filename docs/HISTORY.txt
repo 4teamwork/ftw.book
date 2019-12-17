@@ -5,7 +5,7 @@ Changelog
 4.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove grunt watcher and add compiled resources. [busykoala]
 
 
 4.1.1 (2019-11-20)
