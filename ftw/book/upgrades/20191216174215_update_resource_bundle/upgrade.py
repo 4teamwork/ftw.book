@@ -7,8 +7,6 @@ class UpdateResourceBundle(UpgradeStep):
     """
 
     def __call__(self):
+        # The registry entries only have to be installed on plone 5
         if IS_PLONE_5:
             self.install_upgrade_profile()
-        else:
-            # do not add the registry.xml in plone 4
-            pass
