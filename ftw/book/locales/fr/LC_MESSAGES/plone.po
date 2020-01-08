@@ -17,6 +17,24 @@ msgstr "Lire"
 msgid "book_view"
 msgstr "Table des matières"
 
+msgid "ftw.book.Book"
+msgstr "Livre"
+
+msgid "ftw.book.Chapter"
+msgstr "Chapitre"
+
+msgid "ftw.book.FileListingBlock"
+msgstr "Liste des fichiers"
+
+msgid "ftw.book.HtmlBlock"
+msgstr "Bloc HTML"
+
+msgid "ftw.book.Table"
+msgstr "Tableau"
+
+msgid "ftw.book.TextBlock"
+msgstr "Bloc texte"
+
 msgid "tabbed_view"
 msgstr "Onglet"
 
