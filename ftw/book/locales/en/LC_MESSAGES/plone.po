@@ -17,6 +17,24 @@ msgstr "Read Book"
 msgid "book_view"
 msgstr "Table of contents"
 
+msgid "ftw.book.Book"
+msgstr "Book"
+
+msgid "ftw.book.Chapter"
+msgstr "Chapter"
+
+msgid "ftw.book.FileListingBlock"
+msgstr "File listing block"
+
+msgid "ftw.book.HtmlBlock"
+msgstr "HTML block"
+
+msgid "ftw.book.Table"
+msgstr "Table"
+
+msgid "ftw.book.TextBlock"
+msgstr "Text block"
+
 msgid "tabbed_view"
 msgstr "Tabbed view"
 

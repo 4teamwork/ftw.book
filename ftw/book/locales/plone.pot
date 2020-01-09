@@ -22,3 +22,21 @@ msgstr ""
 
 msgid "tabbed_view"
 msgstr ""
+
+msgid "ftw.book.Book"
+msgstr ""
+
+msgid "ftw.book.Chapter"
+msgstr ""
+
+msgid "ftw.book.FileListingBlock"
+msgstr ""
+
+msgid "ftw.book.HtmlBlock"
+msgstr ""
+
+msgid "ftw.book.Table"
+msgstr ""
+
+msgid "ftw.book.TextBlock"
+msgstr ""
