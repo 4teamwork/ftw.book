@@ -65,8 +65,11 @@ body {
 }
 
 .toc2 {
-  counter-reset: section;
   counter-increment: chapter;
+
+  &:not(.hiddenStructure) {
+    counter-reset: section;
+  }
 
   &:before {
     content: counter(chapter) " ";
@@ -74,8 +77,11 @@ body {
 }
 
 .toc3 {
-  counter-reset: subsection;
   counter-increment: section;
+
+  &:not(.hiddenStructure) {
+    counter-reset: subsection;
+  }
 
   &:before {
     content: counter(chapter) "." counter(section) " ";
@@ -83,8 +89,11 @@ body {
 }
 
 .toc4 {
-  counter-reset: subsubsection;
   counter-increment: subsection;
+
+  &:not(.hiddenStructure) {
+    counter-reset: subsubsection;
+  }
 
   &:before {
     content: counter(chapter) "." counter(section) "." counter(subsection) " ";
@@ -92,8 +101,11 @@ body {
 }
 
 .toc5 {
-  counter-reset: paragraph;
   counter-increment: subsubsection;
+
+  &:not(.hiddenStructure) {
+    counter-reset: paragraph;
+  }
 
   &:before {
     content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) " ";
@@ -101,8 +113,11 @@ body {
 }
 
 .toc6 {
-  counter-reset: subparagraph;
   counter-increment: paragraph;
+
+  &:not(.hiddenStructure) {
+    counter-reset: subparagraph;
+  }
 
   &:before {
     content: counter(chapter) "." counter(section) "." counter(subsection) "." counter(subsubsection) "." counter(paragraph) " ";
