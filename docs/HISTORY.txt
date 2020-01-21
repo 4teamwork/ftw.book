@@ -5,7 +5,7 @@ Changelog
 4.1.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix csv import export (there was an issue with encoding and BOM). [busykoala]
 
 
 4.1.4 (2020-01-09)
