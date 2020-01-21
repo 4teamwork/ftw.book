@@ -1,3 +1,4 @@
+from Products.CMFDiffTool.utils import safe_utf8
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from ftw.book import _
@@ -58,7 +59,7 @@ class TableExportImport(BrowserView):
         writer.writerow(first_row)
         for row in context.getData():
             writer.writerow(dict([
-                        (col, row[col])
+                        (col, safe_utf8(row[col]))
                         for col
                         in self.active_columns]))
         file_.seek(0)
@@ -97,7 +98,8 @@ class TableExportImport(BrowserView):
             return False
         context = aq_inner(self.context)
 
-        data = stream.read()
+        # make sure the data imported is utf-8 and the BOM was removed
+        data = safe_utf8(stream.read().decode('utf-8-sig'))
         # fix bad excel carriage returns
         data = data.replace('\r\n', '\n').replace('\r', '\n')
         dialect = csv.Sniffer().sniff(data)
