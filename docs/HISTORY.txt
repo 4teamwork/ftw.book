@@ -5,7 +5,7 @@ Changelog
 4.1.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix numbering counter in chapters. [tinagerber]
 
 
 4.1.5 (2020-01-21)
