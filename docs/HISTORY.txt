@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.1.6 (unreleased)
+4.1.6 (2020-01-21)
 ------------------
 
 - Fix numbering counter in chapters. [tinagerber]
