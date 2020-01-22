@@ -5,7 +5,7 @@ Changelog
 4.1.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix usage of AT BaseUnit in pre/post latex code fields. [mathias.leimgruber]
 
 
 4.1.6 (2020-01-21)
