@@ -1,7 +1,12 @@
 from ftw.book.table.generator import TableGenerator
 from ftw.book.tests import FunctionalTestCase
+from ftw.book.tests.builders import asset
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.testbrowser import Browser
 from ftw.testbrowser import browsing
+from ftw.testbrowser.exceptions import HTTPServerError
+from plone.app.textfield.value import RichTextValue
 import textwrap
 
 
@@ -28,6 +33,37 @@ class TestTableExportImport(FunctionalTestCase):
         self.assertEqual(
             'text/csv; charset=utf-8',
             browser.headers.get('content-type'))
+
+    @browsing
+    def test_non_ascii_export(self, browser):
+        table2 = create(Builder('table')
+                        .titled(u'Population')
+                        .with_table((('Ranking', 'City', 'Population'),
+                                     ('0', u'Gu\xe4ngzhou', '44 mil <sup>1</sup>')))
+                        .having(border_layout='grid',
+                                footnote_text=RichTextValue(
+                                    u'<p><sup>1</sup> thats quite big</p>'))
+                        .within(self.table.aq_parent))
+        browser.login().visit(table2, view='table_export_import')
+        try:
+            browser.click_on('Export')
+        except HTTPServerError:
+            self.fail('Export should work non ascii chars in the table')
+
+    @browsing
+    def test_bom_encoded_import(self, browser):
+        csvfile = (u'http://nohost/plone/the-example-book/historical-background/china/population;;\n\r'
+                   u'Ranking;City;Population\r\n'
+                   u'1;Gu\xe4ngzhou;100 mil').encode('utf-8-sig')  # Encode as utf-8 with BOM
+
+        browser.login().visit(self.table, view='table_export_import')
+        browser.fill({'Modified CSV-file:': (csvfile, 'file.csv', 'text/csv'),
+                      'Columns to import': 'City (Spalte 2)'})
+
+        browser.click_on('Import')
+        self.assertNotIn('Error The file does not seem to belong to this table.',
+                         browser.css('.error').text,
+                         'Import should work with BOM encoded files.')
 
     @browsing
     def test_import_table(self, browser):
