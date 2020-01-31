@@ -132,6 +132,39 @@ body {
   }
 }
 
+.book-reader {
+  // "toc2" increments the "chapter" counter but the "chapter" couunter is not reset
+  // anywhere, thus the "chapter" counter will be increased by every chapter / sub chapter.
+  // To prevent this we reset the "chapter" counter on a known parent that every chapter has.
+  .book-reader-block {
+    counter-reset: chapter;
+  }
+
+  .toc2 {
+    counter-reset: section;
+  }
+
+  .toc3 {
+    counter-reset: subsection;
+  }
+
+  .toc4 {
+    counter-reset: subsubsection;
+  }
+
+  .toc5 {
+    counter-reset: paragraph;
+  }
+
+  .toc6 {
+    counter-reset: subparagraph;
+  }
+
+  .toc7 {
+    counter-increment: subparagraph;
+  }
+}
+
 /* Disable simplelayout design menu on chapter, since we cannot
    create a PDF with multiple columns. */
 .portaltype-chapter #simplelayout-contentmenu-design {
