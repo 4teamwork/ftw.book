@@ -52,6 +52,12 @@ class TestTableExportImport(FunctionalTestCase):
 
     @browsing
     def test_bom_encoded_import(self, browser):
+        self.assert_table_display(
+            [['Ranking', 'City', 'Population'],
+             ['1', 'Guangzhou', '44 mil 1'],
+             ['2', 'Shanghai', '35 mil'],
+             ['3', 'Chongqing', '30 mil']])
+
         csvfile = (u'http://nohost/plone/the-example-book/historical-background/china/population;;\n\r'
                    u'Ranking;City;Population\r\n'
                    u'1;Gu\xe4ngzhou;100 mil').encode('utf-8-sig')  # Encode as utf-8 with BOM
@@ -61,9 +67,12 @@ class TestTableExportImport(FunctionalTestCase):
                       'Columns to import': 'City (Spalte 2)'})
 
         browser.click_on('Import')
-        self.assertNotIn('Error The file does not seem to belong to this table.',
-                         browser.css('.error').text,
-                         'Import should work with BOM encoded files.')
+
+        self.assert_table_display(
+            [['Ranking', 'City', 'Population'],
+             ['1', u'Gu\xc3\xa4ngzhou', '44 mil 1'],
+             ['2', 'Shanghai', '35 mil'],
+             ['3', 'Chongqing', '30 mil']])
 
     @browsing
     def test_import_table(self, browser):
