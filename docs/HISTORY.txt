@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.1.8 (unreleased)
+4.1.8 (2020-02-11)
 ------------------
 
 - Fix chapter listing numbers in "book_reader_view" view [Nachtalb]
