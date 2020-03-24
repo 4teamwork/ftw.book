@@ -5,7 +5,10 @@ Changelog
 4.1.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Plone 5: Keywords must be editable. Add a new keyword if no keyword exists for the selected word,
+  edit the existing one otherwise. [tinagerber]
+- Plone 5: Set initial keyword to selected text. [tinagerber]
+- Plone 5: Add German translation for keyword and footnote plugins. [tinagerber]
 
 
 4.1.8 (2020-02-11)
