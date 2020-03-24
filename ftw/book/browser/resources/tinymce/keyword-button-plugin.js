@@ -12,7 +12,7 @@
 
         var inputSchema = [
           {
-            type: 'textbox', name: 'keyword', label: 'Keyword'
+            type: 'textbox', name: 'keyword', label: 'Keyword', value: selectionContent
           }
         ];
 
