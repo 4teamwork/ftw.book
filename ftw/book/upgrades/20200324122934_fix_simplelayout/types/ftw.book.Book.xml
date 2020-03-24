@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="ftw.book.Book">
+
+    <property name="behaviors" purge="False">
+        <element value="ftw.simplelayout.interfaces.ISimplelayout" />
+    </property>
+
+</object>
