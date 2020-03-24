@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-4.1.9 (unreleased)
+4.1.9 (2020-03-24)
 ------------------
 
 - Plone 5: Keywords must be editable. Add a new keyword if no keyword exists for the selected word,
