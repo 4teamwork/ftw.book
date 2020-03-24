@@ -1,4 +1,8 @@
 (function(tinymce) {
+  tinymce.addI18n('de',{
+    "Keyword": "Stichwort",
+    "Add Keyword": "Stichwort hinzuf\u00fcgen"
+  });
   tinymce.PluginManager.add('keyword', function(editor) {
     editor.addButton('keyword', {
       icon: 'keyword',

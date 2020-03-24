@@ -1,4 +1,8 @@
 (function(tinymce) {
+  tinymce.addI18n('de',{
+    "Footnote": "Fussnote",
+    "Add Footnote": "Fussnote hinzuf\u00fcgen"
+  });
   tinymce.PluginManager.add('footnote', function(editor) {
     editor.addButton('footnote', {
       icon: 'footnote',
