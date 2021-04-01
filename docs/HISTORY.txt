@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Fix collective.z3cform.datagridfield import. [mathias.leimgruber]
+- Plone 5.x: Do not purge plone.custom_attributes upon installation. [mathias.leimgruber]
 
 
 4.1.9 (2020-03-24)
