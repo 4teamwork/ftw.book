@@ -39,7 +39,7 @@
     <record name="plone.custom_attributes"
             interface="Products.CMFPlone.interfaces.controlpanel.IFilterSchema"
             field="custom_attributes">
-        <value>
+        <value purge="False">
           <element>data-footnote</element>
         </value>
     </record>
