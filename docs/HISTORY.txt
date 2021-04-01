@@ -5,7 +5,7 @@ Changelog
 4.1.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix collective.z3cform.datagridfield import. [mathias.leimgruber]
 
 
 4.1.9 (2020-03-24)
