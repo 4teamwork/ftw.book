@@ -5,7 +5,7 @@ Changelog
 4.1.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix error on broken links during read view render [Nachtalb]
 
 
 4.1.9 (2020-03-24)
