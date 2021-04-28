@@ -58,7 +58,7 @@ setup(name='ftw.book',
       install_requires=[
           'BeautifulSoup!=4.0b',
           'Plone',
-          'collective.z3cform.datagridfield>=1.3.3',
+          'collective.z3cform.datagridfield>=1.3.3,<2a',
           'ftw.file >= 2.0.1',
           'ftw.htmlblock>=1.1.0',
           'ftw.pdfgenerator>=1.4',
