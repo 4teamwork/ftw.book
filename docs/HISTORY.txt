@@ -5,7 +5,7 @@ Changelog
 4.1.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add View permission check for `in_toc` method. [mathias.leimgruber]
 
 
 4.1.10 (2021-04-01)
