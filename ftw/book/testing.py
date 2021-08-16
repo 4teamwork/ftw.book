@@ -139,6 +139,13 @@ class BookLayer(PloneSandboxLayer):
                    .titled(u'Empty')
                    .having(description=u'This chapter should be empty.'))
 
+            no_view_permission = create(Builder('chapter').within(book)
+                                        .titled(u'No Permission')
+                                        .having(description=u'This chapter has no view permission.'))
+            no_view_permission.manage_permission('View', roles=[])
+            no_view_permission.reindexObject()
+            transaction.commit()
+
         return book
 
     def create_default_layout_book(self):
@@ -218,7 +225,7 @@ class LanguageSetter(object):
             self._set_preferred_language(default)
             registry = getUtility(IRegistry)
             language_settings = registry.forInterface(
-                    ILanguageSchema, prefix='plone')
+                ILanguageSchema, prefix='plone')
             language_settings.use_content_negotiation = True
         else:
             self.ltool = api.portal.get().portal_languages

@@ -21,6 +21,7 @@ class TestTableOfContents(FunctionalTestCase):
             'historical-background/china/first-things-first',
             'historical-background/china/important-documents',
             LOREM_ITEM,
+            'no-permission'
         ))
 
     def test_html_heading(self):
@@ -39,6 +40,7 @@ class TestTableOfContents(FunctionalTestCase):
                 '<h4 class="toc4">First things first</h4>',
                 '<h4 class="toc4">Important Documents</h4>',
                 '<h5 class="no-toc">Einfache Webseite</h5>',
+                '<h2 class="no-toc">No Permission</h2>',
             ],
             map(toc.html_heading, self.sample_objects()))
 
@@ -98,6 +100,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': True,
                 'Important Documents': True,
                 'Einfache Webseite': False,
+                'No Permission': False,
             },
             {
                 obj.Title(): toc.in_toc(obj)
@@ -120,6 +123,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': True,
                 'Important Documents': True,
                 'Einfache Webseite': True,
+                'No Permission': True,
             },
             {
                 obj.Title(): toc.in_book(obj)
@@ -142,6 +146,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': True,
                 'Important Documents': True,
                 'Einfache Webseite': True,
+                'No Permission': True,
             },
             {
                 obj.Title(): toc.visible(obj)
@@ -164,6 +169,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': 4,
                 'Important Documents': 4,
                 'Einfache Webseite': 5,
+                'No Permission': 2,
             },
             {
                 obj.Title(): toc.level(obj)
@@ -186,6 +192,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': 1,
                 'Important Documents': 2,
                 'Einfache Webseite': None,
+                'No Permission': None,  # Uses in_toc, which has a permission check
             },
             {
                 obj.Title(): toc.index(obj)
@@ -208,6 +215,7 @@ class TestTableOfContents(FunctionalTestCase):
                 'First things first': '2.1.1',
                 'Important Documents': '2.1.2',
                 'Einfache Webseite': None,
+                'No Permission': None,
             },
             {
                 obj.Title(): toc.number(obj)

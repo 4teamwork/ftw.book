@@ -4,6 +4,7 @@ from Acquisition import aq_parent
 from ftw.book.behaviors.toc import IHideTitleFromTOC
 from ftw.book.behaviors.toc import IShowInToc
 from ftw.book.interfaces import IBook
+from plone import api
 import cgi
 
 
@@ -75,6 +76,9 @@ class TableOfContents(object):
     def in_toc(self, context):
         """Returns `True` if the object is shown in the table of contents.
         """
+        if not api.user.has_permission('View', obj=context):
+            return False
+
         if not IShowInToc.providedBy(context):
             return False
 
