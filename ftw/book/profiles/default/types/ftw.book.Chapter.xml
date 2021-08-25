@@ -27,7 +27,6 @@
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
-        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
         <element value="ftw.book.behaviors.toc.IShowInToc" />
         <element value="ftw.book.behaviors.codeinjection.ILaTeXCodeInjection" />
         <element value="ftw.book.behaviors.columnlayout.IChangeColumnLayout" />

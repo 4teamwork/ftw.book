@@ -190,6 +190,9 @@ class BookMigrator(BookTypeMigratorBase):
                     'lastModifier',
                     'searchwords',
                     'showinsearch',
+                    'effectiveDate',
+                    'excludeFromNav',
+                    'expirationDate',
                     'subject',
                     'topics',
                     'latex_layout',  # self.set_book_layout migrates this field
