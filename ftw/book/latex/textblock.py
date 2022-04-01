@@ -3,8 +3,10 @@ from ftw.book.latex import utils
 from ftw.book.latex.utils import ImageLaTeXGenerator
 from ftw.pdfgenerator.view import MakoLaTeXView
 from ftw.simplelayout.interfaces import IBlockConfiguration
+from plone.dexterity.utils import safe_unicode
 from zope.component import adapter
 from zope.interface import Interface
+import unicodedata
 
 
 @adapter(IBookTextBlock, Interface, Interface)
@@ -26,7 +28,10 @@ class TextBlockLaTeXView(MakoLaTeXView):
     def get_text_latex(self):
         if not self.context.text:
             return ''
-        return self.convert(self.context.text.output).strip()
+        text = unicodedata.normalize(
+            'NFC', safe_unicode(self.context.text.output)
+        )
+        return self.convert(text).strip()
 
     def get_image_latex(self, floatable):
         image = self.context.image
