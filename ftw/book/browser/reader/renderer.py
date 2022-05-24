@@ -80,7 +80,7 @@ class DefaultBlockRenderer(BaseBookReaderRenderer):
             portal_catalog = api.portal.get_tool('portal_catalog')
             obj = portal_catalog.unrestrictedSearchResults(UID=parts[-1])
 
-            if obj is not None:
+            if obj:
                 url = obj[0].getURL()
         return url
 
